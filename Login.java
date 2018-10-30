@@ -6,7 +6,7 @@ class Login {
 	username;
 	password;
 	userinfo info
-	ArrayList<usrinfo> InfoList = new ArrayList<userinfo>();
+	ArrayList<login> InfoList = new ArrayList<login>();
 	public void main{
 		role = button.(provider 1 or patient 2)	//get role type from button
 
