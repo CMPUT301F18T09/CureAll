@@ -12,7 +12,7 @@ public  class BodyLocationTest {
 
     @Test
 
-    public void addBodyLocationPhototest() {
+    public void testAddBodyLocationPhoto() {
         String bodyLicationName = "arm";
         String photoLocation = "photoSize";
         double photoSize = 354654651316516546516.1641654654654654;
@@ -30,16 +30,16 @@ public  class BodyLocationTest {
     }
 
     @Test
-    public void choosePaperDollPhototest() {
+    public void testChoosePaperDollPhoto() {
 
     }
 
     @Test
-    public void getLocationFromPaperDollPhototest() {
+    public void testGetLocationFromPaperDollPhoto() {
     }
 
     @Test
-    public void showPhotostest() {
+    public void testShowPhotos() {
 
     }
 
