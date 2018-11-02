@@ -24,39 +24,51 @@ class AddRecord {
 		// 照片所在的Uri地址
 	private Uri imageUri;
 	
-	
+	//the list of record use to store the record history
 	ArrayList<Records> RList = new ArrayList<Records>()
-	
+	//the record which user want to add
 	Records newRecord = new Records();
-	
+	//read history record from file
 	public load(){}//RList now containt all Records
+	//get user text input
 	public void getInput(){
 		newRecord.setTitle(XXX.getInput())
 		newRecord.setComment(XXX.getInput())
 		newRecord.setDate(/*timeDialog*/)
 		
 	}
-	
+	//if user tap gallery button
+	//after user back to this activity, show the selected photo.
 	public void gallery(View view) {
 		//startActivityForResult
 		newRecord.setTrackPhoto()
+		showphoto()
 	}
+	//if user tap camera button
+	//after user back to this activity, show the selected photo.
 	public void camera(View view) {
 		//Intent with file back
 		newRecord.setTrackPhoto()
+			showphoto()
 	}
+	//if user tap body button
+	//after user back to this activity, show the selected photo.
 	public void Body(){
 		onSaveInstanceState()
 		Intent.Body
-		onRestoreInstanceState()
+		onRestoreInstanceState()//restore activity avoid losing info
+		showphoto()
 	}
+	//if user tap location button
+	//after user back to this cativity, show the selected location
 	public void Location(){
 		onSaveInstanceState()
 		Intent.Map
 		Map.type = 2
 		onRestoreInstanceState()
+		showLocation()
 	}
-	
+	//if user tap the Save button, save the new list, and go back to previous activity
 	public void Save(){
 		RList.add(newRecord);
 		SaveTo();
