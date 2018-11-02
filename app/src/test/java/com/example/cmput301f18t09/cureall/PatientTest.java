@@ -1,5 +1,8 @@
 package com.example.cureall;
 
+import com.example.cmput301f18t09.cureall.Patient;
+import com.example.cmput301f18t09.cureall.Problem;
+
 import  org.junit.Test;
 
 import java.util.Date;

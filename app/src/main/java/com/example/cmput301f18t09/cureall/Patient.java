@@ -1,4 +1,4 @@
-package com.example.cureall.cureall;
+package com.example.cmput301f18t09.cureall;
 
 import java.util.ArrayList;
 

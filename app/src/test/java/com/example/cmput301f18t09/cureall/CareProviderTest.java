@@ -1,5 +1,7 @@
 package com.example.shabi;
 
+import com.example.cmput301f18t09.cureall.Patient;
+
 import org.junit.Test;
 
 import java.util.Date;
@@ -41,7 +43,4 @@ public class TestCareProvider {
 
         assertEquals( title, "title" );
     }
-
-
-
 }
