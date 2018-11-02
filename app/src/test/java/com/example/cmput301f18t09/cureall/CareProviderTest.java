@@ -1,49 +1,30 @@
-package com.example.shabi;
-
-import com.example.cmput301f18t09.cureall.Patient;
-
-import org.junit.Test;
+package com.example.cmput301f18t09.cureall;
 
 import java.util.Date;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-
-public class TestCareProvider {
-    @Test
-
+public class CareProviderTest {
+    Date date = new Date();
+    Problem problem = new Problem ("problemName","description", date );
+    CareProvider provider = new CareProvider("username", "password", "email", "phone");
+    int patientID = 111;
+    Patient patient = new Patient( "username", "passward", "email", "phone", patientID );
+    String comment = "comment";
     public void addPatient() {
 
-        // 新建patient 实例
-        Patient patient = new Patient( "title", "description" );
-
-        //调用patient的gettitle mehtod
-        String title = patient.getTitle();
-        Assign assign = new Assign("patient");
-        assign.addPatient(patient);
-
-        assertTrue( assign.hasPatient("title") );
+        String patientName = patient.getUsername();
+        provider.addPatientByName(patientName);
+        assertTrue( provider.getPatientArrayList().contains(patient) );
     }
 
-    private void getPatient(){
-        Patient patient = addPatient();
-        String patientTitle = patient.getTitle();
+    public void addCommit(){
+        provider.addComment(problem, comment);
+        assertTrue(problem.getCommentArraylist().contains(comment));
 
-        assertEquals( patientTitle, "patientTitle" );
     }
 
-    public void openAmapOfAllRecord(){
-        MapLocation mapLocation;
-        mapLocation = new maplocation("title","description",new Date() );
-        String title = mapLocation.getTitle();
 
-        assertEquals( title, "title" );
-        }
 
-    public void viewPatient(){
-        Patient patient = new Patient( "title", "description" );
-        String title = patient.getTitle();
-
-        assertEquals( title, "title" );
-    }
 }
