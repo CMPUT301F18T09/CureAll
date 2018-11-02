@@ -1,43 +1,45 @@
-package com.example.cureall;
+package com.example.cmput301f18t09.cureall;
 
-import com.example.cmput301f18t09.cureall.Patient;
-import com.example.cmput301f18t09.cureall.Problem;
+import org.junit.Test;
 
-import  org.junit.Test;
-
+import java.util.ArrayList;
 import java.util.Date;
 
-import static junit.framework.TestCase.assertEquals;
-
-import static junit.framework.TestCase.assertTrue;
-
 import static junit.framework.TestCase.assertFalse;
+import static junit.framework.TestCase.assertTrue;
 
 public class PatientTest {
 
     @Test
     public void testAddProblem() {
-        Problem problem = new Problem("title","description",new Date());
-        Patient patient = new Patient("patientId");
+        Problem problem = new Problem("title","description",new Date(),"");
+        Patient patient = new Patient("username", "password", "email", "phone");
         patient.addProblem(problem);
+        ArrayList<Problem> problems = patient.getProblemArrayList();
         assertTrue(patient.hasProblem(problem));
-    }
 
+    }
+    @Test
     public void testDeleteProblem() {
-        Problem problem = new Problem("title","description",new Date());
-        Patient patient = new Patient("patientId");
+        Problem problem = new Problem("title","description",new Date(),"");
+        Patient patient = new Patient("username", "password", "email", "phone");
         patient.addProblem(problem);
         patient.deleteProblem(problem);
-        assertTrue(patient.hasProblem(problem));
-    }
+        assertFalse(patient.hasProblem(problem));
 
+    }
+    @Test
     public void testEditProblem() {
-        Problem problem = new Problem("title","description",new Date());
-        Patient patient = new Patient("patientId");
+        Problem problem = new Problem("title","description",new Date(),"");
+        Patient patient = new Patient("username", "password", "email", "phone");
         patient.addProblem(problem);
-        Problem newProblem = new Problem("newTitle","newDescription",new Date());
+        ArrayList<Problem> problemlist = patient.getProblemArrayList();
+
+        Problem newProblem = new Problem("newTitle","newDescription",new Date(),"");
+
         patient.editProblem(problem,newProblem);
+
         assertTrue(patient.hasProblem(newProblem));
-        assertFalse(patient.hasProblem(Problem));
+        assertFalse(patient.hasProblem(problem));
     }
 }

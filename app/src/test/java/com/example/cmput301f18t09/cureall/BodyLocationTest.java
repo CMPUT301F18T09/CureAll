@@ -1,15 +1,10 @@
 package com.example.cmput301f18t09.cureall;
 
-import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
-import com.example.cmput301f18t09.cureall.BodyLocation;
-
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Date;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 
 public  class BodyLocationTest {
@@ -17,7 +12,7 @@ public  class BodyLocationTest {
 
     @Test
 
-    public void addBodyLocationPhoto() {
+    public void addBodyLocationPhototest() {
         String bodyLicationName = "arm";
         String photoLocation = "photoSize";
         double photoSize = 354654651316516546516.1641654654654654;
@@ -35,16 +30,16 @@ public  class BodyLocationTest {
     }
 
     @Test
-    public void choosePaperDollPhoto() {
+    public void choosePaperDollPhototest() {
 
     }
 
     @Test
-    public void getLocationFromPaperDollPhoto() {
+    public void getLocationFromPaperDollPhototest() {
     }
 
     @Test
-    public void showPhotos() {
+    public void showPhotostest() {
 
     }
 
