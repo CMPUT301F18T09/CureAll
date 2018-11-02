@@ -2,6 +2,7 @@ package com.example.cmput301f18t09.cureall;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import static junit.framework.TestCase.assertEquals;
@@ -51,10 +52,28 @@ public class ProblemTest {
         assertEquals(time,time2);
     }
 
+    public void testGetRecordArrayList(){
+        Problem problem = new Problem("title","description",new Date());
+        Record record1 = new Record("record1","comment1",new Date());
+        Record record2 = new Record("record2","comment2",new Date());
+        problem.addRecord(record1);
+        problem.addRecord(record2);
+        ArrayList<Record> records1 = problem.getRecordArrayList();
+        ArrayList<Record> records2 = new ArrayList<>(2);
+        records2.add(record1);
+        records2.add(record2);
+        assertEquals(records1,records2);
+    }
+
     public void testAddRecord(){
         Problem problem = new Problem("title","description",new Date());
         Record record = new Record("record","comment",new Date());
         problem.addRecord(record);
-        assertTrue(problem.hasRecord(record));
+        ArrayList<Record> records =  problem.getRecordArrayList();
+        for (int i = 0 ; i < records.size(); i++){
+            if (records.equals(records.get(i))) {
+                assertTrue(true);
+            }
+        }
     }
 }

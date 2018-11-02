@@ -11,7 +11,7 @@ public class Problem {
     //special fucntion
     //since getter and setter only deal with arraylist of records
     //we create a function to deal with single record
-    public void addRecord(){}
+    public void addRecord(Record record){}
     //end
 
     public Problem(String title, String description, Date time) {
