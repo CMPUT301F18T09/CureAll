@@ -1,0 +1,2 @@
+对于每一个model， 需要加constructor的test （getter and setter 可以和constructor 一起测试）
+对照model, 看看还有什么fucntion 没有测试的，
