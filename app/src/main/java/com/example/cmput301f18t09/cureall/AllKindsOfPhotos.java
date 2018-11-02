@@ -11,6 +11,7 @@ public class AllKindsOfPhotos {
         this.photoWidth = photoWidth;
         this.photoLength = photoLength;
     }
+    public AllKindsOfPhotos(){}
 
     public String getPhotoType() {
         return photoType;

@@ -16,7 +16,7 @@ public class BodyLocation {
     public void addBodyLocationPhoto(){ }
     //end
 
-    public BodyLocation(String bodyLocationName, AllKindsOfPhotos paperDollPhoto, ArrayList<AllKindsOfPhotos> bodyLocationPhotoArrayList) {
+    public BodyLocation(String bodyLocationName, ArrayList<AllKindsOfPhotos> bodyLocationPhotoArrayList) {
         this.bodyLocationName = bodyLocationName;
         this.paperDollPhoto = paperDollPhoto;
         this.bodyLocationPhotoArrayList = bodyLocationPhotoArrayList;
