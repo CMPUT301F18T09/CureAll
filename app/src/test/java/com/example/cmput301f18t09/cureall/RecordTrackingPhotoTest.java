@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 public  class RecordTrackingPhotoTest {
     @Test
 
-    public void SetRecordTrackingPhoto(){
+    public void testSetRecordTrackingPhoto(){
         String photoLocation = "/local/301/abc.png";
         double photoSize = 354654651316516546516.1641654654654654;
         double photoWidth = 123456789101112131415.1114664646465465465465;
