@@ -6,7 +6,7 @@ import java.util.Date;
 public class Record {
     public String title,comment;
     public Date time;
-    public String geoLocation;
+    public GeoLocation geoLocation;
     public BodyLocation bodyLocation;
     public ArrayList<AllKindsOfPhotos> recordTrackingPhotoArrayList;
 
@@ -47,11 +47,11 @@ public class Record {
     }
 
     public String getGeoLocation() {
-        return geoLocation;
+        return geoLocation.getLocation();
     }
 
     public void setGeoLocation(String geoLocation) {
-        this.geoLocation = geoLocation;
+        this.geoLocation.setLocation(geoLocation);
     }
 
     public BodyLocation getBodyLocation() {

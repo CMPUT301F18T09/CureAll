@@ -1,5 +1,5 @@
 package com.example.cmput301f18t09.cureall;
-
+//?PhotoLocation=/Location/c/abd.jpg&PhotoType=jpg&photoSize=12342&photoWidth=123.22&photoLength=126.88
 public class AllKindsOfPhotos {
     private String photoLocation, photoType;
     private Double photoSize, photoWidth, photoLength;

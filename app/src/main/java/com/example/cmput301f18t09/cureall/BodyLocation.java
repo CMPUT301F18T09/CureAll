@@ -1,6 +1,5 @@
 package com.example.cmput301f18t09.cureall;
 
-import java.security.PublicKey;
 import java.util.ArrayList;
 
 public class BodyLocation {
@@ -18,7 +17,6 @@ public class BodyLocation {
 
     public BodyLocation(String bodyLocationName, ArrayList<AllKindsOfPhotos> bodyLocationPhotoArrayList) {
         this.bodyLocationName = bodyLocationName;
-        this.paperDollPhoto = paperDollPhoto;
         this.bodyLocationPhotoArrayList = bodyLocationPhotoArrayList;
     }
 
@@ -30,13 +28,6 @@ public class BodyLocation {
         this.bodyLocationName = bodyLocationName;
     }
 
-    public AllKindsOfPhotos getPaperDollPhoto() {
-        return paperDollPhoto;
-    }
-
-    public void setPaperDollPhoto(AllKindsOfPhotos paperDollPhoto) {
-        this.paperDollPhoto = paperDollPhoto;
-    }
 
     public ArrayList<AllKindsOfPhotos> getBodyLocationPhotoArrayList() {
         return bodyLocationPhotoArrayList;

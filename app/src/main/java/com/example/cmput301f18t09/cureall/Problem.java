@@ -7,17 +7,21 @@ public class Problem {
     public String title, description;
     public Date time;
     private ArrayList<Record> recordArrayList;
+    private String doctorcomment;
 
     //special fucntion
     //since getter and setter only deal with arraylist of records
     //we create a function to deal with single record
-    public void addRecord(Record record){}
+    public void addRecord(Record record){
+
+    }
     //end
 
-    public Problem(String title, String description, Date time) {
+    public Problem(String title, String description, Date time,String comment) {
         this.title = title;
         this.description = description;
         this.time = time;
+        this.doctorcomment = comment;
     }
     public ArrayList<Record> getRecordArrayList() {
         return recordArrayList;
@@ -27,6 +31,8 @@ public class Problem {
         this.recordArrayList = recordArrayList;
     }
 
+    public String getDoctorcomment(){return this.doctorcomment;}
+    public void setDoctorcomment(String comment){this.doctorcomment = comment;}
     public String getTitle() {
         return title;
     }
