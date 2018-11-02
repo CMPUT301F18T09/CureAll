@@ -7,6 +7,7 @@ public class Problem {
     public String title, description;
     public Date time;
     private ArrayList<Record> recordArrayList;
+    private ArrayList<String> comments;
 
     //special fucntion
     //since getter and setter only deal with arraylist of records
@@ -21,6 +22,10 @@ public class Problem {
     }
     public ArrayList<Record> getRecordArrayList() {
         return recordArrayList;
+    }
+
+    public ArrayList<String> getCommentArraylist() {
+        return comments;
     }
 
     public void setRecordArrayList(ArrayList<Record> recordArrayList) {
@@ -50,5 +55,7 @@ public class Problem {
     public void setTime(Date time) {
         this.time = time;
     }
+
+
 
 }

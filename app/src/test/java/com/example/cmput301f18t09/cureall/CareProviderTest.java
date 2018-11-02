@@ -14,7 +14,10 @@ public class TestCareProvider {
 
     public void addPatient() {
 
+        // 新建patient 实例
         Patient patient = new Patient( "title", "description" );
+
+        //调用patient的gettitle mehtod
         String title = patient.getTitle();
         Assign assign = new Assign("patient");
         assign.addPatient(patient);

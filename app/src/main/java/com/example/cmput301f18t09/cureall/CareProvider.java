@@ -14,8 +14,8 @@ public class CareProvider {
         Patient patient = new Patient("1","2","3","4",1);
         return patient;
     }
-    private void addComment(Patient Problem){ }
-    private void addPatientByName(){ }
+    public void addComment(Problem problem, String comment){ }
+    public void addPatientByName(String patientName){ }
     //end
 
     public CareProvider(String username, String password, String email, String phone) {
@@ -24,7 +24,6 @@ public class CareProvider {
         this.email = email;
         this.phone = phone;
     }
-
 
 
     public void setPatientArrayList(ArrayList<Patient> patientArrayList) {

@@ -1,4 +1,4 @@
-package com.example.cureall;
+package com.example.cmput301f18t09.cureall;
 
 import com.example.cmput301f18t09.cureall.Patient;
 import com.example.cmput301f18t09.cureall.Problem;

@@ -1,4 +1,4 @@
-package com.example.shabi;
+package com.example.cmput301f18t09.cureall;
 
 import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
 
@@ -7,6 +7,8 @@ import org.junit.Test;
 import java.util.Date;
 
 import static org.junit.Assert.*;
+import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
+
 
 
 public  class BodyLocationTest {
