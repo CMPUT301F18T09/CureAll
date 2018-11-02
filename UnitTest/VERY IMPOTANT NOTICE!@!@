@@ -1,0 +1,2 @@
+对于每个model，都需要测试他们的constructor（getter and setter 可以和constructor 一起测试）
+对比每个model 看看有没有多余的function没有测试的，比如arraylist相关的测试
