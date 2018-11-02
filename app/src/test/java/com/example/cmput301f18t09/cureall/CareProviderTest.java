@@ -22,7 +22,7 @@ public class CareProviderTest {
         Testing method "addPatient" by adding a new patient to exisiting patient list
      */
     @Test
-    public void addPatienttest() {
+    public void testAddPatient() {
         Patient patient = new Patient("username","pass","email","phone");
         String patientName = patient.getUsername();
         provider.addPatientByName(patientName);
@@ -32,7 +32,7 @@ public class CareProviderTest {
         Testing method "addComment" by adding a new comment to a exsiting problem
     */
     @Test
-    public void addCommittest(){
+    public void testAddCommit(){
         provider.addComment(problem, comment);
         assertTrue(problem.getDoctorcomment().contains(comment));
 
