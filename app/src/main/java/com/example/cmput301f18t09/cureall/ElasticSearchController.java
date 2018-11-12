@@ -22,19 +22,18 @@ public class ElasticSearchController {
     public static class AddTweetsTask extends AsyncTask<Patient, Void, Void> {
 
         @Override
-        protected Void doInBackground(Patient... tweets) {
+        protected Void doInBackground(Patient... users) {
             verifySettings();
 
-            for (Patient tweet : tweets) {
-                Patient p = new Patient("connor","cpass","connor@g23.ca","1231231234");
-                Index index = new Index.Builder(p).index("cmput301f18t09").type("patient").build();
+            for (Patient user : users) {
+                Index index = new Index.Builder(user).index("cmput301f18t09").type("patient").build();
 
                 try {
                     // where is the client?
                     DocumentResult result = client.execute(index);
 
                     if (result.isSucceeded()) {
-                        p.setPatientID(result.getId());
+                        user.setPatientID(result.getId());
                     } else {
                         Log.i("Error", "Elasticsearch was not able to add the patient");
                     }
@@ -57,7 +56,7 @@ public class ElasticSearchController {
 
             // TODO Build the query
 
-            //String query = "{ \"size\": 3, \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
+            //String query = "{ \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
             String query = "{ \"size\": 3, \n" +
                     "    \"query\" : {\n" +
                     "        \"term\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
@@ -65,7 +64,7 @@ public class ElasticSearchController {
                     "}";
 
             Search search = new Search.Builder(query)
-                    .addIndex("cmput301f18t09test")
+                    .addIndex("cmput301f18t09")
                     .addType("patient")
                     .build();
 
@@ -73,8 +72,11 @@ public class ElasticSearchController {
                 // TODO get the results of the query
                 SearchResult result = client.execute(search);
                 if (result.isSucceeded()) {
+                    Log.i("Read","Read success");
                     List<Patient> foundTweets = result.getSourceAsObjectList(Patient.class);
                     tweets.addAll(foundTweets);
+                    //Log.i("Read",Integer.toString(tweets.size()));
+                    //Log.i("Read",tweets.get(0).getPassword());
                 } else {
                     Log.i("Error", "The search query failed to find any tweets that matched");
                 }

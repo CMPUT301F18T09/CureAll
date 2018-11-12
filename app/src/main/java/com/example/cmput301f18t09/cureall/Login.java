@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Login extends AppCompatActivity {
@@ -41,6 +42,7 @@ public class Login extends AppCompatActivity {
     }
 
     public void login(String Role){
+        ArrayList <Patient> patients = new ArrayList<Patient>();
         if (Role.equals("Patient")){
             setResult(RESULT_OK);
 
@@ -52,17 +54,15 @@ public class Login extends AppCompatActivity {
 
             try {
                 List<Patient> foundPatient= getuserTask.get();
-                Patient patient = foundPatient.get(0);
-                if (patient.getPassword().equals(Password)){
-                    Intent intent = new Intent(Login.this,PatientMainPage.class);
-                    startActivity(intent);
-                }
+                patients.addAll(foundPatient);
 
 
             } catch (Exception e) {
-                Log.i("Error", "Failed to get the tweets from the async object");
+                Log.i("Error", "Failed to get the user from the async object");
             }
 
+            String pass =  patients.get(0).getPassword();
+            Log.i("GetPass", pass);
 
         }
     }
