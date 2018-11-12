@@ -16,6 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".PatientSignUpActivity" />
+        <activity android:name=".ProviderSignUpActivity" />
+        <activity android:name=".UserLoginActivity"></activity>
     </application>
 
 </manifest>
