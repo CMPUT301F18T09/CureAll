@@ -6,13 +6,52 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+    <Button
+        android:id="@+id/doctor"
+        android:layout_width="116dp"
+        android:layout_height="161dp"
+        android:layout_marginBottom="203dp"
+        android:layout_marginStart="224dp"
+        android:layout_marginTop="147dp"
+        android:text="@string/Doctor"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/patient"
+        android:layout_width="116dp"
+        android:layout_height="161dp"
+        android:layout_marginBottom="203dp"
+        android:layout_marginStart="49dp"
+        android:layout_marginTop="147dp"
+        android:text="@string/Patient"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/newdoctor"
+        android:layout_width="387dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="91dp"
+        android:text="@string/newDoctor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/doctor" />
+
+    <Button
+        android:id="@+id/newpatient"
+        android:layout_width="387dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/newPatient"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newdoctor" />
 
 </android.support.constraint.ConstraintLayout>
