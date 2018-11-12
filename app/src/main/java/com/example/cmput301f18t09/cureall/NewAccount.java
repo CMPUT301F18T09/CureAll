@@ -61,12 +61,12 @@ public class NewAccount extends AppCompatActivity {
                 //if (true){
                     //if (true){
                 Patient user = new Patient(Username,Password,Emial,Phone);
-                NormalTweet newtweent = new NormalTweet("Well, Will.");
+                //NormalTweet newtweent = new NormalTweet("Well, Will.");
                 setResult(RESULT_OK);
 
                 //saveInFile(); // TODO replace this with elastic search
                 ElasticSearchController.AddTweetsTask addUserTask = new ElasticSearchController.AddTweetsTask();
-                addUserTask.execute(newtweent);
+                addUserTask.execute(user);
                     //}
                     //else{
                     //    CareProvider user = new CareProvider(Username,Password,Emial,Phone);

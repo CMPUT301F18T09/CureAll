@@ -19,22 +19,22 @@ public class ElasticSearchController {
     private static JestDroidClient client;
 
     // TODO we need a function which adds tweets to elastic search
-    public static class AddTweetsTask extends AsyncTask<NormalTweet, Void, Void> {
+    public static class AddTweetsTask extends AsyncTask<Patient, Void, Void> {
 
         @Override
-        protected Void doInBackground(NormalTweet... tweets) {
+        protected Void doInBackground(Patient... tweets) {
             verifySettings();
 
-            for (NormalTweet tweet : tweets) {
-                //Patient p = new Patient("connor","cpass","connor@g23.ca","1231231234");
-                Index index = new Index.Builder(tweet).index("cmput301f18t09test").type("patient").build();
+            for (Patient tweet : tweets) {
+                Patient p = new Patient("connor","cpass","connor@g23.ca","1231231234");
+                Index index = new Index.Builder(p).index("cmput301f18t09").type("patient").build();
 
                 try {
                     // where is the client?
                     DocumentResult result = client.execute(index);
 
                     if (result.isSucceeded()) {
-                        tweet.setId(result.getId());
+                        p.setPatientID(result.getId());
                     } else {
                         Log.i("Error", "Elasticsearch was not able to add the patient");
                     }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Patient extends user{
     //private String username, password, email, phone;
-    public Integer patientID;
+    public String patientID;
     private ArrayList<Problem> problemArrayList;
     private ArrayList<Record> recordArrayList;
 
@@ -18,11 +18,11 @@ public class Patient extends user{
         super(username, password,email, phone);
     }
 
-    public Integer getPatientID() {
+    public String getPatientID() {
         return patientID;
     }
 
-    public void setPatientID(Integer patientID) {
+    public void setPatientID(String patientID) {
         this.patientID = patientID;
     }
 
