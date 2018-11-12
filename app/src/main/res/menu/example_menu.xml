@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app = "http://schemas.android.com/apk/res_auto"
+    >
+
+    <item
+    android:id="@+id/showListPatients"
+    android:icon="@drawable/ic_launcher_background"
+    android:title="showListPatients"
+    app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/showMapOfRecords"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="showMapOfRecords"
+        app:showAsAction="ifRoom" />
+
+
+
+
+</menu>

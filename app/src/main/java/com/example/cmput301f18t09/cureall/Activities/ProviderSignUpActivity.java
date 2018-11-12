@@ -1,4 +1,4 @@
-package com.example.cmput301f18t09.cureall;
+package com.example.cmput301f18t09.cureall.Activities;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,7 +7,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-public class PatientSignUpActivity extends AppCompatActivity{
+import com.example.cmput301f18t09.cureall.R;
+
+public class ProviderSignUpActivity extends AppCompatActivity{
     private ImageButton backButton, continueButton;
     private EditText userNameInput, passwordInput, confirmPasswodInput, emailAddressInput, phoneNumberInput ;
     private ImageView patientSymbol;
@@ -16,7 +18,7 @@ public class PatientSignUpActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initalizeAllElements();
-        setContentView(R.layout.activity_patient_sign_up);
+        setContentView(R.layout.activity_provider_sign_up);
     }
     public void initalizeAllElements(){
         backButton = (ImageButton) findViewById(R.id.backButton);
@@ -26,7 +28,7 @@ public class PatientSignUpActivity extends AppCompatActivity{
         confirmPasswodInput = (EditText) findViewById(R.id.confirmPasswodInput);
         emailAddressInput = (EditText) findViewById(R.id.emailAddressInput);
         phoneNumberInput = (EditText) findViewById(R.id.phoneNumberInput);
-        patientSymbol = (ImageView) findViewById(R.id.patientSymbol);
+        patientSymbol = (ImageView) findViewById(R.id.ProviderSymbol);
 
 
     }
