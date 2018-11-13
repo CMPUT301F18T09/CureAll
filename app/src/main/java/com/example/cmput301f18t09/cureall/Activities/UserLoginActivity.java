@@ -42,11 +42,23 @@ public class UserLoginActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
+            case R.id.ProviderTest:
+                return true;
             case R.id.showListPatients:
-                Intent intent = new Intent(this, ProviderMainPage.class);
+                Intent intent = new Intent(this, ProviderMainPageActivity.class);
                 startActivity(intent);
                 return true;
-            case R.id.showMapOfRecords:
+            case R.id.showListProblem:
+                Intent intent2 = new Intent(this, ProviderAListOfProblemsPageActivity.class);
+                startActivity(intent2);
+                return true;
+            case R.id.ProviderComments:
+                Intent intent3 = new Intent(this, ProviderCommentPageActivity.class);
+                startActivity(intent3);
+                return true;
+            case R.id.showProblemDetail:
+                Intent intent4 = new Intent(this, ProviderProblemDetailPageActivity.class);
+                startActivity(intent4);
                 return true;
         }
 

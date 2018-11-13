@@ -19,7 +19,10 @@
         <activity android:name=".Activities.PatientSignUpActivity" />
         <activity android:name=".Activities.ProviderSignUpActivity" />
         <activity android:name=".Activities.UserLoginActivity" />
-        <activity android:name=".Activities.ProviderMainPage"></activity>
+        <activity android:name=".Activities.ProviderMainPageActivity" />
+        <activity android:name=".Activities.ProviderAListOfProblemsPageActivity" />
+        <activity android:name=".Activities.ProviderCommentPageActivity" />
+        <activity android:name=".Activities.ProviderProblemDetailPageActivity"></activity>
     </application>
 
 </manifest>

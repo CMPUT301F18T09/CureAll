@@ -1,23 +1,18 @@
 package com.example.cmput301f18t09.cureall.Activities;
 
-import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.widget.ImageButton;
 
-import com.example.cmput301f18t09.cureall.Adapter.ProviderMainPagerAdapter;
+import com.example.cmput301f18t09.cureall.ProviderAdapter.ProviderMainPageAdapter;
 import com.example.cmput301f18t09.cureall.Patient;
 import com.example.cmput301f18t09.cureall.R;
 
 import java.util.ArrayList;
 
-public class ProviderMainPage extends AppCompatActivity {
+public class ProviderMainPageActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -48,7 +43,7 @@ public class ProviderMainPage extends AppCompatActivity {
         recyclerView = findViewById(R.id.listOfPatients);
         recyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
-        mAdapter = new ProviderMainPagerAdapter(examplePatientList);
+        mAdapter = new ProviderMainPageAdapter(examplePatientList);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
     }

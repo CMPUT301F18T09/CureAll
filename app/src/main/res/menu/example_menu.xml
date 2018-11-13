@@ -4,15 +4,30 @@
     >
 
     <item
-    android:id="@+id/showListPatients"
-    android:icon="@drawable/ic_launcher_background"
-    android:title="showListPatients"
-    app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/showMapOfRecords"
-        android:icon="@drawable/ic_launcher_background"
-        android:title="showMapOfRecords"
-        app:showAsAction="ifRoom" />
+    android:id="@+id/ProviderTest"
+    android:title="ProviderTest"
+    app:showAsAction="never" >
+        <menu>
+            <item
+                android:id="@+id/showListPatients"
+                android:title="showListPatients"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/showListProblem"
+                android:title="showListProblem"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/ProviderComments"
+                android:title="ProviderComments"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/showProblemDetail"
+                android:title="showProblemDetail"
+                app:showAsAction="ifRoom"/>
+
+        </menu>
+    </item>
+
 
 
 

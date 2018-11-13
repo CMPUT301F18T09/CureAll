@@ -1,6 +1,5 @@
-package com.example.cmput301f18t09.cureall.Adapter;
+package com.example.cmput301f18t09.cureall.ProviderAdapter;
 
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,7 @@ import com.example.cmput301f18t09.cureall.R;
 
 import java.util.ArrayList;
 
-public class ProviderMainPagerAdapter extends RecyclerView.Adapter<ProviderMainPagerAdapter.viewHolder> {
+public class ProviderMainPageAdapter extends RecyclerView.Adapter<ProviderMainPageAdapter.viewHolder> {
     private ArrayList<Patient> patientArrayList;
 
     public static class viewHolder extends RecyclerView.ViewHolder{
@@ -34,7 +33,7 @@ public class ProviderMainPagerAdapter extends RecyclerView.Adapter<ProviderMainP
         viewHolder vh = new viewHolder(v);
         return vh;
     }
-    public ProviderMainPagerAdapter(ArrayList<Patient> patientsList){
+    public ProviderMainPageAdapter(ArrayList<Patient> patientsList){
         patientArrayList = patientsList;
     }
     @Override
