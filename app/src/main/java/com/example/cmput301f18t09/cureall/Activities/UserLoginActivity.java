@@ -67,6 +67,10 @@ public class UserLoginActivity extends AppCompatActivity {
                 Intent intent4 = new Intent(this, ProviderProblemDetailPageActivity.class);
                 startActivity(intent4);
                 return true;
+            case R.id.showEachPhotoInRecord:
+                Intent intent5 = new Intent(this, ProviderRecordDetailPageActivity.class);
+                startActivity(intent5);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);

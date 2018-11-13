@@ -24,6 +24,10 @@
                 android:id="@+id/showProblemDetail"
                 android:title="showProblemDetail"
                 app:showAsAction="ifRoom"/>
+            <item
+                android:id="@+id/showEachPhotoInRecord"
+                android:title="showEachPhotoInRecord"
+                app:showAsAction="ifRoom"/>
 
         </menu>
     </item>
