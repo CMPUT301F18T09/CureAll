@@ -35,7 +35,14 @@ public class UserLoginActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.example_menu,menu);
+        String theUser = getIntent().getStringExtra("user");
+        if (theUser.equals("Patient")){
+            inflater.inflate(R.menu.patient_testview_menu,menu);
+        }
+        else{
+            inflater.inflate(R.menu.provider_testview_menu,menu);
+        }
+
         return true;
     }
 

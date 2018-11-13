@@ -43,11 +43,11 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.patientLogin:
                         Toast.makeText(MainActivity.this, "Patient Login", Toast.LENGTH_SHORT).show();
-                        openUserLoginActivity();
+                        openUserLoginActivity("Patient");
                         break;
                     case R.id.ProviderLogin:
                         Toast.makeText(MainActivity.this, "Provider login", Toast.LENGTH_SHORT).show();
-                        openUserLoginActivity();
+                        openUserLoginActivity("Provider");
                         break;
                 }
             }
@@ -82,8 +82,15 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ProviderSignUpActivity.class);
         startActivity(intent);
     }
-    public void openUserLoginActivity(){
+    public void openUserLoginActivity(String comer){
         Intent intent = new Intent(this, UserLoginActivity.class);
+        String theComer = comer;
+        if (theComer.equals("Patient")){
+            intent.putExtra("user", theComer);
+        }
+        else{
+            intent.putExtra("user", theComer);
+        }
         startActivity(intent);
     }
 }
