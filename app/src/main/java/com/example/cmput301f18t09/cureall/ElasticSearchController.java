@@ -18,15 +18,15 @@ import io.searchbox.core.SearchResult;
 public class ElasticSearchController {
     private static JestDroidClient client;
 
-    // TODO we need a function which adds tweets to elastic search
-    public static class AddTweetsTask extends AsyncTask<Patient, Void, Void> {
+    // TODO we need a function which adds patient to elastic search
+    public static class AddPatientTask extends AsyncTask<Patient, Void, Void> {
 
         @Override
         protected Void doInBackground(Patient... users) {
             verifySettings();
 
             for (Patient user : users) {
-                Index index = new Index.Builder(user).index("cmput301f18t09").type("patient").build();
+                Index index = new Index.Builder(user).index("cmput301f18t09test").type("patient").build();
 
                 try {
                     // where is the client?
@@ -46,8 +46,8 @@ public class ElasticSearchController {
         }
     }
 
-    // TODO we need a function which gets tweets from elastic search
-    public static class GetTweetsTask extends AsyncTask<String, Void, ArrayList<Patient>> {
+    // TODO we need a function which gets patient from elastic search
+    public static class GetPatientTask extends AsyncTask<String, Void, ArrayList<Patient>> {
         @Override
         protected ArrayList<Patient> doInBackground(String... search_parameters) {
             verifySettings();
@@ -57,14 +57,13 @@ public class ElasticSearchController {
             // TODO Build the query
 
             //String query = "{ \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
-            String query = "{ \"size\": 3, \n" +
-                    "    \"query\" : {\n" +
+            String query = "{  \"query\" : {\n" +
                     "        \"term\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
                     "    }\n" +
                     "}";
 
             Search search = new Search.Builder(query)
-                    .addIndex("cmput301f18t09")
+                    .addIndex("cmput301f18t09test")
                     .addType("patient")
                     .build();
 
@@ -75,8 +74,8 @@ public class ElasticSearchController {
                     Log.i("Read","Read success");
                     List<Patient> foundTweets = result.getSourceAsObjectList(Patient.class);
                     tweets.addAll(foundTweets);
-                    //Log.i("Read",Integer.toString(tweets.size()));
-                    //Log.i("Read",tweets.get(0).getPassword());
+                    Log.i("Read",Integer.toString(tweets.size()));
+                    Log.i("Read",tweets.get(0).getPassword());
                 } else {
                     Log.i("Error", "The search query failed to find any tweets that matched");
                 }
@@ -87,6 +86,76 @@ public class ElasticSearchController {
             return tweets;
         }
     }
+
+    // TODO we need a function which adds patient to elastic search
+    public static class AddDoctorTask extends AsyncTask<CareProvider, Void, Void> {
+
+        @Override
+        protected Void doInBackground(CareProvider... users) {
+            verifySettings();
+
+            for (CareProvider user : users) {
+                Index index = new Index.Builder(user).index("cmput301f18t09test").type("CareProvider").build();
+
+                try {
+                    // where is the client?
+                    DocumentResult result = client.execute(index);
+
+                    if (result.isSucceeded()) {
+                        user.setDoctorID(result.getId());
+                    } else {
+                        Log.i("Error", "Elasticsearch was not able to add the Care Provider");
+                    }
+                } catch (Exception e) {
+                    Log.i("Error", "The application failed to build and send the Care Provider");
+                }
+
+            }
+            return null;
+        }
+    }
+
+    // TODO we need a function which gets patient from elastic search
+    public static class GetDoctorTask extends AsyncTask<String, Void, ArrayList<CareProvider>> {
+        @Override
+        protected ArrayList<CareProvider> doInBackground(String... search_parameters) {
+            verifySettings();
+
+            ArrayList<CareProvider> users = new ArrayList<CareProvider>();
+
+            // TODO Build the query
+
+            //String query = "{ \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
+            String query = "{  \"query\" : {\n" +
+                    "        \"term\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
+                    "    }\n" +
+                    "}";
+
+            Search search = new Search.Builder(query)
+                    .addIndex("cmput301f18t09test")
+                    .addType("CareProvider")
+                    .build();
+
+            try {
+                // TODO get the results of the query
+                SearchResult result = client.execute(search);
+                if (result.isSucceeded()) {
+                    Log.i("Read","Read success");
+                    List<CareProvider> foundusers = result.getSourceAsObjectList(CareProvider.class);
+                    users.addAll(foundusers);
+                    //Log.i("Read",Integer.toString(tweets.size()));
+                    //Log.i("Read",tweets.get(0).getPassword());
+                } else {
+                    Log.i("Error", "The search query failed to find any tweets that matched");
+                }
+            } catch (Exception e) {
+                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+            }
+
+            return users;
+        }
+    }
+
     public static void verifySettings() {
         if (client == null) {
             DroidClientConfig.Builder builder = new DroidClientConfig.Builder("http://cmput301.softwareprocess.es:8080");

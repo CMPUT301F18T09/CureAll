@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,13 +42,14 @@ public class Login extends AppCompatActivity {
 
     public void login(String Role){
         ArrayList <Patient> patients = new ArrayList<Patient>();
+        ArrayList <CareProvider> doctors = new ArrayList<CareProvider>();
         if (Role.equals("Patient")){
             setResult(RESULT_OK);
 
             String Username = username.getText().toString();
             String Password = password.getText().toString();
 
-            ElasticSearchController.GetTweetsTask getuserTask = new ElasticSearchController.GetTweetsTask();
+            ElasticSearchController.GetPatientTask getuserTask = new ElasticSearchController.GetPatientTask();
             getuserTask.execute(Username);
 
             try {
@@ -62,7 +62,38 @@ public class Login extends AppCompatActivity {
             }
 
             String pass =  patients.get(0).getPassword();
-            Log.i("GetPass", pass);
+            if (pass.equals(Password)){
+                Intent intent = new Intent(Login.this,PatientMainPage.class);
+                intent.putExtra("username", patients.get(0).getUsername());
+                startActivity(intent);
+            }
+
+        }
+        else{
+
+            setResult(RESULT_OK);
+
+            String Username = username.getText().toString();
+            String Password = password.getText().toString();
+
+            ElasticSearchController.GetDoctorTask getuserTask = new ElasticSearchController.GetDoctorTask();
+            getuserTask.execute(Username);
+
+            try {
+                List<CareProvider> foundDoctor= getuserTask.get();
+                doctors.addAll(foundDoctor);
+
+
+            } catch (Exception e) {
+                Log.i("Error", "Failed to get the user from the async object");
+            }
+
+            String pass =  doctors.get(0).getPassword();
+            if (pass.equals(Password)){
+                Intent intent = new Intent(Login.this,PatientMainPage.class);
+                intent.putExtra("username", patients.get(0).getUsername());
+                startActivity(intent);
+            }
 
         }
     }
