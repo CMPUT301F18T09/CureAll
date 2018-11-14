@@ -14,6 +14,7 @@ import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientReco
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientListOfProblemsPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientProblemAddingPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientProblemDetailPageActivity;
+import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientRecordDetailPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientShowProviderCommentPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderAListOfProblemsPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderCommentPageActivity;
@@ -102,6 +103,10 @@ public class UserLoginActivity extends AppCompatActivity {
                 Intent intent10 = new Intent(this, PatientShowProviderCommentPageActivity.class);
                 startActivity(intent10);
                 return true;
+            case R.id.PatientRecordDetailPage:
+            Intent intent11 = new Intent(this, PatientRecordDetailPageActivity.class);
+            startActivity(intent11);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

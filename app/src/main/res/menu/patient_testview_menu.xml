@@ -28,6 +28,10 @@
                 android:id="@+id/PatientShowProviderCommentPage"
                 android:title="PatientShowProviderCommentPage"
                 app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/PatientRecordDetailPage"
+                android:title="PatientRecordDetailPage"
+                app:showAsAction="ifRoom" />
         </menu>
     </item>
 

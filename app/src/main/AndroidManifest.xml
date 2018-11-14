@@ -32,7 +32,8 @@
         <activity android:name=".Activities.PatientActivity.PatientProblemAddingPageActivity" />
         <activity android:name=".Activities.PatientActivity.PatientProblemDetailPageActivity" />
         <activity android:name=".Activities.PatientActivity.PatientRecordAddingPageActivity" />
-        <activity android:name=".Activities.PatientActivity.PatientShowProviderCommentPageActivity"></activity>
+        <activity android:name=".Activities.PatientActivity.PatientShowProviderCommentPageActivity" />
+        <activity android:name=".Activities.PatientActivity.PatientRecordDetailPageActivity"></activity>
     </application>
 
 </manifest>
