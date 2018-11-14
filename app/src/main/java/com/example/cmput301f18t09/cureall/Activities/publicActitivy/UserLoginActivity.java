@@ -10,9 +10,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientRecordAddingPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientListOfProblemsPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientProblemAddingPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientProblemDetailPageActivity;
+import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientShowProviderCommentPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderAListOfProblemsPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderCommentPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderMainPageActivity;
@@ -79,6 +81,7 @@ public class UserLoginActivity extends AppCompatActivity {
                 Intent intent5 = new Intent(this, ProviderRecordDetailPageActivity.class);
                 startActivity(intent5);
                 return true;
+            //the above are the test for provider's page... the belows are for patients
             case R.id.PatientShowListProblem:
                 Intent intent6 = new Intent(this, PatientListOfProblemsPageActivity.class);
                 startActivity(intent6);
@@ -90,6 +93,14 @@ public class UserLoginActivity extends AppCompatActivity {
             case R.id.PatientProblemDatailPage:
                 Intent intent8 = new Intent(this, PatientProblemDetailPageActivity.class);
                 startActivity(intent8);
+                return true;
+            case R.id.PatientAddRecordPage:
+                Intent intent9 = new Intent(this, PatientRecordAddingPageActivity.class);
+                startActivity(intent9);
+                return true;
+            case R.id.PatientShowProviderCommentPage:
+                Intent intent10 = new Intent(this, PatientShowProviderCommentPageActivity.class);
+                startActivity(intent10);
                 return true;
         }
 

@@ -30,7 +30,9 @@
             android:name=".Activities.PatientActivity.PatientListOfProblemsPageActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activities.PatientActivity.PatientProblemAddingPageActivity" />
-        <activity android:name=".Activities.PatientActivity.PatientProblemDetailPageActivity"></activity>
+        <activity android:name=".Activities.PatientActivity.PatientProblemDetailPageActivity" />
+        <activity android:name=".Activities.PatientActivity.PatientRecordAddingPageActivity" />
+        <activity android:name=".Activities.PatientActivity.PatientShowProviderCommentPageActivity"></activity>
     </application>
 
 </manifest>

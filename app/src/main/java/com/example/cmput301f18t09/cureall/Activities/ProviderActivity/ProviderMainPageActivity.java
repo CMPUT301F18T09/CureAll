@@ -4,7 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.cmput301f18t09.cureall.ProviderAdapter.ProviderMainPageAdapter;
 import com.example.cmput301f18t09.cureall.Patient;
@@ -51,6 +53,18 @@ public class ProviderMainPageActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        searchProblemRecordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(ProviderMainPageActivity.this,"Leo you should implement this button for searching..", Toast.LENGTH_SHORT).show();
+            }
+        });
+        addPatientButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(ProviderMainPageActivity.this,"Add patient button..", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 }

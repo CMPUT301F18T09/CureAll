@@ -20,6 +20,14 @@
                 android:id="@+id/PatientProblemDatailPage"
                 android:title="PatientProblemDatailPage"
                 app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/PatientAddRecordPage"
+                android:title="PatientAddRecordPage"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/PatientShowProviderCommentPage"
+                android:title="PatientShowProviderCommentPage"
+                app:showAsAction="ifRoom" />
         </menu>
     </item>
 
