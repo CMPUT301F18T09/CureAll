@@ -9,136 +9,8 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b5d0538d-968d-4aca-a45b-bf3a791e40de" name="Default" comment="GOOD">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_core_common_1_1_0_jar.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_common_1_1_0_jar.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_27_1_1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_appcompat_v7_27_1_1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_cardview_v7_27_1_1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_design_27_1_1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_recyclerview_v7_27_1_1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_annotations_27_1_1_jar.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_compat_27_1_1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_core_ui_27_1_1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_core_utils_27_1_1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_fragment_27_1_1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_media_compat_27_1_1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_v4_27_1_1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_vector_drawable_27_1_1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_transition_27_1_1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_annotations_4_8_0_jar.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_disklrucache_4_8_0_jar.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_8_0.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_8_0.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientListOfProblemsPageActivity.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientProblemAddingPageActivity.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientProblemDetailPageActivity.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/PatientAdapter/PatientProblemDetailPageAdapter.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/PatientAdapter/PatientProblemListPageAdapter.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/ProviderAdapter/ProblemListPageAdapter.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/drawer_shadow.9.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_drawer.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/drawer_shadow.9.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_drawer.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/drawer_shadow.9.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_drawer.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/drawer_shadow.9.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_drawer.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_chat.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_location.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_message.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_profile.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_send.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_share.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_sync.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_patient_list_of_problems_page.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_patient_problem_adding_page.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_patient_problem_detail_page.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/backup_of_problems.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/nav_header.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/patient_each_problem_in_recycle_view.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/patient_each_reacord_in_recycle_view.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/provider_each_patient_in_recycle_view.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/provider_each_problem_in_recycle_view.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/menu/drawer_menu.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/menu/patient_testview_menu.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/values-v21/styles.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/values-w820dp/dimens.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/resourceHashesCache.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/resourceHashesCache.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/jarAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/jarAnalysis.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/javaCompile.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/javaCompile.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskHistory.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskJars.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskJars.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_core_common_1_1_1_jar.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_core_runtime_1_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_core_runtime_1_1_0.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_common_1_1_1_jar.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_livedata_1_1_1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_livedata_core_1_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_livedata_core_1_1_0.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_1_0.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_viewmodel_1_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_viewmodel_1_1_0.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_28_0_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_appcompat_v7_28_0_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_asynclayoutinflater_28_0_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_cardview_v7_28_0_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_collections_28_0_0_jar.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_coordinatorlayout_28_0_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_cursoradapter_28_0_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_customview_28_0_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_documentfile_28_0_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_drawerlayout_28_0_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_interpolator_28_0_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_loader_28_0_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_localbroadcastmanager_28_0_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_print_28_0_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_recyclerview_v7_28_0_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_slidingpanelayout_28_0_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_annotations_28_0_0_jar.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_compat_28_0_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_core_ui_28_0_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_core_utils_28_0_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_fragment_28_0_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_vector_drawable_28_0_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_swiperefreshlayout_28_0_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_versionedparcelable_28_0_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_viewpager_28_0_0.xml" afterPath="" />
+    <list default="true" id="b5d0538d-968d-4aca-a45b-bf3a791e40de" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/publicActitivy/MainActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientSignUpActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientSignUpActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/ProviderAListOfProblemsPageActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/ProviderActivity/ProviderAListOfProblemsPageActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/ProviderCommentPageActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/ProviderActivity/ProviderCommentPageActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/ProviderMainPageActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/ProviderActivity/ProviderMainPageActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/ProviderProblemDetailPageActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/ProviderActivity/ProviderProblemDetailPageActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/ProviderRecordDetailPageActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/ProviderActivity/ProviderRecordDetailPageActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/ProviderSignUpActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/ProviderActivity/ProviderSignUpActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/UserLoginActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/publicActitivy/UserLoginActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/ProviderAdapter/ProblemDetailPageAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/ProviderAdapter/ProblemDetailPageAdapter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/ProviderAdapter/ProviderMainPageAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/ProviderAdapter/ProviderMainPageAdapter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/ProviderAdapter/RecordDetailPageAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/ProviderAdapter/RecordDetailPageAdapter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_patient_sign_up.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_patient_sign_up.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_provider_alist_of_problems.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_provider_alist_of_problems.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_provider_comment_page.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_provider_comment_page.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_provider_main_page.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_provider_main_page.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_provider_problem_detail_page.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_provider_problem_detail_page.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_provider_record_detail_page.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_provider_record_detail_page.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_provider_sign_up.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_provider_sign_up.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_user_login.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_user_login.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/each_photo_in_recycle_view.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/provider_each_photo_in_recycle_view.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/each_record_in_recycle_view.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/provider_each_record_in_recycle_view.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -2736,7 +2608,14 @@
       <option name="project" value="LOCAL" />
       <updated>1542141125848</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="GOOD">
+      <created>1542174351528</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1542174351528</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TodoView">
