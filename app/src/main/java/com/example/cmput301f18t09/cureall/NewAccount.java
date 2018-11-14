@@ -23,9 +23,9 @@ public class NewAccount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_account);
 
-        username = (EditText) findViewById(R.id.username);
-        emial = (EditText) findViewById(R.id.email);
-        phone = (EditText) findViewById(R.id.phone);
+        username = (EditText) findViewById(R.id.change_username);
+        emial = (EditText) findViewById(R.id.change_email);
+        phone = (EditText) findViewById(R.id.change_phone);
         password = (EditText) findViewById(R.id.password);
         rePassword = (EditText) findViewById(R.id.rePassword);
         sign = (Button) findViewById(R.id.signup);

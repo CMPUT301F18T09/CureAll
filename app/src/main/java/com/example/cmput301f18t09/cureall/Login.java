@@ -61,10 +61,18 @@ public class Login extends AppCompatActivity {
                 Log.i("Error", "Failed to get the user from the async object");
             }
 
+            Log.i("Read","read end");
+
             String pass =  patients.get(0).getPassword();
             if (pass.equals(Password)){
                 Intent intent = new Intent(Login.this,PatientMainPage.class);
                 intent.putExtra("username", patients.get(0).getUsername());
+                intent.putExtra("email",patients.get(0).getEmail());
+                intent.putExtra("phone",patients.get(0).getPhone());
+                intent.putExtra("id",patients.get(0).getPatientID());
+                intent.putExtra("password",patients.get(0).getPassword());
+                //Patient user = patients.get(0);
+               // intent.putExtra(,patients);
                 startActivity(intent);
             }
 
@@ -88,12 +96,12 @@ public class Login extends AppCompatActivity {
                 Log.i("Error", "Failed to get the user from the async object");
             }
 
-            String pass =  doctors.get(0).getPassword();
+           /* String pass =  doctors.get(0).getPassword();
             if (pass.equals(Password)){
                 Intent intent = new Intent(Login.this,PatientMainPage.class);
                 intent.putExtra("username", patients.get(0).getUsername());
                 startActivity(intent);
-            }
+            }*/
 
         }
     }

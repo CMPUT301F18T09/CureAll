@@ -9,7 +9,10 @@ import com.searchly.jestdroid.JestDroidClient;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import io.searchbox.client.JestResult;
+import io.searchbox.core.Delete;
 import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
@@ -17,6 +20,34 @@ import io.searchbox.core.SearchResult;
 
 public class ElasticSearchController {
     private static JestDroidClient client;
+
+    public static class ChangeInfoTask extends AsyncTask<Patient, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Patient... users) {
+            verifySettings();
+
+            for (Patient user : users) {
+                String id = user.getUsername()+"1000001";
+                Index index = new Index.Builder(user).index("cmput301f18t09test").type("patient").id(id).build();
+
+                try {
+                    // where is the client?
+                    DocumentResult result = client.execute(index);
+
+                    if (result.isSucceeded()) {
+                        //user.setPatientID(result.getId());
+                    } else {
+                        Log.i("Error", "Elasticsearch was not able to add the patient");
+                    }
+                } catch (Exception e) {
+                    Log.i("Error", "The application failed to build and send the patient");
+                }
+
+            }
+            return null;
+        }
+    }
 
     // TODO we need a function which adds patient to elastic search
     public static class AddPatientTask extends AsyncTask<Patient, Void, Void> {
@@ -26,14 +57,15 @@ public class ElasticSearchController {
             verifySettings();
 
             for (Patient user : users) {
-                Index index = new Index.Builder(user).index("cmput301f18t09test").type("patient").build();
+                String id = user.getUsername()+"1000001";
+                Index index = new Index.Builder(user).index("cmput301f18t09test").type("patient").id(id).build();
 
                 try {
                     // where is the client?
                     DocumentResult result = client.execute(index);
 
                     if (result.isSucceeded()) {
-                        user.setPatientID(result.getId());
+                        //user.setPatientID(result.getId());
                     } else {
                         Log.i("Error", "Elasticsearch was not able to add the patient");
                     }
@@ -57,7 +89,7 @@ public class ElasticSearchController {
             // TODO Build the query
 
             //String query = "{ \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
-            String query = "{  \"query\" : {\n" +
+            String query = "{   \"size\": 3, \n" +"\"query\" : {\n" +
                     "        \"term\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
                     "    }\n" +
                     "}";
@@ -71,11 +103,30 @@ public class ElasticSearchController {
                 // TODO get the results of the query
                 SearchResult result = client.execute(search);
                 if (result.isSucceeded()) {
+                    ArrayList<String> IDs = new ArrayList<String>();
                     Log.i("Read","Read success");
-                    List<Patient> foundTweets = result.getSourceAsObjectList(Patient.class);
-                    tweets.addAll(foundTweets);
-                    Log.i("Read",Integer.toString(tweets.size()));
-                    Log.i("Read",tweets.get(0).getPassword());
+                    List<SearchResult.Hit<Map,Void>> hits= result.getHits(Map.class);
+                    for (SearchResult.Hit hit : hits){
+                        Map source = (Map) hit.source;
+                        String id = (String)source.get(JestResult.ES_METADATA_ID);
+                        //Patient p = (Patient)source.get(Patient.class);
+                        //Log.i("Read",p.getUsername());
+                        IDs.add(id);
+                        Log.i("Read",id);
+
+                    }
+
+
+
+                    Integer a = 0;
+                    List<Patient> foundPatients = result.getSourceAsObjectList(Patient.class);
+                    for (Patient p : foundPatients){
+                        p.setPatientID(IDs.get(a));
+                        a++;
+                        tweets.add(p);
+                    }
+                    //tweets.addAll(foundTweets);
+
                 } else {
                     Log.i("Error", "The search query failed to find any tweets that matched");
                 }
@@ -83,6 +134,11 @@ public class ElasticSearchController {
                 Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
             }
 
+
+            for (Patient p : tweets){
+                Log.i("Read",p.getUsername());
+                Log.i("Read",p.getPatientID());
+            }
             return tweets;
         }
     }
@@ -140,7 +196,11 @@ public class ElasticSearchController {
                 // TODO get the results of the query
                 SearchResult result = client.execute(search);
                 if (result.isSucceeded()) {
+
+
+
                     Log.i("Read","Read success");
+
                     List<CareProvider> foundusers = result.getSourceAsObjectList(CareProvider.class);
                     users.addAll(foundusers);
                     //Log.i("Read",Integer.toString(tweets.size()));
