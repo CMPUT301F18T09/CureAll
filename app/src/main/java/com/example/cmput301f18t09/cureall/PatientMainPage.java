@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.robotium.solo.By;
+
 import java.net.PortUnreachableException;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -27,6 +29,10 @@ public class PatientMainPage extends AppCompatActivity {
     EditText descrip;
     Button prob_save;
 
+    Button prob_edit;
+    EditText ed_title;
+    EditText ed_desc;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +45,10 @@ public class PatientMainPage extends AppCompatActivity {
         Title = (EditText) findViewById(R.id.Title);
         descrip = (EditText) findViewById(R.id.description);
         prob_save = (Button) findViewById(R.id.save_prob);
+
+        prob_edit = (Button) findViewById(R.id.edit_problem);
+        ed_title = (EditText) findViewById(R.id.edit_title);
+        ed_desc = (EditText) findViewById(R.id.edit_desc);
     }
 
     @Override
@@ -60,10 +70,36 @@ public class PatientMainPage extends AppCompatActivity {
         //change.setOnClickListener(new View.OnClickListener() {
 
       //      public void onClick(View v) {
-        addProblem(username);
+        //addProblem(username);
+        ArrayList<Problem> problems = GetProblemNum(username);
+        ed_title.setText(problems.get(0).getTitle());
+        ed_desc.setText(problems.get(0).getDescription());
+        editProblem(username,problems.get(0));
+
        // updateinfo(username,email,phone,id,pw);
         //    }
         //});
+    }
+    public void editProblem(final String username, final Problem problem){
+        prob_edit.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String edit_title = ed_title.getText().toString();
+                String prob_desp = ed_desc.getText().toString();
+                Problem new_problem = new Problem(username,edit_title,prob_desp,problem.getTime(),problem.getDoctorcomment());
+
+                //problem.setTitle(edit_title);
+                //problem.setDescription(prob_desp);
+
+                //Problem problem = new Problem(username,prob_title,prob_desp,date,null);
+
+                ElasticSearchParams param = new ElasticSearchParams(username,new_problem,problem.getId());
+
+                ElasticSearchController.EditProblemTask editproblemTask = new ElasticSearchController.EditProblemTask();
+                editproblemTask.execute(param);
+
+            }
+        });
+
     }
     public void addProblem(final String username){
         prob_save.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +115,7 @@ public class PatientMainPage extends AppCompatActivity {
             }
         });
     }
-    public Integer GetProblemNum(String username){
+    public ArrayList<Problem> GetProblemNum(String username){
         ArrayList<Problem> problems = new ArrayList<Problem>();
         ElasticSearchController.GetProblemTask getproblemTask = new ElasticSearchController.GetProblemTask();
         getproblemTask.execute(username);
@@ -95,19 +131,22 @@ public class PatientMainPage extends AppCompatActivity {
 
         Log.i("Read","read end");
 
-        return problems.size();
+        return problems;
     }
 
     public void saveProblem(String username, String prob_title,String prob_desp,String date){
-        Integer num = GetProblemNum(username);
+        ArrayList<Problem> problems = GetProblemNum(username);
+        for (Problem p : problems){
+            Log.i("Problem",p.getTitle());
+            Log.i("Problem",p.getId());
+        }
 
-        Log.i("Read",Integer.toString(num));
-        Problem problem = new Problem(username,prob_title,prob_desp,date,null);
+        /*Problem problem = new Problem(username,prob_title,prob_desp,date,null);
 
         ElasticSearchParams param = new ElasticSearchParams(num,problem);
 
         ElasticSearchController.AddProblemTask addproblemTask = new ElasticSearchController.AddProblemTask();
-        addproblemTask.execute(param);
+        addproblemTask.execute(param);*/
     }
 
     public void info_change(String username,String email, String phone, String id,String pw){

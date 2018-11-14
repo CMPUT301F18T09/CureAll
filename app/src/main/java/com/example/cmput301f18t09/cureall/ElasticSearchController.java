@@ -46,21 +46,34 @@ public class ElasticSearchController {
                 // TODO get the results of the query
                 SearchResult result = client.execute(search);
                 if (result.isSucceeded()) {
-
+                    ArrayList<String> IDs = new ArrayList<String>();
                     Log.i("Read","Read success");
+                    List<SearchResult.Hit<Map,Void>> hits= result.getHits(Map.class);
+                    for (SearchResult.Hit hit : hits){
+                        Map source = (Map) hit.source;
+                        String id = (String)source.get(JestResult.ES_METADATA_ID);
+                        //Patient p = (Patient)source.get(Patient.class);
+                        //Log.i("Read",p.getUsername());
+                        IDs.add(id);
+                        Log.i("Read",id);
 
-                    List<Problem> foundusers = result.getSourceAsObjectList(Problem.class);
-                    users.addAll(foundusers);
-                    //Log.i("Read",Integer.toString(tweets.size()));
-                    //Log.i("Read",tweets.get(0).getPassword());
+                    }
+
+                    Integer a = 0;
+                    List<Problem> foundPatients = result.getSourceAsObjectList(Problem.class);
+                    for (Problem p : foundPatients) {
+                        p.setId(IDs.get(a));
+                        a++;
+                        users.add(p);
+                    }
+
                 } else {
                     Log.i("Error", "The search query failed to find any tweets that matched");
                 }
             } catch (Exception e) {
                 Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
             }
-
-            return users;
+          return users;
         }
     }
 
@@ -111,30 +124,11 @@ public class ElasticSearchController {
             }
 
 
-            //;
-
-            /*for (Problem problem : problems) {
-                String id = problem.getUsername()+"2000002";
-                Index index = new Index.Builder(problem).index("cmput301f18t09test").type("problem").id(id).build();
-
-                try {
-                    // where is the client?
-                    DocumentResult result = client.execute(index);
-
-                    if (result.isSucceeded()) {
-                        //user.setPatientID(result.getId());
-                        Log.i("Problem","Problem save success!");
-                    } else {
-                        Log.i("Error", "Elasticsearch was not able to add the patient");
-                    }
-                } catch (Exception e) {
-                    Log.i("Error", "The application failed to build and send the patient");
-                }
-
-            }*/
             return null;
         }
     }
+
+
 
 
     public static class ChangeInfoTask extends AsyncTask<Patient, Void, Void> {
@@ -161,6 +155,58 @@ public class ElasticSearchController {
                 }
 
             }
+            return null;
+        }
+    }
+
+    public static class EditProblemTask extends AsyncTask<ElasticSearchParams, Void, Void> {
+
+        @Override
+        protected Void doInBackground(ElasticSearchParams... params) {
+            verifySettings();
+            Problem problem = params[0].problem;
+            String id = params[0].id;
+            Index index = new Index.Builder(problem).index("cmput301f18t09test").type("problem").id(id).build();
+            try {
+                // where is the client?
+                client.execute(new Delete.Builder(id)
+                        .index("cmput301f18t09test")
+                        .type("problem")
+                        .build());
+                DocumentResult result = client.execute(index);
+
+                if (result.isSucceeded()) {
+                //user.setPatientID(result.getId());
+                } else {
+                    Log.i("Error", "Elasticsearch was not able to add the patient");
+                }
+            } catch (Exception e) {
+                Log.i("Error", "The application failed to build and send the patient");
+            }
+
+            /*for (Problem user : users) {
+                //String id = user.getUsername()+"1000001";
+                String id = user.getId();
+                Index index = new Index.Builder(user).index("cmput301f18t09test").type("patient").id(id).build();
+
+                try {
+                    // where is the client?
+                    client.execute(new Delete.Builder(id)
+                            .index("cmput301f18t09test")
+                            .type("patient")
+                            .build());
+                    //DocumentResult result = client.execute(index);
+
+                    //if (result.isSucceeded()) {
+                        //user.setPatientID(result.getId());
+                    //} else {
+                    //    Log.i("Error", "Elasticsearch was not able to add the patient");
+                    //}
+                } catch (Exception e) {
+                    Log.i("Error", "The application failed to build and send the patient");
+                }
+
+            }*/
             return null;
         }
     }
@@ -231,8 +277,6 @@ public class ElasticSearchController {
                         Log.i("Read",id);
 
                     }
-
-
 
                     Integer a = 0;
                     List<Patient> foundPatients = result.getSourceAsObjectList(Patient.class);

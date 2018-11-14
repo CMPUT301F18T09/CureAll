@@ -7,14 +7,18 @@ public class ElasticSearchParams {
     Record record;
     Problem problem;
     Integer num;
+    String id;
 
-    public ElasticSearchParams(String username,Problem problem){
+    public ElasticSearchParams(String username,Problem problem,String id){
         this.username = username;
         this.problem = problem;
+        this.id = id;
     }
 
     public ElasticSearchParams(Integer num,Problem problem){
         this.num = num;
         this.problem = problem;
     }
+
+
 }

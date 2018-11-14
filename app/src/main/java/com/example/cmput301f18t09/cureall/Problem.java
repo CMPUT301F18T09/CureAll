@@ -8,6 +8,7 @@ public class Problem {
     public String time;
     private ArrayList<Record> recordArrayList;
     private String doctorcomment;
+    private String Id;
 
     //special fucntion
     //since getter and setter only deal with arraylist of records
@@ -31,6 +32,8 @@ public class Problem {
     public void setRecordArrayList(ArrayList<Record> recordArrayList) {
         this.recordArrayList = recordArrayList;
     }
+    public String getId(){return this.Id;}
+    public void setId(String id){this.Id = id;}
     public String getUsername(){return this.username;}
     public String getDoctorcomment(){return this.doctorcomment;}
     public void setDoctorcomment(String comment){this.doctorcomment = comment;}
