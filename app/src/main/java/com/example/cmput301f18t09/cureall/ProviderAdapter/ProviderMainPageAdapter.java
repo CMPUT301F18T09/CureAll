@@ -29,7 +29,7 @@ public class ProviderMainPageAdapter extends RecyclerView.Adapter<ProviderMainPa
 
     @Override
     public viewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.each_patient_in_recycle_view,viewGroup,false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.provider_each_patient_in_recycle_view,viewGroup,false);
         viewHolder vh = new viewHolder(v);
         return vh;
     }

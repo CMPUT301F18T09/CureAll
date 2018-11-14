@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.ProviderMainPageActivity">
+    tools:context=".Activities.ProviderActivity.ProviderMainPageActivity">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/listOfRecords"
+        android:id="@+id/listOfProblems"
         android:layout_width="0dp"
         android:layout_height="385dp"
         android:layout_marginEnd="16dp"
@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent"></android.support.v7.widget.RecyclerView>
 
     <ImageButton
-        android:id="@+id/backButton"
+        android:id="@+id/searchButton"
         android:layout_width="65dp"
         android:layout_height="65dp"
         android:layout_marginStart="16dp"
@@ -41,7 +41,7 @@
         android:layout_marginTop="8dp"
         android:text="Patient Name"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/listOfRecords"
+        app:layout_constraintBottom_toTopOf="@+id/listOfProblems"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

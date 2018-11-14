@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.cmput301f18t09.cureall">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,21 +11,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.MainActivity">
+        <activity android:name=".Activities.publicActitivy.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.PatientSignUpActivity" />
-        <activity android:name=".Activities.ProviderSignUpActivity" />
-        <activity android:name=".Activities.UserLoginActivity" />
-        <activity android:name=".Activities.ProviderMainPageActivity" />
-        <activity android:name=".Activities.ProviderAListOfProblemsPageActivity" />
-        <activity android:name=".Activities.ProviderCommentPageActivity" />
-        <activity android:name=".Activities.ProviderProblemDetailPageActivity" />
-        <activity android:name=".Activities.ProviderRecordDetailPageActivity"></activity>
+        <activity android:name=".Activities.PatientActivity.PatientSignUpActivity" />
+        <activity android:name=".Activities.ProviderActivity.ProviderSignUpActivity" />
+        <activity android:name=".Activities.publicActitivy.UserLoginActivity" />
+        <activity android:name=".Activities.ProviderActivity.ProviderMainPageActivity" />
+        <activity android:name=".Activities.ProviderActivity.ProviderAListOfProblemsPageActivity" />
+        <activity android:name=".Activities.ProviderActivity.ProviderCommentPageActivity" />
+        <activity android:name=".Activities.ProviderActivity.ProviderProblemDetailPageActivity" />
+        <activity android:name=".Activities.ProviderActivity.ProviderRecordDetailPageActivity" />
+        <activity
+            android:name=".Activities.PatientActivity.PatientListOfProblemsPageActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activities.PatientActivity.PatientProblemAddingPageActivity" />
+        <activity android:name=".Activities.PatientActivity.PatientProblemDetailPageActivity"></activity>
     </application>
 
 </manifest>

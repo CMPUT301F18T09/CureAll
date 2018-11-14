@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.ProviderRecordDetailPageActivity">
+    tools:context=".Activities.ProviderActivity.ProviderRecordDetailPageActivity">
 
     <ImageButton
-        android:id="@+id/backButton"
+        android:id="@+id/searchButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
@@ -27,7 +27,7 @@
         android:text="Record Detail"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/backButton"
+        app:layout_constraintStart_toEndOf="@+id/searchButton"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton

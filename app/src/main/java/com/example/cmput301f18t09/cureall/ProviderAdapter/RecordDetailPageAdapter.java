@@ -1,21 +1,16 @@
 package com.example.cmput301f18t09.cureall.ProviderAdapter;
 
 import android.content.Context;
-import android.nfc.Tag;
-import android.support.annotation.ArrayRes;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
 import com.example.cmput301f18t09.cureall.R;
-import com.example.cmput301f18t09.cureall.Record;
 
 import java.util.ArrayList;
 
@@ -45,7 +40,7 @@ public class RecordDetailPageAdapter extends RecyclerView.Adapter <RecordDetailP
 
     @Override
     public viewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.each_photo_in_recycle_view,viewGroup,false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.provider_each_photo_in_recycle_view,viewGroup,false);
 
         return new viewHolder(v);
     }
@@ -72,7 +67,7 @@ public class RecordDetailPageAdapter extends RecyclerView.Adapter <RecordDetailP
     /**
     @Override
     public viewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.each_photo_in_recycle_view,viewGroup,false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.provider_each_photo_in_recycle_view,viewGroup,false);
         viewHolder vh2 = new viewHolder(v);
         return vh2;
     }

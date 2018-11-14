@@ -33,7 +33,7 @@ public class ProblemDetailPageAdapter extends RecyclerView.Adapter<ProblemDetail
 
     @Override
     public viewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.each_record_in_recycle_view,viewGroup,false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.provider_each_record_in_recycle_view,viewGroup,false);
         viewHolder vh2 = new viewHolder(v);
         return vh2;
     }
