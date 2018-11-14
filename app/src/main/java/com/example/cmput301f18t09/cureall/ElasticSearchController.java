@@ -18,8 +18,124 @@ import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 
+
 public class ElasticSearchController {
     private static JestDroidClient client;
+
+    public static class GetProblemTask extends AsyncTask<String, Void, ArrayList<Problem>> {
+        @Override
+        protected ArrayList<Problem> doInBackground(String... search_parameters) {
+            verifySettings();
+
+            ArrayList<Problem> users = new ArrayList<Problem>();
+
+            // TODO Build the query
+
+            //String query = "{ \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
+            String query = "{  \"query\" : {\n" +
+                    "        \"term\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
+                    "    }\n" +
+                    "}";
+
+            Search search = new Search.Builder(query)
+                    .addIndex("cmput301f18t09test")
+                    .addType("problem")
+                    .build();
+
+            try {
+                // TODO get the results of the query
+                SearchResult result = client.execute(search);
+                if (result.isSucceeded()) {
+
+                    Log.i("Read","Read success");
+
+                    List<Problem> foundusers = result.getSourceAsObjectList(Problem.class);
+                    users.addAll(foundusers);
+                    //Log.i("Read",Integer.toString(tweets.size()));
+                    //Log.i("Read",tweets.get(0).getPassword());
+                } else {
+                    Log.i("Error", "The search query failed to find any tweets that matched");
+                }
+            } catch (Exception e) {
+                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+            }
+
+            return users;
+        }
+    }
+
+    public static class AddProblemTask extends AsyncTask<ElasticSearchParams, Void, Void> {
+
+        @Override
+        protected Void doInBackground(ElasticSearchParams... params) {
+            verifySettings();
+            Integer num = params[0].num;
+            Problem problem = params[0].problem;
+
+            if (num < 1000000){
+                String Num = String.format("%06d",num);
+                String id =  problem.getUsername()+ "2" + Num;
+                Index index = new Index.Builder(problem).index("cmput301f18t09test").type("problem").id(id).build();
+                try {
+                    // where is the client?
+                    DocumentResult result = client.execute(index);
+
+                    if (result.isSucceeded()) {
+                        //user.setPatientID(result.getId());
+                        Log.i("Problem","Problem save success!");
+                    } else {
+                        Log.i("Error", "Elasticsearch was not able to add the patient");
+                    }
+                } catch (Exception e) {
+                    Log.i("Error", "The application failed to build and send the patient");
+                }
+            }
+
+
+            else{
+                String id = params[0].username + "2" + Integer.toString(num);
+                Index index = new Index.Builder(problem).index("cmput301f18t09test").type("problem").id(id).build();
+                try {
+                    // where is the client?
+                    DocumentResult result = client.execute(index);
+
+                    if (result.isSucceeded()) {
+                        //user.setPatientID(result.getId());
+                        Log.i("Problem","Problem save success!");
+                    } else {
+                        Log.i("Error", "Elasticsearch was not able to add the patient");
+                    }
+                } catch (Exception e) {
+                    Log.i("Error", "The application failed to build and send the patient");
+                }
+            }
+
+
+            //;
+
+            /*for (Problem problem : problems) {
+                String id = problem.getUsername()+"2000002";
+                Index index = new Index.Builder(problem).index("cmput301f18t09test").type("problem").id(id).build();
+
+                try {
+                    // where is the client?
+                    DocumentResult result = client.execute(index);
+
+                    if (result.isSucceeded()) {
+                        //user.setPatientID(result.getId());
+                        Log.i("Problem","Problem save success!");
+                    } else {
+                        Log.i("Error", "Elasticsearch was not able to add the patient");
+                    }
+                } catch (Exception e) {
+                    Log.i("Error", "The application failed to build and send the patient");
+                }
+
+            }*/
+            return null;
+        }
+    }
+
 
     public static class ChangeInfoTask extends AsyncTask<Patient, Void, Void> {
 
