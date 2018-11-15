@@ -44,6 +44,10 @@
                 android:id="@+id/PatientBodyLocationPhotoViewgPage"
                 android:title="PatientBodyLocationPhotoViewgPage"
                 app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/PatientPhotoFlowAnimation"
+                android:title="PatientPhotoFlowAnimation"
+                app:showAsAction="ifRoom" />
         </menu>
     </item>
 

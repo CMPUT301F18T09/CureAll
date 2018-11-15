@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientBodyLocationPhotoAddingPageActivity;
+import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientPhotoFlowPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientRecordAddingPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientListOfProblemsPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientProblemAddingPageActivity;
@@ -121,6 +122,10 @@ public class UserLoginActivity extends AppCompatActivity {
             case R.id.PatientBodyLocationPhotoViewgPage:
                 Intent intent14 = new Intent(this, PatientViewBodyLocationPhotoPageActivity.class);
                 startActivity(intent14);
+                return true;
+            case R.id.PatientPhotoFlowAnimation:
+                Intent intent15 = new Intent(this, PatientPhotoFlowPageActivity.class);
+                startActivity(intent15);
                 return true;
         }
 
