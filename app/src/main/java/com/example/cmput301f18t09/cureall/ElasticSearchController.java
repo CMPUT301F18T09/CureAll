@@ -25,6 +25,60 @@ import io.searchbox.core.SearchResult;
 public class ElasticSearchController {
     private static JestDroidClient client;
 
+
+    public static class SearchKeywordsTask extends AsyncTask<String, Void, ArrayList<Problem>> {
+        @Override
+        protected ArrayList<Problem> doInBackground(String... search_parameters) {
+            verifySettings();
+
+            ArrayList<Problem> records = new ArrayList<Problem>();
+
+            // TODO Build the query
+
+
+            String query = "{\"query\":{\n"+
+                                "\"match all\":{\n"+
+                                    "\"title\":\"blue attachment\"\n"+
+                                "}\n" +
+                                "}\n"+
+                            "}";
+
+
+            //String query = "{ \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
+            /*String query = "{  \"query\" : {\n" +
+                    "        \"term\" : { \"title\" : \"" + search_parameters[0] + "\" }\n" +
+                    "    }\n" +
+                    "}";*/
+
+            Search search = new Search.Builder(query)
+                    .addIndex("cmput301f18t09test")
+                    .addType("problem")
+                    .build();
+
+            try {
+                // TODO get the results of the query
+                SearchResult result = client.execute(search);
+                if (result.isSucceeded()) {
+
+                    Log.i("Read","Read success");
+
+                    List<Problem> foundrecords = result.getSourceAsObjectList(Problem.class);
+                    records.addAll(foundrecords);
+                    for(Problem p:records){
+                        Log.i("Problem",p.getTitle());
+                    }
+
+                } else {
+                    Log.i("Error", "The search query failed to find any tweets that matched");
+                }
+            } catch (Exception e) {
+                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+            }
+
+            return records;
+        }
+    }
+
     public static class GetPatientListTask extends AsyncTask<String, Void, ArrayList<String>> {
         @Override
         protected ArrayList<String> doInBackground(String... search_parameters) {

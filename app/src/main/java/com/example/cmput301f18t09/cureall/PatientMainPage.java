@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.robotium.solo.By;
+//import com.robotium.solo.By;
 
 import java.net.PortUnreachableException;
 import java.text.DateFormat;

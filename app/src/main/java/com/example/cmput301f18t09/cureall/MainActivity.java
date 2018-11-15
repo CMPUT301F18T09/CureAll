@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
         Button newDoctor = (Button) findViewById(R.id.newdoctor);
         Button Patient = (Button) findViewById(R.id.patient);
         Button Doctor = (Button) findViewById(R.id.doctor);
+        Button Search = (Button) findViewById(R.id.Search);
 
         newPatient.setOnClickListener(new View.OnClickListener() {
 
@@ -47,6 +48,14 @@ public class MainActivity extends AppCompatActivity {
 
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,Login.class);
+                intent.putExtra("Role", "Doctor");
+                startActivity(intent);
+            }
+        });
+        Search.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,SearchPage.class);
                 intent.putExtra("Role", "Doctor");
                 startActivity(intent);
             }

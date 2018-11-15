@@ -29,7 +29,8 @@
             android:required="false" />
 
         <activity android:name=".PatientMainPage" />
-        <activity android:name=".CareProviderMainpage"></activity>
+        <activity android:name=".CareProviderMainpage" />
+        <activity android:name=".SearchPage"></activity>
     </application>
 
 </manifest>
