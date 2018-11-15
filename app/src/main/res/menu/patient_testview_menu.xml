@@ -32,6 +32,18 @@
                 android:id="@+id/PatientRecordDetailPage"
                 android:title="PatientRecordDetailPage"
                 app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/PatientPaperDollPage"
+                android:title="PatientPaperDollPage"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/PatientBodyLocationPhotoAddingPage"
+                android:title="PatientBodyLocationPhotoAddingPage"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/PatientBodyLocationPhotoViewgPage"
+                android:title="PatientBodyLocationPhotoViewgPage"
+                app:showAsAction="ifRoom" />
         </menu>
     </item>
 

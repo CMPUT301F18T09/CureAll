@@ -10,17 +10,20 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientBodyLocationPhotoAddingPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientRecordAddingPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientListOfProblemsPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientProblemAddingPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientProblemDetailPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientRecordDetailPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientShowProviderCommentPageActivity;
+import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientViewBodyLocationPhotoPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderAListOfProblemsPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderCommentPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderMainPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderProblemDetailPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderRecordDetailPageActivity;
+import com.example.cmput301f18t09.cureall.PatientAdapter.PatientBodyLocationPhotoViewPageAdapter;
 import com.example.cmput301f18t09.cureall.R;
 
 public class UserLoginActivity extends AppCompatActivity {
@@ -104,9 +107,21 @@ public class UserLoginActivity extends AppCompatActivity {
                 startActivity(intent10);
                 return true;
             case R.id.PatientRecordDetailPage:
-            Intent intent11 = new Intent(this, PatientRecordDetailPageActivity.class);
-            startActivity(intent11);
-            return true;
+                Intent intent11 = new Intent(this, PatientRecordDetailPageActivity.class);
+                startActivity(intent11);
+                return true;
+            case R.id.PatientPaperDollPage:
+                Intent intent12 = new Intent(this, PatientPaperDollSelectionPageActivity.class);
+                startActivity(intent12);
+                return true;
+            case R.id.PatientBodyLocationPhotoAddingPage:
+                Intent intent13 = new Intent(this, PatientBodyLocationPhotoAddingPageActivity.class);
+                startActivity(intent13);
+                return true;
+            case R.id.PatientBodyLocationPhotoViewgPage:
+                Intent intent14 = new Intent(this, PatientViewBodyLocationPhotoPageActivity.class);
+                startActivity(intent14);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
