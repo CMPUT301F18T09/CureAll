@@ -71,11 +71,15 @@ public class PatientMainPage extends AppCompatActivity {
 
       //      public void onClick(View v) {
         //addProblem(username);
-        ArrayList<Problem> problems = GetProblemNum(username);
+       /* ArrayList<Problem> problems = GetProblemNum(username);
+        for (Problem p : problems){
+            Log.i("Problem",p.getTitle());
+            Log.i("Problem",p.getId());
+        }
         ed_title.setText(problems.get(0).getTitle());
         ed_desc.setText(problems.get(0).getDescription());
         editProblem(username,problems.get(0));
-
+*/
        // updateinfo(username,email,phone,id,pw);
         //    }
         //});

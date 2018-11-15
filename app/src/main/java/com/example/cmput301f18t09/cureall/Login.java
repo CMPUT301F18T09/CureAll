@@ -89,19 +89,20 @@ public class Login extends AppCompatActivity {
 
             try {
                 List<CareProvider> foundDoctor= getuserTask.get();
+                Log.i("CareProvider",Integer.toString(foundDoctor.size()));
                 doctors.addAll(foundDoctor);
-
+                Log.i("CareProvider",Integer.toString(doctors.size()));
 
             } catch (Exception e) {
                 Log.i("Error", "Failed to get the user from the async object");
             }
-
-           /* String pass =  doctors.get(0).getPassword();
+            Log.i("CareProviderout",Integer.toString(doctors.size()));
+            String pass =  doctors.get(0).getPassword();
             if (pass.equals(Password)){
-                Intent intent = new Intent(Login.this,PatientMainPage.class);
-                intent.putExtra("username", patients.get(0).getUsername());
+                Intent intent = new Intent(Login.this,CareProviderMainpage.class);
+                intent.putExtra("username", doctors.get(0).getUsername());
                 startActivity(intent);
-            }*/
+            }
 
         }
     }

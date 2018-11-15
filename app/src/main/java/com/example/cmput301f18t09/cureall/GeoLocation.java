@@ -5,6 +5,7 @@ public class GeoLocation {
     Double longtitude;
     Double latitude;
 
+
     public GeoLocation(String Location, Double longtitude, Double latitude){
         this.Location = Location;
         this.longtitude = longtitude;

@@ -28,7 +28,8 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity android:name=".PatientMainPage"></activity>
+        <activity android:name=".PatientMainPage" />
+        <activity android:name=".CareProviderMainpage"></activity>
     </application>
 
 </manifest>

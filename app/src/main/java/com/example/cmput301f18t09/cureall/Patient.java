@@ -7,6 +7,7 @@ public class Patient extends user{
     public String patientID;
     private ArrayList<Problem> problemArrayList;
     private ArrayList<Record> recordArrayList;
+    public String doctorID;
 
     //special function
     private boolean userAuthenticate() {
@@ -17,9 +18,11 @@ public class Patient extends user{
     public Patient(String username, String password, String email, String phone) {
         super(username, password,email, phone);
     }
+    public String getDoctorID(){return this.doctorID;}
+    public void setDoctorID(String ID){this.doctorID = ID;}
 
     public String getPatientID() {
-        return patientID;
+        return this.patientID;
     }
 
     public void setPatientID(String patientID) {

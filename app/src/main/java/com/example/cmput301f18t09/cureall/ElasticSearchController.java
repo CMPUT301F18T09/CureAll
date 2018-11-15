@@ -7,6 +7,8 @@ import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
 
+//import org.elasticsearch.action.update.UpdateRequest;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -19,8 +21,90 @@ import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 
 
+
 public class ElasticSearchController {
     private static JestDroidClient client;
+
+    public static class GetPatientListTask extends AsyncTask<String, Void, ArrayList<String>> {
+        @Override
+        protected ArrayList<String> doInBackground(String... search_parameters) {
+            verifySettings();
+
+            ArrayList<String> users = new ArrayList<String>();
+
+            // TODO Build the query
+
+            //String query = "{ \"query\" : { \"match\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
+            String query = "{  \"query\" : {\n" +
+                    "        \"term\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
+                    "    }\n" +
+                    "}";
+
+            Search search = new Search.Builder(query)
+                    .addIndex("cmput301f18t09test")
+                    .addType("problem")
+                    .build();
+
+            try {
+                // TODO get the results of the query
+                SearchResult result = client.execute(search);
+                if (result.isSucceeded()) {
+                    ArrayList<String> IDs = new ArrayList<String>();
+                    Log.i("Read","Read success");
+
+                    List<String> foundPatients = result.getSourceAsObjectList(String.class);
+                    users.addAll(foundPatients);
+
+
+                } else {
+                    Log.i("Error", "The search query failed to find any tweets that matched");
+                }
+            } catch (Exception e) {
+                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+            }
+            return users;
+        }
+
+    }
+
+    public static class PatientListTask extends AsyncTask<ElasticSearchParams, Void, Void> {
+
+        @Override
+        protected Void doInBackground(ElasticSearchParams... params) {
+            verifySettings();
+            String username = params[0].username;
+            ArrayList<String> patients= params[0].patients;
+
+            Integer num = params[0].num;
+            //for (String patient : patients) {
+            String source = "{\"patient\":\""+patients.get(0)+"\",\n"+
+                            "\"doctor:\":\""+username+"\" }";
+
+            if (num < 1000000){
+                String Num = String.format("%06d",num);
+                String id = username+ "2" + Num;
+                Index index = new Index.Builder(source).index("cmput301f18t09test").type("patientList").id(id).build();
+                try {
+
+                    //Index index = new Index.Builder(source).index("cmput301f18t09test").type("PatientList").id(id).build();
+                    DocumentResult result = client.execute(index);
+                    if (result.isSucceeded()) {
+                        //user.setPatientID(result.getId());
+                        Log.i("PatientList", "save success!");
+                    } else {
+                        Log.i("Error", "Elasticsearch was not able to add the patient");
+                    }
+                } catch (Exception e) {
+                    Log.i("Error", "The application failed add the PatientList");
+                }
+            }
+
+
+
+
+            return null;
+        }
+    }
 
     public static class GetProblemTask extends AsyncTask<String, Void, ArrayList<Problem>> {
         @Override
@@ -31,7 +115,7 @@ public class ElasticSearchController {
 
             // TODO Build the query
 
-            //String query = "{ \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
+            //String query = "{ \"query\" : { \"match\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
             String query = "{  \"query\" : {\n" +
                     "        \"term\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
                     "    }\n" +
@@ -184,29 +268,6 @@ public class ElasticSearchController {
                 Log.i("Error", "The application failed to build and send the patient");
             }
 
-            /*for (Problem user : users) {
-                //String id = user.getUsername()+"1000001";
-                String id = user.getId();
-                Index index = new Index.Builder(user).index("cmput301f18t09test").type("patient").id(id).build();
-
-                try {
-                    // where is the client?
-                    client.execute(new Delete.Builder(id)
-                            .index("cmput301f18t09test")
-                            .type("patient")
-                            .build());
-                    //DocumentResult result = client.execute(index);
-
-                    //if (result.isSucceeded()) {
-                        //user.setPatientID(result.getId());
-                    //} else {
-                    //    Log.i("Error", "Elasticsearch was not able to add the patient");
-                    //}
-                } catch (Exception e) {
-                    Log.i("Error", "The application failed to build and send the patient");
-                }
-
-            }*/
             return null;
         }
     }
@@ -251,7 +312,7 @@ public class ElasticSearchController {
             // TODO Build the query
 
             //String query = "{ \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
-            String query = "{   \"size\": 3, \n" +"\"query\" : {\n" +
+            String query = "{   \"query\" : {\n" +
                     "        \"term\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
                     "    }\n" +
                     "}";
@@ -363,8 +424,8 @@ public class ElasticSearchController {
 
                     List<CareProvider> foundusers = result.getSourceAsObjectList(CareProvider.class);
                     users.addAll(foundusers);
-                    //Log.i("Read",Integer.toString(tweets.size()));
-                    //Log.i("Read",tweets.get(0).getPassword());
+                    Log.i("Read",Integer.toString(users.size()));
+                    Log.i("Read",users.get(0).getPassword());
                 } else {
                     Log.i("Error", "The search query failed to find any tweets that matched");
                 }
@@ -375,6 +436,7 @@ public class ElasticSearchController {
             return users;
         }
     }
+
 
     public static void verifySettings() {
         if (client == null) {
