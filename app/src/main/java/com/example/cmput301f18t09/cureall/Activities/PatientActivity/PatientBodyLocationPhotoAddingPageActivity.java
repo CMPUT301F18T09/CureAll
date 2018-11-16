@@ -11,17 +11,20 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.cmput301f18t09.cureall.Activities.publicActitivy.PatientPaperDollSelectionPageActivity;
 import com.example.cmput301f18t09.cureall.PaperDollController.BodyPart;
 import com.example.cmput301f18t09.cureall.R;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivity {
@@ -30,6 +33,7 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
     private TextView selectedBodyLocation, fixedText1,fixedText2,fixedText3,fixedText4,fixedText5;
     private String mCurrentPhotoPath;
     private int switcher;
+    private ArrayList<String> pictures = new ArrayList<String>();
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
 
@@ -86,6 +90,7 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
             public void onClick(View v) {
                 switcher = 0;
                 dispatchTakePictureIntent();
+                //Log.i("pics", String.valueOf(pictures.size()));
 
             }
         });
@@ -97,6 +102,27 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
 
             }
         });
+        cameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switcher = 3;
+                Log.i("pics", String.valueOf(pictures.size()));
+                dispatchTakePictureIntent();
+
+            }
+        });
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PatientBodyLocationPhotoAddingPageActivity.this, PatientRecordAddingPageActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("photo paths", pictures);
+                intent.putExtras(bundle);
+
+                startActivity(intent);
+            }
+        });
+
     }
 
     public void initializedAllElements(){
@@ -149,7 +175,7 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
             {
                 frontPhotoButton.setBackground(drawable);
             }
-            else{
+            else if (switcher == 1){
                 backPhotoButton.setBackground(drawable);
             }
         }
@@ -169,6 +195,7 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
 
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
+        pictures.add(mCurrentPhotoPath);
         return image;
     }
 

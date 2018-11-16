@@ -7,9 +7,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.cmput301f18t09.cureall.PaperDollController.BodyPart;
 import com.example.cmput301f18t09.cureall.R;
 
+import java.util.ArrayList;
+
 public class PatientRecordAddingPageActivity extends AppCompatActivity {
+    private ArrayList<String> photoPaths;
     private ImageButton backButton, saveButton, fromAlbumButton,
             cameraButton,geoLocationSelectButton,timeSelectButton,bodyLocationSelectButton;
     private ImageView writeSymbol;
@@ -32,6 +36,8 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
         maxLength300 = findViewById(R.id.maxLength300);
         titleInput = findViewById(R.id.titleInput);
         descriptionInput = findViewById(R.id.descriptionInput);
+
+        photoPaths = (ArrayList<String>) getIntent().getSerializableExtra("photo paths");
 
 
 
