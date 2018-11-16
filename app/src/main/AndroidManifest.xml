@@ -37,7 +37,9 @@
         <activity android:name=".Activities.publicActitivy.PatientPaperDollSelectionPageActivity" />
         <activity android:name=".Activities.PatientActivity.PatientBodyLocationPhotoAddingPageActivity" />
         <activity android:name=".Activities.PatientActivity.PatientViewBodyLocationPhotoPageActivity" />
-        <activity android:name=".Activities.PatientActivity.PatientPhotoFlowPageActivity"></activity>
+        <activity android:name=".Activities.PatientActivity.PatientPhotoFlowPageActivity" />
+        <activity android:name=".Activities.publicActitivy.SearchActivity" />
+        <activity android:name=".Activities.publicActitivy.SearchResultActivity" />
     </application>
 
 </manifest>
