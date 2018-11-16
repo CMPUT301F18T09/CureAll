@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CureAll</string>
+    <string name="google_place_api">AIzaSyCLmVR-2hNfS-CuldxxrOMUouvEZh9uG8I</string>
 </resources>
