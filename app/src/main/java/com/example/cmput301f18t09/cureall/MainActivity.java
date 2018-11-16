@@ -32,9 +32,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        button = (Button) findViewById(R.id.GetMapButton);
+        button = (Button) findViewById(R.id.GetCurrentLocation);
         textView = (TextView) findViewById(R.id.View);
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
@@ -62,8 +63,24 @@ public class MainActivity extends AppCompatActivity {
                     Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.INTERNET}, 10);
             return;
+        }else{
+            configureButton();
         }
-        //
+
+        GeoLocation = (TextView)findViewById(R.id.PickGeoLocation);
+        GeoLocation.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+                try {
+                    startActivityForResult(builder.build(MainActivity.this),PLACE_PICKER_REQUEST);
+                } catch (GooglePlayServicesRepairableException e) {
+                    e.printStackTrace();
+                } catch (GooglePlayServicesNotAvailableException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override
@@ -81,45 +98,23 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                locationManager.requestLocationUpdates("gps", 5000, 0, locationListener);
+                locationManager.requestLocationUpdates("gps", 0, 0, locationListener);
             }
         });
     }
 
 
-//    int PLACE_PICKER_REQUEST = 1;
-//    private TextView GeoLocation;
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//        GeoLocation = (TextView)findViewById(R.id.GetMapButton);
-//        GeoLocation.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View v){
-//                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-//                Intent MapActivity;
-//
-//                try {
-//                    MapActivity = builder.build((Activity) getApplicationContext());
-//                    startActivityForResult(MapActivity,PLACE_PICKER_REQUEST);
-//                } catch (GooglePlayServicesRepairableException e) {
-//                    e.printStackTrace();
-//                } catch (GooglePlayServicesNotAvailableException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//        });
-//    }
-//
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-//        if (requestCode == PLACE_PICKER_REQUEST){
-//            if (resultCode == RESULT_OK){
-//                Place place = PlacePicker.getPlace(this,data);
-//                String geolocation = String.format("%s",place.getAddress());//(String) place.getAddress();
-//                GeoLocation.setText(geolocation);
-//            }
-//        }
-//    }
+    int PLACE_PICKER_REQUEST = 1;
+    private TextView GeoLocation;
+
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if (requestCode == PLACE_PICKER_REQUEST){
+            if (resultCode == RESULT_OK){
+                Place place = PlacePicker.getPlace(this,data);
+                String geolocation = String.format("%s",place.getAddress());//(String) place.getAddress();
+                GeoLocation.setText(geolocation);
+            }
+        }
+    }
 }

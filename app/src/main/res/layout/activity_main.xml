@@ -17,13 +17,23 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/GetMapButton"
-        android:layout_width="wrap_content"
+        android:id="@+id/GetCurrentLocation"
+        android:layout_width="181dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="Map"
+        android:layout_marginStart="19dp"
+        android:text="GetCurrentLocation"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/PickGeoLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
+        android:layout_marginStart="16dp"
+        android:text="PickGeoLocation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
