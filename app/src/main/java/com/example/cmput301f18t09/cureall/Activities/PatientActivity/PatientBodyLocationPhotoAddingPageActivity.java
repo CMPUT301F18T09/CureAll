@@ -18,8 +18,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.PatientPaperDollSelectionPageActivity;
+import com.example.cmput301f18t09.cureall.BodyLocation;
 import com.example.cmput301f18t09.cureall.PaperDollController.BodyPart;
 import com.example.cmput301f18t09.cureall.R;
+import com.example.cmput301f18t09.cureall.Record;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,55 +37,17 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
     private int switcher;
     private ArrayList<String> pictures = new ArrayList<String>();
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    private Record record;
+    private BodyLocation bodyLocation;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        BodyPart bodyPart = (BodyPart) getIntent().getSerializableExtra("body part");
         setContentView(R.layout.activity_patient_body_location_photo_adding_page);
         initializedAllElements();
 
-        switch (bodyPart){
-            case HAND:
-                selectedBodyLocation.setText("HAND");
-                break;
-            case HEAD:
-                selectedBodyLocation.setText("HEAD");
-                break;
-            case HIP:
-                selectedBodyLocation.setText("HIP");
-                break;
-            case FOOT:
-                selectedBodyLocation.setText("FOOT");
-                break;
-            case KNEE:
-                selectedBodyLocation.setText("KNEE");
-                break;
-            case CHEST:
-                selectedBodyLocation.setText("CHEST");
-                break;
-            case FOREARM:
-                selectedBodyLocation.setText("FOREARM");
-                break;
-            case SHOULDER:
-                selectedBodyLocation.setText("SHOULDER");
-                break;
-            case LOWER_LEG:
-                selectedBodyLocation.setText("LOWER LEG");
-                break;
-            case UPPER_LEG:
-                selectedBodyLocation.setText("UPPER LEG");
-                break;
-            case LOWER_BACK:
-                selectedBodyLocation.setText("LOWER BACK");
-                break;
-            case UPPER_BACK:
-                selectedBodyLocation.setText("UPPER BACK");
-                break;
-            case NULL:
-                break;
-        }
+
 
         frontPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,9 +78,11 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                bodyLocation.setBodyLocationPhotoArrayList(pictures);
+                record.setBodyLocation(bodyLocation);
                 Intent intent = new Intent(PatientBodyLocationPhotoAddingPageActivity.this, PatientRecordAddingPageActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("photo paths", pictures);
+                bundle.putSerializable("record", record);
                 intent.putExtras(bundle);
 
                 startActivity(intent);
@@ -138,6 +104,8 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
         fixedText3 = findViewById(R.id.fixedText3);
         fixedText4 = findViewById(R.id.fixedText4);
         fixedText5 = findViewById(R.id.fixedText5);
+        record = (Record) getIntent().getSerializableExtra("record");
+        bodyLocation = record.getBodyLocation();
     }
 
     private void dispatchTakePictureIntent() {

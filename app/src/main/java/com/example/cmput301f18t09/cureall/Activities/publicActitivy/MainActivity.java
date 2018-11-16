@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientListOfProblemsPageActivity;
+import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientRecordAddingPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientSignUpActivity;
 import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderSignUpActivity;
 import com.example.cmput301f18t09.cureall.BodyLocation;
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         jump.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, PatientPaperDollSelectionPageActivity.class);
+                Intent intent = new Intent(MainActivity.this, PatientListOfProblemsPageActivity.class);
                 Bundle bundle = new Bundle();
 
                 intent.putExtras(bundle);

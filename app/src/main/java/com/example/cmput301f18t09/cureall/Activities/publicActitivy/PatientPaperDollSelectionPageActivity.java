@@ -19,6 +19,7 @@ import com.example.cmput301f18t09.cureall.PaperDollController.*;
 
 import com.example.cmput301f18t09.cureall.PaperDollController.BodyColor;
 import com.example.cmput301f18t09.cureall.R;
+import com.example.cmput301f18t09.cureall.Record;
 
 import java.util.ArrayList;
 
@@ -29,7 +30,7 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
 
     private float lastTouchX;  // position x
     private float lastTouchY;  // position y
-
+    Record record;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +46,7 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
         femaleText =findViewById(R.id.femaleText);
         maleText =findViewById(R.id.maleText);
         switch1 =findViewById(R.id.switch1);
+        record = (Record) getIntent().getSerializableExtra("record");
     }
     View.OnTouchListener touchListener= new View.OnTouchListener() {
         @Override
@@ -53,9 +55,12 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
             BodyColor bodyColor = new BodyColor();
             BodyPart bodyPart = bodyColor.getBodyPart(color);
             Log.i("Click", "Color = "+ Integer.toString(color));
+            BodyLocation bodyLocation = checkBody(bodyPart);
+            record.setBodyLocation(bodyLocation);
             Intent intent = new Intent(PatientPaperDollSelectionPageActivity.this, PatientBodyLocationPhotoAddingPageActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putSerializable("body part", bodyPart);
+            bundle.putSerializable("record", record);
+            //bundle.putSerializable("body", bodyLocation);
 
             intent.putExtras(bundle);
 
@@ -63,33 +68,7 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
             return false;
         }
     };
-    /**
-    View.OnTouchListener touchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            if (e.getActionMasked() == MotionEvent.ACTION_UP) {
-                int color = getHotspotColor(R.id.colorMap,(int) e.getX(),(int) e.getY());  // an integer represents the color
 
-                Log.i("Click", "X = "+ e.getX() + " Y = " + e.getY());
-
-                if (bodyColor.getBodyPart(color) == BodyPart.NULL) {  // the position is invalid
-                    return false;
-                }
-
-                // position is valid save it into variables
-                lastTouchX = (int) e.getX();
-                lastTouchY = (int) e.getY();
-                Toast toast = Toast.makeText(getApplicationContext(), ""+bodyColor.getBodyPart(color), Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER, 0, 0);
-                toast.show();
-                return true;
-            }
-
-            // let the touch event pass on to whoever needs it
-            return false;
-        }
-    };
-     **/
     public int getHotspotColor (int hotspotId, int x, int y) {
         ImageView img = findViewById (hotspotId);
         if (img == null) {
@@ -106,6 +85,51 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
                 return hotspot.getPixel(x, y);
             }
         }
+    }
+    private BodyLocation checkBody(BodyPart bodyPart)
+    {
+        BodyLocation bodyLocation = new BodyLocation(null,new ArrayList<String>());
+        switch (bodyPart){
+            case HAND:
+                bodyLocation.setBodyLocationName("HAND");
+                break;
+            case HEAD:
+                bodyLocation.setBodyLocationName("HEAD");
+                break;
+            case HIP:
+                bodyLocation.setBodyLocationName("HIP");
+                break;
+            case FOOT:
+                bodyLocation.setBodyLocationName("FOOT");
+                break;
+            case KNEE:
+                bodyLocation.setBodyLocationName("KNEE");
+                break;
+            case CHEST:
+                bodyLocation.setBodyLocationName("CHEST");
+                break;
+            case FOREARM:
+                bodyLocation.setBodyLocationName("FOREARM");
+                break;
+            case SHOULDER:
+                bodyLocation.setBodyLocationName("SHOULDER");
+                break;
+            case LOWER_LEG:
+                bodyLocation.setBodyLocationName("LOWER LEG");
+                break;
+            case UPPER_LEG:
+                bodyLocation.setBodyLocationName("UPPER LEG");
+                break;
+            case LOWER_BACK:
+                bodyLocation.setBodyLocationName("LOWER_BACK");
+                break;
+            case UPPER_BACK:
+                bodyLocation.setBodyLocationName("UPPER_BACK");
+                break;
+            case NULL:
+                break;
+        }
+        return bodyLocation;
     }
 
 }

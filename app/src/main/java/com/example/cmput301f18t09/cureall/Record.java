@@ -2,8 +2,9 @@ package com.example.cmput301f18t09.cureall;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.io.Serializable;
 
-public class Record {
+public class Record implements Serializable{
     public String title,comment;
     public Date time;
     public GeoLocation geoLocation;
