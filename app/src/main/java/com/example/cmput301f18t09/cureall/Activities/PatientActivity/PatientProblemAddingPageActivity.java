@@ -23,6 +23,7 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
         initializedAllElements();
 
     }
+
     public void initializedAllElements(){
         maxLength30 = (TextView) findViewById(R.id.maxLength30);
         maxLength300 = findViewById(R.id.maxLength300);

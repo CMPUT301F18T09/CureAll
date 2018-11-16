@@ -7,25 +7,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.cmput301f18t09.cureall.R;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 public class photoFlowPageAdapter extends PagerAdapter {
     private Context mContext;
-    private int[] mImageIds = new int[]{
-          R.drawable.paper_doll_test,R.drawable.paper_doll_test
-    };
-    public photoFlowPageAdapter(Context context){
+    private ArrayList<String> imageUrls;
+    public photoFlowPageAdapter(Context context, ArrayList<String> imageUrls){
         mContext = context;
+        this.imageUrls = imageUrls;
     }
 
 
     @Override
     public int getCount() {
-        return mImageIds.length;
+        return imageUrls.size();
     }
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object o) {
+
         return view == o;
     }
 
@@ -33,9 +35,13 @@ public class photoFlowPageAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         ImageView imageView = new ImageView(mContext);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setImageResource(mImageIds[position]);
-        container.addView(imageView,0);
+        Picasso.get()
+                .load(imageUrls.get(position))
+                .into(imageView);
+        //imageView.setImageResource(mImageIds[position]);
+        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        container.addView(imageView);
+
         return imageView;
     }
 
