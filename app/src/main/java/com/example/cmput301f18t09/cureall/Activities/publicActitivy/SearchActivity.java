@@ -27,14 +27,14 @@ public class SearchActivity extends AppCompatActivity {
         startSearching = findViewById(R.id.GO);
 
 
-
+        //go search
         startSearching.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(SearchActivity.this,SearchResultActivity.class));
             }
         });
-
+        //go back
         back.setOnClickListener(new View.OnClickListener() {
             @Override
 
