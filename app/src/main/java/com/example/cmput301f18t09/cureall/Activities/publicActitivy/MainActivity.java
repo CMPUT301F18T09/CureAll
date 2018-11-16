@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,12 +13,14 @@ import android.widget.Toast;
 
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientSignUpActivity;
 import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderSignUpActivity;
+import com.example.cmput301f18t09.cureall.BodyLocation;
 import com.example.cmput301f18t09.cureall.R;
 
 public class MainActivity extends AppCompatActivity {
     private ImageButton imagePatientlogin, imageProviderlogin, imagePatientSignUp,imageProviderSignUp;
     private TextView textPatient,textProvider;
     private ImageView loveSymbol;
+
     View.OnClickListener buttonListener;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,6 +31,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
+        Button jump = (Button)findViewById(R.id.jump);
+        jump.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, PatientPaperDollSelectionPageActivity.class);
+                Bundle bundle = new Bundle();
+
+                intent.putExtras(bundle);
+
+                startActivity(intent);
+            }
+        });
         buttonListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {

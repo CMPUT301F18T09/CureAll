@@ -1,5 +1,6 @@
 package com.example.cmput301f18t09.cureall.Activities.publicActitivy;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,8 +13,14 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientBodyLocationPhotoAddingPageActivity;
+import com.example.cmput301f18t09.cureall.BodyLocation;
+import com.example.cmput301f18t09.cureall.PaperDollController.*;
+
 import com.example.cmput301f18t09.cureall.PaperDollController.BodyColor;
 import com.example.cmput301f18t09.cureall.R;
+
+import java.util.ArrayList;
 
 public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
     private ImageView paperDoll,paperDollColorDivide;
@@ -43,7 +50,16 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
         @Override
         public boolean onTouch(View v, MotionEvent e) {
             int color = getHotspotColor(R.id.paperDollColorDivide,(int) e.getX(),(int) e.getY());
+            BodyColor bodyColor = new BodyColor();
+            BodyPart bodyPart = bodyColor.getBodyPart(color);
             Log.i("Click", "Color = "+ Integer.toString(color));
+            Intent intent = new Intent(PatientPaperDollSelectionPageActivity.this, PatientBodyLocationPhotoAddingPageActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("body part", bodyPart);
+
+            intent.putExtras(bundle);
+
+            startActivity(intent);
             return false;
         }
     };

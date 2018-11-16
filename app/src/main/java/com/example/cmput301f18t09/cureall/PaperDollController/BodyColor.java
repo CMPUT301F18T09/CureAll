@@ -23,6 +23,7 @@ public class BodyColor {
 
         // define color values
         head.add(-16777216);
+        head.add(-16744963);
 
         shoulder.add(-16777116);
         shoulder.add(-16777166);
