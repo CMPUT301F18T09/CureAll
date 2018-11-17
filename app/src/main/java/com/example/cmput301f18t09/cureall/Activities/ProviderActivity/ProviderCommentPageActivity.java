@@ -14,7 +14,7 @@ public class ProviderCommentPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_comment_page);
-        backButton = (ImageButton) findViewById(R.id.searchButton);
+        backButton = (ImageButton) findViewById(R.id.backButton);
         saveButton = (ImageButton) findViewById(R.id.saveButton);
         providerComments = (EditText) findViewById(R.id.providerComments);
     }

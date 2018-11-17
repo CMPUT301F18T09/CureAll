@@ -19,7 +19,7 @@ import com.example.cmput301f18t09.cureall.BodyLocation;
 import com.example.cmput301f18t09.cureall.R;
 
 public class MainActivity extends AppCompatActivity {
-    private ImageButton imagePatientlogin, imageProviderlogin, imagePatientSignUp,imageProviderSignUp;
+    private Button imagePatientlogin, imageProviderlogin, imagePatientSignUp,imageProviderSignUp;
     private TextView textPatient,textProvider;
     private ImageView loveSymbol;
 
@@ -81,10 +81,11 @@ public class MainActivity extends AppCompatActivity {
         textProvider = (TextView) findViewById(R.id.textViewProvider);
     }
     public void setButtonOnclick(){
-        imagePatientlogin = (ImageButton) findViewById(R.id.patientLogin);
-        imageProviderlogin = (ImageButton) findViewById(R.id.ProviderLogin);
-        imagePatientSignUp = (ImageButton) findViewById(R.id.patientSignUp);
-        imageProviderSignUp = (ImageButton) findViewById(R.id.ProviderSignUp);
+        imagePatientlogin = (Button) findViewById(R.id.patientLogin);
+        imageProviderlogin = (Button) findViewById(R.id.ProviderLogin);
+
+        imagePatientSignUp = (Button) findViewById(R.id.patientSignUp);
+        imageProviderSignUp = (Button) findViewById(R.id.ProviderSignUp);
         imagePatientlogin.setOnClickListener(buttonListener);
         imageProviderlogin.setOnClickListener(buttonListener);
         imagePatientSignUp.setOnClickListener(buttonListener);
@@ -102,10 +103,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, UserLoginActivity.class);
         String theComer = comer;
         if (theComer.equals("Patient")){
-            intent.putExtra("user", theComer);
+            intent.putExtra("Role", theComer);
         }
         else{
-            intent.putExtra("user", theComer);
+            intent.putExtra("Role", theComer);
         }
         startActivity(intent);
     }

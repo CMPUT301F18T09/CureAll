@@ -3,6 +3,7 @@ package com.example.cmput301f18t09.cureall;
 import java.util.ArrayList;
 
 public class CareProvider extends user {
+    public String DoctorID;
 
     private ArrayList<Patient> patientArrayList;
     //special fucntion
@@ -19,7 +20,13 @@ public class CareProvider extends user {
     public void addPatientByName(String username){
 
     }
+    public String getDoctorID() {
+        return DoctorID;
+    }
 
+    public void setDoctorID(String DoctorID) {
+        this.DoctorID = DoctorID;
+    }
 
     //end
 

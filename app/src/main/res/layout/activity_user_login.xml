@@ -27,7 +27,7 @@
         android:layout_marginBottom="180dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="password"
+        android:hint="password"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,14 +40,15 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="username"
+        android:hint="username"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/passwordInputpass"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageButton
+    <Button
         android:id="@+id/loginButton"
+        android:text ="Login"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginBottom="64dp"
@@ -56,8 +57,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@mipmap/ic_launcher_round" />
 
-    <ImageButton
-        android:id="@+id/searchButton"
+    <Button
+        android:id="@+id/backButton"
+        android:text="back"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginBottom="64dp"

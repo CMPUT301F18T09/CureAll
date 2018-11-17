@@ -62,7 +62,7 @@ public class ProviderRecordDetailPageActivity extends AppCompatActivity {
 
 
     public void initalizeAllElements(){
-        backButton = (ImageButton) findViewById(R.id.searchButton);
+        backButton = (ImageButton) findViewById(R.id.backButton);
         geoLocationButton = (ImageButton) findViewById(R.id.geoLocationButton);
         title = (TextView) findViewById(R.id.title);
         titleContent = (TextView) findViewById(R.id.titleContent);

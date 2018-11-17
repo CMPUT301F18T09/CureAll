@@ -32,7 +32,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
         titleInput = findViewById(R.id.titleInput);
         dateInput = findViewById(R.id.dateInput);
         descriptionInput = findViewById(R.id.descriptionInput);
-        searchButton = findViewById(R.id.searchButton);
+        searchButton = findViewById(R.id.backButton);
         photoAnimationButton = findViewById(R.id.photoAnimationButton);
         addButton = findViewById(R.id.addButton);
         viewProviderCommentButton = findViewById(R.id.viewProviderCommentButton);

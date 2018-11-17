@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientProblemDetailPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.SearchActivity;
 import com.example.cmput301f18t09.cureall.ProviderAdapter.ProblemDetailPageAdapter;
 import com.example.cmput301f18t09.cureall.R;
@@ -30,12 +29,12 @@ public class ProviderProblemDetailPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_problem_detail_page);
-        backButton = (ImageButton) findViewById(R.id.searchButton);
+        backButton = (ImageButton) findViewById(R.id.backButton);
         addButton = (ImageButton) findViewById(R.id.addButton);
         titleView = (TextView) findViewById(R.id.titleView);
         dateView = (TextView) findViewById(R.id.dateView);
         descriptionView =(TextView) findViewById(R.id.descriptionView);
-        searchButton = findViewById(R.id.searchButton);
+        searchButton = findViewById(R.id.backButton);
 
         searchButton.setOnClickListener(new View.OnClickListener() {
 

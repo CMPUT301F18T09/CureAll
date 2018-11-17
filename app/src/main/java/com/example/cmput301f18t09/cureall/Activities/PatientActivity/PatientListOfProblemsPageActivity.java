@@ -1,8 +1,6 @@
 package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 
-import android.media.Image;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -21,9 +19,9 @@ import android.widget.Toast;
 
 import com.example.cmput301f18t09.cureall.PatientAdapter.PatientProblemListPageAdapter;
 import com.example.cmput301f18t09.cureall.Problem;
-import com.example.cmput301f18t09.cureall.ProviderAdapter.ProblemListPageAdapter;
 import com.example.cmput301f18t09.cureall.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -33,24 +31,20 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     View.OnClickListener buttomListener;
+    private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
     //drawer..
     private DrawerLayout drawer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_list_of_problems_page);
-        searchButton = (ImageButton) findViewById(R.id.searchButton);
+        searchButton = (ImageButton) findViewById(R.id.backButton);
         problemAddingButton = (ImageButton) findViewById(R.id.problemAddingButton);
         //test samples...
         ArrayList<Problem> exampleProblemList = new ArrayList<>();
-        exampleProblemList.add(new Problem("Smallpox", "feels horrible", new Date(), "no comment"));
-        exampleProblemList.add(new Problem("lung adenocarcinoma", "feels horrible", new Date(), "no comment"));
-        exampleProblemList.add(new Problem("lung adenocarcinoma lung adenocarcinoma", "feels horrible", new Date(), "no comment"));
-        exampleProblemList.add(new Problem("flu", "feels horrible", new Date(), "no comment"));
-        exampleProblemList.add(new Problem("flu", "feels horrible", new Date(), "no comment"));
-        exampleProblemList.add(new Problem("flu", "feels horrible", new Date(), "no comment"));
-        exampleProblemList.add(new Problem("flu", "feels horrible", new Date(), "no comment"));
-        exampleProblemList.add(new Problem("flu", "feels horrible", new Date(), "no comment"));
+        exampleProblemList.add(new Problem("one", "feels horrible", "no comment",df.format(new Date()),"no comment" ));
+        exampleProblemList.add(new Problem("two", "feels horrible", "no comment",df.format(new Date()),"no comment" ));
         //test ends...
 
         recyclerView = findViewById(R.id.listOfProblems);

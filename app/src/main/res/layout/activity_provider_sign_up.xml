@@ -96,7 +96,7 @@
         app:srcCompat="@mipmap/ic_launcher_round" />
 
     <ImageButton
-        android:id="@+id/searchButton"
+        android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginBottom="32dp"

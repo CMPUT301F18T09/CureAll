@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent"></android.support.v7.widget.RecyclerView>
 
     <ImageButton
-        android:id="@+id/searchButton"
+        android:id="@+id/backButton"
         android:layout_width="65dp"
         android:layout_height="65dp"
         android:layout_marginBottom="8dp"

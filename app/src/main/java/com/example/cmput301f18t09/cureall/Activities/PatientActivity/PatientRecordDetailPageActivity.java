@@ -8,7 +8,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.cmput301f18t09.cureall.PatientAdapter.PatientRecordDetailPageAdapter;
-import com.example.cmput301f18t09.cureall.ProviderAdapter.RecordDetailPageAdapter;
 import com.example.cmput301f18t09.cureall.R;
 
 import java.util.ArrayList;
@@ -59,7 +58,7 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
 
     }
     public void initalizeAllElements(){
-        backButton = (ImageButton) findViewById(R.id.searchButton);
+        backButton = (ImageButton) findViewById(R.id.backButton);
         geoLocationButton = (ImageButton) findViewById(R.id.geoLocationButton);
         title = findViewById(R.id.title);
         titleContent = findViewById(R.id.titleContent);

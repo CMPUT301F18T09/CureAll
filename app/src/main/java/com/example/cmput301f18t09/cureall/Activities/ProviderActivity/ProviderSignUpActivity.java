@@ -21,7 +21,7 @@ public class ProviderSignUpActivity extends AppCompatActivity{
         initalizeAllElements();
     }
     public void initalizeAllElements(){
-        backButton = (ImageButton) findViewById(R.id.searchButton);
+        backButton = (ImageButton) findViewById(R.id.backButton);
         backButton = (ImageButton) findViewById(R.id.continueButton);
         userNameInput = (EditText) findViewById(R.id.userNameInput);
         passwordInput = (EditText) findViewById(R.id.passwordInputpass);

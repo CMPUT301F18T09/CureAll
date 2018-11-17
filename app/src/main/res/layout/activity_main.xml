@@ -6,17 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".Activities.publicActitivy.MainActivity">
 
-    <ImageButton
+    <Button
         android:id="@+id/ProviderSignUp"
+        android:text="Provider Sign up"
         android:layout_width="0dp"
         android:layout_height="39dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@mipmap/ic_launcher" />
+        />
 
-    <ImageButton
+    <Button
         android:id="@+id/patientSignUp"
+        android:text="Patient sign up"
         android:layout_width="0dp"
         android:layout_height="43dp"
         android:layout_marginTop="8dp"
@@ -25,27 +27,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@mipmap/ic_launcher" />
+        />
 
-    <ImageButton
+    <Button
         android:id="@+id/ProviderLogin"
+        android:text="Provider Login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"
         android:layout_marginTop="200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_launcher_round" />
+       />
 
-    <ImageButton
+    <Button
         android:id="@+id/patientLogin"
+        android:text="Patient Login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginTop="200dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_launcher_round" />
+        />
 
     <TextView
         android:id="@+id/textViewPatient"
