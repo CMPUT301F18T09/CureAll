@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.cmput301f18t09.cureall.Activities.publicActitivy.MapActivity;
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.SearchActivity;
 import com.example.cmput301f18t09.cureall.ProviderAdapter.ProblemDetailPageAdapter;
 import com.example.cmput301f18t09.cureall.R;
@@ -48,7 +49,9 @@ public class ProviderProblemDetailPageActivity extends AppCompatActivity {
                         if (i==0 || i==1) {
                             startActivity(new Intent(ProviderProblemDetailPageActivity.this,SearchActivity.class).putExtra("From","provider"));
                         }
-                        else {}
+                        else {
+                            startActivity(new Intent(ProviderProblemDetailPageActivity.this,MapActivity.class).putExtra("From","provider"));
+                        }
                     }
                 });
                 AlertDialog dialog = builder.create();

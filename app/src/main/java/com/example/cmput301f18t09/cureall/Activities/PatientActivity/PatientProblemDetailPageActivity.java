@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.example.cmput301f18t09.cureall.Activities.publicActitivy.MapActivity;
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.SearchActivity;
 import com.example.cmput301f18t09.cureall.PatientAdapter.PatientProblemDetailPageAdapter;
 import com.example.cmput301f18t09.cureall.R;
@@ -50,7 +51,9 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
                         if (i==0 || i==1) {
                             startActivity(new Intent(PatientProblemDetailPageActivity.this,SearchActivity.class).putExtra("From","patient"));
                         }
-                        else {}
+                        else {
+                            startActivity(new Intent(PatientProblemDetailPageActivity.this,MapActivity.class).putExtra("From","patient"));
+                        }
                     }
                 });
                 AlertDialog dialog = builder.create();
