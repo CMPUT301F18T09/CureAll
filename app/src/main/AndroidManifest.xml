@@ -30,7 +30,8 @@
 
         <activity android:name=".PatientMainPage" />
         <activity android:name=".CareProviderMainpage" />
-        <activity android:name=".SearchPage"></activity>
+        <activity android:name=".SearchPage" />
+        <activity android:name=".RecordPage"></activity>
     </application>
 
 </manifest>

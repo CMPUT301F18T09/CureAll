@@ -19,11 +19,103 @@ import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
-
+import io.searchbox.indices.mapping.PutMapping;
 
 
 public class ElasticSearchController {
     private static JestDroidClient client;
+    public static class SearchGeoTask extends AsyncTask<String, Void, ArrayList<Record>> {
+        @Override
+        protected ArrayList<Record> doInBackground(String... search_parameters) {
+            verifySettings();
+
+            ArrayList<Record> records = new ArrayList<Record>();
+
+            // TODO Build the query
+
+
+
+            String query ="{\n" +
+                    "\"query\": { \n" +
+                    "\"filtered\" : { \n" +
+                    "\"query\" : { \n" +
+                    "\"match_all\" : {} \n" +
+                    "}, \n" +
+                    "\"filter\" : { \n" +
+                    "\"geo_distance\" : { \n" +
+                    "\"distance\" : \"500m\", \n" +
+                    "\"geoLocation.Location\": { \n" +
+                    "\"lat\": 40.12,\n" +
+                    "\"lon\": -71.34\n" +
+                    "}\n" +
+                    "}\n" +
+                    "}\n" +
+                    "}\n" +
+                    "}\n" +
+                    "}";
+
+            Search search = new Search.Builder(query)
+                    .addIndex("cmput301f18t09test")
+                    .addType("records")
+                    .build();
+
+            try {
+
+                // TODO get the results of the query
+                SearchResult result = client.execute(search);
+                if (result.isSucceeded()) {
+
+                    Log.i("Read","Read success");
+
+                    List<Record> foundrecords = result.getSourceAsObjectList(Record.class);
+                    records.addAll(foundrecords);
+                    for(Record p:records){
+                        Log.i("Problem",p.getTitle());
+                    }
+
+                } else {
+                    Log.i("Error", "The search query failed to find any tweets that matched");
+                }
+            } catch (Exception e) {
+                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+            }
+
+            return records;
+        }
+    }
+
+    public static class AddRecordTask extends AsyncTask<ElasticSearchParams, Void, Void> {
+
+        @Override
+        protected Void doInBackground(ElasticSearchParams... params) {
+            verifySettings();
+
+            Record record = params[0].record;
+            String username = params[0].username;
+            String problemid = params[0].problemid;
+
+
+
+
+            Index index = new Index.Builder(record).index("cmput301f18t09test").type("records").build();
+            try {
+                // where is the client?
+                DocumentResult result = client.execute(index);
+                //client.execute(index);
+                if (result.isSucceeded()) {
+                    //user.setPatientID(result.getId());
+                    Log.i("Problem","Record save success!");
+                } else {
+                    Log.i("Error", "Elasticsearch was not able to add the patient");
+                }
+            } catch (Exception e) {
+                Log.i("Error", "The application failed to build and send the patient");
+            }
+
+            Log.i("map","end");
+            return null;
+        }
+    }
 
 
     public static class SearchKeywordsTask extends AsyncTask<String, Void, ArrayList<Problem>> {
@@ -38,17 +130,12 @@ public class ElasticSearchController {
 
             String query = "{\"query\":{\n"+
                                 "\"match all\":{\n"+
-                                    "\"title\":\"blue attachment\"\n"+
+                                    "\"title\":\"blue\"\n"+
+                                    "\"description:\":\"I lost\""+
                                 "}\n" +
                                 "}\n"+
                             "}";
 
-
-            //String query = "{ \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
-            /*String query = "{  \"query\" : {\n" +
-                    "        \"term\" : { \"title\" : \"" + search_parameters[0] + "\" }\n" +
-                    "    }\n" +
-                    "}";*/
 
             Search search = new Search.Builder(query)
                     .addIndex("cmput301f18t09test")
@@ -79,24 +166,32 @@ public class ElasticSearchController {
         }
     }
 
-    public static class GetPatientListTask extends AsyncTask<String, Void, ArrayList<String>> {
+    public static class GetRecordTask extends AsyncTask<ElasticSearchParams, Void, ArrayList<Record>> {
         @Override
-        protected ArrayList<String> doInBackground(String... search_parameters) {
+        protected ArrayList<Record> doInBackground(ElasticSearchParams... search_parameters) {
             verifySettings();
 
-            ArrayList<String> users = new ArrayList<String>();
+            ArrayList<Record> users = new ArrayList<Record>();
 
             // TODO Build the query
+            String username = search_parameters[0].username;
+            String problemid = search_parameters[0].problemid;
 
             //String query = "{ \"query\" : { \"match\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
-            String query = "{  \"query\" : {\n" +
-                    "        \"term\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
-                    "    }\n" +
+            String query = "{\n" +
+                    "\"query\": { \n" +
+                    "\"bool\":{\n" +
+                    "\"must\": [\n" +
+                    "{\"term\":{ \"username\": \""+username+"\"}},\n" +
+                    "{\"term\":{\"problemid\":\""+problemid+"\"}}\n" +
+                    "]\n" +
+                    "}\n" +
+                    "}\n" +
                     "}";
 
             Search search = new Search.Builder(query)
                     .addIndex("cmput301f18t09test")
-                    .addType("problem")
+                    .addType("records")
                     .build();
 
             try {
@@ -105,10 +200,24 @@ public class ElasticSearchController {
                 if (result.isSucceeded()) {
                     ArrayList<String> IDs = new ArrayList<String>();
                     Log.i("Read","Read success");
+                    List<SearchResult.Hit<Map,Void>> hits= result.getHits(Map.class);
+                    for (SearchResult.Hit hit : hits){
+                        Map source = (Map) hit.source;
+                        String id = (String)source.get(JestResult.ES_METADATA_ID);
+                        //Patient p = (Patient)source.get(Patient.class);
+                        //Log.i("Read",p.getUsername());
+                        IDs.add(id);
+                        Log.i("Read",id);
 
-                    List<String> foundPatients = result.getSourceAsObjectList(String.class);
-                    users.addAll(foundPatients);
+                    }
 
+                    Integer a = 0;
+                    List<Record> foundPatients = result.getSourceAsObjectList(Record.class);
+                    for (Record p : foundPatients) {
+                        p.setID(IDs.get(a));
+                        a++;
+                        users.add(p);
+                    }
 
                 } else {
                     Log.i("Error", "The search query failed to find any tweets that matched");
@@ -118,47 +227,8 @@ public class ElasticSearchController {
             }
             return users;
         }
-
     }
 
-    public static class PatientListTask extends AsyncTask<ElasticSearchParams, Void, Void> {
-
-        @Override
-        protected Void doInBackground(ElasticSearchParams... params) {
-            verifySettings();
-            String username = params[0].username;
-            ArrayList<String> patients= params[0].patients;
-
-            Integer num = params[0].num;
-            //for (String patient : patients) {
-            String source = "{\"patient\":\""+patients.get(0)+"\",\n"+
-                            "\"doctor:\":\""+username+"\" }";
-
-            if (num < 1000000){
-                String Num = String.format("%06d",num);
-                String id = username+ "2" + Num;
-                Index index = new Index.Builder(source).index("cmput301f18t09test").type("patientList").id(id).build();
-                try {
-
-                    //Index index = new Index.Builder(source).index("cmput301f18t09test").type("PatientList").id(id).build();
-                    DocumentResult result = client.execute(index);
-                    if (result.isSucceeded()) {
-                        //user.setPatientID(result.getId());
-                        Log.i("PatientList", "save success!");
-                    } else {
-                        Log.i("Error", "Elasticsearch was not able to add the patient");
-                    }
-                } catch (Exception e) {
-                    Log.i("Error", "The application failed add the PatientList");
-                }
-            }
-
-
-
-
-            return null;
-        }
-    }
 
     public static class GetProblemTask extends AsyncTask<String, Void, ArrayList<Problem>> {
         @Override
@@ -503,3 +573,32 @@ public class ElasticSearchController {
         }
     }
 }
+/*
+            String index_mapping = "{\"records\":{\n" +
+                    "\"properties\":{\n" +
+                    "\"bodyLocation\":{\n" +
+                    "\"properties\":{\n" +
+                    "\"bodyLocationName\":{\"type\":\"string\"},\n" +
+                    "\"bodyLocationPhotoArrayList\":{\n" +
+                    "\"properties\":{\n" +
+                    "\"photoLength\":{\"type\":\"double\"},\n" +
+                    "\"photoLocation\":{\"type\":\"string\"},\n" +
+                    "\"photoSize\":{\"type\":\"double\"},\n" +
+                    "\"photoType\":{\"type\":\"string\"},\n" +
+                    "\"photoWidth\":{\"type\":\"double\"}}}}},\n" +
+                    "\"comment\":{\"type\":\"string\"},\n" +
+                    "\"geoLocation\":{\"properties\":{\"Location\":{\"type\":\"geo_point\"}}},\n" +
+                    "\"problemid\":{\"type\":\"string\"},\n" +
+                    "\"recordTrackingPhotoArrayList\":{\n" +
+                    "\"properties\":{\n" +
+                    "\"photoLength\":{\"type\":\"double\"},\n" +
+                    "\"photoLocation\":{\"type\":\"string\"},\n" +
+                    "\"photoSize\":{\"type\":\"double\"},\n" +
+                    "\"photoType\":{\"type\":\"string\"},\n" +
+                    "\"photoWidth\":{\"type\":\"double\"}}},\n" +
+                    "\"time\":{\n" +
+                    "\"type\":\"date\",\n" +
+                    "\"format\":\"dateOptionalTime\"},\n" +
+                    "\"title\":{\"type\":\"string\"},\n" +
+                    "\"username\":{\"type\":\"string\"}}}}\"";
+            PutMapping putMapping = new PutMapping.Builder("cmput301f18t09test","records",index_mapping).build();*/

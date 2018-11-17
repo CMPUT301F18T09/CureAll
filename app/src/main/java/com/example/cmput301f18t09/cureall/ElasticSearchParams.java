@@ -11,6 +11,7 @@ public class ElasticSearchParams {
     Integer num;
     String id;
     ArrayList<String> patients;
+    String problemid;
 
     public ElasticSearchParams(String username,Problem problem,String id){
         this.username = username;
@@ -28,6 +29,17 @@ public class ElasticSearchParams {
     public ElasticSearchParams(String username, ArrayList<String> patients){
         this.username = username;
         this.patients = patients;
+    }
+
+    public ElasticSearchParams(String username, Record record, String problemid){
+        this.username = username;
+        this.record = record;
+        this.problemid = problemid;
+    }
+
+    public ElasticSearchParams(String username, String problemid){
+        this.username = username;
+        this.problemid = problemid;
     }
 
 
