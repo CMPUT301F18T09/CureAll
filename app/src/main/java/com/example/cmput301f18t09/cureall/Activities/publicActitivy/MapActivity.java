@@ -15,12 +15,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cmput301f18t09.cureall.R;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
 
 public class MapActivity extends AppCompatActivity {
 
@@ -111,6 +113,8 @@ public class MapActivity extends AppCompatActivity {
         if (requestCode == PLACE_PICKER_REQUEST){
             if (resultCode == RESULT_OK){
                 Place place = PlacePicker.getPlace(this,data);
+                LatLng location = place.getLatLng();
+                Toast.makeText(this, Double.toString(location.latitude) + " " + Double.toString(location.longitude), Toast.LENGTH_SHORT).show();
                 String geolocation = String.format("%s",place.getAddress());//(String) place.getAddress();
                 GeoLocation.setText(geolocation);
             }
