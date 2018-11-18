@@ -4,9 +4,10 @@ import java.util.ArrayList;
 
 public class Patient extends user{
     //private String username, password, email, phone;
-    public Integer patientID;
+    public String patientID;
     private ArrayList<Problem> problemArrayList;
-    private ArrayList<Record> recordArrayList;
+    //private ArrayList<Record> recordArrayList;
+    public String doctorID;
 
     //special function
     private boolean userAuthenticate() {
@@ -17,12 +18,14 @@ public class Patient extends user{
     public Patient(String username, String password, String email, String phone) {
         super(username, password,email, phone);
     }
+    public String getDoctorID(){return this.doctorID;}
+    public void setDoctorID(String ID){this.doctorID = ID;}
 
-    public Integer getPatientID() {
-        return patientID;
+    public String getPatientID() {
+        return this.patientID;
     }
 
-    public void setPatientID(Integer patientID) {
+    public void setPatientID(String patientID) {
         this.patientID = patientID;
     }
 
@@ -34,6 +37,7 @@ public class Patient extends user{
         this.problemArrayList = problemArrayList;
     }
 
+/*
     public ArrayList<Record> getRecordArrayList() {
         return recordArrayList;
     }
@@ -41,6 +45,7 @@ public class Patient extends user{
     public void setRecordArrayList(ArrayList<Record> recordArrayList) {
         this.recordArrayList = recordArrayList;
     }
+*/
 
 
 
@@ -54,13 +59,13 @@ public class Patient extends user{
     }
 
     public boolean hasProblem(Problem problem){
-       for (int i = 0 ; i < problemArrayList.size(); i++){
-                if (problem.equals(problemArrayList.get(i))){
-                    return true;
-                }
+        for (int i = 0 ; i < problemArrayList.size(); i++){
+            if (problem.equals(problemArrayList.get(i))){
+                return true;
             }
-            return false;
-            //return tweets.contains(tweet);
+        }
+        return false;
+        //return tweets.contains(tweet);
     }
 
 

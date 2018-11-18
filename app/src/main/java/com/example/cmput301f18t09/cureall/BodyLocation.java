@@ -1,11 +1,11 @@
 package com.example.cmput301f18t09.cureall;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class BodyLocation {
-    public String bodyLocationName;
-    public AllKindsOfPhotos paperDollPhoto;
-    public ArrayList<AllKindsOfPhotos> bodyLocationPhotoArrayList;
+public class BodyLocation implements Serializable {
+    private String bodyLocationName;
+    private ArrayList<String> photoPaths;
 
     //special fucntion
     public String getLocationFromPaperDollPhoto(){
@@ -15,9 +15,9 @@ public class BodyLocation {
     public void addBodyLocationPhoto(){ }
     //end
 
-    public BodyLocation(String bodyLocationName, ArrayList<AllKindsOfPhotos> bodyLocationPhotoArrayList) {
+    public BodyLocation(String bodyLocationName, ArrayList<String> bodyLocationPhotoArrayList) {
         this.bodyLocationName = bodyLocationName;
-        this.bodyLocationPhotoArrayList = bodyLocationPhotoArrayList;
+        this.photoPaths = bodyLocationPhotoArrayList;
     }
 
     public String getBodyLocationName() {
@@ -29,12 +29,12 @@ public class BodyLocation {
     }
 
 
-    public ArrayList<AllKindsOfPhotos> getBodyLocationPhotoArrayList() {
-        return bodyLocationPhotoArrayList;
+    public ArrayList<String> getBodyLocationPhotoArrayList() {
+        return photoPaths;
     }
 
-    public void setBodyLocationPhotoArrayList(ArrayList<AllKindsOfPhotos> bodyLocationPhotoArrayList) {
-        this.bodyLocationPhotoArrayList = bodyLocationPhotoArrayList;
+    public void setBodyLocationPhotoArrayList(ArrayList<String> bodyLocationPhotoArrayList) {
+        this.photoPaths = bodyLocationPhotoArrayList;
     }
 
 }

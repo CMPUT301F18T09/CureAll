@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app = "http://schemas.android.com/apk/res_auto"
+    >
+
+    <item
+    android:id="@+id/ProviderTest"
+    android:title="ProviderTest"
+    app:showAsAction="never" >
+        <menu>
+            <item
+                android:id="@+id/showListPatients"
+                android:title="showListPatients"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/showListProblem"
+                android:title="showListProblem"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/ProviderComments"
+                android:title="ProviderComments"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/showProblemDetail"
+                android:title="showProblemDetail"
+                app:showAsAction="ifRoom"/>
+            <item
+                android:id="@+id/showEachPhotoInRecord"
+                android:title="showEachPhotoInRecord"
+                app:showAsAction="ifRoom"/>
+
+        </menu>
+    </item>
+
+
+
+
+
+</menu>

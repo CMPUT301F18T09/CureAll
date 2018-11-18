@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.cmput301f18t09.cureall">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,13 +13,47 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activities.publicActitivy.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activities.PatientActivity.PatientSignUpActivity" />
+        <activity android:name=".Activities.ProviderActivity.ProviderSignUpActivity" />
+        <activity android:name=".Activities.publicActitivy.UserLoginActivity" />
+        <activity android:name=".Activities.ProviderActivity.ProviderMainPageActivity" />
+        <activity android:name=".Activities.ProviderActivity.ProviderAListOfProblemsPageActivity" />
+        <activity android:name=".Activities.ProviderActivity.ProviderCommentPageActivity" />
+        <activity android:name=".Activities.ProviderActivity.ProviderProblemDetailPageActivity" />
+        <activity android:name=".Activities.ProviderActivity.ProviderRecordDetailPageActivity" />
+        <activity
+            android:name=".Activities.PatientActivity.PatientListOfProblemsPageActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activities.PatientActivity.PatientProblemAddingPageActivity" />
+        <activity android:name=".Activities.PatientActivity.PatientProblemDetailPageActivity" />
+        <activity android:name=".Activities.PatientActivity.PatientRecordAddingPageActivity" />
+        <activity android:name=".Activities.PatientActivity.PatientShowProviderCommentPageActivity" />
+        <activity android:name=".Activities.PatientActivity.PatientRecordDetailPageActivity" />
+        <activity android:name=".Activities.publicActitivy.PatientPaperDollSelectionPageActivity" />
+        <activity android:name=".Activities.PatientActivity.PatientBodyLocationPhotoAddingPageActivity" />
+        <activity android:name=".Activities.PatientActivity.PatientViewBodyLocationPhotoPageActivity" />
+        <activity android:name=".Activities.PatientActivity.PatientPhotoFlowPageActivity" />
+        <activity android:name=".Activities.publicActitivy.SearchActivity" />
+        <activity android:name=".Activities.publicActitivy.SearchResultActivity" />
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.cmput301f18t09.cureall.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
     </application>
 
 </manifest>

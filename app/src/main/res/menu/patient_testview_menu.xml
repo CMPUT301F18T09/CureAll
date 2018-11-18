@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app = "http://schemas.android.com/apk/res_auto"
+    >
+
+    <item
+        android:id="@+id/PatientTest"
+        android:title="PatientTest"
+        app:showAsAction="never" >
+        <menu>
+            <item
+                android:id="@+id/PatientShowListProblem"
+                android:title="showListProblem"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/PatientAddProblemPage"
+                android:title="PatientAddProblemPage"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/PatientProblemDatailPage"
+                android:title="PatientProblemDatailPage"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/PatientAddRecordPage"
+                android:title="PatientAddRecordPage"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/PatientShowProviderCommentPage"
+                android:title="PatientShowProviderCommentPage"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/PatientRecordDetailPage"
+                android:title="PatientRecordDetailPage"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/PatientPaperDollPage"
+                android:title="PatientPaperDollPage"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/PatientBodyLocationPhotoAddingPage"
+                android:title="PatientBodyLocationPhotoAddingPage"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/PatientBodyLocationPhotoViewgPage"
+                android:title="PatientBodyLocationPhotoViewgPage"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/PatientPhotoFlowAnimation"
+                android:title="PatientPhotoFlowAnimation"
+                app:showAsAction="ifRoom" />
+        </menu>
+    </item>
+
+
+
+
+
+</menu>

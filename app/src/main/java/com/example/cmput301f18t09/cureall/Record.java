@@ -2,14 +2,17 @@ package com.example.cmput301f18t09.cureall;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.io.Serializable;
 
-public class Record {
+public class Record implements Serializable{
     public String title,comment;
     public Date time;
     public GeoLocation geoLocation;
     public BodyLocation bodyLocation;
     public ArrayList<AllKindsOfPhotos> recordTrackingPhotoArrayList;
-
+    public String username;
+    public String problemid;
+    public String ID;
     //special fucntion
     //since getter and setter only deal with arraylist of Photos
     //we create a function to deal with single photo addition
@@ -21,6 +24,17 @@ public class Record {
         this.comment = comment;
         this.time = time;
     }
+    public String getUsername(){return  this.username;}
+    public String getProblemid(){return  this.problemid;}
+    public void setUsername(String username){this.username = username;}
+    public void setProblemid(String problemid){this.problemid = problemid;}
+    public String getID() {
+        return this.ID;
+    }
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
 
     public String getTitle() {
         return title;
