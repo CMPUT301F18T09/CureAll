@@ -11,26 +11,26 @@ import static junit.framework.TestCase.assertTrue;
 public class ProblemTest {
     @Test
     public void testGetTitle(){
-        Problem problem = new Problem("title","description",new Date(),"");
+        Problem problem = new Problem("username","title","description","time","comment");
         String title = problem.getTitle();
         assertEquals(title,"title");
     }
     @Test
     public void testSetTitle(){
-        Problem problem = new Problem("title","description",new Date(),"");
+        Problem problem = new Problem("username","title","description","time","comment");
         problem.setTitle("newTitle");
         String title = problem.getTitle();
         assertEquals(title,"newTitle");
     }
     @Test
     public void testGetDescription(){
-        Problem problem = new Problem("title","description",new Date(),"");
+        Problem problem = new Problem("username","title","description","time","comment");
         String Description = problem.getDescription();
         assertEquals(Description,"description");
     }
     @Test
     public void testSetDescription(){
-        Problem problem = new Problem("title","description",new Date(),"");
+        Problem problem = new Problem("username","title","description","time","comment");
         problem.setDescription("newDescription");
         String description = problem.getDescription();
         assertEquals(description,"newDescription");
@@ -38,14 +38,14 @@ public class ProblemTest {
     @Test
     public void testGetTime(){
         Date time1 = new Date();
-        Problem problem = new Problem("title","description",time1,"");
+        Problem problem = new Problem("username","title","description","time","comment");
         Date time = problem.getTime();
         assertEquals(time,time1);
     }
     @Test
     public void testSetTime(){
         Date time1 = new Date();
-        Problem problem = new Problem("title","description",time1,"");
+        Problem problem = new Problem("username","title","description","time","comment");
         Date time2 = new Date();
         problem.setTime(time2);
         Date time = problem.getTime();
@@ -53,7 +53,7 @@ public class ProblemTest {
     }
     @Test
     public void testGetRecordArrayList(){
-        Problem problem = new Problem("title","description",new Date(),"");
+        Problem problem = new Problem("username","title","description","time","comment");
         Record record1 = new Record("record1","comment1",new Date());
         Record record2 = new Record("record2","comment2",new Date());
         problem.addRecord(record1);
@@ -66,7 +66,7 @@ public class ProblemTest {
     }
     @Test
     public void testAddRecord(){
-        Problem problem = new Problem("title","description",new Date(),"");
+        Problem problem = new Problem("username","title","description","time","comment");
         Record record = new Record("record","comment",new Date());
         problem.addRecord(record);
         ArrayList<Record> records =  problem.getRecordArrayList();

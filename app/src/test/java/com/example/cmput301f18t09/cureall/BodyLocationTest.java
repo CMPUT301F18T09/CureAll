@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
+import junit.framework.TestCase;
 
 public  class BodyLocationTest {
 
@@ -31,7 +32,6 @@ public  class BodyLocationTest {
 
     @Test
     public void testChoosePaperDollPhoto() {
-
     }
 
     @Test

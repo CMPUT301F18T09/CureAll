@@ -51,7 +51,7 @@ public class RecordTest {
         assertEquals(time,time2);
     }
     @Test
-    public void testAddBodyLocstion(){
+    public void testAddBodyLocation(){
         String body = "Arm";
         ArrayList<AllKindsOfPhotos> photos = new ArrayList<AllKindsOfPhotos>();
         BodyLocation bodylocation = new BodyLocation(body, photos);
