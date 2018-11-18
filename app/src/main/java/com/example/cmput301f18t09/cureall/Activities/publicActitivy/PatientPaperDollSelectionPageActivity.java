@@ -67,6 +67,7 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
             bundle.putSerializable("problem", problem);
             //bundle.putSerializable("body", bodyLocation);
 
+
             intent.putExtras(bundle);
 
             startActivity(intent);
@@ -95,41 +96,63 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
     {
         BodyLocation bodyLocation = new BodyLocation(null,new ArrayList<String>());
         switch (bodyPart){
-            case HAND:
-                bodyLocation.setBodyLocationName("HAND");
+
+            // define color values
+            //head:-260100
+            // neck: -5634052
+            // shoulder: -16316420
+            // chest: -9500676
+            // upper-arm: -16282372
+            // lower-arm: -16253703
+            // hand: -16253703
+            // belt: -260143
+            // back:-260224
+            // hip: -16253893
+            // thigh: -1508345
+            // knee: -210169
+            // shank: -230905
+            // foot: -238329
+            case head:
+                bodyLocation.setBodyLocationName("head");
                 break;
-            case HEAD:
-                bodyLocation.setBodyLocationName("HEAD");
+            case neck:
+                bodyLocation.setBodyLocationName("neck");
                 break;
-            case HIP:
-                bodyLocation.setBodyLocationName("HIP");
+            case shoulder:
+                bodyLocation.setBodyLocationName("shoulder");
                 break;
-            case FOOT:
-                bodyLocation.setBodyLocationName("FOOT");
+            case chest:
+                bodyLocation.setBodyLocationName("chest");
                 break;
-            case KNEE:
-                bodyLocation.setBodyLocationName("KNEE");
+            case upper_arm:
+                bodyLocation.setBodyLocationName("upper_arm");
                 break;
-            case CHEST:
-                bodyLocation.setBodyLocationName("CHEST");
+            case lower_arm:
+                bodyLocation.setBodyLocationName("lower_arm");
                 break;
-            case FOREARM:
-                bodyLocation.setBodyLocationName("FOREARM");
+            case hand:
+                bodyLocation.setBodyLocationName("hand");
                 break;
-            case SHOULDER:
-                bodyLocation.setBodyLocationName("SHOULDER");
+            case belt:
+                bodyLocation.setBodyLocationName("belt");
                 break;
-            case LOWER_LEG:
-                bodyLocation.setBodyLocationName("LOWER LEG");
+            case back:
+                bodyLocation.setBodyLocationName("back");
                 break;
-            case UPPER_LEG:
-                bodyLocation.setBodyLocationName("UPPER LEG");
+            case hip:
+                bodyLocation.setBodyLocationName("hip");
                 break;
-            case LOWER_BACK:
-                bodyLocation.setBodyLocationName("LOWER_BACK");
+            case thigh:
+                bodyLocation.setBodyLocationName("thigh");
                 break;
-            case UPPER_BACK:
-                bodyLocation.setBodyLocationName("UPPER_BACK");
+            case knee:
+                bodyLocation.setBodyLocationName("knee");
+                break;
+            case shank:
+                bodyLocation.setBodyLocationName("shank");
+                break;
+            case foot:
+                bodyLocation.setBodyLocationName("foot");
                 break;
             case NULL:
                 break;

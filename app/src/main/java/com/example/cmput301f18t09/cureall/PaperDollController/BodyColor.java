@@ -8,84 +8,89 @@ public class BodyColor {
 
     public BodyColor() {
         // init list of integer values
+
         ArrayList<Integer> head = new ArrayList<>();
+        ArrayList<Integer> neck = new ArrayList<>();
         ArrayList<Integer> shoulder = new ArrayList<>();
-        ArrayList<Integer> forearm = new ArrayList<>();
-        ArrayList<Integer> hand = new ArrayList<>();
         ArrayList<Integer> chest = new ArrayList<>();
-        ArrayList<Integer> upper_back = new ArrayList<>();
-        ArrayList<Integer> lower_back = new ArrayList<>();
+        ArrayList<Integer> upper_arm = new ArrayList<>();
+        ArrayList<Integer> lower_arm = new ArrayList<>();
+        ArrayList<Integer> hand = new ArrayList<>();
+        ArrayList<Integer> belt = new ArrayList<>();
+        ArrayList<Integer> back = new ArrayList<>();
         ArrayList<Integer> hip = new ArrayList<>();
+        ArrayList<Integer> thigh = new ArrayList<>();
         ArrayList<Integer> knee = new ArrayList<>();
-        ArrayList<Integer> upper_leg = new ArrayList<>();
-        ArrayList<Integer> lower_leg = new ArrayList<>();
+        ArrayList<Integer> shank = new ArrayList<>();
         ArrayList<Integer> foot = new ArrayList<>();
 
+
+
         // define color values
-        head.add(-16777216);
-        head.add(-16744963);
+        //head:-260100
+        // neck: -5634052
+        // shoulder: -16316420
+        // chest: -9500676
+        // upper-arm: -16282372
+        // lower-arm: -16253703
+        // hand: -16253703
+        // belt: -260143
+        // back:-260224
+        // hip: -16253893
+        // thigh: -1508345
+        // knee: -210169
+        // shank: -230905
+        // foot: -238329
+        head.add(-260100);
+        neck.add(-5634052);
+        shoulder.add(-16316420);
+        chest.add(-9500676);
+        upper_arm.add(-16282372);
+        lower_arm.add(-16253703);
+        hand.add(-16253703);
+        belt.add(-260143);
+        back.add(-260224);
+        hip.add(-16253893);
+        thigh.add(-1508345);
+        knee.add(-210169);
+        shank.add(-230905);
+        foot.add(-238329);
 
-        shoulder.add(-16777116);
-        shoulder.add(-16777166);
-        shoulder.add(-13449216);
-        shoulder.add(-13436416);
 
-        forearm.add(-16777016);
-        forearm.add(-16777066);
-        forearm.add(-13500316);
-        forearm.add(-13500266);
-        forearm.add(-16777016);
-        forearm.add(-13500216);
-        forearm.add(-13500166);
 
-        hand.add(-16776966);
-        hand.add(-13487616);
-        hand.add(-13474766);
-        hand.add(-13461966);
 
-        chest.add(-13500416);
-
-        upper_back.add(-13474816);
-        upper_back.add(-13462016);
-
-        lower_back.add(-13500366);
-
-        hip.add(-10223616);
-        hip.add(-13487566);
-
-        knee.add(-393216);
-        knee.add(-16764416);
-
-        upper_leg.add(-6946816);
-        upper_leg.add(-3670016);
-        upper_leg.add(-13449166);
-        upper_leg.add(-13436366);
-
-        lower_leg.add(-13487516);
-        lower_leg.add(-13487466);
-        lower_leg.add(-13487416);
-        lower_leg.add(-13487366);
-        lower_leg.add(-16738816);
-        lower_leg.add(-16751616);
-
-        foot.add(-16713216);
-        foot.add(-16726016);
-        foot.add(-10210766);
-        foot.add(-6933966);
+        // define color values
+        //head:-260100
+        // neck: -5634052
+        // shoulder: -16316420
+        // chest: -9500676
+        // upper-arm: -16282372
+        // lower-arm: -16253703
+        // hand: -16253703
+        // belt: -260143
+        // back:-260224
+        // hip: -16253893
+        // thigh: -1508345
+        // knee: -210169
+        // shank: -230905
+        // foot: -238329
 
         // put value pairs in the color table
-        colorTable.put(head, BodyPart.HEAD);
-        colorTable.put(shoulder, BodyPart.SHOULDER);
-        colorTable.put(forearm, BodyPart.FOREARM);
-        colorTable.put(hand, BodyPart.HAND);
-        colorTable.put(chest, BodyPart.CHEST);
-        colorTable.put(upper_back, BodyPart.UPPER_BACK);
-        colorTable.put(lower_back, BodyPart.LOWER_BACK);
-        colorTable.put(knee, BodyPart.KNEE);
-        colorTable.put(hip, BodyPart.HIP);
-        colorTable.put(upper_leg, BodyPart.UPPER_LEG);
-        colorTable.put(lower_leg, BodyPart.LOWER_LEG);
-        colorTable.put(foot, BodyPart.FOOT);
+        colorTable.put(head, BodyPart.head);
+        colorTable.put(neck, BodyPart.neck);
+        colorTable.put(shoulder, BodyPart.shoulder);
+        colorTable.put(chest, BodyPart.chest);
+        colorTable.put(upper_arm, BodyPart.upper_arm);
+        colorTable.put(lower_arm, BodyPart.lower_arm);
+        colorTable.put(hand, BodyPart.hand);
+        colorTable.put(belt, BodyPart.belt);
+        colorTable.put(back, BodyPart.back);
+        colorTable.put(hip, BodyPart.hip);
+        colorTable.put(thigh, BodyPart.thigh);
+        colorTable.put(knee, BodyPart.knee);
+        colorTable.put(shank, BodyPart.shank);
+        colorTable.put(foot, BodyPart.foot);
+
     }
 
     // take in color and return the body part if it exists.
