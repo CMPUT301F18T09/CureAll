@@ -23,8 +23,16 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback{
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-    LatLng geolocation = new LatLng(37.421, -122.084);
-    googleMap.addMarker(new MarkerOptions().position(geolocation));
+    LatLng geolocation1 = new LatLng(37.421, -122.084);
+    LatLng geolocation2 = new LatLng(37.421, -132.084);
+    LatLng geolocation3 = new LatLng(37.421, -135.084);
+    LatLng geolocation4 = new LatLng(42.421, -123.084);
+    LatLng geolocation5 = new LatLng(39.421, -130.084);
+    googleMap.addMarker(new MarkerOptions().position(geolocation1));
+    googleMap.addMarker(new MarkerOptions().position(geolocation2));
+    googleMap.addMarker(new MarkerOptions().position(geolocation3));
+    googleMap.addMarker(new MarkerOptions().position(geolocation4));
+    googleMap.addMarker(new MarkerOptions().position(geolocation5));
     }
 
 
