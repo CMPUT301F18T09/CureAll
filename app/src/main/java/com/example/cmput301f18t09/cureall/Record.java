@@ -60,12 +60,12 @@ public class Record implements Serializable{
         this.time = time;
     }
 
-    public String getGeoLocation() {
-        return geoLocation.getLocation();
+    public GeoLocation getGeoLocation() {
+        return geoLocation;
     }
 
-    public void setGeoLocation(String geoLocation) {
-        this.geoLocation.setLocation(geoLocation);
+    public void setGeoLocation(GeoLocation geoLocation) {
+        this.geoLocation = geoLocation;
     }
 
     public BodyLocation getBodyLocation() {

@@ -17,7 +17,7 @@ public class PatientProblemDetailPageAdapter extends RecyclerView.Adapter<Patien
     private ArrayList<Record> recordsArrayList;
     private OnItemClickListener mlistener;
 
-    public static class viewHolder extends RecyclerView.ViewHolder{
+    public class viewHolder extends RecyclerView.ViewHolder{
         public ImageView titleSymbol;
         public TextView dateComment, recordTitle;
         public ImageButton showRecordDetailButton;

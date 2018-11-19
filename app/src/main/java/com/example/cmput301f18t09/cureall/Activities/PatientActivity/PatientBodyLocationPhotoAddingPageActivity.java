@@ -38,9 +38,12 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
     private int switcher;
     private ArrayList<String> pictures = new ArrayList<String>();
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    final int REQUEST_EXIT = 3;
     private Record record;
     private BodyLocation bodyLocation;
     private Problem problem;
+    private ArrayList<Record> records;
+
 
 
     @Override
@@ -80,15 +83,17 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                System.out.println(pictures);
                 bodyLocation.setBodyLocationPhotoArrayList(pictures);
                 record.setBodyLocation(bodyLocation);
                 Intent intent = new Intent(PatientBodyLocationPhotoAddingPageActivity.this, PatientRecordAddingPageActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("record",record);
                 bundle.putSerializable("problem", problem);
+                bundle.putSerializable("records", records);
                 intent.putExtras(bundle);
-
                 startActivity(intent);
+
             }
         });
 
@@ -109,6 +114,7 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
         fixedText5 = findViewById(R.id.fixedText5);
         problem = (Problem)getIntent().getSerializableExtra("problem");
         record = (Record) getIntent().getSerializableExtra("record");
+        records = (ArrayList<Record>)getIntent().getSerializableExtra("records");
         bodyLocation = record.getBodyLocation();
         if (bodyLocation != null)
         {
@@ -142,11 +148,8 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            // Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), Uri.parse(mCurrentPhotoPath));
             Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath);
             Drawable drawable = new BitmapDrawable(bitmap);
-            // Button front = (Button) findViewById(R.id.Front);
-            //Toast.makeText(BodyLocation.this,"neck!!!!!!", Toast.LENGTH_SHORT).show();
             if (switcher == 0)
             {
                 frontPhotoButton.setBackground(drawable);

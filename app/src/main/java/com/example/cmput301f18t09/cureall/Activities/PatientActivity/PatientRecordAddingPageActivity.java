@@ -20,11 +20,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cmput301f18t09.cureall.Activities.publicActitivy.MapActivity;
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.PatientPaperDollSelectionPageActivity;
 import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
 import com.example.cmput301f18t09.cureall.BodyLocation;
 import com.example.cmput301f18t09.cureall.ElasticSearchController;
 import com.example.cmput301f18t09.cureall.ElasticSearchParams;
+import com.example.cmput301f18t09.cureall.GeoLocation;
 import com.example.cmput301f18t09.cureall.Patient;
 import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.R;
@@ -56,11 +58,12 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
     private BodyLocation bodyLocation;
     private ArrayList<Record> records;
 
+
     public static final int IMAGE_GALLERY_REQUEST = 20;
     final int REQUEST_IMAGE_CAPTURE = 1;
     private String mCurrentPhotoPath;
     //photos
-    private ArrayList<AllKindsOfPhotos> pictures = new ArrayList<AllKindsOfPhotos>();
+    private ArrayList<AllKindsOfPhotos> pictures ;
     public static final int CAMERA_REQUEST_CODE = 228;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,58 +71,39 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_patient_add_record_page);
         initializer();
         //photoPaths = (ArrayList<String>) getIntent().getSerializableExtra("photo paths");
-        if (record == null) {
+        record = (Record) getIntent().getSerializableExtra("record");
+        problem = (Problem)getIntent().getSerializableExtra("problem");
+        records = (ArrayList<Record>)getIntent().getSerializableExtra("records");
+        if (record != null) {
+            bodyLocation = record.getBodyLocation();
+            pictures = record.getRecordTrackingPhotoArrayList();
+            System.out.println(pictures);
+        }
+        else {
+            pictures = new ArrayList<AllKindsOfPhotos>();
+        }
+        if (pictures == null)
+        {
+            pictures = new ArrayList<AllKindsOfPhotos>();
+            if(record.getRecordTrackingPhotoArrayList() == null){
+                record.setRecordTrackingPhotoArrayList(pictures);
+            }
+            else {
+                pictures = record.getRecordTrackingPhotoArrayList();
+            }
+
+        }
+
+
+        if (record == null &&problem != null) {
             title = titleInput.getText().toString();
             description = descriptionInput.getText().toString();
             date = new Date();
-            record = recordController.getNewRecord(title, description, date);
+            record = new Record(title,description,date);
+            record.setProblemid(problem.getId());
+            record.setUsername(problem.getUsername());
         }
-
-        problem = (Problem)getIntent().getSerializableExtra("problem");
-        record.setProblemid(problem.getId());
-        record.setUsername(problem.getUsername());
-
-
-        bodyLocationSelectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-
-                Intent intent = new Intent(PatientRecordAddingPageActivity.this, PatientPaperDollSelectionPageActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("problem",problem);
-                bundle.putSerializable("record", record);
-                intent.putExtras(bundle);
-                startActivity(intent);
-
-            }
-        });
-
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                record.setRecordTrackingPhotoArrayList(pictures);
-                ElasticSearchParams param = new ElasticSearchParams(record.getUsername(),record,record.getProblemid());
-                ElasticSearchController.AddRecordTask addRecordTask = new ElasticSearchController.AddRecordTask();
-                addRecordTask.execute(param);
-
-                Intent intent = new Intent(PatientRecordAddingPageActivity.this, PatientProblemDetailPageActivity.class);
-                Bundle bundle = new Bundle();
- //              bundle.putSerializable("record", record);
-                bundle.putSerializable("problem",problem);
-                intent.putExtras(bundle);
-                startActivity(intent);
-
-            }
-        });
-
-
-
     }
-
-
-
 
     private void initializer()
     {
@@ -136,13 +120,8 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
         titleInput = findViewById(R.id.titleInput);
         descriptionInput = findViewById(R.id.descriptionInput);
         recordController = new RecordController();
-        record = (Record) getIntent().getSerializableExtra("record");
-        if (record != null) {
-            bodyLocation = record.getBodyLocation();
-        }
 
 
-       // bodyLocation = (BodyLocation) getIntent().getSerializableExtra("body");
     }
 
     public void onImageGalleryClicked() {
@@ -160,7 +139,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
         startActivityForResult(photoPickerIntent, IMAGE_GALLERY_REQUEST);
     }
 //////////////////////////////////////////////////////////////////////////////////
-private void dispatchTakePictureIntent() {
+    private void dispatchTakePictureIntent() {
     Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
     // Ensure that there's a camera activity to handle the intent
     if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -199,6 +178,8 @@ private void dispatchTakePictureIntent() {
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
         //add photos into array;ist
+        //pictures not save!!!!!!!!!when leave the activity!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!to select bodylocation.
+        //when back from body location, everything not save!!!!!!!!!!!!!!!!!!!!!!!!!
         pictures.add(new AllKindsOfPhotos(mCurrentPhotoPath,"type",0.0,0.0,0.0));
         return image;
     }
@@ -208,11 +189,9 @@ private void dispatchTakePictureIntent() {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            // Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), Uri.parse(mCurrentPhotoPath));
             Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath);
             Drawable drawable = new BitmapDrawable(bitmap);
-            // Button front = (Button) findViewById(R.id.Front);
-            //Toast.makeText(BodyLocation.this,"neck!!!!!!", Toast.LENGTH_SHORT).show();
+
 
         }
         if (resultCode == RESULT_OK) {
@@ -241,6 +220,22 @@ private void dispatchTakePictureIntent() {
     @Override
     protected void onStart() {
         super.onStart();
+
+        bodyLocationSelectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PatientRecordAddingPageActivity.this, PatientPaperDollSelectionPageActivity.class);
+                Bundle bundle = new Bundle();
+                System.out.println(pictures);
+                record.setRecordTrackingPhotoArrayList(pictures);
+                bundle.putSerializable("problem",problem);
+                bundle.putSerializable("record", record);
+                bundle.putSerializable("records", records);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+        //question!!!!!!!!!!!BUG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -255,8 +250,51 @@ private void dispatchTakePictureIntent() {
                 onImageGalleryClicked();
             }
         });
+        geoLocationSelectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //pass problem and record to ...
+                System.out.println(pictures);
+                record.setRecordTrackingPhotoArrayList(pictures);
+                Intent intent = new Intent(PatientRecordAddingPageActivity.this,MapActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("problem",problem);
+                bundle.putSerializable("record", record);
+                bundle.putSerializable("records", records);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                record.setRecordTrackingPhotoArrayList(pictures);
+                records.add(record);
+                saveRecord(problem.getUsername(),record,problem.getId());
+
+                Intent intent = new Intent(PatientRecordAddingPageActivity.this, PatientProblemDetailPageActivity.class);
+                Bundle bundle = new Bundle();
+                //              bundle.putSerializable("record", record);
+                bundle.putSerializable("problem",problem);
+                bundle.putSerializable("records", records);
+                intent.putExtras(bundle);
+                // startActivity(intent);
+                startActivity(intent);
+
+            }
+        });
+
     }
 
-
+    public void saveRecord(String username, Record record, String problemID){
+        ElasticSearchParams param = new ElasticSearchParams(username,record,problemID);
+        ElasticSearchController.AddRecordTask addRecordTask = new ElasticSearchController.AddRecordTask();
+        addRecordTask.execute(param);
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        finish();
+    }
 
 }

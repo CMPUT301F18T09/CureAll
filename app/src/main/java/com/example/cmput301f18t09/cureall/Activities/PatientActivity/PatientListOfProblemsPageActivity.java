@@ -1,16 +1,18 @@
 package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -19,14 +21,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.cmput301f18t09.cureall.ElasticSearchController;
 import com.example.cmput301f18t09.cureall.PatientAdapter.PatientProblemListPageAdapter;
 import com.example.cmput301f18t09.cureall.Problem;
+import com.example.cmput301f18t09.cureall.ProblemController.ProblemController;
 import com.example.cmput301f18t09.cureall.R;
+import com.example.cmput301f18t09.cureall.Record;
+import com.example.cmput301f18t09.cureall.RecordController.RecordController;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 public class PatientListOfProblemsPageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private Button searchButton, problemAddingButton;
@@ -36,6 +39,16 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
     View.OnClickListener buttomListener;
     private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     ArrayList<Problem> problems;
+    private ProblemController problemController = new ProblemController();
+    private ArrayList<Record> records;
+    private RecordController recordController= new RecordController();
+    String username;
+    String user_email;
+    String phone;
+    String id;
+    String pw;
+    final int REQUEST_PROBLEM_ADDING = 1;
+
 
     //drawer..
     private DrawerLayout drawer;
@@ -43,16 +56,55 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_list_of_problems_page);
-        searchButton = (Button) findViewById(R.id.backButton);
+        searchButton = (Button) findViewById(R.id.searchButton);
         problemAddingButton = (Button) findViewById(R.id.problemAddingButton);
         //ArrayList<Problem> problems = new ArrayList<>();
         Intent incomingIntent = getIntent();
-        final String username = incomingIntent.getStringExtra("username");
-        final String user_email = incomingIntent.getStringExtra("email");
-        final String phone = incomingIntent.getStringExtra("phone");
-        final String id = incomingIntent.getStringExtra("id");
-        final String pw = incomingIntent.getStringExtra("password");
-        problems = GetProblemNum(username);
+        //final String username = incomingIntent.getStringExtra("username");
+        username = incomingIntent.getStringExtra("username");
+         user_email = incomingIntent.getStringExtra("email");
+         phone = incomingIntent.getStringExtra("phone");
+         id = incomingIntent.getStringExtra("id");
+         pw = incomingIntent.getStringExtra("password");
+
+         problems = (ArrayList<Problem>)getIntent().getSerializableExtra("problems");
+
+
+
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder custom = new AlertDialog.Builder(PatientListOfProblemsPageActivity.this);
+                custom.setCancelable(true);
+                custom.setPositiveButton("Search by Body Location", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                custom.setNegativeButton("Search by Key words", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                custom.setNeutralButton("Search by Geo-location", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                custom.show();
+            }
+        });
+       // problems = problemController.GetProblemNum(username);
 
 
         recyclerView = findViewById(R.id.listOfProblems);
@@ -61,7 +113,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         mAdapter = new PatientProblemListPageAdapter(problems);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
-
+        //Log.i("111","111");
 
         mAdapter.setOnItemClickListener(new PatientProblemListPageAdapter.OnItemClickListener() {
             @Override
@@ -70,13 +122,22 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
             }
             @Override
             public void onDetailClick(int position){
+
                 Intent intent = new Intent(PatientListOfProblemsPageActivity.this,PatientProblemDetailPageActivity.class);
                 Problem problem = problems.get(position);
+                records = recordController.GetRecordNum(username,problem.getId());
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("problem", problem);
+                bundle.putSerializable("records", records);
                 intent.putExtras(bundle);
-//                intent.putExtra("problem",problem.getId());
                 startActivity(intent);
+            }
+
+            @Override
+            public void onDeleteClick(int position) {
+                Problem problem = problems.get(position);
+                ProblemController.DelteProblem(problems,position,username);
+                mAdapter.notifyDataSetChanged();
             }
         });
 
@@ -114,22 +175,34 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
             public void onClick(View v) {
                 Intent intent = new Intent(PatientListOfProblemsPageActivity.this,PatientProblemAddingPageActivity.class);
                 intent.putExtra("username", username);
-                startActivity(intent);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("problems",problems);
+                intent.putExtras(bundle);
+
+                startActivityForResult(intent,REQUEST_PROBLEM_ADDING);
+                //mAdapter.notifyDataSetChanged();
             }
         });
-
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(PatientListOfProblemsPageActivity.this,"Leo, you should implement this button...",Toast.LENGTH_SHORT).show();
-            }
-        });
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==REQUEST_PROBLEM_ADDING)
+        {
+         if(resultCode==RESULT_OK)
+         {
+             //problems = problemController.GetProblemNum(username);
+             //problems = problemController.GetProblemNum(username);
+             //Intent intent = getIntent();
+             problems = (ArrayList<Problem>)data.getSerializableExtra("problems");
+             mAdapter.notifyDataSetChanged();
+         }
+        }
     }
+
+
 
     //allow you click on navigation menus
     @Override
@@ -154,22 +227,5 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         }
     }
 
-    public ArrayList<Problem> GetProblemNum(String username){
-        ArrayList<Problem> problems = new ArrayList<Problem>();
-        ElasticSearchController.GetProblemTask getproblemTask = new ElasticSearchController.GetProblemTask();
-        getproblemTask.execute(username);
 
-        try {
-            List<Problem> foundPatient= getproblemTask.get();
-            problems.addAll(foundPatient);
-
-
-        } catch (Exception e) {
-            Log.i("Error", "Failed to get the user from the async object");
-        }
-
-        Log.i("Read","read end");
-
-        return problems;
-    }
 }

@@ -1,22 +1,21 @@
 package com.example.cmput301f18t09.cureall;
 
-public class GeoLocation {
-    String Location;
-    Double longtitude;
-    Double latitude;
+import java.util.Arrays;
+import java.util.List;
+import java.io.Serializable;
 
-    public GeoLocation(String Location, Double longtitude, Double latitude){
-        this.Location = Location;
-        this.longtitude = longtitude;
-        this.latitude = latitude;
+public class GeoLocation implements Serializable {
+    private Double lon;
+    private Double lat;
+    private  List<Double> Location;
+
+
+    public GeoLocation(Double longtitude, Double latitude){
+        this.Location = Arrays.asList(longtitude,latitude);
+
 
     }
 
-    public String getLocation(){return this.Location;}
-    public Double getLongtitude(){return this.longtitude;}
-    public Double getLatitude(){return this.latitude;}
-
-    public void setLocation(String Location){ this.Location = Location;}
-    public void setLongtitude(Double longtitude){this.longtitude = longtitude;}
-    public void setLatitude(Double latitude){this.latitude = latitude;}
+    public List<Double> getLocation(){return this.Location;}
+    public void setLocation(List<Double> Location){ this.Location = Location;}
 }

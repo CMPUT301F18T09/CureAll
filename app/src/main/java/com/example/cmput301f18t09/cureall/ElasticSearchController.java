@@ -7,6 +7,8 @@ import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
 
+//import org.elasticsearch.action.update.UpdateRequest;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +19,7 @@ import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
-
-//import org.elasticsearch.action.update.UpdateRequest;
+import io.searchbox.indices.mapping.PutMapping;
 
 
 public class ElasticSearchController {
@@ -102,7 +103,7 @@ public class ElasticSearchController {
                 DocumentResult result = client.execute(index);
                 //client.execute(index);
                 if (result.isSucceeded()) {
-                    //user.setPatientID(result.getId());
+                    record.setID(result.getId());
                     Log.i("Problem","Record save success!");
                 } else {
                     Log.i("Error", "Elasticsearch was not able to add the patient");
@@ -128,12 +129,12 @@ public class ElasticSearchController {
 
 
             String query = "{\"query\":{\n"+
-                                "\"match all\":{\n"+
-                                    "\"title\":\"blue\"\n"+
-                                    "\"description:\":\"I lost\""+
-                                "}\n" +
-                                "}\n"+
-                            "}";
+                    "\"match all\":{\n"+
+                    "\"title\":\"blue\"\n"+
+                    "\"description:\":\"I lost\""+
+                    "}\n" +
+                    "}\n"+
+                    "}";
 
 
             Search search = new Search.Builder(query)
@@ -256,6 +257,7 @@ public class ElasticSearchController {
                     ArrayList<String> IDs = new ArrayList<String>();
                     Log.i("Read","Read success");
                     List<SearchResult.Hit<Map,Void>> hits= result.getHits(Map.class);
+
                     for (SearchResult.Hit hit : hits){
                         Map source = (Map) hit.source;
                         String id = (String)source.get(JestResult.ES_METADATA_ID);
@@ -280,7 +282,7 @@ public class ElasticSearchController {
             } catch (Exception e) {
                 Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
             }
-          return users;
+            return users;
         }
     }
 
@@ -366,6 +368,64 @@ public class ElasticSearchController {
         }
     }
 
+    public static class DeleteRecordTask extends AsyncTask<ElasticSearchParams, Void, Void> {
+
+        @Override
+        protected Void doInBackground(ElasticSearchParams... params) {
+            verifySettings();
+            Problem problem = params[0].problem;
+            String id = params[0].id;
+            //Index index = new Index.Builder(problem).index("cmput301f18t09test").type("problem").id(id).build();
+            try {
+                // where is the client?
+                DocumentResult result = client.execute(new Delete.Builder(id)
+                        .index("cmput301f18t09test")
+                        .type("records")
+                        .build());
+                //DocumentResult result = client.execute(index);
+
+                if (result.isSucceeded()) {
+                    //user.setPatientID(result.getId());
+                } else {
+                    Log.i("Error", "Elasticsearch was not able to delete the record");
+                }
+            } catch (Exception e) {
+                Log.i("Error", "The application failed to build and send the record");
+            }
+
+            return null;
+        }
+    }
+
+    public static class DeleteProblemTask extends AsyncTask<ElasticSearchParams, Void, Void> {
+
+        @Override
+        protected Void doInBackground(ElasticSearchParams... params) {
+            verifySettings();
+            Problem problem = params[0].problem;
+            String id = params[0].id;
+            //Index index = new Index.Builder(problem).index("cmput301f18t09test").type("problem").id(id).build();
+            try {
+                // where is the client?
+                DocumentResult result = client.execute(new Delete.Builder(id)
+                        .index("cmput301f18t09test")
+                        .type("problem")
+                        .build());
+                //DocumentResult result = client.execute(index);
+
+                if (result.isSucceeded()) {
+                    //user.setPatientID(result.getId());
+                } else {
+                    Log.i("Error", "Elasticsearch was not able to delete the problem");
+                }
+            } catch (Exception e) {
+                Log.i("Error", "The application failed to build and send the problem");
+            }
+
+            return null;
+        }
+    }
+
     public static class EditProblemTask extends AsyncTask<ElasticSearchParams, Void, Void> {
 
         @Override
@@ -383,7 +443,7 @@ public class ElasticSearchController {
                 DocumentResult result = client.execute(index);
 
                 if (result.isSucceeded()) {
-                //user.setPatientID(result.getId());
+                    //user.setPatientID(result.getId());
                 } else {
                     Log.i("Error", "Elasticsearch was not able to add the patient");
                 }

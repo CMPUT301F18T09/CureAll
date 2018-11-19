@@ -2,6 +2,7 @@ package com.example.cmput301f18t09.cureall.Activities.publicActitivy;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,10 +30,10 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
     private TextView femaleText, maleText;
     private Switch switch1;
     private Problem problem;
+    final int REQUEST_BODY = 2;
 
-    private float lastTouchX;  // position x
-    private float lastTouchY;  // position y
-    Record record;
+    private Record record;
+    private ArrayList<Record> records;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +51,7 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
         switch1 =findViewById(R.id.switch1);
         record = (Record) getIntent().getSerializableExtra("record");
         problem = (Problem)getIntent().getSerializableExtra("problem");
+        records = (ArrayList<Record>)getIntent().getSerializableExtra("records");
         //int a = 1;
     }
     View.OnTouchListener touchListener= new View.OnTouchListener() {
@@ -65,11 +67,14 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
             Bundle bundle = new Bundle();
             bundle.putSerializable("record", record);
             bundle.putSerializable("problem", problem);
+            bundle.putSerializable("records", records);
             //bundle.putSerializable("body", bodyLocation);
 
 
             intent.putExtras(bundle);
 
+            //startActivityForResult(intent);
+            intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
             startActivity(intent);
             return false;
         }
@@ -159,5 +164,35 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
         }
         return bodyLocation;
     }
+/*
+    @Override protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_EXIT) {
+            if (resultCode == RESULT_OK) {
+                this.finish();
 
+            }
+        }
+    }*/
+    @Override
+    public void onStop(){
+        super.onStop();
+        finish();
+    }
+
+/*    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==REQUEST_RECORD_ADDING)
+        {
+            if(resultCode==RESULT_OK)
+            {
+                problem = (Problem)getIntent().getSerializableExtra("problem");
+                records = (ArrayList<Record>)data.getSerializableExtra("records");
+                mAdapter.notifyDataSetChanged();
+            }
+        }
+    }*/
 }

@@ -40,6 +40,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation files('src/include/jest-droid-2.0.1-SNAPSHOT.jar')
+    implementation 'com.google.android.gms:play-services:12.0.1'
 
 
 }

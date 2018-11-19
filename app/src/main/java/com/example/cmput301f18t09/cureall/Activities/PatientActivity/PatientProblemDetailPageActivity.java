@@ -2,6 +2,7 @@ package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private Problem problem;
     ArrayList<Record> records = new ArrayList<>();
+    final int REQUEST_RECORD_ADDING = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +49,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
 
 
         problem = (Problem)getIntent().getSerializableExtra("problem");
-//        Intent intentx = getIntent();
-//        String problemId = intentx.getStringExtra("problem");
+        records = (ArrayList<Record>)getIntent().getSerializableExtra("records");
         String id = problem.getId();
 
 
@@ -78,24 +79,21 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
                 Intent intent = new Intent(PatientProblemDetailPageActivity.this,PatientRecordAddingPageActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("problem",problem);
+                bundle.putSerializable("records", records);
                 intent.putExtras(bundle);
-                startActivity(intent);
+                startActivityForResult(intent,REQUEST_RECORD_ADDING);
             }
         });
-        //test samples...
-
-        ElasticSearchController.GetRecordTask getRecordTask = new ElasticSearchController.GetRecordTask();
-        ElasticSearchParams params = new ElasticSearchParams(problem.getUsername(),problem.getId());
-        getRecordTask.execute(params);
-        try {
-            List<Record> foundPatient= getRecordTask.get();
-            records.addAll(foundPatient);
 
 
-        } catch (Exception e) {
-            Log.i("Error", "Failed to get the user from the async object");
-        }
 
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         recyclerView = findViewById(R.id.listOfProblems);
         recyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
@@ -103,11 +101,6 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
         mAdapter.setOnItemClickListener(new PatientProblemDetailPageAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -126,4 +119,20 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==REQUEST_RECORD_ADDING)
+        {
+            if(resultCode==RESULT_OK)
+            {
+                problem = (Problem)getIntent().getSerializableExtra("problem");
+                records = (ArrayList<Record>)data.getSerializableExtra("records");
+                mAdapter.notifyDataSetChanged();
+            }
+        }
+    }
 }
+

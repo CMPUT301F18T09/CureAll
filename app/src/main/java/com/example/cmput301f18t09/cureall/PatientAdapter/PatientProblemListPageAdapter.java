@@ -52,6 +52,16 @@ public class PatientProblemListPageAdapter extends RecyclerView.Adapter<PatientP
                 }
             });
 
+            problemDeleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION && listener2 != null){
+                        listener2.onDeleteClick(position);
+                    }
+                }
+            });
+
 
 
         }
@@ -59,6 +69,7 @@ public class PatientProblemListPageAdapter extends RecyclerView.Adapter<PatientP
     public interface OnItemClickListener{
         void onItemClick(int position);
         void onDetailClick(int position);
+        void onDeleteClick(int position);
     }
     public void setOnItemClickListener(OnItemClickListener  listener){
         mlistener = listener;
@@ -66,6 +77,8 @@ public class PatientProblemListPageAdapter extends RecyclerView.Adapter<PatientP
 
     public PatientProblemListPageAdapter(ArrayList<Problem> problemList){
         problemArrayList = problemList;
+
+
     }
 
     @Override
@@ -88,6 +101,7 @@ public class PatientProblemListPageAdapter extends RecyclerView.Adapter<PatientP
     }
     @Override
     public int getItemCount() {
+
         return problemArrayList.size();
     }
 }

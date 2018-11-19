@@ -42,12 +42,6 @@ public class PatientSignUpActivity extends AppCompatActivity{
     }
 
     public void Sign(){
-        /*final String Username = username.getText().toString();                                                       //get the input of year/month/day/hour/minute/
-        final String Emial = emial.getText().toString();
-        final String Phone = phone.getText().toString();
-        final String Password = password.getText().toString();
-        final String RePassword = rePassword.getText().toString();*/
-
 
 
         continueButton.setOnClickListener(new View.OnClickListener() {

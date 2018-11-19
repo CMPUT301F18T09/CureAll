@@ -29,6 +29,8 @@ import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderRe
 import com.example.cmput301f18t09.cureall.CareProvider;
 import com.example.cmput301f18t09.cureall.ElasticSearchController;
 import com.example.cmput301f18t09.cureall.Patient;
+import com.example.cmput301f18t09.cureall.Problem;
+import com.example.cmput301f18t09.cureall.ProblemController.ProblemController;
 import com.example.cmput301f18t09.cureall.R;
 
 import java.util.ArrayList;
@@ -38,6 +40,8 @@ public class UserLoginActivity extends AppCompatActivity {
     private ImageView loveSymbol;
     private EditText userNameInput, passwordInput;
     private Button loginButton, backButton;
+    private ArrayList<Problem> problems;
+    private ProblemController problemController = new ProblemController();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,12 +92,16 @@ public class UserLoginActivity extends AppCompatActivity {
 
             String pass =  patients.get(0).getPassword();
             if (pass.equals(Password)){
+                problems = problemController.GetProblemNum(patients.get(0).getUsername());
                 Intent intent = new Intent(UserLoginActivity.this,PatientListOfProblemsPageActivity.class);
                 intent.putExtra("username", patients.get(0).getUsername());
                 intent.putExtra("email",patients.get(0).getEmail());
                 intent.putExtra("phone",patients.get(0).getPhone());
                 intent.putExtra("id",patients.get(0).getPatientID());
                 intent.putExtra("password",patients.get(0).getPassword());
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("problems",problems);
+                intent.putExtras(bundle);
                 //Patient user = patients.get(0);
                 // intent.putExtra(,patients);
                 startActivity(intent);

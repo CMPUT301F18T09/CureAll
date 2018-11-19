@@ -13,14 +13,14 @@ public class ElasticSearchParams {
     ArrayList<String> patients;
     String problemid;
 
-    public ElasticSearchParams(String username, Problem problem, String id){
+    public ElasticSearchParams(String username,Problem problem,String id){
         this.username = username;
         this.problem = problem;
         this.id = id;
 
     }
 
-    public ElasticSearchParams(Integer num, Problem problem, String Patientid){
+    public ElasticSearchParams(Integer num,Problem problem,String Patientid){
         this.num = num;
         this.problem = problem;
         this.id = id;
