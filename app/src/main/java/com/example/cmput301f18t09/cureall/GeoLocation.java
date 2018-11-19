@@ -6,8 +6,8 @@ import java.util.List;
 
 public class GeoLocation {
     //String Location;
-    Double lon;
-    Double lat;
+    //Double lon;
+    //Double lat;
     List<Double> Location;
 
 
@@ -20,11 +20,12 @@ public class GeoLocation {
 
     }
 
-   // public String getLocation(){return this.Location;}
-    public Double getLongtitude(){return this.lon;}
-    public Double getLatitude(){return this.lat;}
+   
+   public void setLocation(Double lon, Double lat){
+        this.Location = Arrays.asList(lon,lat);
+   }
 
-   // public void setLocation(List<Double> Location){ this.Location = Location;}
-    public void setLongtitude(Double longtitude){this.lon = longtitude;}
-    public void setLatitude(Double latitude){this.lat = latitude;}
+   public List<Double> getLocation(){
+        return  this.Location;
+   }
 }
