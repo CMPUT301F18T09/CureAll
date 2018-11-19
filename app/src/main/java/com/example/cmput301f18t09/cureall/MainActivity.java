@@ -1,6 +1,7 @@
 package com.example.cmput301f18t09.cureall;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -19,6 +20,7 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView;
     private LocationManager locationManager;
     private LocationListener locationListener;
-
+    private Button mapButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,12 +36,13 @@ public class MainActivity extends AppCompatActivity {
         button = (Button) findViewById(R.id.GetCurrentLocation);
         textView = (TextView) findViewById(R.id.View);
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        //button = (Button) findViewById(R.id.Map);
+        mapButton = (Button) findViewById(R.id.Map);
 
         locationListener = new LocationListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onLocationChanged(Location location) {
-                textView.append("\n "+location.getLatitude()+" "+location.getLongitude());
+                textView.setText(location.getLatitude()+" "+location.getLongitude());
             }
 
             @Override
@@ -96,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void configureButton() {
         button.setOnClickListener(new View.OnClickListener(){
+            @SuppressLint("MissingPermission")
             @Override
             public void onClick(View view){
                 locationManager.requestLocationUpdates("gps", 0, 0, locationListener);
@@ -112,6 +116,10 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == PLACE_PICKER_REQUEST){
             if (resultCode == RESULT_OK){
                 Place place = PlacePicker.getPlace(this,data);
+                LatLng location = place.getLatLng();
+                Double lat = location.latitude;
+                Double lon = location.longitude;
+                // lat, lon to be used for es
                 String geolocation = String.format("%s",place.getAddress());//(String) place.getAddress();
                 GeoLocation.setText(geolocation);
             }
