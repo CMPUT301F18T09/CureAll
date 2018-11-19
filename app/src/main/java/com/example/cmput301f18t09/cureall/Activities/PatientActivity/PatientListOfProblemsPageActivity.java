@@ -129,7 +129,13 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("problem", problem);
                 bundle.putSerializable("records", records);
+                bundle.putSerializable("problems",problems);
                 intent.putExtras(bundle);
+                intent.putExtra("username", username);
+                intent.putExtra("email",user_email);
+                intent.putExtra("phone",phone);
+                intent.putExtra("id",id);
+                intent.putExtra("password",pw);
                 startActivity(intent);
             }
 

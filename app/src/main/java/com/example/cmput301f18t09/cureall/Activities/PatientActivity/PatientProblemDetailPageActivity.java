@@ -27,14 +27,22 @@ import java.util.Date;
 import java.util.List;
 
 public class PatientProblemDetailPageActivity extends AppCompatActivity {
-    private Button searchButton, photoAnimationButton, addButton, viewProviderCommentButton;
+    private Button backButton, photoAnimationButton, addButton, viewProviderCommentButton;
     private EditText titleInput, dateInput, descriptionInput;
     private RecyclerView recyclerView;
     private PatientProblemDetailPageAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private Problem problem;
+    private ArrayList<Problem> problems;
     ArrayList<Record> records = new ArrayList<>();
     final int REQUEST_RECORD_ADDING = 1;
+
+    String username;
+    String user_email;
+    String phone;
+    String id;
+    String pw;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,34 +50,40 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
         titleInput = findViewById(R.id.titleInput);
         dateInput = findViewById(R.id.dateInput);
         descriptionInput = findViewById(R.id.descriptionInput);
-        searchButton = findViewById(R.id.backButton);
+        backButton = findViewById(R.id.backButton);
         photoAnimationButton = (Button) findViewById(R.id.photoAnimationButton);
         addButton = (Button) findViewById(R.id.addButton);
         viewProviderCommentButton = (Button) findViewById(R.id.viewProviderCommentButton);
 
+        Intent incomingIntent = getIntent();
+        //final String username = incomingIntent.getStringExtra("username");
+        username = incomingIntent.getStringExtra("username");
+        user_email = incomingIntent.getStringExtra("email");
+        phone = incomingIntent.getStringExtra("phone");
+        id = incomingIntent.getStringExtra("id");
+        pw = incomingIntent.getStringExtra("password");
 
         problem = (Problem)getIntent().getSerializableExtra("problem");
         records = (ArrayList<Record>)getIntent().getSerializableExtra("records");
-        String id = problem.getId();
+        problems = (ArrayList<Problem>)getIntent().getSerializableExtra("problems");
 
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
+        backButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                String[] searchOptions = new String[] {"search by body-location","search by keywords","search by geo-location"};
-                AlertDialog.Builder builder = new AlertDialog.Builder(PatientProblemDetailPageActivity.this);
-                builder.setSingleChoiceItems(searchOptions,-1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        if (i==0 || i==1) {
-                            startActivity(new Intent(PatientProblemDetailPageActivity.this,SearchActivity.class).putExtra("From","patient"));
-                        }
-                        else {}
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.show();
+
+                Intent intent = new Intent(PatientProblemDetailPageActivity.this,PatientListOfProblemsPageActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("problem", problem);
+                bundle.putSerializable("problems",problems);
+                intent.putExtras(bundle);
+                intent.putExtra("username", username);
+                intent.putExtra("email",user_email);
+                intent.putExtra("phone",phone);
+                intent.putExtra("id",id);
+                intent.putExtra("password",pw);
+                startActivity(intent);
             }
         });
 
