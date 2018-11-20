@@ -19,9 +19,9 @@ import java.io.Serializable;
  * @version 1.0.0
  */
 public class GeoLocation implements Serializable {
-    private Double lon;
-    private Double lat;
-    private  List<Double> Location;
+    double lon;
+    double lat;
+    private List<Double> Location;
 
     /**
      * Init for GeoLocation

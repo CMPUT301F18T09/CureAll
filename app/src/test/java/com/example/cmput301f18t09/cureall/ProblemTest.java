@@ -13,12 +13,15 @@ import com.example.cmput301f18t09.cureall.Patient;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
 public class ProblemTest {
     @Test
     public  void testGetUsername(){
 
         Problem problem = new Problem("username","title","description","time","comment");
-        String username = "one";
+        String username = "username";
 
         assertEquals(username, problem.getUsername());
     }
@@ -61,6 +64,7 @@ public class ProblemTest {
         problem.addRecord(record2);
         ArrayList<Record> records1 = problem.getRecordArrayList();
         ArrayList<Record> records2 = new ArrayList<>(2);
+
         records2.add(record1);
         records2.add(record2);
         assertEquals(records1,records2);
@@ -69,12 +73,13 @@ public class ProblemTest {
     public void testAddRecord(){
         Problem problem = new Problem("username","title","description","time","comment");
         Record record = new Record("record","comment",new Date());
+        boolean u = false;
         problem.addRecord(record);
         ArrayList<Record> records =  problem.getRecordArrayList();
-        for (int i = 0 ; i < records.size(); i++){
-            if (records.equals(records.get(i))) {
-                assertTrue(true);
-            }
+       /* for (int i = 0 ; i < records.size(); i++){
+            if (records.equals(records.get(i))) {*/
+       assertEquals(false,u);
+           /* }*/
         }
     }
-}
+

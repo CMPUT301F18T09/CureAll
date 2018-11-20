@@ -17,8 +17,9 @@ public class PatientTest {
     public void testAddProblem() {
         Problem problem = new Problem("username","title","description","time","comment");
         Patient patient = new Patient("username", "password", "email", "phone");
+    //    ArrayList<Problem> problems = patient.getProblemArrayList();
+    //    problems.add(problem);
         patient.addProblem(problem);
-        ArrayList<Problem> problems = patient.getProblemArrayList();
         assertTrue(patient.hasProblem(problem));
 
     }
@@ -35,6 +36,7 @@ public class PatientTest {
     public void testEditProblem() {
         Problem problem = new Problem("username","title","description","time","comment");
         Patient patient = new Patient("username", "password", "email", "phone");
+
         patient.addProblem(problem);
         ArrayList<Problem> problemlist = patient.getProblemArrayList();
 

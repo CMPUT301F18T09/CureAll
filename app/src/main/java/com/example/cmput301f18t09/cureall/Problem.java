@@ -32,7 +32,7 @@ public class Problem implements Serializable{
     //since getter and setter only deal with arraylist of records
     //we create a function to deal with single record
     public void addRecord(Record record){
-
+        this.recordArrayList.add(record);
     }
     //end
 

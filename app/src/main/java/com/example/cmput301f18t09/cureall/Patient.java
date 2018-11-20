@@ -43,6 +43,7 @@ public class Patient extends user{
      */
     public Patient(String username, String password, String email, String phone) {
         super(username, password,email, phone);
+        this.problemArrayList = new ArrayList<>( );
     }
 
     /**
@@ -138,6 +139,6 @@ public class Patient extends user{
      */
     public void editProblem(Problem problem, Problem newproblem){
         problemArrayList.remove(problem);
-        problemArrayList.add(problem);
+        problemArrayList.add(newproblem);
     }
 }

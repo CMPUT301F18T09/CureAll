@@ -5,7 +5,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.example.cmput301f18t09.cureall.PaperDollController.BodyPart;
 import com.example.cmput301f18t09.cureall.Record;
 import com.example.cmput301f18t09.cureall.BodyLocation;
 import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
@@ -56,9 +55,9 @@ public class RecordTest {
     }
     @Test
     public void testAddBodyLocation(){
-        ArrayList<String> photoPaths = new ArrayList<String>();
-        BodyLocation bodyLocation = new BodyLocation("head",photoPaths);
-        Record record = new Record("", "", new Date());
+        ArrayList<String> photoPaths = new ArrayList<String>( );
+        BodyLocation bodyLocation = new BodyLocation( "head",photoPaths );
+        Record record = new Record( "","",new Date(  ) );
         record.setBodyLocation(bodyLocation);
         assertEquals(record.getBodyLocation(),bodyLocation);
     }
