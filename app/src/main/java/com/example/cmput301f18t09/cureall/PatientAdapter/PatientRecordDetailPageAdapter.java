@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
-import com.example.cmput301f18t09.cureall.ProviderAdapter.RecordDetailPageAdapter;
 import com.example.cmput301f18t09.cureall.R;
 
 import java.util.ArrayList;

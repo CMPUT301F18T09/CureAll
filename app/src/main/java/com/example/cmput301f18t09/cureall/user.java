@@ -1,6 +1,7 @@
 package com.example.cmput301f18t09.cureall;
+import java.io.Serializable;
 
-public abstract class user {
+public abstract class user implements Serializable{
     String Phone;
     String Email;
     String username;

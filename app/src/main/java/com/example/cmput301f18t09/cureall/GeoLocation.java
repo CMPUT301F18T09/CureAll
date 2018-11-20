@@ -18,4 +18,12 @@ public class GeoLocation implements Serializable {
 
     public List<Double> getLocation(){return this.Location;}
     public void setLocation(List<Double> Location){ this.Location = Location;}
+
+    public double getLongitude() {
+        return lon;
+    }
+
+    public double getLatitude() {
+        return lat;
+    }
 }

@@ -7,9 +7,9 @@ import java.util.Date;
 import static org.junit.Assert.assertTrue;
 
 public class CareProviderTest {
-    Date date = new Date();
+    //Date date = new Date();
     // Creating a problem instance for testing
-    Problem problem = new Problem ("problemName","description", date ,"");
+    Problem problem = new Problem ("problemName","title","description", "time" ,"");
     // Creating a provider instance for testing
     CareProvider provider = new CareProvider("username", "password", "email", "phone");
 

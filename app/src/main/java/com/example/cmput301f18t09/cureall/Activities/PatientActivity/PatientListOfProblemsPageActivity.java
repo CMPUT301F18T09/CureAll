@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cmput301f18t09.cureall.Patient;
 import com.example.cmput301f18t09.cureall.PatientAdapter.PatientProblemListPageAdapter;
 import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.ProblemController.ProblemController;
@@ -47,6 +48,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
     String phone;
     String id;
     String pw;
+    Patient patient;
     final int REQUEST_PROBLEM_ADDING = 1;
 
 
@@ -59,16 +61,13 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         searchButton = (Button) findViewById(R.id.searchButton);
         problemAddingButton = (Button) findViewById(R.id.problemAddingButton);
         //ArrayList<Problem> problems = new ArrayList<>();
-        Intent incomingIntent = getIntent();
-        //final String username = incomingIntent.getStringExtra("username");
-        username = incomingIntent.getStringExtra("username");
-         user_email = incomingIntent.getStringExtra("email");
-         phone = incomingIntent.getStringExtra("phone");
-         id = incomingIntent.getStringExtra("id");
-         pw = incomingIntent.getStringExtra("password");
-
-         problems = (ArrayList<Problem>)getIntent().getSerializableExtra("problems");
-
+        patient = (Patient)getIntent().getSerializableExtra("patient");
+        problems = (ArrayList<Problem>)getIntent().getSerializableExtra("problems");
+        username = patient.getUsername();
+        user_email = patient.getEmail();
+        phone = patient.getPhone();
+        id = patient.getPatientID();
+        pw = patient.getPassword();
 
 
 
@@ -130,12 +129,8 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                 bundle.putSerializable("problem", problem);
                 bundle.putSerializable("records", records);
                 bundle.putSerializable("problems",problems);
+                bundle.putSerializable("patient", patient);
                 intent.putExtras(bundle);
-                intent.putExtra("username", username);
-                intent.putExtra("email",user_email);
-                intent.putExtra("phone",phone);
-                intent.putExtra("id",id);
-                intent.putExtra("password",pw);
                 startActivity(intent);
             }
 

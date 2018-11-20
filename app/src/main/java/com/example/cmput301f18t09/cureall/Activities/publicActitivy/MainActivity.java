@@ -6,18 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientBodyLocationPhotoAddingPageActivity;
-import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientListOfProblemsPageActivity;
-import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientProblemDetailPageActivity;
-import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientRecordAddingPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientSignUpActivity;
 import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderSignUpActivity;
-import com.example.cmput301f18t09.cureall.BodyLocation;
 import com.example.cmput301f18t09.cureall.R;
 
 public class MainActivity extends AppCompatActivity {

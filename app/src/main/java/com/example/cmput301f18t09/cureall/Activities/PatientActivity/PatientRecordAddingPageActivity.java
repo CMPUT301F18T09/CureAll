@@ -54,7 +54,9 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
     private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private RecordController recordController;
     private Problem problem;
+    private ArrayList<Problem> problems;
     private Record record;
+    private Patient patient;
     private BodyLocation bodyLocation;
     private ArrayList<Record> records;
 
@@ -71,6 +73,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_patient_add_record_page);
         initializer();
         //photoPaths = (ArrayList<String>) getIntent().getSerializableExtra("photo paths");
+        patient =(Patient)getIntent().getSerializableExtra("patient");
         record = (Record) getIntent().getSerializableExtra("record");
         problem = (Problem)getIntent().getSerializableExtra("problem");
         records = (ArrayList<Record>)getIntent().getSerializableExtra("records");
@@ -96,10 +99,8 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
 
 
         if (record == null &&problem != null) {
-            title = titleInput.getText().toString();
-            description = descriptionInput.getText().toString();
-            date = new Date();
-            record = new Record(title,description,date);
+
+            record = new Record(null,null,null);
             record.setProblemid(problem.getId());
             record.setUsername(problem.getUsername());
         }
@@ -231,10 +232,28 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
                 bundle.putSerializable("problem",problem);
                 bundle.putSerializable("record", record);
                 bundle.putSerializable("records", records);
+                bundle.putSerializable("patient",patient);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PatientRecordAddingPageActivity.this, PatientProblemDetailPageActivity.class);
+                Bundle bundle = new Bundle();
+                System.out.println(pictures);
+                record.setRecordTrackingPhotoArrayList(pictures);
+                bundle.putSerializable("problem",problem);
+                bundle.putSerializable("record", record);
+                bundle.putSerializable("records", records);
+                bundle.putSerializable("patient",patient);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
         //question!!!!!!!!!!!BUG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -268,6 +287,12 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                title = titleInput.getText().toString();
+                description = descriptionInput.getText().toString();
+                date = new Date();
+                record.setTitle(title);
+                record.setComment(description);
+                record.setTime(new Date());
                 record.setRecordTrackingPhotoArrayList(pictures);
                 records.add(record);
                 saveRecord(problem.getUsername(),record,problem.getId());
@@ -277,6 +302,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
                 //              bundle.putSerializable("record", record);
                 bundle.putSerializable("problem",problem);
                 bundle.putSerializable("records", records);
+                bundle.putSerializable("patient", patient);
                 intent.putExtras(bundle);
                 // startActivity(intent);
                 startActivity(intent);

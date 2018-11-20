@@ -7,8 +7,6 @@ import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
 
-//import org.elasticsearch.action.update.UpdateRequest;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -19,11 +17,66 @@ import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
-import io.searchbox.indices.mapping.PutMapping;
+
+//import org.elasticsearch.action.update.UpdateRequest;
 
 
 public class ElasticSearchController {
     private static JestDroidClient client;
+    public static class GetPatientListTask extends AsyncTask<String, Void, ArrayList<Patient>> {
+        @Override
+        protected ArrayList<Patient> doInBackground(String... search_parameters) {
+            verifySettings();
+
+            ArrayList<Patient> tweets = new ArrayList<Patient>();
+
+            // TODO Build the query
+
+            String query = "{ \"query\" : { \"match\" : { \"doctorID\" : \""+search_parameters[0]+"\"}}}";
+            //String query = ;
+
+            Search search = new Search.Builder(query)
+                    .addIndex("cmput301f18t09test")
+                    .addType("patient")
+                    .build();
+
+            try {
+                // TODO get the results of the query
+                SearchResult result = client.execute(search);
+                if (result.isSucceeded()) {
+
+                    ArrayList<String> IDs = new ArrayList<String>();
+                    Log.i("Read","Read success");
+                    List<SearchResult.Hit<Map,Void>> hits= result.getHits(Map.class);
+                    for (SearchResult.Hit hit : hits){
+                        Map source = (Map) hit.source;
+                        String id = (String)source.get(JestResult.ES_METADATA_ID);
+                        IDs.add(id);
+                        //Log.i("Read",id);
+
+                    }
+
+                    Integer a = 0;
+                    List<Patient> foundPatients = result.getSourceAsObjectList(Patient.class);
+                    for (Patient p : foundPatients){
+                        p.setPatientID(IDs.get(a));
+                        a++;
+                        Log.i("Read",p.getUsername());
+                        tweets.add(p);
+                    }
+                    //tweets.addAll(foundPatients);
+
+                } else {
+                    Log.i("Error", "The search query failed to find any tweets that matched");
+                }
+            } catch (Exception e) {
+                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+            }
+
+            return tweets;
+        }
+    }
+
     public static class SearchGeoTask extends AsyncTask<String, Void, ArrayList<Record>> {
         @Override
         protected ArrayList<Record> doInBackground(String... search_parameters) {
@@ -182,8 +235,8 @@ public class ElasticSearchController {
                     "\"query\": { \n" +
                     "\"bool\":{\n" +
                     "\"must\": [\n" +
-                    "{\"term\":{ \"username\": \""+username+"\"}},\n" +
-                    "{\"term\":{\"problemid\":\""+problemid+"\"}}\n" +
+                    "{\"match\":{ \"username\": \""+username+"\"}},\n" +
+                    "{\"match\":{\"problemid\":\""+problemid+"\"}}\n" +
                     "]\n" +
                     "}\n" +
                     "}\n" +
@@ -241,7 +294,7 @@ public class ElasticSearchController {
 
             //String query = "{ \"query\" : { \"match\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
             String query = "{  \"query\" : {\n" +
-                    "        \"term\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
+                    "        \"match\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
                     "    }\n" +
                     "}";
 
@@ -297,13 +350,13 @@ public class ElasticSearchController {
             if (num < 1000000){
                 String Num = String.format("%06d",num);
                 String id =  problem.getUsername()+ "2" + Num;
-                Index index = new Index.Builder(problem).index("cmput301f18t09test").type("problem").id(id).build();
+                Index index = new Index.Builder(problem).index("cmput301f18t09test").type("problem").build();
                 try {
                     // where is the client?
                     DocumentResult result = client.execute(index);
 
                     if (result.isSucceeded()) {
-                        //user.setPatientID(result.getId());
+                        problem.setId(result.getId());
                         Log.i("Problem","Problem save success!");
                     } else {
                         Log.i("Error", "Elasticsearch was not able to add the patient");
@@ -316,12 +369,13 @@ public class ElasticSearchController {
 
             else{
                 String id = params[0].username + "2" + Integer.toString(num);
-                Index index = new Index.Builder(problem).index("cmput301f18t09test").type("problem").id(id).build();
+                Index index = new Index.Builder(problem).index("cmput301f18t09test").type("problem").build();
                 try {
                     // where is the client?
                     DocumentResult result = client.execute(index);
 
                     if (result.isSucceeded()) {
+                        problem.setId(result.getId());
                         //user.setPatientID(result.getId());
                         Log.i("Problem","Problem save success!");
                     } else {
@@ -496,7 +550,7 @@ public class ElasticSearchController {
 
             //String query = "{ \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
             String query = "{   \"query\" : {\n" +
-                    "        \"term\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
+                    "        \"match\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
                     "    }\n" +
                     "}";
 
@@ -529,6 +583,7 @@ public class ElasticSearchController {
                         a++;
                         tweets.add(p);
                     }
+
                     //tweets.addAll(foundTweets);
 
                 } else {
@@ -587,7 +642,7 @@ public class ElasticSearchController {
 
             //String query = "{ \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
             String query = "{  \"query\" : {\n" +
-                    "        \"term\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
+                    "        \"match\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
                     "    }\n" +
                     "}";
 

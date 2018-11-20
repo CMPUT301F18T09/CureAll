@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.PatientPaperDollSelectionPageActivity;
 import com.example.cmput301f18t09.cureall.BodyLocation;
 import com.example.cmput301f18t09.cureall.PaperDollController.BodyPart;
+import com.example.cmput301f18t09.cureall.Patient;
 import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.R;
 import com.example.cmput301f18t09.cureall.Record;
@@ -42,6 +43,7 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
     private Record record;
     private BodyLocation bodyLocation;
     private Problem problem;
+    private Patient patient;
     private ArrayList<Record> records;
 
 
@@ -91,6 +93,7 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
                 bundle.putSerializable("record",record);
                 bundle.putSerializable("problem", problem);
                 bundle.putSerializable("records", records);
+                bundle.putSerializable("patient", patient);
                 intent.putExtras(bundle);
                 startActivity(intent);
 
@@ -115,6 +118,7 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
         problem = (Problem)getIntent().getSerializableExtra("problem");
         record = (Record) getIntent().getSerializableExtra("record");
         records = (ArrayList<Record>)getIntent().getSerializableExtra("records");
+        patient =(Patient)getIntent().getSerializableExtra("patient");
         bodyLocation = record.getBodyLocation();
         if (bodyLocation != null)
         {

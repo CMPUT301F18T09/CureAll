@@ -1,7 +1,6 @@
 package com.example.cmput301f18t09.cureall;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.io.Serializable;
 
 public class Problem implements Serializable{
@@ -34,6 +33,9 @@ public class Problem implements Serializable{
         this.recordArrayList = recordArrayList;
     }
     public String getId(){return this.Id;}
+/*    public ElasticSearchParams getParamID(){
+        new ElasticSearchParams()
+    }*/
     public void setId(String id){this.Id = id;}
     public String getUsername(){return this.username;}
     public String getDoctorcomment(){return this.doctorcomment;}

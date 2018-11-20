@@ -19,6 +19,7 @@ import com.example.cmput301f18t09.cureall.BodyLocation;
 import com.example.cmput301f18t09.cureall.PaperDollController.*;
 
 import com.example.cmput301f18t09.cureall.PaperDollController.BodyColor;
+import com.example.cmput301f18t09.cureall.Patient;
 import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.R;
 import com.example.cmput301f18t09.cureall.Record;
@@ -30,6 +31,7 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
     private TextView femaleText, maleText;
     private Switch switch1;
     private Problem problem;
+    private Patient patient;
     final int REQUEST_BODY = 2;
 
     private Record record;
@@ -52,6 +54,7 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
         record = (Record) getIntent().getSerializableExtra("record");
         problem = (Problem)getIntent().getSerializableExtra("problem");
         records = (ArrayList<Record>)getIntent().getSerializableExtra("records");
+        patient = (Patient)getIntent().getSerializableExtra("patient");
         //int a = 1;
     }
     View.OnTouchListener touchListener= new View.OnTouchListener() {
@@ -68,6 +71,7 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
             bundle.putSerializable("record", record);
             bundle.putSerializable("problem", problem);
             bundle.putSerializable("records", records);
+            bundle.putSerializable("patient",patient);
             //bundle.putSerializable("body", bodyLocation);
 
 

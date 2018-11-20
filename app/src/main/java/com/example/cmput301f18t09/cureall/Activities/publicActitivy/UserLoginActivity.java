@@ -94,12 +94,8 @@ public class UserLoginActivity extends AppCompatActivity {
             if (pass.equals(Password)){
                 problems = problemController.GetProblemNum(patients.get(0).getUsername());
                 Intent intent = new Intent(UserLoginActivity.this,PatientListOfProblemsPageActivity.class);
-                intent.putExtra("username", patients.get(0).getUsername());
-                intent.putExtra("email",patients.get(0).getEmail());
-                intent.putExtra("phone",patients.get(0).getPhone());
-                intent.putExtra("id",patients.get(0).getPatientID());
-                intent.putExtra("password",patients.get(0).getPassword());
                 Bundle bundle = new Bundle();
+                bundle.putSerializable("patient", patients.get(0));
                 bundle.putSerializable("problems",problems);
                 intent.putExtras(bundle);
                 //Patient user = patients.get(0);

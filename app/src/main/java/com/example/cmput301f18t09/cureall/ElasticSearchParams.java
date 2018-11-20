@@ -42,5 +42,10 @@ public class ElasticSearchParams {
         this.problemid = problemid;
     }
 
+/*    public ElasticSearchParams(String problemid)
+    {
+        this.problemid = problemid;
+    }*/
+
 
 }

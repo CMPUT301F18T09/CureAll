@@ -2,6 +2,7 @@ package com.example.cmput301f18t09.cureall;
 
 import java.util.ArrayList;
 
+
 public class Patient extends user{
     //private String username, password, email, phone;
     public String patientID;

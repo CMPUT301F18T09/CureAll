@@ -32,9 +32,9 @@ public class ProblemController {
     public static void DelteProblem(ArrayList<Problem> problems, int position, String username)
     {
         Problem problem = problems.get(position);
-        ElasticSearchParams param = new ElasticSearchParams(problems.size(),problem,username);
+        ElasticSearchParams params = new ElasticSearchParams("",problem,problem.getId());
         ElasticSearchController.DeleteProblemTask deleteProblemTask = new ElasticSearchController.DeleteProblemTask();
-        deleteProblemTask.execute(param);
+        deleteProblemTask.execute(params);
         problems.remove(position);
     }
 }

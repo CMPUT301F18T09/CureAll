@@ -1,35 +1,64 @@
 package com.example.cmput301f18t09.cureall.Activities.ProviderActivity;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
+import com.example.cmput301f18t09.cureall.ElasticSearchController;
+import com.example.cmput301f18t09.cureall.Patient;
 import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.ProviderAdapter.ProblemListPageAdapter;
 import com.example.cmput301f18t09.cureall.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 public class ProviderAListOfProblemsPageActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private ProblemListPageAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private ImageButton backButton;
     private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private Patient patient;
+    private ArrayList<Problem> exampleProblemList;
+    private TextView Name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_alist_of_problems);
         backButton = (ImageButton) findViewById(R.id.backButton);
+        Name = (TextView) findViewById(R.id.patientName);
 
+        patient = (Patient) getIntent().getSerializableExtra("patient");
+
+        exampleProblemList = new ArrayList<Problem>();
+        ElasticSearchController.GetProblemTask getproblemTask = new ElasticSearchController.GetProblemTask();
+        getproblemTask.execute(patient.getUsername());
+
+        try {
+            List<Problem> foundPatient= getproblemTask.get();
+            exampleProblemList.addAll(foundPatient);
+
+
+        } catch (Exception e) {
+            Log.i("Error", "Failed to get the user from the async object");
+        }
+
+        Log.i("Read","read end"+Integer.toString(exampleProblemList.size()));
+
+
+
+        Name.setText(patient.getUsername());
         //test samples...
-        ArrayList<Problem> exampleProblemList = new ArrayList<>();
-        exampleProblemList.add(new Problem("one", "feels horrible", "no comment",df.format(new Date()),"no comment" ));
-        exampleProblemList.add(new Problem("two", "feels horrible", "no comment",df.format(new Date()),"no comment" ));
+        //ArrayList<Problem> exampleProblemList = new ArrayList<>();
+        //exampleProblemList.add(new Problem("one", "feels horrible", "no comment",df.format(new Date()),"no comment" ));
+        //exampleProblemList.add(new Problem("two", "feels horrible", "no comment",df.format(new Date()),"no comment" ));
 
         recyclerView = findViewById(R.id.listOfProblems);
         recyclerView.setHasFixedSize(true);
@@ -41,7 +70,27 @@ public class ProviderAListOfProblemsPageActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
+
         super.onStart();
+        mAdapter.setOnItemClickListener(new ProblemListPageAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Problem problem = exampleProblemList.get(position);
+                Log.i("Patient",patient.getEmail());
+
+                Intent intent = new Intent(ProviderAListOfProblemsPageActivity.this,ProviderProblemDetailPageActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("patient", patient);
+                bundle.putSerializable("problem",problem);
+                intent.putExtras(bundle);
+                startActivity(intent);
+
+            }
+            @Override
+            public void onDetailClick(int position){
+                //dont implement
+            }
+        });
 
     }
 }
