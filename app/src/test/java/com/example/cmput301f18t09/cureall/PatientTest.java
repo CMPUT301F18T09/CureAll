@@ -1,29 +1,25 @@
+/**..*/
 package com.example.cmput301f18t09.cureall;
 
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Date;
-import com.example.cmput301f18t09.cureall.Patient;
-import com.example.cmput301f18t09.cureall.Problem;
-
-
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
 public class PatientTest {
 
     @Test
+    //test if successfully added problem
     public void testAddProblem() {
         Problem problem = new Problem("username","title","description","time","comment");
         Patient patient = new Patient("username", "password", "email", "phone");
-    //    ArrayList<Problem> problems = patient.getProblemArrayList();
-    //    problems.add(problem);
         patient.addProblem(problem);
         assertTrue(patient.hasProblem(problem));
 
     }
     @Test
+    //test if successfully deleted problem
     public void testDeleteProblem() {
         Problem problem = new Problem("username","title","description","time","comment");
         Patient patient = new Patient("username", "password", "email", "phone");
@@ -33,6 +29,7 @@ public class PatientTest {
 
     }
     @Test
+    //test if successfully edited problem
     public void testEditProblem() {
         Problem problem = new Problem("username","title","description","time","comment");
         Patient patient = new Patient("username", "password", "email", "phone");
@@ -44,7 +41,7 @@ public class PatientTest {
 
         patient.editProblem(problem,newProblem);
 
-        assertTrue(patient.hasProblem(newProblem));
+        assertTrue(patient.hasProblem(newProblem));     //now new problem exists instead of old problem
         assertFalse(patient.hasProblem(problem));
     }
 }

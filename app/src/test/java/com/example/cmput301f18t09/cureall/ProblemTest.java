@@ -1,23 +1,14 @@
+/**..*/
 package com.example.cmput301f18t09.cureall;
 
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Date;
-
-import com.example.cmput301f18t09.cureall.Problem;
-import com.example.cmput301f18t09.cureall.Record;
-import com.example.cmput301f18t09.cureall.R;
-import com.example.cmput301f18t09.cureall.Patient;
-
 import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertTrue;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
 public class ProblemTest {
     @Test
+    //test if successfully got username
     public  void testGetUsername(){
 
         Problem problem = new Problem("username","title","description","time","comment");
@@ -27,6 +18,7 @@ public class ProblemTest {
     }
 
     @Test
+    //test if successfully got title
     public void testGetTitle(){
 
         Problem problem = new Problem("username","title","description","time","comment");
@@ -38,6 +30,7 @@ public class ProblemTest {
     }
 
     @Test
+    //test if successfully got description
     public void testGetDescription(){
 
         Problem problem = new Problem("username","title","description","time","comment");
@@ -47,6 +40,7 @@ public class ProblemTest {
     }
 
     @Test
+    //test if successfully got time
     public void testGetTime(){
     /*    Date time1 = new Date();*/
         String time1 = "time";
@@ -56,6 +50,7 @@ public class ProblemTest {
     }
 
     @Test
+    //test if successfully got recordArrayList
     public void testGetRecordArrayList(){
         Problem problem = new Problem("username","title","description","time","comment");
         Record record1 = new Record("record1","comment1",new Date());
@@ -70,6 +65,7 @@ public class ProblemTest {
         assertEquals(records1,records2);
     }
     @Test
+    //test if successfully added record
     public void testAddRecord(){
         Problem problem = new Problem("username","title","description","time","comment");
         Record record = new Record("record","comment",new Date());
