@@ -25,7 +25,7 @@ public class PatientProblemAddingPageActivityTest {
     public void setUp() throws Exception {
     }
 
-    @Test
+   
     @Test
     public void PatientLogin(){
         onView(withId(R.id.titleInput)).perform(typeText("connor"), closeSoftKeyboard());
