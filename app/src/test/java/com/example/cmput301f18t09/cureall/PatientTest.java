@@ -4,6 +4,9 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Date;
+import com.example.cmput301f18t09.cureall.Patient;
+import com.example.cmput301f18t09.cureall.Problem;
+
 
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;

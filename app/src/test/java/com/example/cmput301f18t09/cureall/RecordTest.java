@@ -37,7 +37,7 @@ public class RecordTest {
         String comment = record.getComment();
         assertEquals(comment,"newComment");
     }
-/*    @Test
+    @Test
     public void testGetTime(){
         Date time1 = new Date();
         Record record = new Record("title","comment",time1);
@@ -52,7 +52,7 @@ public class RecordTest {
         record.setTime(time2);
         Date time = record.getTime();
         assertEquals(time,time2);
-    }*/
+    }
     @Test
     public void testAddBodyLocation(){
         String body = "Arm";

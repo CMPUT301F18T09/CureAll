@@ -15,48 +15,43 @@ import static junit.framework.TestCase.assertTrue;
 
 public class ProblemTest {
     @Test
-    public void testGetTitle(){
-        int pid = 1;
+    public  void testGetUsername(){
+
         Problem problem = new Problem("username","title","description","time","comment");
-        String title = problem.getTitle();
-        assertEquals(title,"title");
+        String username = "one";
+
+        assertEquals(username, problem.getUsername());
     }
+
     @Test
-    public void testSetTitle(){
+    public void testGetTitle(){
+
         Problem problem = new Problem("username","title","description","time","comment");
-        problem.setTitle("newTitle");
-        String title = problem.getTitle();
-        assertEquals(title,"newTitle");
+
+        String title = "title";
+
+        assertEquals(title,problem.getTitle());
+
     }
+
     @Test
     public void testGetDescription(){
+
         Problem problem = new Problem("username","title","description","time","comment");
         String Description = problem.getDescription();
-        assertEquals(Description,"description");
+        String description = "description";
+        assertEquals(description,Description);
     }
+
     @Test
-    public void testSetDescription(){
-        Problem problem = new Problem("username","title","description","time","comment");
-        problem.setDescription("newDescription");
-        String description = problem.getDescription();
-        assertEquals(description,"newDescription");
-    }
-/*    @Test
     public void testGetTime(){
-        Date time1 = new Date();
+    /*    Date time1 = new Date();*/
+        String time1 = "time";
         Problem problem = new Problem("username","title","description","time","comment");
-        Date time = problem.getTime();
+        String time = problem.getTime();
         assertEquals(time,time1);
     }
-    @Test
-    public void testSetTime(){
-        Date time1 = new Date();
-        Problem problem = new Problem("username","title","description","time","comment");
-        Date time2 = new Date();
-        problem.setTime(time2);
-        Date time = problem.getTime();
-        assertEquals(time,time2);
-    }*/
+
     @Test
     public void testGetRecordArrayList(){
         Problem problem = new Problem("username","title","description","time","comment");

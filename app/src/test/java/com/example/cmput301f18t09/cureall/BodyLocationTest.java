@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
+import com.example.cmput301f18t09.cureall.BodyLocation;
 
 import junit.framework.TestCase;
 
