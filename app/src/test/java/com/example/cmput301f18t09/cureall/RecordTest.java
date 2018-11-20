@@ -55,11 +55,10 @@ public class RecordTest {
     }
     @Test
     public void testAddBodyLocation(){
-        String body = "Arm";
-        ArrayList<AllKindsOfPhotos> photos = new ArrayList<AllKindsOfPhotos>();
-        BodyLocation bodylocation = new BodyLocation(BodyLocation.getBodyLocationName(), photos);
-        Record record = new Record("", "", new Date());
-        record.setBodyLocation(bodylocation);
-        assertEquals(record.getBodyLocation(),bodylocation);
+        ArrayList<String> photoPaths = new ArrayList<String>( );
+        BodyLocation bodyLocation = new BodyLocation( "head",photoPaths );
+        Record record = new Record( "","",new Date(  ) );
+        record.setBodyLocation(bodyLocation);
+        assertEquals(record.getBodyLocation(),bodyLocation);
     }
 }
