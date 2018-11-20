@@ -5,6 +5,9 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.example.cmput301f18t09.cureall.Record;
+import com.example.cmput301f18t09.cureall.BodyLocation;
+import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
 import static junit.framework.TestCase.assertEquals;
 
 public class RecordTest {
@@ -34,7 +37,7 @@ public class RecordTest {
         String comment = record.getComment();
         assertEquals(comment,"newComment");
     }
-    @Test
+/*    @Test
     public void testGetTime(){
         Date time1 = new Date();
         Record record = new Record("title","comment",time1);
@@ -49,12 +52,12 @@ public class RecordTest {
         record.setTime(time2);
         Date time = record.getTime();
         assertEquals(time,time2);
-    }
+    }*/
     @Test
     public void testAddBodyLocation(){
         String body = "Arm";
         ArrayList<AllKindsOfPhotos> photos = new ArrayList<AllKindsOfPhotos>();
-        BodyLocation bodylocation = new BodyLocation(body, photos);
+        BodyLocation bodylocation = new BodyLocation(BodyLocation.getBodyLocationName(), photos);
         Record record = new Record("", "", new Date());
         record.setBodyLocation(bodylocation);
         assertEquals(record.getBodyLocation(),bodylocation);

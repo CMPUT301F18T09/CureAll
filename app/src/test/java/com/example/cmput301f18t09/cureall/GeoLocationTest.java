@@ -9,8 +9,9 @@ import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 public class GeoLocationTest {
-    protected Double longitude= 112.354;
-    protected Double latitude = 12.354;
+    Double longitude= 112.354;
+    Double latitude = 12.354;
+    List<Double> Location = Arrays.asList(longitude, latitude);
 
     @Test
     public void testLocation(){
@@ -24,7 +25,7 @@ public class GeoLocationTest {
         //String Location = "www.putianyiyuan.com";
 
         GeoLocation location = new GeoLocation(longitude,latitude);
-        assertTrue(location.getLongtitude().equals(112.3));
-        assertTrue(location.getLatitude().equals(12.3));
+        assertTrue(location.getLongitude().equals(Location));
+        assertTrue(location.getLatitude().equals(Location));
     }
 }

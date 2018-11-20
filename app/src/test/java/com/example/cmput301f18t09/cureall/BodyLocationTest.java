@@ -14,19 +14,21 @@ public  class BodyLocationTest {
     @Test
 
     public void testAddBodyLocationPhoto() {
-        String bodyLicationName = "arm";
+        String bodyLocationName = "arm";
         String photoLocation = "photoSize";
         double photoSize = 354654651316516546516.1641654654654654;
         double photoWidth = 123456789101112131415.1114664646465465465465;
-        double photoLenth = 65465423132165465498465.13216546546498498465415132;
+        double photoLength = 65465423132165465498465.13216546546498498465415132;
 
-        ArrayList<AllKindsOfPhotos> testphoto = new ArrayList<>();
-        testphoto.add(new AllKindsOfPhotos(photoLocation,"1",photoSize,photoWidth,photoLenth));
+        ArrayList<AllKindsOfPhotos> testPhoto = new ArrayList<>();
+        testPhoto.add(new AllKindsOfPhotos(photoLocation,"1",photoSize,photoWidth,photoLength));
 
-        BodyLocation body = new BodyLocation(bodyLicationName, testphoto);
+        ArrayList<String> bodyLocationPhotoArrayList = new ArrayList<>(  );
 
-        assertEquals(body.getBodyLocationName(),bodyLicationName);
-        assertEquals(body.getBodyLocationPhotoArrayList(),testphoto);
+        BodyLocation body = new BodyLocation(bodyLocationName,  bodyLocationPhotoArrayList);
+
+        assertEquals(body.getBodyLocationName(),bodyLocationName);
+        assertEquals(body.getBodyLocationPhotoArrayList(),testPhoto);
 
     }
 
