@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">CureAll</string>
+    <string name="Patient">Patient</string>
+    <string name="Doctor">Care Provider</string>
+    <string name="newPatient">NewPatient</string>
+    <string name="newDoctor">NewDoctor</string>
+    <string name="Signup">signup</string>
+    <string name="Username">Username</string>
+    <string name="Password">Password</string>
+    <string name="Login">Login</string>
+</resources>

@@ -65,7 +65,7 @@ public class PatientMainPage extends AppCompatActivity {
         Username.setText(username);                                                //init the year/month/day/hour/minute/second
         Email.setText(email);
         Phone.setText(phone);
-
+        addProblem(username);
 
         //change.setOnClickListener(new View.OnClickListener() {
 
@@ -140,17 +140,14 @@ public class PatientMainPage extends AppCompatActivity {
 
     public void saveProblem(String username, String prob_title,String prob_desp,String date){
         ArrayList<Problem> problems = GetProblemNum(username);
-        for (Problem p : problems){
-            Log.i("Problem",p.getTitle());
-            Log.i("Problem",p.getId());
-        }
 
-        /*Problem problem = new Problem(username,prob_title,prob_desp,date,null);
 
-        ElasticSearchParams param = new ElasticSearchParams(num,problem);
+        Problem problem = new Problem(username,prob_title,prob_desp,date,null);
+
+        ElasticSearchParams param = new ElasticSearchParams(problems.size(),problem,username);
 
         ElasticSearchController.AddProblemTask addproblemTask = new ElasticSearchController.AddProblemTask();
-        addproblemTask.execute(param);*/
+        addproblemTask.execute(param);
     }
 
     public void info_change(String username,String email, String phone, String id,String pw){

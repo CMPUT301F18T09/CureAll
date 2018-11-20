@@ -24,7 +24,7 @@ public class RecordPage extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                String problemid = "connor2000002";
+                String problemid = "AWcutOF0_rcORbNUUuJd";
                 String username = "connor";
 
 
@@ -51,8 +51,8 @@ public class RecordPage extends AppCompatActivity {
 
                 GeoLocation geo = new GeoLocation(-71.34,40.12);
 
-                String title = "This is test record4 title";
-                String comment = "This is test record commeny";
+                String title = "Love you Lieutenant";
+                String comment = "^_^";
                 String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
 
                 Date date = new Date();
@@ -89,7 +89,7 @@ public class RecordPage extends AppCompatActivity {
                 Log.i("Read",Integer.toString(records.size()));*/
 
                 ElasticSearchController.GetRecordTask getRecordTask = new ElasticSearchController.GetRecordTask();
-                ElasticSearchParams params = new ElasticSearchParams("connor","connor2000002");
+                ElasticSearchParams params = new ElasticSearchParams("Voldy","Voldy2000000");
                 getRecordTask.execute(params);
 
                 try {

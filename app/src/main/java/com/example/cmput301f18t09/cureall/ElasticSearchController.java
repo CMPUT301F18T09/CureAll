@@ -24,6 +24,60 @@ import io.searchbox.indices.mapping.PutMapping;
 
 public class ElasticSearchController {
     private static JestDroidClient client;
+    public static class GetPatientListTask extends AsyncTask<String, Void, ArrayList<Patient>> {
+        @Override
+        protected ArrayList<Patient> doInBackground(String... search_parameters) {
+            verifySettings();
+
+            ArrayList<Patient> tweets = new ArrayList<Patient>();
+
+            // TODO Build the query
+
+            String query = "{ \"query\" : { \"match\" : { \"doctorID\" : \""+search_parameters[0]+"\"}}}";
+            //String query = ;
+
+            Search search = new Search.Builder(query)
+                    .addIndex("cmput301f18t09test")
+                    .addType("patient")
+                    .build();
+
+            try {
+                // TODO get the results of the query
+                SearchResult result = client.execute(search);
+                if (result.isSucceeded()) {
+
+                    ArrayList<String> IDs = new ArrayList<String>();
+                    Log.i("Read","Read success");
+                    List<SearchResult.Hit<Map,Void>> hits= result.getHits(Map.class);
+                    for (SearchResult.Hit hit : hits){
+                        Map source = (Map) hit.source;
+                        String id = (String)source.get(JestResult.ES_METADATA_ID);
+                        IDs.add(id);
+                        //Log.i("Read",id);
+
+                    }
+
+                    Integer a = 0;
+                    List<Patient> foundPatients = result.getSourceAsObjectList(Patient.class);
+                    for (Patient p : foundPatients){
+                        p.setPatientID(IDs.get(a));
+                        a++;
+                        Log.i("Read",p.getUsername());
+                        tweets.add(p);
+                    }
+                    //tweets.addAll(foundPatients);
+
+                } else {
+                    Log.i("Error", "The search query failed to find any tweets that matched");
+                }
+            } catch (Exception e) {
+                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+            }
+
+            return tweets;
+        }
+    }
+
     public static class SearchGeoTask extends AsyncTask<String, Void, ArrayList<Record>> {
         @Override
         protected ArrayList<Record> doInBackground(String... search_parameters) {
@@ -182,8 +236,8 @@ public class ElasticSearchController {
                     "\"query\": { \n" +
                     "\"bool\":{\n" +
                     "\"must\": [\n" +
-                    "{\"term\":{ \"username\": \""+username+"\"}},\n" +
-                    "{\"term\":{\"problemid\":\""+problemid+"\"}}\n" +
+                    "{\"match\":{ \"username\": \""+username+"\"}},\n" +
+                    "{\"match\":{\"problemid\":\""+problemid+"\"}}\n" +
                     "]\n" +
                     "}\n" +
                     "}\n" +
@@ -241,7 +295,7 @@ public class ElasticSearchController {
 
             //String query = "{ \"query\" : { \"match\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
             String query = "{  \"query\" : {\n" +
-                    "        \"term\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
+                    "        \"match\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
                     "    }\n" +
                     "}";
 
@@ -495,8 +549,12 @@ public class ElasticSearchController {
             // TODO Build the query
 
             //String query = "{ \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
-            String query = "{   \"query\" : {\n" +
-                    "        \"term\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
+            /*String query = "{   \"query\" : {\n" +
+                    "        \"match\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
+                    "    }\n" +
+                    "}";*/
+            String query = "{   \"size\" : 20,\"query\" : {\n" +
+                    "        \"match\" : { \"Phone\" : \"123-123-1234\" }\n" +
                     "    }\n" +
                     "}";
 
@@ -587,7 +645,7 @@ public class ElasticSearchController {
 
             //String query = "{ \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
             String query = "{  \"query\" : {\n" +
-                    "        \"term\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
+                    "        \"match\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
                     "    }\n" +
                     "}";
 

@@ -7,6 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -40,9 +43,21 @@ public class MainActivity extends AppCompatActivity {
         Patient.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,Login.class);
+                ArrayList<Patient> examplePatientList = new ArrayList<>();
+                //ElasticSearchController.GetPatientListTask getPatientListTask = new ElasticSearchController.GetPatientListTask();
+                ElasticSearchController.GetPatientTask getPatientListTask = new ElasticSearchController.GetPatientTask();
+                getPatientListTask.execute("connor");
+                try {
+                    List<Patient> foundPatient= getPatientListTask.get();
+                    examplePatientList.addAll(foundPatient);
+
+
+                } catch (Exception e) {
+                    Log.i("Error", "Failed to get the user from the async object");
+                }
+                /*Intent intent = new Intent(MainActivity.this,Login.class);
                 intent.putExtra("Role", "Patient");
-                startActivity(intent);
+                startActivity(intent);*/
             }
         });
         Doctor.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +66,18 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this,Login.class);
                 intent.putExtra("Role", "Doctor");
                 startActivity(intent);
+                /*ArrayList<Patient> examplePatientList = new ArrayList<>();
+                //ElasticSearchController.GetPatientListTask getPatientListTask = new ElasticSearchController.GetPatientListTask();
+                ElasticSearchController.GetPatientTask getPatientListTask = new ElasticSearchController.GetPatientTask();
+                getPatientListTask.execute("connor");
+                try {
+                    List<Patient> foundPatient= getPatientListTask.get();
+                    examplePatientList.addAll(foundPatient);
+
+
+                } catch (Exception e) {
+                    Log.i("Error", "Failed to get the user from the async object");
+                }*/
             }
         });
         Search.setOnClickListener(new View.OnClickListener() {
