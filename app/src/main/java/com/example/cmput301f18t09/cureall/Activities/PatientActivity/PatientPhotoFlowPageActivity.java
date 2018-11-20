@@ -22,7 +22,10 @@ import com.example.cmput301f18t09.cureall.R;
 import java.util.ArrayList;
 
 /**
- * For this activity, user(patient) can view a flow of photos
+ * For this activity, user(patient) can view a flow of bodyLocation photos
+ * NOTICE!
+ * In next project, this page will present a photo flow for record tracking photos
+ * But now, This activity is temporarily used to show your bodylocation photos, the record tracking photos can only be view in the recycleview of record detail page
  */
 public class PatientPhotoFlowPageActivity extends AppCompatActivity {
     private ImageButton backButton;

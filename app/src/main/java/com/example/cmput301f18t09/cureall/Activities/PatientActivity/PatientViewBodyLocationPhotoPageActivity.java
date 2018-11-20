@@ -25,7 +25,11 @@ import com.example.cmput301f18t09.cureall.R;
 import java.util.ArrayList;
 
 /**
- * For this activity, user(patient) can vire body location photos
+ * For this activity, user(patient) can view body location photos
+ * This function has not been finished yet. There is not button can jump to this activity
+ * This use case will be handled in next project, such that you can view a list or body location photos in a recycleview]
+ * NOTICE!
+ * To view bodyLocation photos, please check out the photoFlow activity, the bodyLocation photos has been temporarily presented there.
  */
 public class PatientViewBodyLocationPhotoPageActivity extends AppCompatActivity {
     private ImageButton backButton;

@@ -66,13 +66,15 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
      * set init value for elements used in this activity
      * (or give reference)
      *  including buttons, textviews,  patients, records, problems
+     *  There is still a problem, which is the gender can not be switch right now.
+     *  The two gender will be presented in next project
      */
     public void initializeAllElements(){
         paperDoll =findViewById(R.id.paperDoll);
         paperDollColorDivide =findViewById(R.id.paperDollColorDivide);
         femaleText =findViewById(R.id.femaleText);
         maleText =findViewById(R.id.maleText);
-        switch1 =findViewById(R.id.switch1);
+        switch1 =findViewById(R.id.switch1);// the switch has not been applied yet, we only have a male gender right now
 
         patient =(Patient)getIntent().getSerializableExtra("patient");
         record = (Record) getIntent().getSerializableExtra("record");
