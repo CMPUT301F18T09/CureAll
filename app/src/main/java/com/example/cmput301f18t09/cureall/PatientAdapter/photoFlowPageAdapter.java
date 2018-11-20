@@ -11,15 +11,28 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+/**
+ * This adapter is used for pager slide view
+ * It is a little different than the recycleviewa adapter, as it do not need a viewholder to carry a cardview inside a recycleview
+ */
 public class photoFlowPageAdapter extends PagerAdapter {
     private Context mContext;
     private ArrayList<String> imageUrls;
+
+    /**
+     * the constructor get the image source and context
+     * @param context
+     * @param imageUrls
+     */
     public photoFlowPageAdapter(Context context, ArrayList<String> imageUrls){
         mContext = context;
         this.imageUrls = imageUrls;
     }
 
-
+    /**
+     * count the images in pager view
+     * @return
+     */
     @Override
     public int getCount() {
         return imageUrls.size();
@@ -27,10 +40,16 @@ public class photoFlowPageAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object o) {
-
         return view == o;
     }
 
+    /**
+     * load the images, into a imageview of pager viewer
+     * The Picasso library is used to help us load relative data
+     * @param container
+     * @param position
+     * @return
+     */
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
@@ -45,6 +64,12 @@ public class photoFlowPageAdapter extends PagerAdapter {
         return imageView;
     }
 
+    /**
+     * when you slide, it will show you another image, but not this one
+     * @param container
+     * @param position
+     * @param object
+     */
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
          container.removeView((ImageView)object);

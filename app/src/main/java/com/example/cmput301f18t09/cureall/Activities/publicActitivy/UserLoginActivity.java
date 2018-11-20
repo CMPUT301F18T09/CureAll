@@ -36,7 +36,12 @@ import com.example.cmput301f18t09.cureall.R;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * This activity handles the case when user login
+ * It provides the space for user to input their username and passward.
+ * Only when the password and usernames matches the information in database.
+ * It will bring the user to their main page.
+ */
 public class UserLoginActivity extends AppCompatActivity {
     private ImageView loveSymbol;
     private EditText userNameInput, passwordInput;
@@ -44,6 +49,11 @@ public class UserLoginActivity extends AppCompatActivity {
     private ArrayList<Problem> problems;
     private ProblemController problemController = new ProblemController();
     @Override
+    /**
+     * initialize the buttons and edittext
+     * for user to click or input
+     * @param savedInstanceState
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
@@ -59,7 +69,10 @@ public class UserLoginActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * the onCreate function will call this function help initialize
+     * the elements in its relative xml file
+     */
     public void initalizeAllElements(){
         loveSymbol = (ImageView) findViewById(R.id.loveSymbol);
         userNameInput = (EditText) findViewById(R.id.userNameInput);
@@ -67,7 +80,14 @@ public class UserLoginActivity extends AppCompatActivity {
         loginButton = (Button) findViewById(R.id.loginButton);
         backButton = (Button) findViewById(R.id.backButton);
     }
-
+    /**
+     * The onCreate function will call login function
+     * This function will identify who is login in, the patient or provider
+     * For each different group of people, different operations will be handled
+     * This function will match each user login information with database
+     * If match success, it will bring the user to its main page.
+     * @param Role
+     */
     public void login(String Role){
         ArrayList<Patient> patients = new ArrayList<Patient>();
         ArrayList <CareProvider> doctors = new ArrayList<CareProvider>();
@@ -133,7 +153,13 @@ public class UserLoginActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * This function is only for app ui testing.
+     * Very initially, it used to test the ui layout's presentation on devices
+     * When the project or app finished, this fucntion will be deleted
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -147,7 +173,12 @@ public class UserLoginActivity extends AppCompatActivity {
 
         return true;
     }
-
+    /**
+     * For each UI test case, it will jump to a specific ui layout.
+     * Now this function is useless
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){

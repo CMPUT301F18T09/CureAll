@@ -10,7 +10,11 @@ import android.widget.TextView;
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientProblemDetailPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderProblemDetailPageActivity;
 import com.example.cmput301f18t09.cureall.R;
-
+/**
+ * This activity deals with searching user case
+ * This activity is not finished,and not applied into the app (project 4).
+ * But the prototype base code of this activity has been created.
+ */
 public class SearchActivity extends AppCompatActivity {
     private ImageButton back,startSearching;
     private TextView keywords;

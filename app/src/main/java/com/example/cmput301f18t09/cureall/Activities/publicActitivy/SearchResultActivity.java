@@ -8,7 +8,11 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.example.cmput301f18t09.cureall.R;
-
+/**
+ * this activity is used to show user's search result
+ * This activity is not finished and not applied into app(project 4)
+ * The prototype of this activity and base code has been created.
+ */
 public class SearchResultActivity extends AppCompatActivity {
 
     private ImageButton back;

@@ -14,12 +14,19 @@ import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientBody
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientSignUpActivity;
 import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderSignUpActivity;
 import com.example.cmput301f18t09.cureall.R;
+/**
+ * This is the main activity when user open this app
+ * It provider users choices to login in or sign up as patients or care provider
+ */
 
 public class MainActivity extends AppCompatActivity {
     private Button imagePatientlogin, imageProviderlogin, imagePatientSignUp,imageProviderSignUp;
     private TextView textPatient,textProvider;
     private ImageView loveSymbol;
-
+    /**
+     * initialize this activity page
+     * with some corresponding elements showing on the view
+     */
     View.OnClickListener buttonListener;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,6 +34,11 @@ public class MainActivity extends AppCompatActivity {
         initalizeAllElements();
         setContentView(R.layout.activity_main);
     }
+    /**
+     * set up the buttons with listeners
+     * such that different buttons can understand user's operations
+     * the users can click different buttons inorder to login or sign up
+     */
     @Override
     protected void onStart(){
         super.onStart();
@@ -71,12 +83,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * register the elements from xml into the activity
+     * make sure they can be present in app
+     */
     public void initalizeAllElements(){
         loveSymbol = (ImageView) findViewById(R.id.loveSymbol);
         textPatient = (TextView) findViewById(R.id.textViewPatient);
         textProvider = (TextView) findViewById(R.id.textViewProvider);
     }
+    /**
+     * register each button with its listener such that
+     * they can get the order from user's operation
+     */
     public void setButtonOnclick(){
         imagePatientlogin = (Button) findViewById(R.id.patientLogin);
         imageProviderlogin = (Button) findViewById(R.id.ProviderLogin);
@@ -88,14 +107,24 @@ public class MainActivity extends AppCompatActivity {
         imagePatientSignUp.setOnClickListener(buttonListener);
         imageProviderSignUp.setOnClickListener(buttonListener);
     }
+    /**
+     * open the patient sign up page
+     */
     public void openPatientSignUpActivity(){
         Intent intent = new Intent(this, PatientSignUpActivity.class);
         startActivity(intent);
     }
+    /**
+     * open the provider sign up page
+     */
     public void openProviderSignUpActivity(){
         Intent intent = new Intent(this, ProviderSignUpActivity.class);
         startActivity(intent);
     }
+    /**
+     * open the usr login page
+     * @param comer A String identify who click the login button
+     */
     public void openUserLoginActivity(String comer){
         Intent intent = new Intent(this, UserLoginActivity.class);
         String theComer = comer;

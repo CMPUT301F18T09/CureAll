@@ -37,7 +37,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.searchbox.core.Get;
-
+/**
+ * This is an activity that allows the user choose a geolocation
+ * This is is not a map activity, this activity allows you to get
+ * connect with google map service and help you to save the information
+ * you got from the map, such as the location coordinate or unique name of
+ * the selected place.
+ * It needs the data from former pages, such as the records, problem id,
+ * The purpose is to save to geolocation information to its corresponding record
+ */
 public class MapActivity extends AppCompatActivity {
 
     private Button button, saveButton;
@@ -56,7 +64,13 @@ public class MapActivity extends AppCompatActivity {
     private GeoLocation recordGeoLocation;
     private Double longitude;
     private Double latitude;
-
+    /**
+     * initialize some buttons and their listeners for user to click
+     * such as the button, allows to choose gelocation and the buttons to save.
+     * It also contains the check segment to check if we can connect the internet
+     * so that user can open the googlemap service.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,6 +119,9 @@ public class MapActivity extends AppCompatActivity {
         }
 
         GeoLocation = (TextView) findViewById(R.id.PickGeoLocation);
+        /**
+         * this button listener can identify if you want to open the google map
+         */
         GeoLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,7 +134,12 @@ public class MapActivity extends AppCompatActivity {
             }
         });
     }
-
+    /**
+     * get the result when back from google map
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -128,7 +150,10 @@ public class MapActivity extends AppCompatActivity {
                 return;
         }
     }
-
+    /**
+     * This fucntion is to get your current geoLocation by gps
+     * this function is not finished as we will be finished in project 5
+     */
     private void configureButton() {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,7 +167,14 @@ public class MapActivity extends AppCompatActivity {
     int PLACE_PICKER_REQUEST = 1;
     private TextView GeoLocation;
 
-
+    /**
+     * when back from google map
+     * save the required information for records
+     * gives a toast to show your chosen location's coordinate
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         if (requestCode == PLACE_PICKER_REQUEST){
             if (resultCode == RESULT_OK){
@@ -160,6 +192,13 @@ public class MapActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        /**
+         * this is the function of save button
+         * it can check if user select a geolocation
+         * If not, it will reminder the user to choose one.
+         * If yes, it will save the data and pass the records and problems
+         * back to the records detail page
+         */
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -191,7 +230,9 @@ public class MapActivity extends AppCompatActivity {
             }
         });
     }
-
+    /**
+     * when leave this activity, kill it
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();

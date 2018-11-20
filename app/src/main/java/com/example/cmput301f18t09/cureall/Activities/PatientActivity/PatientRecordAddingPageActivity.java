@@ -367,6 +367,13 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
         ElasticSearchParams param = new ElasticSearchParams(username,record,problemID);
         ElasticSearchController.AddRecordTask addRecordTask = new ElasticSearchController.AddRecordTask();
         addRecordTask.execute(param);
+        /**
+         * set the record title and description based on the input you enter in both two edittext.
+         * A small bug is that, before you click the save button, make sure the content in edittext is what you want to save
+         * Because, some time, the data will lost after you adding photos or geolocations.
+         */
+        record.setTitle(titleInput.getText().toString());
+        record.setComment(descriptionInput.getText().toString());
     }
     @Override
     protected void onDestroy() {

@@ -33,6 +33,8 @@ import java.util.ArrayList;
 
 /**
  * For this activity, user(patient) can select from paper doll to define a body location
+ * This Activity provides user a paper doll photo
+ * to choose a body part, such as arm, head, neck, back....
  */
 public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
     private ImageView paperDoll,paperDollColorDivide;
@@ -46,6 +48,11 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
     private ArrayList<Record> records;
 
     final int REQUEST_BODY = 2;
+    /**
+     * initialize some buttons/ image buttons from its relative xml file
+     * that allows the user to click from the image
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +80,11 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
         records = (ArrayList<Record>)getIntent().getSerializableExtra("records");
         problems = (ArrayList<Problem>)getIntent().getSerializableExtra("problems");
     }
+    /**
+     * A touch listener handles all functions that deal with the case of which body location
+     * the patient has selected.
+     * It save the patient's choice, and pass the data to next activity for adding body location photos.
+     */
     View.OnTouchListener touchListener= new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent e) {
@@ -96,8 +108,11 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
     };
 
     /**
-     * get hot spot color for define user selected body part
-     * @param hotspotId id
+     * This function specific each part of body location with color.
+     * It uses the same copy of paper doll, but full of different color on it
+     * It set above the visible paper doll image, inorder to get the user click data and it is set in invisible.
+     * So that the patient will see a paper doll image, but clicked on another paper doll image that is invisible
+     * @param hotspotId
      * @param x         x_coordinate
      * @param y         y_coordinate
      * @return          color value
@@ -121,9 +136,12 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
     }
 
     /**
-     * define the bodylocation for user selection
-     * @param bodyPart used for define by color value
-     * @return the body location
+     * This function will handle the different case after a user click on the image
+     * Each part of image is marked with a color,
+     * and each color is associated with a body part.
+     * By referring the object bodypart, we will figure out which body location of paper doll, a specific body part that has been chosen
+     * @param bodyPart
+     * @return
      */
     private BodyLocation checkBody(BodyPart bodyPart)
     {
@@ -203,6 +221,9 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
             }
         }
     }*/
+    /**
+     * when leave this page, kill the activity
+     */
     @Override
     public void onStop(){
         super.onStop();

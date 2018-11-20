@@ -102,6 +102,9 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
         records = (ArrayList<Record>)getIntent().getSerializableExtra("records");
         problems = (ArrayList<Problem>)getIntent().getSerializableExtra("problems");
         patient = (Patient)getIntent().getSerializableExtra("patient");
+        /**
+         * set the tile and description based on what you entered in record adding page!
+         */
         titleContent.setText(record.getTitle());
         commentContent.setText(record.getComment());
         timeContent.setText(df.format(record.getTime()) );
