@@ -17,9 +17,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.cmput301f18t09.cureall.Activities.publicActitivy.PatientPaperDollSelectionPageActivity;
 import com.example.cmput301f18t09.cureall.BodyLocation;
-import com.example.cmput301f18t09.cureall.PaperDollController.BodyPart;
 import com.example.cmput301f18t09.cureall.Patient;
 import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.R;
@@ -39,12 +37,12 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
     private int switcher;
     private ArrayList<String> pictures = new ArrayList<String>();
     static final int REQUEST_IMAGE_CAPTURE = 1;
-    final int REQUEST_EXIT = 3;
     private Record record;
     private BodyLocation bodyLocation;
     private Problem problem;
     private Patient patient;
     private ArrayList<Record> records;
+    private ArrayList<Problem> problems;
 
 
 
@@ -85,18 +83,33 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println(pictures);
                 bodyLocation.setBodyLocationPhotoArrayList(pictures);
                 record.setBodyLocation(bodyLocation);
                 Intent intent = new Intent(PatientBodyLocationPhotoAddingPageActivity.this, PatientRecordAddingPageActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("record",record);
-                bundle.putSerializable("problem", problem);
+                bundle.putSerializable("problem",problem);
+                bundle.putSerializable("record", record);
                 bundle.putSerializable("records", records);
-                bundle.putSerializable("patient", patient);
+                bundle.putSerializable("patient",patient);
+                bundle.putSerializable("problems", problems);
                 intent.putExtras(bundle);
                 startActivity(intent);
 
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PatientBodyLocationPhotoAddingPageActivity.this, PatientPaperDollSelectionPageActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("problem",problem);
+                bundle.putSerializable("record", record);
+                bundle.putSerializable("records", records);
+                bundle.putSerializable("patient",patient);
+                bundle.putSerializable("problems", problems);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 
@@ -115,10 +128,11 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
         fixedText3 = findViewById(R.id.fixedText3);
         fixedText4 = findViewById(R.id.fixedText4);
         fixedText5 = findViewById(R.id.fixedText5);
-        problem = (Problem)getIntent().getSerializableExtra("problem");
-        record = (Record) getIntent().getSerializableExtra("record");
-        records = (ArrayList<Record>)getIntent().getSerializableExtra("records");
         patient =(Patient)getIntent().getSerializableExtra("patient");
+        record = (Record) getIntent().getSerializableExtra("record");
+        problem = (Problem)getIntent().getSerializableExtra("problem");
+        records = (ArrayList<Record>)getIntent().getSerializableExtra("records");
+        problems = (ArrayList<Problem>)getIntent().getSerializableExtra("problems");
         bodyLocation = record.getBodyLocation();
         if (bodyLocation != null)
         {

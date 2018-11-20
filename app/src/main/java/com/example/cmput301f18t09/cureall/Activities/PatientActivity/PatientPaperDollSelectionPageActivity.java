@@ -1,20 +1,16 @@
-package com.example.cmput301f18t09.cureall.Activities.publicActitivy;
+package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientBodyLocationPhotoAddingPageActivity;
 import com.example.cmput301f18t09.cureall.BodyLocation;
 import com.example.cmput301f18t09.cureall.PaperDollController.*;
 
@@ -31,11 +27,13 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
     private TextView femaleText, maleText;
     private Switch switch1;
     private Problem problem;
-    private Patient patient;
-    final int REQUEST_BODY = 2;
-
+    private ArrayList<Problem> problems;
     private Record record;
+    private Patient patient;
+    private BodyLocation bodyLocation;
     private ArrayList<Record> records;
+
+    final int REQUEST_BODY = 2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,11 +49,12 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
         femaleText =findViewById(R.id.femaleText);
         maleText =findViewById(R.id.maleText);
         switch1 =findViewById(R.id.switch1);
+
+        patient =(Patient)getIntent().getSerializableExtra("patient");
         record = (Record) getIntent().getSerializableExtra("record");
         problem = (Problem)getIntent().getSerializableExtra("problem");
         records = (ArrayList<Record>)getIntent().getSerializableExtra("records");
-        patient = (Patient)getIntent().getSerializableExtra("patient");
-        //int a = 1;
+        problems = (ArrayList<Problem>)getIntent().getSerializableExtra("problems");
     }
     View.OnTouchListener touchListener= new View.OnTouchListener() {
         @Override
@@ -68,17 +67,12 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
             record.setBodyLocation(bodyLocation);
             Intent intent = new Intent(PatientPaperDollSelectionPageActivity.this, PatientBodyLocationPhotoAddingPageActivity.class);
             Bundle bundle = new Bundle();
+            bundle.putSerializable("problem",problem);
             bundle.putSerializable("record", record);
-            bundle.putSerializable("problem", problem);
             bundle.putSerializable("records", records);
             bundle.putSerializable("patient",patient);
-            //bundle.putSerializable("body", bodyLocation);
-
-
+            bundle.putSerializable("problems", problems);
             intent.putExtras(bundle);
-
-            //startActivityForResult(intent);
-            intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
             startActivity(intent);
             return false;
         }

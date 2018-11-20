@@ -11,8 +11,10 @@ import android.widget.TextView;
 
 import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
 import com.example.cmput301f18t09.cureall.BodyLocation;
+import com.example.cmput301f18t09.cureall.Patient;
 import com.example.cmput301f18t09.cureall.PatientAdapter.PatientProblemDetailPageAdapter;
 import com.example.cmput301f18t09.cureall.PatientAdapter.PatientRecordDetailPageAdapter;
+import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.R;
 import com.example.cmput301f18t09.cureall.Record;
 
@@ -27,10 +29,16 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
     private PatientRecordDetailPageAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private Record record;
+    private Problem problem;
+    private ArrayList<Problem> problems;
+    private Patient patient;
+    private ArrayList<Record> records;
+
     private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     //images from internet test
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
+
     ///
     private BodyLocation bodyLocation2;
     //ends..
@@ -67,6 +75,10 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
         recordDetailHeader = findViewById(R.id.recordDetailHeader);
         /////////////////////////////////////////////////////////////////////
         record = (Record)getIntent().getSerializableExtra("record");
+        problem = (Problem)getIntent().getSerializableExtra("problem");
+        records = (ArrayList<Record>)getIntent().getSerializableExtra("records");
+        problems = (ArrayList<Problem>)getIntent().getSerializableExtra("problems");
+        patient = (Patient)getIntent().getSerializableExtra("patient");
         titleContent.setText(record.getTitle());
         commentContent.setText(record.getComment());
         timeContent.setText(df.format(record.getTime()) );
@@ -81,10 +93,7 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
                 mNames.add("123");
             }
         }
-        //String log = record.getGeoLocation().getLocation().get(0).toString();
-       // String lat = record.getGeoLocation().getLocation().get(1).toString();
-        //String coord = log+lat;
-        //recordDetailHeader.setText(coord);
+
 
 
     }
@@ -98,6 +107,21 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
                 Intent intent = new Intent(PatientRecordDetailPageActivity.this, PatientPhotoFlowPageActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("body", bodyLocation2);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PatientRecordDetailPageActivity.this, PatientProblemDetailPageActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("record",record);
+                bundle.putSerializable("problem", problem);
+                bundle.putSerializable("records", records);
+                bundle.putSerializable("patient", patient);
+                bundle.putSerializable("problems",problems);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

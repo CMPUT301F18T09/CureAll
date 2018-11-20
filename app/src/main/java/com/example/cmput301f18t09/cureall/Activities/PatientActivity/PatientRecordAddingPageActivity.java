@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -21,12 +20,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.MapActivity;
-import com.example.cmput301f18t09.cureall.Activities.publicActitivy.PatientPaperDollSelectionPageActivity;
 import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
 import com.example.cmput301f18t09.cureall.BodyLocation;
 import com.example.cmput301f18t09.cureall.ElasticSearchController;
 import com.example.cmput301f18t09.cureall.ElasticSearchParams;
-import com.example.cmput301f18t09.cureall.GeoLocation;
 import com.example.cmput301f18t09.cureall.Patient;
 import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.R;
@@ -77,6 +74,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
         record = (Record) getIntent().getSerializableExtra("record");
         problem = (Problem)getIntent().getSerializableExtra("problem");
         records = (ArrayList<Record>)getIntent().getSerializableExtra("records");
+        problems = (ArrayList<Problem>)getIntent().getSerializableExtra("problems");
         if (record != null) {
             bodyLocation = record.getBodyLocation();
             pictures = record.getRecordTrackingPhotoArrayList();
@@ -233,6 +231,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
                 bundle.putSerializable("record", record);
                 bundle.putSerializable("records", records);
                 bundle.putSerializable("patient",patient);
+                bundle.putSerializable("problems", problems);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -243,12 +242,12 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PatientRecordAddingPageActivity.this, PatientProblemDetailPageActivity.class);
                 Bundle bundle = new Bundle();
-                System.out.println(pictures);
                 record.setRecordTrackingPhotoArrayList(pictures);
                 bundle.putSerializable("problem",problem);
                 bundle.putSerializable("record", record);
                 bundle.putSerializable("records", records);
                 bundle.putSerializable("patient",patient);
+                bundle.putSerializable("problems", problems);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -273,13 +272,15 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //pass problem and record to ...
-                System.out.println(pictures);
                 record.setRecordTrackingPhotoArrayList(pictures);
                 Intent intent = new Intent(PatientRecordAddingPageActivity.this,MapActivity.class);
                 Bundle bundle = new Bundle();
+                record.setRecordTrackingPhotoArrayList(pictures);
                 bundle.putSerializable("problem",problem);
                 bundle.putSerializable("record", record);
                 bundle.putSerializable("records", records);
+                bundle.putSerializable("patient",patient);
+                bundle.putSerializable("problems", problems);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -299,14 +300,14 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(PatientRecordAddingPageActivity.this, PatientProblemDetailPageActivity.class);
                 Bundle bundle = new Bundle();
-                //              bundle.putSerializable("record", record);
+                record.setRecordTrackingPhotoArrayList(pictures);
                 bundle.putSerializable("problem",problem);
+                bundle.putSerializable("record", record);
                 bundle.putSerializable("records", records);
-                bundle.putSerializable("patient", patient);
+                bundle.putSerializable("patient",patient);
+                bundle.putSerializable("problems", problems);
                 intent.putExtras(bundle);
-                // startActivity(intent);
                 startActivity(intent);
-
             }
         });
 

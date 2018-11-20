@@ -127,9 +127,12 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
                 Intent intent = new Intent(PatientProblemDetailPageActivity.this,PatientRecordDetailPageActivity.class);
                 Record record = records.get(position);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("record", record);
+                bundle.putSerializable("problem", problem);
+                bundle.putSerializable("problems",problems);
+                bundle.putSerializable("patient",patient);
+                bundle.putSerializable("records", records);
+                bundle.putSerializable("record",record);
                 intent.putExtras(bundle);
-//                intent.putExtra("problem",problem.getId());
                 startActivity(intent);
             }
         });

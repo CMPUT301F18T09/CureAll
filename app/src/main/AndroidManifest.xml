@@ -38,7 +38,7 @@
         <activity android:name=".Activities.PatientActivity.PatientRecordAddingPageActivity" />
         <activity android:name=".Activities.PatientActivity.PatientShowProviderCommentPageActivity" />
         <activity android:name=".Activities.PatientActivity.PatientRecordDetailPageActivity" />
-        <activity android:name=".Activities.publicActitivy.PatientPaperDollSelectionPageActivity" />
+        <activity android:name=".Activities.PatientActivity.PatientPaperDollSelectionPageActivity" />
         <activity android:name=".Activities.PatientActivity.PatientBodyLocationPhotoAddingPageActivity" />
         <activity android:name=".Activities.PatientActivity.PatientViewBodyLocationPhotoPageActivity" />
         <activity android:name=".Activities.PatientActivity.PatientPhotoFlowPageActivity" />

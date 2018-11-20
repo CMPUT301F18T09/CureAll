@@ -102,6 +102,7 @@ public class PatientProblemListPageAdapter extends RecyclerView.Adapter<PatientP
     @Override
     public int getItemCount() {
 
+
         return problemArrayList.size();
     }
 }
