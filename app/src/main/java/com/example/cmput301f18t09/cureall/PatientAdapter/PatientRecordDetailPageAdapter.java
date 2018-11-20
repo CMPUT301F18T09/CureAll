@@ -86,30 +86,3 @@ public class PatientRecordDetailPageAdapter extends RecyclerView.Adapter<Patient
         return mImageUrls.size();
     }
 }
-/**
- @Override
- public viewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
- View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.provider_each_photo_in_recycle_view,viewGroup,false);
- viewHolder vh2 = new viewHolder(v);
- return vh2;
- }
- public RecordDetailPageAdapter(ArrayList<AllKindsOfPhotos> photosList){
- photosArrayList = photosList;
- }
- @Override
- public void onBindViewHolder(viewHolder viewHolder, int position) {
- AllKindsOfPhotos currentPhoto = photosArrayList.get(position);
- viewHolder.imageButton.setOnClickListener(new View.OnClickListener() {
- @Override
- public void onClick(View v) {
- Toast.makeText(v.getContext(),"firstPhoto",Toast.LENGTH_SHORT).show();
- }
- });
-
- }
- @Override
- public int getItemCount() {
- return photosArrayList.size();
- }
- }
- **/

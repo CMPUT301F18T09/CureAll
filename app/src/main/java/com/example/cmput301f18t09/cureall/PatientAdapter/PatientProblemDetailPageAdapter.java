@@ -107,8 +107,8 @@ public class PatientProblemDetailPageAdapter extends RecyclerView.Adapter<Patien
         Record currentRecord = recordsArrayList.get(position);
         viewHolder.recordTitle.setText(currentRecord.getTitle());
         /**
-         * You can only view the record time in record detail page
-         * The preview function is not finished yet.
+         * You can only view the record time, and descriptions in record detail page
+         * The preview function is not finished yet, only the record title will be presented.
          * There are some bugs about the layout of cardview, sometimes the words may overlap with each other
          * The bug will be fixed at next project, or final version
          */

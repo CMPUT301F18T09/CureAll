@@ -28,7 +28,7 @@ public class PatientProblemListPageAdapter extends RecyclerView.Adapter<PatientP
     /**
      * The view holder is used to carry a card view
      * which is used to contain the preview information of a problem
-     * Once you click the buttons on each card view of a problem, it will show problem details or
+     * Once you click the button on each problem inside recycleview, it will show problem details or
      * delete the problems...
      */
     public class viewHolder extends RecyclerView.ViewHolder{
@@ -80,7 +80,7 @@ public class PatientProblemListPageAdapter extends RecyclerView.Adapter<PatientP
         }
     }
     /**
-     * create the interface that allows the button can be clicked
+     * create the interface that allows the buttons inside an item or item itself can be clicked
      */
     public interface OnItemClickListener{
         void onItemClick(int position);
@@ -112,8 +112,6 @@ public class PatientProblemListPageAdapter extends RecyclerView.Adapter<PatientP
         viewHolder vh2 = new viewHolder(v, mlistener);
         return vh2;
     }
-
-
 
     /**
      * for each item, set its preview information such as title and date...
