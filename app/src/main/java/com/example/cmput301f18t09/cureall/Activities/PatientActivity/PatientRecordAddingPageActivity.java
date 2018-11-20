@@ -332,6 +332,19 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /**
+                 * the check if statement has not finished yet!
+                 */
+                /*if (record.getRecordTrackingPhotoArrayList().size() < 10){
+                    Toast.makeText(PatientRecordAddingPageActivity.this, "Your tracking photo is less than 10", Toast.LENGTH_SHORT).show();
+                }
+                else if(record.getGeoLocation() == null){
+                    Toast.makeText(PatientRecordAddingPageActivity.this, "You didn't specific any geoLocation yet!", Toast.LENGTH_SHORT).show();
+                }
+                else if(record.getBodyLocation() == null){
+                    Toast.makeText(PatientRecordAddingPageActivity.this, "You didn't specific any body Location yet!", Toast.LENGTH_SHORT).show();
+                }*/
+
                 title = titleInput.getText().toString();
                 description = descriptionInput.getText().toString();
                 date = new Date();

@@ -113,7 +113,7 @@ public class Record implements Serializable{
 
     /**
      * setter for comment
-     * @param title new comment
+     * @param comment new comment
      */
     public void setComment(String comment) {
         this.comment = comment;
@@ -129,7 +129,7 @@ public class Record implements Serializable{
 
     /**
      * setter for time
-     * @param title new time
+     * @param time new time
      */
     public void setTime(Date time) {
         this.time = time;
@@ -145,7 +145,7 @@ public class Record implements Serializable{
 
     /**
      * setter for geoLocation
-     * @param title new geoLocation
+     * @param geoLocation new geoLocation
      */
     public void setGeoLocation(GeoLocation geoLocation) {
         this.geoLocation = geoLocation;
@@ -161,7 +161,7 @@ public class Record implements Serializable{
 
     /**
      * setter for bodyLocation
-     * @param title new bodyLocation
+     * @param bodyLocation new bodyLocation
      */
     public void setBodyLocation(BodyLocation bodyLocation) {
         this.bodyLocation = bodyLocation;
@@ -177,7 +177,7 @@ public class Record implements Serializable{
 
     /**
      * setter for recordTrackingPhotoArrayList
-     * @param title new recordTrackingPhotoArrayList
+     * @param recordTrackingPhotoArrayList new recordTrackingPhotoArrayList
      */
     public void setRecordTrackingPhotoArrayList(ArrayList<AllKindsOfPhotos> recordTrackingPhotoArrayList) {
         this.recordTrackingPhotoArrayList = recordTrackingPhotoArrayList;
