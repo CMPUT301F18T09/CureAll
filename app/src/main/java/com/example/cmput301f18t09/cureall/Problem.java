@@ -50,6 +50,7 @@ public class Problem implements Serializable{
         this.description = description;
         this.time = time;
         this.doctorcomment = comment;
+        this.recordArrayList = new ArrayList<>( );
     }
 
     /**
