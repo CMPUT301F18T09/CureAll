@@ -18,6 +18,7 @@ import java.util.ArrayList;
  */
 public class CareProvider extends user {
     public String DoctorID;
+    public String patientName;
 
     private ArrayList<Patient> patientArrayList;
     //special fucntion
@@ -33,8 +34,7 @@ public class CareProvider extends user {
     /**
      * getter for a single patient
      */
-    private void getPaitent(){
-    }
+    public String getPaitent(){return patientName; }
 
     /**
      * function for adding comment for a problem
@@ -47,10 +47,10 @@ public class CareProvider extends user {
 
     /**
      * function to add a patient to a care provider
-     * @param username      patient name
+     * @param patientName      patient name
      */
-    public void addPatientByName(String username){
-
+    public void addPatientByName(Patient patient,String patientName){
+        patient.setPatientID(patientName) ;
     }
 
     /**
