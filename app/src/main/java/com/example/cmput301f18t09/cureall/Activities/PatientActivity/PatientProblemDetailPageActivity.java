@@ -87,7 +87,10 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
         id = patient.getPatientID();
         pw = patient.getPassword();
 
-
+        //set the content on view
+        titleInput.setText(problem.getTitle());
+        dateInput.setText(problem.getTime());
+        descriptionInput.setText(problem.getDescription());
 
         //set backButton listener
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -150,7 +153,6 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mAdapter = new PatientProblemDetailPageAdapter(records);
-
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(new PatientProblemDetailPageAdapter.OnItemClickListener() {

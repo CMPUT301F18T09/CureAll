@@ -29,37 +29,41 @@
 
         <Button
             android:id="@+id/problemDetailButton"
-            android:text="detail"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="100dp"
+            android:layout_marginStart="90dp"
+            android:text="detail"
             app:srcCompat="@mipmap/ic_launcher" />
 
         <TextView
             android:id="@+id/date"
-            android:layout_width="wrap_content"
-            android:layout_height="25dp"
-            android:layout_alignTop="@+id/problemDetailButton"
-            android:layout_toStartOf="@+id/problemDeleteButton"
+            android:layout_width="98dp"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/numberOfRecords"
+            android:layout_alignParentTop="true"
+            android:autoSizeMaxTextSize="100sp"
+            android:autoSizeMinTextSize="4sp"
+            android:autoSizeTextType="uniform"
             android:text="date" />
 
         <TextView
             android:id="@+id/numberOfRecords"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
-            android:layout_alignBottom="@+id/problemDetailButton"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="40dp"
             android:layout_toStartOf="@+id/problemDeleteButton"
             android:text="numbers" />
 
         <Button
             android:id="@+id/problemDeleteButton"
-            android:text="delete"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
+            android:text="delete"
             app:srcCompat="@drawable/ic_launcher_background" />
 
 

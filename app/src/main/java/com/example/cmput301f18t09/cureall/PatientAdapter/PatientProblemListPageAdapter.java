@@ -95,6 +95,14 @@ public class PatientProblemListPageAdapter extends RecyclerView.Adapter<PatientP
     public void onBindViewHolder(viewHolder viewHolder, int position) {
         Problem currentProblem = problemArrayList.get(position);
         viewHolder.title.setText(currentProblem.getTitle());
+        if(currentProblem!= null){
+            /**
+             * get the number of records for this problem
+             * This part has not been finished yet, so you cant see how many records, a problem has.
+             * It will be finished at the next project
+             */
+        }
+        viewHolder.date.setText(currentProblem.getTime());
         // viewHolder.date.setText(currentProblem.getTime());
         //viewHolder.numberOfRecords.setText(currentProblem.get(...));
 

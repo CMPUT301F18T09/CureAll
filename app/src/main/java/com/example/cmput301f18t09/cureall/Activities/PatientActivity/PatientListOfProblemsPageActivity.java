@@ -181,9 +181,9 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         TextView email = header.findViewById(R.id.nav_email);
         TextView phoneNumber = header.findViewById(R.id.nav_phone);
         ImageView headScript = header.findViewById(R.id.nav_headScript);
-        name.setText(username);
-        email.setText(user_email);
-        phoneNumber.setText(phone);
+        name.setText("ID: "+username);
+        email.setText("Email:"+user_email);
+        phoneNumber.setText("Phone: "+ phone);
 
         //for end
         problemAddingButton.setOnClickListener(new View.OnClickListener() {
