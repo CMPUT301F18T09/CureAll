@@ -1,3 +1,12 @@
+/**
+ * Class name: PatientProblemAddingPageActivity
+ *
+ * Version: v1.0.0
+ *
+ * Date: November 14, 2018
+ *
+ * Copyright (c) 2018. Team09, F18 CMPUT301, All rights reserved.
+ */
 package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 
 import android.content.Intent;
@@ -22,7 +31,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
+/**
+ * For this activity, user(patient) can add problem into their profile
+ */
 public class PatientProblemAddingPageActivity extends AppCompatActivity {
     private TextView maxLength30, maxLength300;
     private ImageView writeSymbol;
@@ -32,6 +43,10 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
     private ArrayList<Problem> problems = new ArrayList<Problem>();
     private ProblemController problemController = new ProblemController();
 
+    /**
+     * set listener for save button
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +76,7 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
                         setResult(RESULT_OK, intent);
                         finish();
                     }
-                }, 200);
+                }, 1000);
 
 
             }
@@ -69,6 +84,11 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * set init value for elements used in this activity
+     * (or give reference)
+     * including buttons, textviews, title, description, username, problems
+     */
     public void initializedAllElements(){
         maxLength30 = (TextView) findViewById(R.id.maxLength30);
         maxLength300 = findViewById(R.id.maxLength300);
@@ -84,6 +104,11 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * get problems
+     * @param username  patient account name
+     * @return          corresponding problems
+     */
     public ArrayList<Problem> GetProblemNum(String username){
         ArrayList<Problem> problems = new ArrayList<Problem>();
         ElasticSearchController.GetProblemTask getproblemTask = new ElasticSearchController.GetProblemTask();
@@ -103,6 +128,13 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
         return problems;
     }
 
+    /**
+     * save new problems
+     * @param username      whose new problem
+     * @param prob_title    new problem's title
+     * @param prob_desp     new problem's description
+     * @param date          new problem's date
+     */
     public void saveProblem(String username, String prob_title,String prob_desp,String date){
         ArrayList<Problem> problems = GetProblemNum(username);
 

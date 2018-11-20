@@ -1,3 +1,12 @@
+/**
+ * Class name: PatientSignUpActivity
+ *
+ * Version: v1.0.0
+ *
+ * Date: November 14, 2018
+ *
+ * Copyright (c) 2018. Team09, F18 CMPUT301, All rights reserved.
+ */
 package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 
 import android.content.Intent;
@@ -15,19 +24,29 @@ import com.example.cmput301f18t09.cureall.ElasticSearchController;
 import com.example.cmput301f18t09.cureall.Patient;
 import com.example.cmput301f18t09.cureall.R;
 
+/**
+ * For this activity, user(patient) can sign up for an account
+ */
 public class PatientSignUpActivity extends AppCompatActivity{
     private Button backButton, continueButton;
     private EditText username, password, rePassword, email, phone ;
     private ImageView patientSymbol;
 
+    /**
+     * start up
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_sign_up);
         initalizeAllElements();
         Sign();
-
     }
+
+    /**
+     * get all info needed for creating a new patient account from EditText
+     */
     public void initalizeAllElements(){
         backButton = (Button) findViewById(R.id.backButton);
         continueButton = (Button) findViewById(R.id.continueButton);
@@ -41,8 +60,11 @@ public class PatientSignUpActivity extends AppCompatActivity{
 
     }
 
+    /**
+     * set continueButton listener
+     * sign for a patient
+     */
     public void Sign(){
-
 
         continueButton.setOnClickListener(new View.OnClickListener() {
 

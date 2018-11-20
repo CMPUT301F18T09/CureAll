@@ -1,3 +1,12 @@
+/**
+ * Class name: PatientPaperDollSelectionPageActivity
+ *
+ * Version: v1.0.0
+ *
+ * Date: November 14, 2018
+ *
+ * Copyright (c) 2018. Team09, F18 CMPUT301, All rights reserved.
+ */
 package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 
 import android.content.Intent;
@@ -22,6 +31,9 @@ import com.example.cmput301f18t09.cureall.Record;
 
 import java.util.ArrayList;
 
+/**
+ * For this activity, user(patient) can select from paper doll to define a body location
+ */
 public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
     private ImageView paperDoll,paperDollColorDivide;
     private TextView femaleText, maleText;
@@ -43,6 +55,11 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
         paperDoll.setOnTouchListener(touchListener);
     }
 
+    /**
+     * set init value for elements used in this activity
+     * (or give reference)
+     *  including buttons, textviews,  patients, records, problems
+     */
     public void initializeAllElements(){
         paperDoll =findViewById(R.id.paperDoll);
         paperDollColorDivide =findViewById(R.id.paperDollColorDivide);
@@ -78,6 +95,13 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * get hot spot color for define user selected body part
+     * @param hotspotId id
+     * @param x         x_coordinate
+     * @param y         y_coordinate
+     * @return          color value
+     */
     public int getHotspotColor (int hotspotId, int x, int y) {
         ImageView img = findViewById (hotspotId);
         if (img == null) {
@@ -95,6 +119,12 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
             }
         }
     }
+
+    /**
+     * define the bodylocation for user selection
+     * @param bodyPart used for define by color value
+     * @return the body location
+     */
     private BodyLocation checkBody(BodyPart bodyPart)
     {
         BodyLocation bodyLocation = new BodyLocation(null,new ArrayList<String>());
@@ -162,7 +192,7 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
         }
         return bodyLocation;
     }
-/*
+/*  does not use
     @Override protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
@@ -179,6 +209,7 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
         finish();
     }
 
+// does not use
 /*    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
     {

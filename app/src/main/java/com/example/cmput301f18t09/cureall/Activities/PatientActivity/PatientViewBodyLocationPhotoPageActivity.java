@@ -1,3 +1,12 @@
+/**
+ * Class name: PatientViewBodyLocationPhotoPageActivity
+ *
+ * Version: v1.0.0
+ *
+ * Date: November 14, 2018
+ *
+ * Copyright (c) 2018. Team09, F18 CMPUT301, All rights reserved.
+ */
 package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +24,9 @@ import com.example.cmput301f18t09.cureall.R;
 
 import java.util.ArrayList;
 
+/**
+ * For this activity, user(patient) can vire body location photos
+ */
 public class PatientViewBodyLocationPhotoPageActivity extends AppCompatActivity {
     private ImageButton backButton;
     private ImageView BodyLocationpRreview;
@@ -27,6 +39,11 @@ public class PatientViewBodyLocationPhotoPageActivity extends AppCompatActivity 
 
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
+
+    /**
+     * useing views to show bodylocation photos
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

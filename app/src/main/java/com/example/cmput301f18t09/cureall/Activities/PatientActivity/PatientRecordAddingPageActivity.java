@@ -1,3 +1,12 @@
+/**
+ * Class name: PatientRecordAddingPageActivity
+ *
+ * Version: v1.0.0
+ *
+ * Date: November 14, 2018
+ *
+ * Copyright (c) 2018. Team09, F18 CMPUT301, All rights reserved.
+ */
 package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 
 import android.content.Intent;
@@ -38,6 +47,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * For this activity, user(patient) can add record into a problem
+ */
 public class PatientRecordAddingPageActivity extends AppCompatActivity {
     private ArrayList<String> photoPaths = new ArrayList<String>();
     private ImageButton backButton, saveButton, fromAlbumButton,
@@ -64,6 +76,11 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
     //photos
     private ArrayList<AllKindsOfPhotos> pictures ;
     public static final int CAMERA_REQUEST_CODE = 228;
+
+    /**
+     * get patients info and corresponding problems & records
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,8 +111,6 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
             }
 
         }
-
-
         if (record == null &&problem != null) {
 
             record = new Record(null,null,null);
@@ -104,6 +119,11 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * set init value for elements used in this activity
+     * (or give reference)
+     * including buttons, textviews, new record's info
+     */
     private void initializer()
     {
         backButton = findViewById(R.id.backButton);
@@ -122,7 +142,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
 
 
     }
-
+    //onImageGalleryClicked
     public void onImageGalleryClicked() {
         // invoke the image gallery using an implict intent.
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
@@ -138,6 +158,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
         startActivityForResult(photoPickerIntent, IMAGE_GALLERY_REQUEST);
     }
 //////////////////////////////////////////////////////////////////////////////////
+    //dispatchTakePictureIntent
     private void dispatchTakePictureIntent() {
     Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
     // Ensure that there's a camera activity to handle the intent
@@ -161,7 +182,11 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
     }
 }
 
-
+    /**
+     * create for image file
+     * @return image
+     * @throws IOException
+     */
     private File createImageFile() throws IOException {
         // Create an image file name
 
@@ -184,6 +209,12 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
     }
     //////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * deal with the result for activity done
+     * @param requestCode   (build in)
+     * @param resultCode    (build in)
+     * @param data          (build in)
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -216,10 +247,15 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
             }
         }
     }
+
+    /**
+     * set for listener for all buttons
+     */
     @Override
     protected void onStart() {
         super.onStart();
 
+        //set bodyLocationSelectButton listener
         bodyLocationSelectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -237,6 +273,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
             }
         });
 
+        // set for backButton listener
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -253,6 +290,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
             }
         });
 
+        //set for cameraButton listener
         //question!!!!!!!!!!!BUG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -262,12 +300,16 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
 
             }
         });
+
+        //set for fromAlbumButton listener
         fromAlbumButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onImageGalleryClicked();
             }
         });
+
+        //set for geoLocationSelectButton listener
         geoLocationSelectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -285,6 +327,8 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //set for saveButton listener
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -313,6 +357,12 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * save new added record online
+     * @param username      username
+     * @param record        new added record
+     * @param problemID     corresponding problemID
+     */
     public void saveRecord(String username, Record record, String problemID){
         ElasticSearchParams param = new ElasticSearchParams(username,record,problemID);
         ElasticSearchController.AddRecordTask addRecordTask = new ElasticSearchController.AddRecordTask();

@@ -1,3 +1,12 @@
+/**
+ * Class name: PatientShowProviderCommentPageActivity
+ *
+ * Version: v1.0.0
+ *
+ * Date: November 14, 2018
+ *
+ * Copyright (c) 2018. Team09, F18 CMPUT301, All rights reserved.
+ */
 package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 
 import android.content.Intent;
@@ -14,6 +23,9 @@ import com.example.cmput301f18t09.cureall.Record;
 
 import java.util.ArrayList;
 
+/**
+ * For this activity, user(patient) can view comment provided by care provider
+ */
 public class PatientShowProviderCommentPageActivity extends AppCompatActivity {
     private ImageButton backButton;
     private TextView titleTextView, problemDescription,problemProviderComment,
@@ -22,6 +34,12 @@ public class PatientShowProviderCommentPageActivity extends AppCompatActivity {
     private Patient patient;
     private ArrayList<Problem> problems;
     ArrayList<Record> records = new ArrayList<>();
+
+    /**
+     * get basic info for problems & records
+     * also, set backButton listener
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

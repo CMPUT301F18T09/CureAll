@@ -1,3 +1,12 @@
+/**
+ * Class name: PatientPhotoFlowPageActivity
+ *
+ * Version: v1.0.0
+ *
+ * Date: November 14, 2018
+ *
+ * Copyright (c) 2018. Team09, F18 CMPUT301, All rights reserved.
+ */
 package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 
 import android.os.Bundle;
@@ -12,12 +21,22 @@ import com.example.cmput301f18t09.cureall.R;
 
 import java.util.ArrayList;
 
+/**
+ * For this activity, user(patient) can view a flow of photos
+ */
 public class PatientPhotoFlowPageActivity extends AppCompatActivity {
     private ImageButton backButton;
     private TextView fixedText1;
     private ArrayList<String> imageUrls = new ArrayList<>();
     private ArrayList<String> imageUrls2 = new ArrayList<>();
     private BodyLocation bodyLocation;
+
+    /**
+     * set init value for elements used in this activity
+     * (or give reference)
+     * including buttons, textviews, bodylocations, imageUrls
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

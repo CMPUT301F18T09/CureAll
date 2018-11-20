@@ -1,3 +1,12 @@
+/**
+ * Class name: PatientListOfProblemsPageActivity
+ *
+ * Version: v1.0.0
+ *
+ * Date: November 14, 2018
+ *
+ * Copyright (c) 2018. Team09, F18 CMPUT301, All rights reserved.
+ */
 package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 
 import android.content.DialogInterface;
@@ -32,6 +41,9 @@ import com.example.cmput301f18t09.cureall.RecordController.RecordController;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+/**
+ * For this activity, user(patient) will view a list of problems
+ */
 public class PatientListOfProblemsPageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private Button searchButton, problemAddingButton;
     private RecyclerView recyclerView;
@@ -54,6 +66,11 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
 
     //drawer..
     private DrawerLayout drawer;
+
+    /**
+     * get basic info for patient, and set reference for buttons
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,11 +86,13 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         id = patient.getPatientID();
         pw = patient.getPassword();
 
-
-
-
     }
 
+    /**
+     * set listener for search button
+     * user can active 3 search methods: by body location, by key words, by geolocation
+     * set listener for adapter
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -151,11 +170,13 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                 R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
         //get navigation contents and set them by yourselfs..
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View header = navigationView.getHeaderView(0);
         navigationView.setNavigationItemSelectedListener(this);
-        //测试内容
+
+        //test content
         TextView name = header.findViewById(R.id.nav_name);
         TextView email = header.findViewById(R.id.nav_email);
         TextView phoneNumber = header.findViewById(R.id.nav_phone);
@@ -164,13 +185,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         email.setText(user_email);
         phoneNumber.setText(phone);
 
-
-
-
-
-
-
-        //结束
+        //for end
         problemAddingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -186,6 +201,12 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         });
     }
 
+    /**
+     * deal with the result for activity done
+     * @param requestCode   (build in)
+     * @param resultCode    (build in)
+     * @param data          (build in)
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
     {
@@ -219,6 +240,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         return true;
     }
 
+    //if user press back option
     @Override
     public void onBackPressed(){
         if(drawer.isDrawerOpen(GravityCompat.START)){

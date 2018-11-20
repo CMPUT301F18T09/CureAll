@@ -1,3 +1,12 @@
+/**
+ * Class name: PatientBodyLocationPhotoAddingPageActivity
+ *
+ * Version: v1.0.0
+ *
+ * Date: November 14, 2018
+ *
+ * Copyright (c) 2018. Team09, F18 CMPUT301, All rights reserved.
+ */
 package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 
 import android.content.Intent;
@@ -29,6 +38,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * For this activity, user(patient) can add photo for body location
+ */
 public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivity {
     private ImageView bodySelectionSymbol;
     private ImageButton backButton, saveButton, frontPhotoButton, backPhotoButton, cameraButton;
@@ -45,7 +57,10 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
     private ArrayList<Problem> problems;
 
 
-
+    /**
+     * set all listeners for buttons
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +68,7 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
         initializedAllElements();
 
 
-
+        //set frontPhotoButton listener
         frontPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,6 +78,8 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
 
             }
         });
+
+        //set backPhotoButton listener
         backPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,6 +88,8 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
 
             }
         });
+
+        //set cameraButton listener
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,6 +99,8 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
 
             }
         });
+
+        //set saveButton listener
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,6 +119,7 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
             }
         });
 
+        //set backButton listener
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,6 +137,11 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
 
     }
 
+    /**
+     * set init value for elements used in this activity
+     * (or give reference)
+     * including buttons, textviews, patients, records, problems, bodylocations
+     */
     public void initializedAllElements(){
         bodySelectionSymbol = findViewById(R.id.bodySelectionSymbol);
         backButton = findViewById(R.id.backButton);
@@ -140,6 +167,9 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
         }
     }
 
+    /**
+     * active next activity: take photos
+     */
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
@@ -163,6 +193,12 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
         }
     }
 
+    /**
+     * deal with the result for activity done
+     * @param requestCode   (build in)
+     * @param resultCode    (build in)
+     * @param data          (build in)
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
@@ -178,6 +214,11 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
         }
     }
 
+    /**
+     * crear for a image file
+     * @return image
+     * @throws IOException
+     */
     private File createImageFile() throws IOException {
         // Create an image file name
 

@@ -1,3 +1,12 @@
+/**
+ * Class name: PatientRecordDetailPageActivity
+ *
+ * Version: v1.0.0
+ *
+ * Date: November 14, 2018
+ *
+ * Copyright (c) 2018. Team09, F18 CMPUT301, All rights reserved.
+ */
 package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 
 import android.content.Intent;
@@ -22,6 +31,9 @@ import com.example.cmput301f18t09.cureall.Record;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+/**
+ * For this activity, user(patient) will view all details for a record
+ */
 public class PatientRecordDetailPageActivity extends AppCompatActivity {
     private ImageButton backButton, geoLocationButton,viewBodyLocationPhotoButton;
     private TextView recordDetailHeader, title,titleContent, comment, commentContent;
@@ -44,6 +56,12 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
     private BodyLocation bodyLocation2;
     //ends..
 
+    /**
+     * set init value for elements used in this activity
+     * (or give reference)
+     * including recyclerView, adapter
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,9 +75,13 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
         mAdapter = new PatientRecordDetailPageAdapter(this,mNames,mImageUrls);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
-
-
     }
+
+    /**
+     * set init value for elements used in this activity
+     * (or give reference)
+     * including (Image)buttons, textviews, record's info
+     */
     public void initalizeAllElements(){
         backButton = (ImageButton) findViewById(R.id.backButton);
         geoLocationButton = (ImageButton) findViewById(R.id.geoLocationButton);
@@ -94,13 +116,16 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
                 mNames.add("123");
             }
         }
-
-
-
     }
+
+    /**
+     * set listeners for buttons
+     */
     @Override
     protected void onStart() {
         super.onStart();
+
+        //set viewBodyLocationPhotoButton listener
         viewBodyLocationPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,6 +138,7 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
             }
         });
 
+        //set backButton listener
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

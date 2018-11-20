@@ -1,3 +1,12 @@
+/**
+ * Class name: PatientProblemDetailPageActivity
+ *
+ * Version: v1.0.0
+ *
+ * Date: November 14, 2018
+ *
+ * Copyright (c) 2018. Team09, F18 CMPUT301, All rights reserved.
+ */
 package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 
 import android.content.DialogInterface;
@@ -28,6 +37,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * For this activity, user(patient) can view all details for a problem
+ */
 public class PatientProblemDetailPageActivity extends AppCompatActivity {
     private Button backButton, photoAnimationButton, addButton, viewProviderCommentButton;
     private EditText titleInput, dateInput, descriptionInput;
@@ -46,6 +58,13 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
     String id;
     String pw;
 
+    /**
+     * set listener for all buttons
+     * set init value for elements used in this activity
+     * (or give reference)
+     * including buttons, textviews, problems, records, patients's info
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +89,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
 
 
 
-
+        //set backButton listener
         backButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -87,6 +106,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
             }
         });
 
+        //set addButton listener
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,6 +121,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
             }
         });
 
+        //set viewProviderCommentButton listener
         viewProviderCommentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,13 +138,11 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
-
-
     }
 
+    /**
+     * set adapter listener
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -156,6 +175,12 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * deal with the result for activity done
+     * @param requestCode   (build in)
+     * @param resultCode    (build in)
+     * @param data          (build in)
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
     {
