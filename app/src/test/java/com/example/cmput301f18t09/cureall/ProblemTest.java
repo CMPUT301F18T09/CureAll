@@ -64,18 +64,19 @@ public class ProblemTest {
         records2.add(record2);
         assertEquals(records1,records2);
     }
-    @Test
+     @Test
     //test if successfully added record
     public void testAddRecord(){
         Problem problem = new Problem("username","title","description","time","comment");
         Record record = new Record("record","comment",new Date());
         boolean u = false;
         problem.addRecord(record);
+        ArrayList<Record> testrecords = new ArrayList<>(  );
+        testrecords.add(record);
         ArrayList<Record> records =  problem.getRecordArrayList();
-       /* for (int i = 0 ; i < records.size(); i++){
-            if (records.equals(records.get(i))) {*/
-       assertEquals(false,u);
-           /* }*/
+
+        assertEquals(records,testrecords);
+
         }
     }
 
