@@ -2,6 +2,7 @@ package com.example.cmput301f18t09.cureall.Activities.ProviderActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -15,11 +16,19 @@ import com.example.cmput301f18t09.cureall.R;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This is an activity is used for provider to add a patient.
+ * Provider will input a patient's username in order to add into a patient list
+ */
 public class ProviderAddPatientActivity extends AppCompatActivity {
     Button save;
     String doctorname;
     EditText patientname;
+    ArrayList<Patient> patients = new ArrayList<>();
     @Override
+    /**
+     * create the basic interface for user to input patient name
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_add_patient);
@@ -30,15 +39,19 @@ public class ProviderAddPatientActivity extends AppCompatActivity {
         patientname = (EditText)findViewById(R.id.input_patient);
 
     }
+
+    /**
+     * when provider click the save button, it will try to search if the input user name match with database
+     * If yes, the get the patient information and add it into patient list
+     * Then with a delay for pass data into data base
+     * It will bring the provider back to the former page
+     */
     protected void onStart() {
-
         super.onStart();
-
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String patient = patientname.getText().toString();
-                ArrayList<Patient> patients = new ArrayList<>();
                 ElasticSearchController.GetPatientTask getPatientTask = new ElasticSearchController.GetPatientTask();
                 getPatientTask.execute(patient);
                 try {
@@ -46,27 +59,24 @@ public class ProviderAddPatientActivity extends AppCompatActivity {
                     patients.addAll(foundPatient);
                     Patient new_patient = new Patient(patients.get(0).getUsername(),patients.get(0).getPassword(),patients.get(0).getEmail(),patients.get(0).getPhone());
                     new_patient.setDoctorID(doctorname);
-
                     ElasticSearchController.AddPatientTask addPatientTask = new ElasticSearchController.AddPatientTask();
                     addPatientTask.execute(new_patient);
-
-
-
                 } catch (Exception e) {
                     Log.i("Error", "Failed to get the user from the async object");
                 }
-
-                Intent intent = new Intent(ProviderAddPatientActivity.this,ProviderMainPageActivity.class);
-
+                Intent intent = new Intent(ProviderAddPatientActivity.this, ProviderMainPageActivity.class);
                 intent.putExtra("doctorname", doctorname);
-                intent.putExtra("patientname",patients.get(0).getUsername());
-                intent.putExtra("patientEmail",patients.get(0).getEmail());
-                intent.putExtra("patientPassword",patients.get(0).getPassword());
-                intent.putExtra("patientPhone",patients.get(0).getPhone());
-
-                setResult(0,intent);
-                ProviderAddPatientActivity.this.finish();
-
+                intent.putExtra("patientname", patients.get(0).getUsername());
+                intent.putExtra("patientEmail", patients.get(0).getEmail());
+                intent.putExtra("patientPassword", patients.get(0).getPassword());
+                intent.putExtra("patientPhone", patients.get(0).getPhone());
+                setResult(0, intent);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        ProviderAddPatientActivity.this.finish();
+                    }
+                },1000);
             }
         });
     }

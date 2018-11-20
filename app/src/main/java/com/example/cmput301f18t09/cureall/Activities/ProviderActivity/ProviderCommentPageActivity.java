@@ -13,12 +13,18 @@ import com.example.cmput301f18t09.cureall.Patient;
 import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.R;
 
+/**
+ * This activity is used for provider to give comment to each patient's problem
+ */
 public class ProviderCommentPageActivity extends AppCompatActivity {
     private ImageButton backButton, saveButton;
     private EditText providerComments;
     private Problem problem;
     private Patient patient;
     @Override
+    /**
+     * create the basic buttons, edittexts.. and data
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_comment_page);
@@ -29,6 +35,12 @@ public class ProviderCommentPageActivity extends AppCompatActivity {
         problem = (Problem) getIntent().getSerializableExtra("problem");
         patient = (Patient)getIntent().getSerializableExtra("patient");
     }
+
+    /**
+     * The save button is used to save provider comments to a particular patient's problem
+     * These comments can be checked from patient's point of view.
+     * uses elastic search to store the data to the server.
+     */
     @Override
     protected void onStart() {
 

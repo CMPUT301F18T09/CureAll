@@ -24,6 +24,11 @@ import com.example.cmput301f18t09.cureall.Record;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This page is used to present problems' details
+ * With a list of records presented in recycleview
+ * Provider can click each records in recycle view to view their details
+ */
 public class ProviderProblemDetailPageActivity extends AppCompatActivity {
     private ImageButton backButton, addButton,searchButton;
     private TextView titleView, dateView, descriptionView;
@@ -34,6 +39,10 @@ public class ProviderProblemDetailPageActivity extends AppCompatActivity {
     private Patient patient;
     private Problem problem;
     @Override
+    /**
+     * Create the necessary elements in this page view
+     * Some functions can be modified into onStart part, this will be fixed in next project
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_problem_detail_page);
@@ -48,8 +57,12 @@ public class ProviderProblemDetailPageActivity extends AppCompatActivity {
         patient = (Patient) getIntent().getSerializableExtra("patient");
         problem = (Problem) getIntent().getSerializableExtra("problem");
 
+        /**
+         * The search function has not been finshed yet.
+         * It will be finished in next project
+         * Here is just the prototype of codes
+         */
         searchButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 String[] searchOptions = new String[] {"search by body-location","search by keywords","search by geo-location"};
@@ -67,9 +80,11 @@ public class ProviderProblemDetailPageActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
-
+        /**
+         * provider can click this button to the page
+         * that add comment for each problem.
+         */
         addButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 //Log.i("Patient",patient.getEmail());
@@ -81,7 +96,11 @@ public class ProviderProblemDetailPageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        /**
+         * Elasticsearch here is used to get information from server
+         * and present them into the recycleview
+         * It also set the basic information of each problem onto the view, such as problem title, time and description
+         */
         //test samples...
         exampleRecordList = new ArrayList<>();
         ElasticSearchController.GetRecordTask getRecordTask = new ElasticSearchController.GetRecordTask();
@@ -112,15 +131,18 @@ public class ProviderProblemDetailPageActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
     }
+
+    /**
+     * Here, when provider can see the ui page
+     * It allows the provider to click each record in recycleview, for its details in another page
+     */
     @Override
     protected void onStart() {
-
         super.onStart();
         mAdapter.setOnItemClickListener(new ProblemDetailPageAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 //dont implement
-
             }
             @Override
             public void onDetailClick(int position){

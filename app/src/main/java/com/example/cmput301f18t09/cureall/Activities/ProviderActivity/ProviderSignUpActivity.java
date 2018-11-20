@@ -9,6 +9,14 @@ import android.widget.ImageView;
 
 import com.example.cmput301f18t09.cureall.R;
 
+/**
+ * This is a page allows the provider to sign up.
+ * It has not been finished yet, we have use other ways to create some test provider account
+ * It will be finished by next project
+ * account:
+ * user name: wade
+ * passward: wpass
+ */
 public class ProviderSignUpActivity extends AppCompatActivity{
     private ImageButton backButton, continueButton;
     private EditText userNameInput, passwordInput, confirmPasswodInput, emailAddressInput, phoneNumberInput ;

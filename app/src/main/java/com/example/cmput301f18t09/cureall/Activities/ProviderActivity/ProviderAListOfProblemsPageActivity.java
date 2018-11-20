@@ -19,6 +19,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This activity is used to present the problems of a patient
+ * It is very similar to the patient versions, but it do not have delete or add functions
+ * And provider can only view detail of each problem by click them
+ */
 public class ProviderAListOfProblemsPageActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ProblemListPageAdapter mAdapter;
@@ -29,14 +34,16 @@ public class ProviderAListOfProblemsPageActivity extends AppCompatActivity {
     private ArrayList<Problem> exampleProblemList;
     private TextView Name;
     @Override
+    /**
+     * create everything necessary for this activity,such as adapter, recycleview, textviews and some necessary data
+     * Also uses elastic search to get the information from server..
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_alist_of_problems);
         backButton = (ImageButton) findViewById(R.id.backButton);
         Name = (TextView) findViewById(R.id.patientName);
-
         patient = (Patient) getIntent().getSerializableExtra("patient");
-
         exampleProblemList = new ArrayList<Problem>();
         ElasticSearchController.GetProblemTask getproblemTask = new ElasticSearchController.GetProblemTask();
         getproblemTask.execute(patient.getUsername());
@@ -52,14 +59,7 @@ public class ProviderAListOfProblemsPageActivity extends AppCompatActivity {
 
         Log.i("Read","read end"+Integer.toString(exampleProblemList.size()));
 
-
-
         Name.setText(patient.getUsername());
-        //test samples...
-        //ArrayList<Problem> exampleProblemList = new ArrayList<>();
-        //exampleProblemList.add(new Problem("one", "feels horrible", "no comment",df.format(new Date()),"no comment" ));
-        //exampleProblemList.add(new Problem("two", "feels horrible", "no comment",df.format(new Date()),"no comment" ));
-
         recyclerView = findViewById(R.id.listOfProblems);
         recyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
@@ -68,6 +68,10 @@ public class ProviderAListOfProblemsPageActivity extends AppCompatActivity {
         recyclerView.setAdapter(mAdapter);
     }
 
+    /**
+     * Once provider click the items inside the recycleview, it will bring the provider to a page
+     * that present the details for each problem
+     */
     @Override
     protected void onStart() {
 
@@ -86,6 +90,11 @@ public class ProviderAListOfProblemsPageActivity extends AppCompatActivity {
                 startActivity(intent);
 
             }
+
+            /**
+             * This fucntion has not been used yet!
+             * @param position
+             */
             @Override
             public void onDetailClick(int position){
                 //dont implement
