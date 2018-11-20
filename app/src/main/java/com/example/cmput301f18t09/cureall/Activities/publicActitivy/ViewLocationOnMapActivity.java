@@ -15,7 +15,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
  * which means it can only show the location but not choose a location.
  * There is another map activity that allows the user choose geo location
  */
-public class Map extends AppCompatActivity implements OnMapReadyCallback{
+public class ViewLocationOnMapActivity extends AppCompatActivity implements OnMapReadyCallback{
     private double log, lat;
 
     /**

@@ -32,7 +32,7 @@ public class ProviderAListOfProblemsPageActivity extends AppCompatActivity {
     private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private Patient patient;
     private ArrayList<Problem> exampleProblemList;
-    private TextView Name;
+    private TextView Name ,Patient_problem;
     @Override
     /**
      * create everything necessary for this activity,such as adapter, recycleview, textviews and some necessary data
@@ -43,6 +43,7 @@ public class ProviderAListOfProblemsPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_provider_alist_of_problems);
         backButton = (ImageButton) findViewById(R.id.backButton);
         Name = (TextView) findViewById(R.id.patientName);
+        Patient_problem = findViewById(R.id.Patient_problem);
         patient = (Patient) getIntent().getSerializableExtra("patient");
         exampleProblemList = new ArrayList<Problem>();
         ElasticSearchController.GetProblemTask getproblemTask = new ElasticSearchController.GetProblemTask();
@@ -59,7 +60,7 @@ public class ProviderAListOfProblemsPageActivity extends AppCompatActivity {
 
         Log.i("Read","read end"+Integer.toString(exampleProblemList.size()));
 
-        Name.setText(patient.getUsername());
+        Name.setText("name : "+patient.getUsername());
         recyclerView = findViewById(R.id.listOfProblems);
         recyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);

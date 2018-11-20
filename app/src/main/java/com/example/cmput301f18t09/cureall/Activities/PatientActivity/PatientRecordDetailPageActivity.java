@@ -18,11 +18,10 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.cmput301f18t09.cureall.Activities.publicActitivy.Map;
+import com.example.cmput301f18t09.cureall.Activities.publicActitivy.ViewLocationOnMapActivity;
 import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
 import com.example.cmput301f18t09.cureall.BodyLocation;
 import com.example.cmput301f18t09.cureall.Patient;
-import com.example.cmput301f18t09.cureall.PatientAdapter.PatientProblemDetailPageAdapter;
 import com.example.cmput301f18t09.cureall.PatientAdapter.PatientRecordDetailPageAdapter;
 import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.R;
@@ -161,7 +160,7 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
         geoLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent map = new Intent(PatientRecordDetailPageActivity.this, Map.class);
+                Intent map = new Intent(PatientRecordDetailPageActivity.this, ViewLocationOnMapActivity.class);
                 Bundle geoLocation = new Bundle();
                 geoLocation.putDouble("log", record.getGeoLocation().getLocation().get(0));
                 geoLocation.putDouble("lat", record.getGeoLocation().getLocation().get(1));

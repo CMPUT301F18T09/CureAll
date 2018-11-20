@@ -63,10 +63,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_place_api" />
 
-        <activity android:name=".Activities.publicActitivy.MapActivity" />
+        <activity android:name=".Activities.publicActitivy.LocationPickerActivity" />
         <activity android:name=".Activities.ProviderActivity.ProviderAddPatientActivity"></activity>
         <activity
-            android:name=".Activities.publicActitivy.Map"
+            android:name=".Activities.publicActitivy.ViewLocationOnMapActivity"
             />
         <uses-library android:name="org.apache.http.legacy" android:required="false"/>
         <meta-data

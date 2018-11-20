@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cmput301f18t09.cureall.ElasticSearchController;
@@ -30,6 +31,7 @@ public class ProviderMainPageActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     ArrayList<Patient> examplePatientList;
     private ImageButton addPatientButton, searchProblemRecordButton;
+    private TextView providerMainPage;
     String username;
 
     /**
@@ -43,6 +45,7 @@ public class ProviderMainPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_provider_main_page);
         addPatientButton = (ImageButton) findViewById(R.id.addPatientButton);
         searchProblemRecordButton =(ImageButton) findViewById(R.id.searchProblemRecordButton);
+        providerMainPage = findViewById(R.id.providerMainPage);
         //test samples...
         Intent incomingIntent = getIntent();
         //final ArrayList<Patient> username = incomingIntent.getStringExtra("username");

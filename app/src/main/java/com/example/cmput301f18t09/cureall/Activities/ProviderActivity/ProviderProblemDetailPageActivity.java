@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class ProviderProblemDetailPageActivity extends AppCompatActivity {
     private ImageButton backButton, addButton,searchButton;
-    private TextView titleView, dateView, descriptionView;
+    private TextView titleView, dateView, descriptionView,problem_detail;
     private RecyclerView recyclerView;
     private ProblemDetailPageAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -46,6 +46,7 @@ public class ProviderProblemDetailPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_problem_detail_page);
+        problem_detail = findViewById(R.id.problem_detail);
         backButton = (ImageButton) findViewById(R.id.backButton);
         addButton = (ImageButton) findViewById(R.id.addButton);
         titleView = (TextView) findViewById(R.id.titleView);

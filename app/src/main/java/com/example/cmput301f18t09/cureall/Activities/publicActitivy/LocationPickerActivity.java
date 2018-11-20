@@ -16,10 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientProblemDetailPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientRecordAddingPageActivity;
-import com.example.cmput301f18t09.cureall.ElasticSearchController;
-import com.example.cmput301f18t09.cureall.ElasticSearchParams;
 import com.example.cmput301f18t09.cureall.GeoLocation;
 import com.example.cmput301f18t09.cureall.Patient;
 import com.example.cmput301f18t09.cureall.Problem;
@@ -31,12 +28,8 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 
-import org.apache.commons.lang3.ObjectUtils;
-
 import java.util.ArrayList;
-import java.util.List;
 
-import io.searchbox.core.Get;
 /**
  * This is an activity that allows the user choose a geolocation
  * This is is not a map activity, this activity allows you to get
@@ -46,7 +39,7 @@ import io.searchbox.core.Get;
  * It needs the data from former pages, such as the records, problem id,
  * The purpose is to save to geolocation information to its corresponding record
  */
-public class MapActivity extends AppCompatActivity {
+public class LocationPickerActivity extends AppCompatActivity {
 
     private Button button, saveButton;
     private TextView textView;
@@ -127,7 +120,7 @@ public class MapActivity extends AppCompatActivity {
             public void onClick(View v) {
                 PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
                 try {
-                    startActivityForResult(builder.build(MapActivity.this), PLACE_PICKER_REQUEST);
+                    startActivityForResult(builder.build(LocationPickerActivity.this), PLACE_PICKER_REQUEST);
                 } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
                     e.printStackTrace();
                 }
@@ -203,7 +196,7 @@ public class MapActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (geolocation == null){
-                    Toast.makeText(MapActivity.this, "You havn't choose and location yet!" ,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LocationPickerActivity.this, "You havn't choose and location yet!" ,Toast.LENGTH_SHORT).show();
                 }
                 else{
                     if (record != null && problem != null){
@@ -216,7 +209,7 @@ public class MapActivity extends AppCompatActivity {
                     ElasticSearchController.AddRecordTask addRecordTask = new ElasticSearchController.AddRecordTask();
                     addRecordTask.execute(param);*/
                     Bundle bundle = new Bundle();
-                    Intent passGeoLocationBack = new Intent(MapActivity.this,PatientRecordAddingPageActivity.class);
+                    Intent passGeoLocationBack = new Intent(LocationPickerActivity.this,PatientRecordAddingPageActivity.class);
                     //              bundle.putSerializable("record", record);
                     bundle.putSerializable("problem",problem);
                     bundle.putSerializable("record", record);

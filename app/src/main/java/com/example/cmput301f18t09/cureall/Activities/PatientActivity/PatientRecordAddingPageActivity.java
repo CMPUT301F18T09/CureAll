@@ -28,7 +28,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.cmput301f18t09.cureall.Activities.publicActitivy.MapActivity;
+import com.example.cmput301f18t09.cureall.Activities.publicActitivy.LocationPickerActivity;
 import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
 import com.example.cmput301f18t09.cureall.BodyLocation;
 import com.example.cmput301f18t09.cureall.ElasticSearchController;
@@ -315,7 +315,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //pass problem and record to ...
                 record.setRecordTrackingPhotoArrayList(pictures);
-                Intent intent = new Intent(PatientRecordAddingPageActivity.this,MapActivity.class);
+                Intent intent = new Intent(PatientRecordAddingPageActivity.this,LocationPickerActivity.class);
                 Bundle bundle = new Bundle();
                 record.setRecordTrackingPhotoArrayList(pictures);
                 bundle.putSerializable("problem",problem);
