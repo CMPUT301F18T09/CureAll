@@ -2,6 +2,8 @@
 package com.example.cmput301f18t09.cureall;
 
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class CareProviderTest {
@@ -13,22 +15,20 @@ public class CareProviderTest {
     Patient patient = new Patient( "username", "passward", "email", "phone");
 
     String comment = "comment";
+    String user = "username";
     /**
      * Init for class CareProviderTest
      * problem      a new problem for testing
      * provider     a new care provider for testing
      * comment      a string to be added as comment
      */
-/*    @Test
+    @Test
     public void testAddPatient() {
         Patient patient = new Patient("username","pass","email","phone");
-        String patientName = patient.getUsername();
-        provider.addPatientByName(patientName);
-        assertTrue( provider.getPatientArrayList().contains(patient) );
-    }*/
-    /*
-        Testing method "addComment" by adding a new comment to a exsiting problem
-    */
+        String patientName = patient.getPatientID();
+        provider.addPatientByName(patient,user);
+        assertEquals( provider.getPaitent(),patientName );
+    }
 
     @Test
     public void testAddCommit(){
