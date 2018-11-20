@@ -32,6 +32,7 @@ public class ProblemController {
     public static void DelteProblem(ArrayList<Problem> problems, int position, String username)
     {
         Problem problem = problems.get(position);
+        //Log.i("Unknown bug", );
         ElasticSearchParams params = new ElasticSearchParams("",problem,problem.getId());
         ElasticSearchController.DeleteProblemTask deleteProblemTask = new ElasticSearchController.DeleteProblemTask();
         deleteProblemTask.execute(params);

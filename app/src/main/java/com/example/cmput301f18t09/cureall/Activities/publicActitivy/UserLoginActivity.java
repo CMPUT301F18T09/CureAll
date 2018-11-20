@@ -99,8 +99,6 @@ public class UserLoginActivity extends AppCompatActivity {
                 bundle.putSerializable("patient", patients.get(0));
                 bundle.putSerializable("problems",problems);
                 intent.putExtras(bundle);
-                //Patient user = patients.get(0);
-                // intent.putExtra(,patients);
                 startActivity(intent);
             }
 

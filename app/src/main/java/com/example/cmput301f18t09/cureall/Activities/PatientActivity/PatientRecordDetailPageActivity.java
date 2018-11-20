@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.cmput301f18t09.cureall.Activities.publicActitivy.Map;
 import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
 import com.example.cmput301f18t09.cureall.BodyLocation;
 import com.example.cmput301f18t09.cureall.Patient;
@@ -124,6 +125,19 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
                 bundle.putSerializable("problems",problems);
                 intent.putExtras(bundle);
                 startActivity(intent);
+            }
+        });
+        //2018-11-19 addons
+        final int PLACE_PICKER_REQUEST = 1;
+        geoLocationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent map = new Intent(PatientRecordDetailPageActivity.this, Map.class);
+                Bundle geoLocation = new Bundle();
+                geoLocation.putDouble("log", record.getGeoLocation().getLocation().get(0));
+                geoLocation.putDouble("lat", record.getGeoLocation().getLocation().get(1));
+                map.putExtras(geoLocation);
+                startActivity(map);
             }
         });
 

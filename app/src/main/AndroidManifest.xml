@@ -65,6 +65,13 @@
 
         <activity android:name=".Activities.publicActitivy.MapActivity" />
         <activity android:name=".Activities.ProviderActivity.ProviderAddPatientActivity"></activity>
+        <activity
+            android:name=".Activities.publicActitivy.Map"
+            />
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

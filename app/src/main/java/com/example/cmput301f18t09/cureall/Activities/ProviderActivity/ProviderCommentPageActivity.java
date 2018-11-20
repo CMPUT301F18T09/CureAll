@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 
 import com.example.cmput301f18t09.cureall.ElasticSearchController;
 import com.example.cmput301f18t09.cureall.ElasticSearchParams;
+import com.example.cmput301f18t09.cureall.Patient;
 import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.R;
 
@@ -16,6 +17,7 @@ public class ProviderCommentPageActivity extends AppCompatActivity {
     private ImageButton backButton, saveButton;
     private EditText providerComments;
     private Problem problem;
+    private Patient patient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +27,7 @@ public class ProviderCommentPageActivity extends AppCompatActivity {
         providerComments = (EditText) findViewById(R.id.providerComments);
         Intent incomingIntent = getIntent();
         problem = (Problem) getIntent().getSerializableExtra("problem");
+        patient = (Patient)getIntent().getSerializableExtra("patient");
     }
     @Override
     protected void onStart() {
@@ -46,6 +49,7 @@ public class ProviderCommentPageActivity extends AppCompatActivity {
                 Intent intent = new Intent(ProviderCommentPageActivity.this,ProviderProblemDetailPageActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("problem",problem);
+                bundle.putSerializable("patient",patient);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

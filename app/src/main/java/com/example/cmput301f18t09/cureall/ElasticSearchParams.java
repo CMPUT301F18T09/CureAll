@@ -23,7 +23,7 @@ public class ElasticSearchParams {
     public ElasticSearchParams(Integer num,Problem problem,String Patientid){
         this.num = num;
         this.problem = problem;
-        this.id = id;
+        this.id = Patientid;
     }
 
     public ElasticSearchParams(String username, ArrayList<String> patients){

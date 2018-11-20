@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.SearchActivity;
 import com.example.cmput301f18t09.cureall.ElasticSearchController;
@@ -97,6 +98,23 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
                 bundle.putSerializable("records", records);
                 intent.putExtras(bundle);
                 startActivityForResult(intent,REQUEST_RECORD_ADDING);
+            }
+        });
+
+        viewProviderCommentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String comment = problem.getDoctorcomment();
+                //Toast.makeText(PatientProblemDetailPageActivity.this,comment,Toast.LENGTH_SHORT).show();
+                Intent intent =new Intent(PatientProblemDetailPageActivity.this,PatientShowProviderCommentPageActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("problem", problem);
+                bundle.putSerializable("problems",problems);
+                bundle.putSerializable("patient",patient);
+                bundle.putSerializable("records", records);
+                intent.putExtras(bundle);
+                startActivityForResult(intent,REQUEST_RECORD_ADDING);
+                startActivity(intent);
             }
         });
 

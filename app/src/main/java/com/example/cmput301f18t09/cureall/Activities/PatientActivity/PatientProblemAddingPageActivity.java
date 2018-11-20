@@ -1,6 +1,7 @@
 package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.example.cmput301f18t09.cureall.ElasticSearchController;
 import com.example.cmput301f18t09.cureall.ElasticSearchParams;
 import com.example.cmput301f18t09.cureall.Problem;
+import com.example.cmput301f18t09.cureall.ProblemController.ProblemController;
 import com.example.cmput301f18t09.cureall.R;
 
 import java.text.DateFormat;
@@ -28,6 +30,7 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
     private EditText titleInput, descriptionInput;
     private String username;
     private ArrayList<Problem> problems = new ArrayList<Problem>();
+    private ProblemController problemController = new ProblemController();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +47,22 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
 
                 //Problem problem = new Problem(username,prob_title,prob_desp,currentDateTimeString,null);
                 saveProblem(username,prob_title,prob_desp,currentDateTimeString);
-                problems.add(new Problem(username,prob_title,prob_desp,currentDateTimeString,null));
-                Intent intent = new Intent();
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        // Actions to do after 10 seconds
+                        problems = problemController.GetProblemNum(username);
+                        Intent intent = new Intent();
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("problems",problems);
-                intent.putExtras(bundle);
-                setResult(RESULT_OK, intent);
-                finish();
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("problems",problems);
+                        intent.putExtras(bundle);
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    }
+                }, 200);
+
 
             }
         });

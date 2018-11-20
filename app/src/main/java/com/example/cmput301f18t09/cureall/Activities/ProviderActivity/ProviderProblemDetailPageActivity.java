@@ -76,6 +76,7 @@ public class ProviderProblemDetailPageActivity extends AppCompatActivity {
                 Intent intent = new Intent(ProviderProblemDetailPageActivity.this,ProviderCommentPageActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("problem",problem);
+                bundle.putSerializable("patient",patient);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

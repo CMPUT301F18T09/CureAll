@@ -21,6 +21,7 @@ import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientReco
 import com.example.cmput301f18t09.cureall.ElasticSearchController;
 import com.example.cmput301f18t09.cureall.ElasticSearchParams;
 import com.example.cmput301f18t09.cureall.GeoLocation;
+import com.example.cmput301f18t09.cureall.Patient;
 import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.R;
 import com.example.cmput301f18t09.cureall.Record;
@@ -35,6 +36,8 @@ import org.apache.commons.lang3.ObjectUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.searchbox.core.Get;
+
 public class MapActivity extends AppCompatActivity {
 
     private Button button, saveButton;
@@ -46,6 +49,9 @@ public class MapActivity extends AppCompatActivity {
     //variables from former activities..
     private Problem problem;
     private Record record;
+    private Patient patient;
+    private ArrayList<Problem> problems;
+
     private ArrayList<Record> records;
     private GeoLocation recordGeoLocation;
     private Double longitude;
@@ -63,6 +69,9 @@ public class MapActivity extends AppCompatActivity {
         problem = (Problem)getIntent().getSerializableExtra("problem");
         record = (Record) getIntent().getSerializableExtra("record");
         records = (ArrayList<Record>)getIntent().getSerializableExtra("records");
+        patient = (Patient)getIntent().getSerializableExtra("patient");
+        problems = (ArrayList<Problem>)getIntent().getSerializableExtra("problems");
+
 
         locationListener = new LocationListener() {
             @Override
@@ -173,6 +182,8 @@ public class MapActivity extends AppCompatActivity {
                     bundle.putSerializable("problem",problem);
                     bundle.putSerializable("record", record);
                     bundle.putSerializable("records", records);
+                    bundle.putSerializable("problems", problems);
+                    bundle.putSerializable("patient", patient);
                     passGeoLocationBack.putExtras(bundle);
                     startActivity(passGeoLocationBack);
 
