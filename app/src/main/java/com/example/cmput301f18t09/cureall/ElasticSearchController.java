@@ -32,7 +32,7 @@ public class ElasticSearchController {
 
             // TODO Build the query
 
-            String query = "{ \"query\" : { \"match\" : { \"doctorID\" : \""+search_parameters[0]+"\"}}}";
+            String query = "{ \"size\":100,\"query\" : { \"match\" : { \"doctorID\" : \""+search_parameters[0]+"\"}}}";
             //String query = ;
 
             Search search = new Search.Builder(query)
@@ -88,7 +88,7 @@ public class ElasticSearchController {
 
 
 
-            String query ="{\n" +
+            String query ="{\"size\":100,\n" +
                     "\"query\": { \n" +
                     "\"filtered\" : { \n" +
                     "\"query\" : { \n" +
@@ -231,7 +231,7 @@ public class ElasticSearchController {
             String problemid = search_parameters[0].problemid;
 
             //String query = "{ \"query\" : { \"match\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
-            String query = "{\n" +
+            String query = "{\"size\":100,\n" +
                     "\"query\": { \n" +
                     "\"bool\":{\n" +
                     "\"must\": [\n" +
@@ -293,7 +293,7 @@ public class ElasticSearchController {
             // TODO Build the query
 
             //String query = "{ \"query\" : { \"match\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
-            String query = "{  \"query\" : {\n" +
+            String query = "{  \"size\":100,\"query\" : {\n" +
                     "        \"match\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
                     "    }\n" +
                     "}";
@@ -549,7 +549,7 @@ public class ElasticSearchController {
             // TODO Build the query
 
             //String query = "{ \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
-            String query = "{   \"query\" : {\n" +
+            String query = "{  \"query\" : {\n" +
                     "        \"match\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
                     "    }\n" +
                     "}";
@@ -641,7 +641,7 @@ public class ElasticSearchController {
             // TODO Build the query
 
             //String query = "{ \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
-            String query = "{  \"query\" : {\n" +
+            String query = "{ \"size\":100, \"query\" : {\n" +
                     "        \"match\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
                     "    }\n" +
                     "}";
