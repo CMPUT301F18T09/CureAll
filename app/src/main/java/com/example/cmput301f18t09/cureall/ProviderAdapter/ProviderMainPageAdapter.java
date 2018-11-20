@@ -1,3 +1,12 @@
+/**
+ * Class name: ProviderMainPageAdapter
+ *
+ * Version: v1.0.0
+ *
+ * Date: November 14, 2018
+ *
+ * Copyright (c) 2018. Team09, F18 CMPUT301, All rights reserved.
+ */
 package com.example.cmput301f18t09.cureall.ProviderAdapter;
 
 import android.support.v7.widget.RecyclerView;
