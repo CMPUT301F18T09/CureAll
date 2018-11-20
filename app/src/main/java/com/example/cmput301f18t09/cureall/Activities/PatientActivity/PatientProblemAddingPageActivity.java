@@ -61,7 +61,7 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
                         setResult(RESULT_OK, intent);
                         finish();
                     }
-                }, 200);
+                }, 1000);
 
 
             }
