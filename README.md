@@ -38,4 +38,5 @@ CMPUT301F18T09 Project
     username: wade
     password: wpass
     
+## For intent testing, the relative gradle files is in the branch-- "IntentTest". The gradle files in master branch can not run intent test. Sorry about that mistake we have made.
     
