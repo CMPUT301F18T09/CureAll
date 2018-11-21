@@ -3,9 +3,9 @@ CMPUT301F18T09 Project
 
 #PLEASE NOTE THAT
 ## the account "1239238241@qq.com" is ruiqin in this group.
-## the reason can not show the name "ruiqin" is because he uses the git command inside android studio!!
+# the reason can not show the name "ruiqin" is because he uses the git command inside android studio!!
 
-##The use case we have been finshed in project 4 are:
+## The use case we have been finshed in project 4 are:
     Task Basics:
     Use Case 1: US 01.01.01 AddProblem
     Use Case 2: US 01.02.01 ViewProblems
@@ -34,8 +34,8 @@ CMPUT301F18T09 Project
     Geolocation and Maps:
     Use Case 27: US 10.01.01 SpecifyGeo-location
     Use Case 28: US 10.02.01 ViewGeo-location (half, only patient can view geolocation for a record, click the button in record detail page)
-### For care provider, we provide an account:
-  username: wade
-  password: wpass
+## For care provider, we provide an account:
+    username: wade
+    password: wpass
     
     
