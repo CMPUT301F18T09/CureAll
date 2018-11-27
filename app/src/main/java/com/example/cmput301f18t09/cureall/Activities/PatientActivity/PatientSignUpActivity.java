@@ -84,7 +84,7 @@ public class PatientSignUpActivity extends AppCompatActivity{
                         //saveInFile(); // TODO replace this with elastic search
                         ElasticSearchController.AddPatientTask addUserTask = new ElasticSearchController.AddPatientTask();
                         addUserTask.execute(user);
-
+                        // TODO we might also need a local save here
                 }
 
                 Intent intent = new Intent(PatientSignUpActivity.this,MainActivity.class);

@@ -10,6 +10,7 @@
 package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,7 +29,10 @@ import com.example.cmput301f18t09.cureall.Patient;
 import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.R;
 import com.example.cmput301f18t09.cureall.Record;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
@@ -60,6 +64,8 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
         initializeAllElements();
 
         paperDoll.setOnTouchListener(touchListener);
+        //TODO
+        getDataFromRecordAddingPage();
     }
 
     /**
@@ -75,12 +81,6 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
         femaleText =findViewById(R.id.femaleText);
         maleText =findViewById(R.id.maleText);
         switch1 =findViewById(R.id.switch1);// the switch has not been applied yet, we only have a male gender right now
-
-        patient =(Patient)getIntent().getSerializableExtra("patient");
-        record = (Record) getIntent().getSerializableExtra("record");
-        problem = (Problem)getIntent().getSerializableExtra("problem");
-        records = (ArrayList<Record>)getIntent().getSerializableExtra("records");
-        problems = (ArrayList<Problem>)getIntent().getSerializableExtra("problems");
     }
     /**
      * A touch listener handles all functions that deal with the case of which body location
@@ -94,16 +94,12 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
             BodyColor bodyColor = new BodyColor();
             BodyPart bodyPart = bodyColor.getBodyPart(color);
             Log.i("Click", "Color = "+ Integer.toString(color));
-            BodyLocation bodyLocation = checkBody(bodyPart);
+            bodyLocation = checkBody(bodyPart);
             record.setBodyLocation(bodyLocation);
             Intent intent = new Intent(PatientPaperDollSelectionPageActivity.this, PatientBodyLocationPhotoAddingPageActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("problem",problem);
-            bundle.putSerializable("record", record);
-            bundle.putSerializable("records", records);
-            bundle.putSerializable("patient",patient);
-            bundle.putSerializable("problems", problems);
-            intent.putExtras(bundle);
+            //TODO
+            passDataToBodyLocationPhotoAddingPage(record);
+            intent.putExtra("ComeFromPaperDollSelectionPage","ComeFromPaperDollSelectionPage");
             startActivity(intent);
             return false;
         }
@@ -212,17 +208,6 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
         }
         return bodyLocation;
     }
-/*  does not use
-    @Override protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_EXIT) {
-            if (resultCode == RESULT_OK) {
-                this.finish();
-
-            }
-        }
-    }*/
     /**
      * when leave this page, kill the activity
      */
@@ -232,19 +217,20 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
         finish();
     }
 
-// does not use
-/*    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==REQUEST_RECORD_ADDING)
-        {
-            if(resultCode==RESULT_OK)
-            {
-                problem = (Problem)getIntent().getSerializableExtra("problem");
-                records = (ArrayList<Record>)data.getSerializableExtra("records");
-                mAdapter.notifyDataSetChanged();
-            }
-        }
-    }*/
+    public void getDataFromRecordAddingPage(){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("RecordAddingData",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences2.getString("record",null);
+        Type type = new TypeToken<Record>(){}.getType();
+        record = gson.fromJson(json,type);
+    }
+    public void passDataToBodyLocationPhotoAddingPage(Record record){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("PaperDollSelectionData",MODE_PRIVATE);
+        SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(record);/**save in gson format*/
+        editor2.putString("record",json);
+        editor2.apply();
+    }
+
 }

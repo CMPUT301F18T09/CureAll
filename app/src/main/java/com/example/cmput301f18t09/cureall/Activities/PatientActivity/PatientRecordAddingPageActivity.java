@@ -10,6 +10,8 @@
 package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -21,6 +23,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -38,11 +41,14 @@ import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.R;
 import com.example.cmput301f18t09.cureall.Record;
 import com.example.cmput301f18t09.cureall.RecordController.RecordController;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -87,11 +93,22 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_patient_add_record_page);
         initializer();
         //photoPaths = (ArrayList<String>) getIntent().getSerializableExtra("photo paths");
-        patient =(Patient)getIntent().getSerializableExtra("patient");
-        record = (Record) getIntent().getSerializableExtra("record");
-        problem = (Problem)getIntent().getSerializableExtra("problem");
-        records = (ArrayList<Record>)getIntent().getSerializableExtra("records");
-        problems = (ArrayList<Problem>)getIntent().getSerializableExtra("problems");
+        //record = (Record) getIntent().getSerializableExtra("record");
+        Intent intent = getIntent();
+        if (intent.getStringExtra("ComeFromProblemDetail") != null && intent.getStringExtra("ComeFromProblemDetail").equals("ComeFromProblemDetail")){
+            getDataFromProblemDetail();
+        }
+        else if(intent.getStringExtra("ComeFromGeoLocationSelectionPage") != null && intent.getStringExtra("ComeFromGeoLocationSelectionPage").equals("ComeFromGeoLocationSelectionPage")){
+            loaaDataFromLocal();
+            getDataFromGeolocationSelectionPage();
+        }
+        else if(intent.getStringExtra("ComeFromBodyLocationPhotoAddingPage") != null && intent.getStringExtra("ComeFromBodyLocationPhotoAddingPage").equals("ComeFromBodyLocationPhotoAddingPage")){
+            loaaDataFromLocal();
+            getDataFromBodyLocationSelectionPage();
+        }
+
+
+        //TODO once we use shared perfence we will not face this problem
         if (record != null) {
             bodyLocation = record.getBodyLocation();
             pictures = record.getRecordTrackingPhotoArrayList();
@@ -117,6 +134,111 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
             record.setProblemid(problem.getId());
             record.setUsername(problem.getUsername());
         }
+    }
+    /**
+     * set for listener for all buttons
+     */
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        //set bodyLocationSelectButton listener
+        bodyLocationSelectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PatientRecordAddingPageActivity.this, PatientPaperDollSelectionPageActivity.class);
+                //TODO replace this with shared perference
+                record.setRecordTrackingPhotoArrayList(pictures);
+                saveDataToLocal(patient,records,problems,problem);
+                passDataToPaperDollSelectionPage(record);
+                intent.putExtra("ComeFromRecordAddingPage","ComeFromRecordAddingPage");
+                startActivity(intent);
+            }
+        });
+
+        // set for backButton listener
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PatientRecordAddingPageActivity.this, PatientProblemDetailPageActivity.class);
+
+                record.setRecordTrackingPhotoArrayList(pictures);
+                //meaningless?
+                passDataToProblemDetailPage(problem, problems, records);
+                intent.putExtra("ComeFromRecordAddingPage","ComeFromRecordAddingPage");
+                startActivity(intent);
+            }
+        });
+
+        //set for cameraButton listener
+        //question!!!!!!!!!!!BUG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        cameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                invokeCamera();
+                dispatchTakePictureIntent();
+
+            }
+        });
+
+        //set for fromAlbumButton listener
+        fromAlbumButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onImageGalleryClicked();
+            }
+        });
+
+        //set for geoLocationSelectButton listener
+        geoLocationSelectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //pass problem and record to ...
+                record.setRecordTrackingPhotoArrayList(pictures);
+                Intent intent = new Intent(PatientRecordAddingPageActivity.this,LocationPickerActivity.class);
+                saveDataToLocal(patient,records,problems,problem);
+                passDataToGeolocationSelectionPage(problem,record);
+                intent.putExtra("ComeFromRecordAddingPage","ComeFromRecordAddingPage");
+                startActivity(intent);
+            }
+        });
+
+        //set for saveButton listener
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /**
+                 * the check if statement has not finished yet!
+                 */
+                /*if (record.getRecordTrackingPhotoArrayList().size() < 10){
+                    Toast.makeText(PatientRecordAddingPageActivity.this, "Your tracking photo is less than 10", Toast.LENGTH_SHORT).show();
+                }
+                else if(record.getGeoLocation() == null){
+                    Toast.makeText(PatientRecordAddingPageActivity.this, "You didn't specific any geoLocation yet!", Toast.LENGTH_SHORT).show();
+                }
+                else if(record.getBodyLocation() == null){
+                    Toast.makeText(PatientRecordAddingPageActivity.this, "You didn't specific any body Location yet!", Toast.LENGTH_SHORT).show();
+                }*/
+
+                title = titleInput.getText().toString();
+                description = descriptionInput.getText().toString();
+                date = new Date();
+                record.setTitle(title);
+                record.setComment(description);
+                record.setTime(new Date());
+                record.setRecordTrackingPhotoArrayList(pictures);
+                records.add(record);
+                //TODO this is online save, we also need a local save for record
+                saveRecord(problem.getUsername(),record,problem.getId());
+
+                Intent intent = new Intent(PatientRecordAddingPageActivity.this, PatientProblemDetailPageActivity.class);
+                //TODO replace this with shared perrference
+                saveDataToLocal(patient,records,problems,problem);
+                intent.putExtra("ComeFromRecordAddingPageSAVE","ComeFromRecordAddingPageSAVE");
+                startActivity(intent);
+            }
+        });
+
     }
 
     /**
@@ -222,7 +344,6 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
             Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath);
             Drawable drawable = new BitmapDrawable(bitmap);
 
-
         }
         if (resultCode == RESULT_OK) {
             if (requestCode == IMAGE_GALLERY_REQUEST) {
@@ -249,128 +370,6 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
     }
 
     /**
-     * set for listener for all buttons
-     */
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        //set bodyLocationSelectButton listener
-        bodyLocationSelectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PatientRecordAddingPageActivity.this, PatientPaperDollSelectionPageActivity.class);
-                Bundle bundle = new Bundle();
-                System.out.println(pictures);
-                record.setRecordTrackingPhotoArrayList(pictures);
-                bundle.putSerializable("problem",problem);
-                bundle.putSerializable("record", record);
-                bundle.putSerializable("records", records);
-                bundle.putSerializable("patient",patient);
-                bundle.putSerializable("problems", problems);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
-
-        // set for backButton listener
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PatientRecordAddingPageActivity.this, PatientProblemDetailPageActivity.class);
-                Bundle bundle = new Bundle();
-                record.setRecordTrackingPhotoArrayList(pictures);
-                bundle.putSerializable("problem",problem);
-                bundle.putSerializable("record", record);
-                bundle.putSerializable("records", records);
-                bundle.putSerializable("patient",patient);
-                bundle.putSerializable("problems", problems);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
-
-        //set for cameraButton listener
-        //question!!!!!!!!!!!BUG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        cameraButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                invokeCamera();
-                dispatchTakePictureIntent();
-
-            }
-        });
-
-        //set for fromAlbumButton listener
-        fromAlbumButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onImageGalleryClicked();
-            }
-        });
-
-        //set for geoLocationSelectButton listener
-        geoLocationSelectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //pass problem and record to ...
-                record.setRecordTrackingPhotoArrayList(pictures);
-                Intent intent = new Intent(PatientRecordAddingPageActivity.this,LocationPickerActivity.class);
-                Bundle bundle = new Bundle();
-                record.setRecordTrackingPhotoArrayList(pictures);
-                bundle.putSerializable("problem",problem);
-                bundle.putSerializable("record", record);
-                bundle.putSerializable("records", records);
-                bundle.putSerializable("patient",patient);
-                bundle.putSerializable("problems", problems);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
-
-        //set for saveButton listener
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /**
-                 * the check if statement has not finished yet!
-                 */
-                /*if (record.getRecordTrackingPhotoArrayList().size() < 10){
-                    Toast.makeText(PatientRecordAddingPageActivity.this, "Your tracking photo is less than 10", Toast.LENGTH_SHORT).show();
-                }
-                else if(record.getGeoLocation() == null){
-                    Toast.makeText(PatientRecordAddingPageActivity.this, "You didn't specific any geoLocation yet!", Toast.LENGTH_SHORT).show();
-                }
-                else if(record.getBodyLocation() == null){
-                    Toast.makeText(PatientRecordAddingPageActivity.this, "You didn't specific any body Location yet!", Toast.LENGTH_SHORT).show();
-                }*/
-
-                title = titleInput.getText().toString();
-                description = descriptionInput.getText().toString();
-                date = new Date();
-                record.setTitle(title);
-                record.setComment(description);
-                record.setTime(new Date());
-                record.setRecordTrackingPhotoArrayList(pictures);
-                records.add(record);
-                saveRecord(problem.getUsername(),record,problem.getId());
-
-                Intent intent = new Intent(PatientRecordAddingPageActivity.this, PatientProblemDetailPageActivity.class);
-                Bundle bundle = new Bundle();
-                record.setRecordTrackingPhotoArrayList(pictures);
-                bundle.putSerializable("problem",problem);
-                bundle.putSerializable("record", record);
-                bundle.putSerializable("records", records);
-                bundle.putSerializable("patient",patient);
-                bundle.putSerializable("problems", problems);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
-
-    }
-
-    /**
      * save new added record online
      * @param username      username
      * @param record        new added record
@@ -392,6 +391,105 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         finish();
+    }
+
+    public void getDataFromProblemDetail(){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("ProblemDetailData",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences2.getString("problem",null);
+        String json2 = sharedPreferences2.getString("problems",null);
+        String json3 = sharedPreferences2.getString("patient",null);
+        String json4= sharedPreferences2.getString("records",null);
+        Type type = new TypeToken<Problem>(){}.getType();
+        Type type2 = new TypeToken<ArrayList<Problem>>(){}.getType();
+        Type type3 = new TypeToken<Patient>(){}.getType();
+        Type type4 = new TypeToken<ArrayList<Record>>(){}.getType();
+        problem = gson.fromJson(json,type);
+        problems = gson.fromJson(json2,type2);
+        patient = gson.fromJson(json3,type3);
+        records =gson.fromJson(json4,type4);
+    }
+    public void getDataFromGeolocationSelectionPage(){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("GeoLocationData",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences2.getString("problem",null);
+        String json2 = sharedPreferences2.getString("record",null);
+        Type type = new TypeToken<Problem>(){}.getType();
+        Type type2 = new TypeToken<Record>(){}.getType();
+        problem = gson.fromJson(json,type);
+        record = gson.fromJson(json2,type2);
+    }
+
+    public void getDataFromBodyLocationSelectionPage(){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("BodyLocationPhotoAddingData",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences2.getString("record",null);
+        Type type = new TypeToken<Record>(){}.getType();
+        record = gson.fromJson(json,type);
+    }
+    public void loaaDataFromLocal(){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("RecordAddingData",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json1 = sharedPreferences2.getString("patient",null);
+        String json2= sharedPreferences2.getString("records",null);
+        String json3 = sharedPreferences2.getString("problems",null);
+        String json4 = sharedPreferences2.getString("problem",null);
+        Type type1 = new TypeToken<Patient>(){}.getType();
+        Type type2 = new TypeToken<ArrayList<Record>>(){}.getType();
+        Type type3 = new TypeToken<ArrayList<Problem>>(){}.getType();
+        Type type4 = new TypeToken<Problem>(){}.getType();
+        patient = gson.fromJson(json1,type1);
+        records =gson.fromJson(json2,type2);
+        problems = gson.fromJson(json3,type3);
+        problem = gson.fromJson(json4,type4);
+    }
+
+
+    public void passDataToProblemDetailPage(Problem problem, ArrayList<Problem> problems, ArrayList<Record> records){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("RecordAddingData",MODE_PRIVATE);
+        SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(problem);/**save in gson format*/
+        String json2 = gson.toJson(problems);
+        String json4 = gson.toJson(records);
+        editor2.putString("problem",json);
+        editor2.putString("problems",json2);
+        editor2.putString("records",json4);
+        editor2.apply();
+    }
+    public void passDataToGeolocationSelectionPage(Problem problem, Record record){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("RecordAddingData",MODE_PRIVATE);
+        SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(problem);/**save in gson format*/
+        String json2 = gson.toJson(record);
+        editor2.putString("problem",json);
+        editor2.putString("record",json2);
+        editor2.apply();
+    }
+    public void passDataToPaperDollSelectionPage(Record record){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("RecordAddingData",MODE_PRIVATE);
+        SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(record);/**save in gson format*/
+        editor2.putString("record",json);
+        editor2.apply();
+    }
+
+
+    public void saveDataToLocal(Patient patient, ArrayList<Record> records, ArrayList<Problem> problems,Problem problem){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("RecordAddingData",MODE_PRIVATE);
+        SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(patient);/**save in gson format*/
+        String json2 = gson.toJson(records);
+        String json3 = gson.toJson(problems);
+        String json4 = gson.toJson(problem);
+        editor2.putString("patient",json);
+        editor2.putString("records",json2);
+        editor2.putString("problems",json3);
+        editor2.putString("problem",json4);
+        editor2.apply();
     }
 
 }

@@ -11,6 +11,7 @@ package com.example.cmput301f18t09.cureall.Activities.publicActitivy;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -36,7 +37,10 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
@@ -82,12 +86,7 @@ public class LocationPickerActivity extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.View);
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-        problem = (Problem)getIntent().getSerializableExtra("problem");
-        record = (Record) getIntent().getSerializableExtra("record");
-        records = (ArrayList<Record>)getIntent().getSerializableExtra("records");
-        patient = (Patient)getIntent().getSerializableExtra("patient");
-        problems = (ArrayList<Problem>)getIntent().getSerializableExtra("problems");
-
+        getDataFromRecordAddingPage();
 
         locationListener = new LocationListener() {
             @Override
@@ -217,15 +216,10 @@ public class LocationPickerActivity extends AppCompatActivity {
 /*                    ElasticSearchParams param = new ElasticSearchParams(record.getUsername(),record,record.getProblemid());
                     ElasticSearchController.AddRecordTask addRecordTask = new ElasticSearchController.AddRecordTask();
                     addRecordTask.execute(param);*/
-                    Bundle bundle = new Bundle();
                     Intent passGeoLocationBack = new Intent(LocationPickerActivity.this,PatientRecordAddingPageActivity.class);
                     //              bundle.putSerializable("record", record);
-                    bundle.putSerializable("problem",problem);
-                    bundle.putSerializable("record", record);
-                    bundle.putSerializable("records", records);
-                    bundle.putSerializable("problems", problems);
-                    bundle.putSerializable("patient", patient);
-                    passGeoLocationBack.putExtras(bundle);
+                    passDataToRecordAddingPage(problem,record);
+                    passGeoLocationBack.putExtra("ComeFromGeoLocationSelectionPage","ComeFromGeoLocationSelectionPage");
                     startActivity(passGeoLocationBack);
 
                 }
@@ -236,8 +230,29 @@ public class LocationPickerActivity extends AppCompatActivity {
      * when leave this activity, kill it
      */
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
         finish();
+    }
+
+    public void getDataFromRecordAddingPage(){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("RecordAddingData",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json1 = sharedPreferences2.getString("problem",null);
+        String json2= sharedPreferences2.getString("record",null);
+        Type type1 = new TypeToken<Problem>(){}.getType();
+        Type type2 = new TypeToken<Record>(){}.getType();
+        problem = gson.fromJson(json1,type1);
+        record =gson.fromJson(json2,type2);
+    }
+    public void passDataToRecordAddingPage(Problem problem, Record record){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("GeoLocationData",MODE_PRIVATE);
+        SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(problem);/**save in gson format*/
+        String json2 = gson.toJson(record);
+        editor2.putString("problem",json);
+        editor2.putString("record",json2);
+        editor2.apply();
     }
 }

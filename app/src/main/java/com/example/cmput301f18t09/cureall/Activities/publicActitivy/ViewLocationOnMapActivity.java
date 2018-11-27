@@ -53,11 +53,8 @@ public class ViewLocationOnMapActivity extends AppCompatActivity implements OnMa
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
         LatLng geolocation1 = new LatLng(lat, log);
         googleMap.addMarker(new MarkerOptions().position(geolocation1));
 
     }
-
-
 }

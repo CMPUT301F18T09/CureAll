@@ -11,6 +11,7 @@ package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -32,7 +33,10 @@ import com.example.cmput301f18t09.cureall.PatientAdapter.PatientProblemDetailPag
 import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.R;
 import com.example.cmput301f18t09.cureall.Record;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -52,11 +56,8 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
     ArrayList<Record> records = new ArrayList<>();
     final int REQUEST_RECORD_ADDING = 1;
 
-    String username;
-    String user_email;
-    String phone;
     String id;
-    String pw;
+
 
     /**
      * set listener for all buttons
@@ -76,71 +77,33 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
         photoAnimationButton = (Button) findViewById(R.id.photoAnimationButton);
         addButton = (Button) findViewById(R.id.addButton);
         viewProviderCommentButton = (Button) findViewById(R.id.viewProviderCommentButton);
-        problem = (Problem)getIntent().getSerializableExtra("problem");
-        records = (ArrayList<Record>)getIntent().getSerializableExtra("records");
-        problems = (ArrayList<Problem>)getIntent().getSerializableExtra("problems");
-        patient = (Patient)getIntent().getSerializableExtra("patient");
-        //final String username = incomingIntent.getStringExtra("username");
-        username = patient.getUsername();
-        user_email = patient.getEmail();
-        phone = patient.getPhone();
-        id = patient.getPatientID();
-        pw = patient.getPassword();
 
+        Intent intent = getIntent();
+        if (intent.getStringExtra("ComeFromPatientMainPage") != null && intent.getStringExtra("ComeFromPatientMainPage").equals("ComeFromPatientMainPage")){
+            getDataFromPatientMainPage();
+        }
+        else if (intent.getStringExtra("ComeFromCommentViewPage") != null && intent.getStringExtra("ComeFromCommentViewPage").equals("ComeFromCommentViewPage")){
+            loadDataFromLocal("saveToLocal");
+            getDataFromCommentViewPage();
+        }
+        else if (intent.getStringExtra("ComeFromRecordAddingPage") != null && intent.getStringExtra("ComeFromRecordAddingPage").equals("ComeFromRecordAddingPage")){
+            loadDataFromLocal("saveToLocal");
+            getDataFromRecordAddingPage();
+        }
+        else if (intent.getStringExtra("ComeFromRecordDetailPage") != null && intent.getStringExtra("ComeFromRecordDetailPage").equals("ComeFromRecordDetailPage")){
+            loadDataFromLocal("saveToLocal");
+        }
+        else if (intent.getStringExtra("ComeFromRecordAddingPageSAVE") != null && intent.getStringExtra("ComeFromRecordAddingPageSAVE").equals("ComeFromRecordAddingPageSAVE")){
+            loadDataFromLocal("RecordAddingData");
+        }
+
+
+        //final String username = incomingIntent.getStringExtra("username");
+        id = patient.getPatientID();
         //set the content on view
         titleInput.setText(problem.getTitle());
         dateInput.setText(problem.getTime());
         descriptionInput.setText(problem.getDescription());
-
-        //set backButton listener
-        backButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(PatientProblemDetailPageActivity.this,PatientListOfProblemsPageActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("problem", problem);
-                bundle.putSerializable("problems",problems);
-                bundle.putSerializable("patient",patient);
-                bundle.putSerializable("records", records);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
-
-        //set addButton listener
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PatientProblemDetailPageActivity.this,PatientRecordAddingPageActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("problem", problem);
-                bundle.putSerializable("problems",problems);
-                bundle.putSerializable("patient",patient);
-                bundle.putSerializable("records", records);
-                intent.putExtras(bundle);
-                startActivityForResult(intent,REQUEST_RECORD_ADDING);
-            }
-        });
-
-        //set viewProviderCommentButton listener
-        viewProviderCommentButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String comment = problem.getDoctorcomment();
-                //Toast.makeText(PatientProblemDetailPageActivity.this,comment,Toast.LENGTH_SHORT).show();
-                Intent intent =new Intent(PatientProblemDetailPageActivity.this,PatientShowProviderCommentPageActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("problem", problem);
-                bundle.putSerializable("problems",problems);
-                bundle.putSerializable("patient",patient);
-                bundle.putSerializable("records", records);
-                intent.putExtras(bundle);
-                startActivityForResult(intent,REQUEST_RECORD_ADDING);
-                startActivity(intent);
-            }
-        });
     }
 
     /**
@@ -165,13 +128,50 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
             public void onDetailClick(int position) {
                 Intent intent = new Intent(PatientProblemDetailPageActivity.this,PatientRecordDetailPageActivity.class);
                 Record record = records.get(position);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("problem", problem);
-                bundle.putSerializable("problems",problems);
-                bundle.putSerializable("patient",patient);
-                bundle.putSerializable("records", records);
-                bundle.putSerializable("record",record);
-                intent.putExtras(bundle);
+                saveDataToLocal(problems, patient, records,problem);
+                passDataToRecordDetailPage(record);
+                intent.putExtra("ComeFromProblemDetail","ComeFromProblemDetail");
+                startActivity(intent);
+            }
+        });
+        //set backButton listener
+        backButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(PatientProblemDetailPageActivity.this,PatientListOfProblemsPageActivity.class);
+                passDataToPatientMainpage(patient,problems);
+                intent.putExtra("ComeFromProblemDetail","ComeFromProblemDetail");
+                startActivity(intent);
+            }
+        });
+
+        //set addButton listener
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PatientProblemDetailPageActivity.this,PatientRecordAddingPageActivity.class);
+
+                passDataToAddingRecordPage(problem,problems,patient,records);
+                saveDataToLocal(problems,patient,records,problem);
+                intent.putExtra("ComeFromProblemDetail","ComeFromProblemDetail");
+                startActivity(intent);
+            }
+        });
+
+        //set viewProviderCommentButton listener
+        viewProviderCommentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ///String comment = problem.getDoctorcomment();
+                //Toast.makeText(PatientProblemDetailPageActivity.this,comment,Toast.LENGTH_SHORT).show();
+                Intent intent =new Intent(PatientProblemDetailPageActivity.this,PatientShowProviderCommentPageActivity.class);
+
+
+                passDataToCommentViewPage(problem);
+                saveDataToLocal(problems, patient, records,problem);
+                intent.putExtra("ComeFromProblemDetail","ComeFromProblemDetail");
                 startActivity(intent);
             }
         });
@@ -196,6 +196,132 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
                 mAdapter.notifyDataSetChanged();
             }
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
+    }
+
+    /**data passing, loading and saving part
+     *
+     */
+    public void getDataFromPatientMainPage(){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("PatientMainPageData",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences2.getString("problem",null);
+        String json2 = sharedPreferences2.getString("records",null);
+        String json3 = sharedPreferences2.getString("problems",null);
+        String json4 = sharedPreferences2.getString("patient",null);
+        Type type = new TypeToken<Problem>(){}.getType();
+        Type type2 = new TypeToken<ArrayList<Record>>(){}.getType();
+        Type type3 = new TypeToken<ArrayList<Problem>>(){}.getType();
+        Type type4 = new TypeToken<Patient>(){}.getType();
+        problem = gson.fromJson(json,type);
+        records = gson.fromJson(json2,type2);
+        problems = gson.fromJson(json3,type3);
+        patient =gson.fromJson(json4,type4);
+    }
+    public void getDataFromCommentViewPage(){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("PatientMainPageData",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences2.getString("problem",null);
+        Type type = new TypeToken<Problem>(){}.getType();
+        problem = gson.fromJson(json,type);
+    }
+    public void getDataFromRecordAddingPage(){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("PatientMainPageData",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences2.getString("problem",null);
+        String json2 = sharedPreferences2.getString("problems",null);
+        String json4 = sharedPreferences2.getString("records",null);
+        Type type = new TypeToken<Problem>(){}.getType();
+        Type type2 = new TypeToken<ArrayList<Problem>>(){}.getType();
+        Type type4 = new TypeToken<ArrayList<Record>>(){}.getType();
+        problem = gson.fromJson(json,type);
+        problems = gson.fromJson(json2,type2);
+        records = gson.fromJson(json4,type4);
+    }
+    public void getDataFromRecordDetailPage(){
+        //TODO this function may need to update record. we may delete photos
+    }
+
+    public void passDataToPatientMainpage(Patient patient, ArrayList<Problem> problems){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("ProblemDetailData",MODE_PRIVATE);
+        SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(patient);/**save in gson format*/
+        String json2 = gson.toJson(problems);
+        editor2.putString("patientObject",json);
+        editor2.putString("patientProblems",json2);
+        editor2.apply();
+    }
+    public void passDataToCommentViewPage(Problem problem){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("ProblemDetailData",MODE_PRIVATE);
+        SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(problem);/**save in gson format*/
+        editor2.putString("problem",json);
+        editor2.apply();
+    }
+    public void passDataToAddingRecordPage(Problem problem, ArrayList<Problem> problems, Patient patient, ArrayList<Record> records){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("ProblemDetailData",MODE_PRIVATE);
+        SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(problem);/**save in gson format*/
+        String json2 = gson.toJson(problems);
+        String json3 = gson.toJson(patient);
+        String json4 = gson.toJson(records);
+        editor2.putString("problem",json);
+        editor2.putString("problems",json2);
+        editor2.putString("patient",json3);
+        editor2.putString("records",json4);
+        editor2.apply();
+    }
+    public void passDataToRecordDetailPage(Record record){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("ProblemDetailData",MODE_PRIVATE);
+        SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(record);
+        editor2.putString("record",json);
+        editor2.apply();
+    }
+
+
+    /**
+     * future save function can start from here
+     */
+    public void saveDataToLocal(ArrayList<Problem> problems, Patient patient, ArrayList<Record> records, Problem problem){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("saveToLocal",MODE_PRIVATE);
+        SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(problems);
+        String json2 = gson.toJson(patient);
+        String json3 = gson.toJson(records);
+        String json4 = gson.toJson(problem);
+        editor2.putString("problems",json);
+        editor2.putString("patient",json2);
+        editor2.putString("records",json3);
+        editor2.putString("problem",json4);
+        editor2.apply();
+    }
+    public void loadDataFromLocal(String name){
+        SharedPreferences sharedPreferences2 = getSharedPreferences(name,MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences2.getString("problems",null);
+        String json2 = sharedPreferences2.getString("patient",null);
+        String json3 = sharedPreferences2.getString("records",null);
+        String json4 = sharedPreferences2.getString("problem",null);
+        Type type = new TypeToken<ArrayList<Problem>>(){}.getType();
+        Type type2 = new TypeToken<Patient>(){}.getType();
+        Type type3 = new TypeToken<ArrayList<Record>>(){}.getType();
+        Type type4 = new TypeToken<Problem>(){}.getType();
+        problems = gson.fromJson(json,type);
+        patient = gson.fromJson(json2,type2);
+        records = gson.fromJson(json3,type3);
+        problem = gson.fromJson(json4,type4);
+
     }
 }
 

@@ -9,6 +9,7 @@
  */
 package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +19,11 @@ import android.widget.TextView;
 import com.example.cmput301f18t09.cureall.BodyLocation;
 import com.example.cmput301f18t09.cureall.PatientAdapter.photoFlowPageAdapter;
 import com.example.cmput301f18t09.cureall.R;
+import com.example.cmput301f18t09.cureall.Record;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
@@ -46,7 +51,8 @@ public class PatientPhotoFlowPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_patient_photo_flow_page);
         backButton = findViewById(R.id.backButton);
         fixedText1 = findViewById(R.id.fixedText1);
-        bodyLocation = (BodyLocation)getIntent().getSerializableExtra("body");
+
+        getDataFromRecordDetailPage();
         imageUrls = bodyLocation.getBodyLocationPhotoArrayList();
         //modify url format
         for (String url : imageUrls){
@@ -60,7 +66,13 @@ public class PatientPhotoFlowPageActivity extends AppCompatActivity {
         ViewPager viewPager = findViewById(R.id.viewPager);
         photoFlowPageAdapter adapter = new photoFlowPageAdapter(this,imageUrls2);
         viewPager.setAdapter(adapter);
-
+    }
+    public void getDataFromRecordDetailPage(){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("RecordDetailData",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences2.getString("bodyLocation2",null);
+        Type type = new TypeToken<BodyLocation>(){}.getType();
+        bodyLocation = gson.fromJson(json,type);
     }
 
 }

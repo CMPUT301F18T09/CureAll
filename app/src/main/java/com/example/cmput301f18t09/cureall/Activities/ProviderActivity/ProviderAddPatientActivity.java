@@ -73,20 +73,21 @@ public class ProviderAddPatientActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     Log.i("Error", "Failed to get the user from the async object");
                 }
-                Intent intent = new Intent(ProviderAddPatientActivity.this, ProviderMainPageActivity.class);
-                intent.putExtra("doctorname", doctorname);
-                intent.putExtra("patientname", patients.get(0).getUsername());
-                intent.putExtra("patientEmail", patients.get(0).getEmail());
-                intent.putExtra("patientPassword", patients.get(0).getPassword());
-                intent.putExtra("patientPhone", patients.get(0).getPhone());
-                setResult(0, intent);
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
-                        ProviderAddPatientActivity.this.finish();
+                        Intent intent = new Intent(ProviderAddPatientActivity.this, ProviderMainPageActivity.class);
+                        intent.putExtra("username", doctorname);
+                        startActivity(intent);
                     }
                 },1000);
             }
         });
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
     }
 }

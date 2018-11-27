@@ -10,6 +10,7 @@
 package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,7 +27,10 @@ import com.example.cmput301f18t09.cureall.PatientAdapter.PatientRecordDetailPage
 import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.R;
 import com.example.cmput301f18t09.cureall.Record;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -66,14 +70,34 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_record_detail_page);
         initalizeAllElements();
-
-
         recyclerView = findViewById(R.id.ListOfPhotos);
         recyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
         mAdapter = new PatientRecordDetailPageAdapter(this,mNames,mImageUrls);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
+        Intent intent = getIntent();
+        if (intent.getStringExtra("ComeFromProblemDetail") != null && intent.getStringExtra("ComeFromProblemDetail").equals("ComeFromProblemDetail")){
+            getDataFromProblemDetailPage();
+        }
+
+        /**
+         * set the tile and description based on what you entered in record adding page!
+         */
+        titleContent.setText(record.getTitle());
+        commentContent.setText(record.getComment());
+        timeContent.setText(df.format(record.getTime()) );
+        if (record.getBodyLocation()!=null) {
+            bodyLocationContent.setText(record.getBodyLocation().getBodyLocationName());
+        }
+        ArrayList<AllKindsOfPhotos> photos = record.getRecordTrackingPhotoArrayList();
+        if(photos!=null){
+
+            for (AllKindsOfPhotos each : photos) {
+                mImageUrls.add(each.getPhotoLocation());
+                mNames.add("123");
+            }
+        }
     }
 
     /**
@@ -95,29 +119,6 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
         photo = findViewById(R.id.photo);
         viewBodyLocationPhotoButton = findViewById(R.id.viewBodyLocationPhotoButton);
         recordDetailHeader = findViewById(R.id.recordDetailHeader);
-        /////////////////////////////////////////////////////////////////////
-        record = (Record)getIntent().getSerializableExtra("record");
-        problem = (Problem)getIntent().getSerializableExtra("problem");
-        records = (ArrayList<Record>)getIntent().getSerializableExtra("records");
-        problems = (ArrayList<Problem>)getIntent().getSerializableExtra("problems");
-        patient = (Patient)getIntent().getSerializableExtra("patient");
-        /**
-         * set the tile and description based on what you entered in record adding page!
-         */
-        titleContent.setText(record.getTitle());
-        commentContent.setText(record.getComment());
-        timeContent.setText(df.format(record.getTime()) );
-        if (record.getBodyLocation()!=null) {
-            bodyLocationContent.setText(record.getBodyLocation().getBodyLocationName());
-        }
-        ArrayList<AllKindsOfPhotos> photos = record.getRecordTrackingPhotoArrayList();
-        if(photos!=null) {
-
-            for (AllKindsOfPhotos each : photos) {
-                mImageUrls.add(each.getPhotoLocation());
-                mNames.add("123");
-            }
-        }
     }
 
     /**
@@ -132,10 +133,10 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 bodyLocation2 = record.getBodyLocation();
+                // TODO change "PatientViewBodyLocationPhotoPageActivity"
                 Intent intent = new Intent(PatientRecordDetailPageActivity.this, PatientPhotoFlowPageActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("body", bodyLocation2);
-                intent.putExtras(bundle);
+                passDataToPhotoFlowPage(bodyLocation2);
+                intent.putExtra("ComeFromRecordDetailPage","ComeFromRecordDetailPage");
                 startActivity(intent);
             }
         });
@@ -145,13 +146,7 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PatientRecordDetailPageActivity.this, PatientProblemDetailPageActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("record",record);
-                bundle.putSerializable("problem", problem);
-                bundle.putSerializable("records", records);
-                bundle.putSerializable("patient", patient);
-                bundle.putSerializable("problems",problems);
-                intent.putExtras(bundle);
+                intent.putExtra("ComeFromRecordDetailPage","ComeFromRecordDetailPage");
                 startActivity(intent);
             }
         });
@@ -161,6 +156,7 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent map = new Intent(PatientRecordDetailPageActivity.this, ViewLocationOnMapActivity.class);
+                //TODO REMINDER DONT NEED TO CHANGE HERE
                 Bundle geoLocation = new Bundle();
                 geoLocation.putDouble("log", record.getGeoLocation().getLocation().get(0));
                 geoLocation.putDouble("lat", record.getGeoLocation().getLocation().get(1));
@@ -168,7 +164,28 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
                 startActivity(map);
             }
         });
-
-
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        //TODO activity need to terminate
+    }
+
+    public void getDataFromProblemDetailPage(){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("ProblemDetailData",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences2.getString("record",null);
+        Type type = new TypeToken<Record>(){}.getType();
+        record = gson.fromJson(json,type);
+    }
+    public void passDataToPhotoFlowPage(BodyLocation bodyLocation2){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("RecordDetailData",MODE_PRIVATE);
+        SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(bodyLocation2);/**save in gson format*/
+        editor2.putString("bodyLocation2",json);
+        editor2.apply();
+    }
+
 }

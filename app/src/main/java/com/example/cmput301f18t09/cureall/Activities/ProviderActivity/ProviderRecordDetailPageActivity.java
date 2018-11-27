@@ -10,6 +10,7 @@
 package com.example.cmput301f18t09.cureall.Activities.ProviderActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,10 +18,15 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.cmput301f18t09.cureall.Patient;
+import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.ProviderAdapter.RecordDetailPageAdapter;
 import com.example.cmput301f18t09.cureall.R;
 import com.example.cmput301f18t09.cureall.Record;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -53,7 +59,7 @@ public class ProviderRecordDetailPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_provider_record_detail_page);
         initalizeAllElements();
         //test samples...
-
+        getDataFromProblemDetailPage();
         titleContent.setText(record.getTitle());
         commentContent.setText(record.getComment());
         timeContent.setText(df.format(record.getTime()));
@@ -74,8 +80,6 @@ public class ProviderRecordDetailPageActivity extends AppCompatActivity {
      * it link the elements with the source xml file
      */
     public void initalizeAllElements(){
-        Intent incomingIntent = getIntent();
-        record = (Record) getIntent().getSerializableExtra("record");
         backButton = (ImageButton) findViewById(R.id.backButton);
         geoLocationButton = (ImageButton) findViewById(R.id.geoLocationButton);
         title = (TextView) findViewById(R.id.title);
@@ -87,6 +91,13 @@ public class ProviderRecordDetailPageActivity extends AppCompatActivity {
         bodyLocation = (TextView) findViewById(R.id.bodyLocation);
         bodyLocationContent = (TextView) findViewById(R.id.bodyLocationContent);
         photo = (TextView) findViewById(R.id.photo);
+    }
+    public void getDataFromProblemDetailPage(){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("ProviderProblemDetailData",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences2.getString("record",null);
+        Type type = new TypeToken<Record>(){}.getType();
+        record = gson.fromJson(json,type);
     }
 
 }
