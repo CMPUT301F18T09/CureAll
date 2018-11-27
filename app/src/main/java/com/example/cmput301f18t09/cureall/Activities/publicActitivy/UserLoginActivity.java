@@ -107,6 +107,8 @@ public class UserLoginActivity extends AppCompatActivity {
                 List<Patient> foundPatient= getuserTask.get();
                 patients.addAll(foundPatient);
             } catch (Exception e) {
+                //TODO after a successful login online, this current patient data will store in local
+                //TODO next time, when offline login with same account, it could read data from local
                 Log.i("Chen", "Failed to get the user from the async object");
             }
             Log.i("Read","read end");
@@ -129,9 +131,7 @@ public class UserLoginActivity extends AppCompatActivity {
 
         }
         else{
-
             setResult(RESULT_OK);
-
             String Username = userNameInput.getText().toString();
             String Password = passwordInput.getText().toString();
 
@@ -160,7 +160,6 @@ public class UserLoginActivity extends AppCompatActivity {
                  */
                 startActivity(intent);
             }
-
         }
     }
     /**
