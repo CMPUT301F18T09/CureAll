@@ -115,6 +115,7 @@ public class UserLoginActivity extends AppCompatActivity {
             String pass =  patients.get(0).getPassword();
             if (pass.equals(Password)){
                 problems = problemController.GetProblemNum(patients.get(0).getUsername());
+                //TODO implement local retrieve funct.
                 Intent intent = new Intent(UserLoginActivity.this,PatientListOfProblemsPageActivity.class);
                 /**should be change to save func
                  * HAS BEEN CHANGED

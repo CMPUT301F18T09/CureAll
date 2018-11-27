@@ -80,7 +80,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent.getStringExtra("ComeFromPatientMainPage") != null && intent.getStringExtra("ComeFromPatientMainPage").equals("ComeFromPatientMainPage")){
-            getDataFromPatientMainPage();
+            loadDataFromLocal("PatientMainPageData");
         }
         else if (intent.getStringExtra("ComeFromCommentViewPage") != null && intent.getStringExtra("ComeFromCommentViewPage").equals("ComeFromCommentViewPage")){
             loadDataFromLocal("saveToLocal");
@@ -207,22 +207,6 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
     /**data passing, loading and saving part
      *
      */
-    public void getDataFromPatientMainPage(){
-        SharedPreferences sharedPreferences2 = getSharedPreferences("PatientMainPageData",MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences2.getString("problem",null);
-        String json2 = sharedPreferences2.getString("records",null);
-        String json3 = sharedPreferences2.getString("problems",null);
-        String json4 = sharedPreferences2.getString("patient",null);
-        Type type = new TypeToken<Problem>(){}.getType();
-        Type type2 = new TypeToken<ArrayList<Record>>(){}.getType();
-        Type type3 = new TypeToken<ArrayList<Problem>>(){}.getType();
-        Type type4 = new TypeToken<Patient>(){}.getType();
-        problem = gson.fromJson(json,type);
-        records = gson.fromJson(json2,type2);
-        problems = gson.fromJson(json3,type3);
-        patient =gson.fromJson(json4,type4);
-    }
     public void getDataFromCommentViewPage(){
         SharedPreferences sharedPreferences2 = getSharedPreferences("PatientMainPageData",MODE_PRIVATE);
         Gson gson = new Gson();

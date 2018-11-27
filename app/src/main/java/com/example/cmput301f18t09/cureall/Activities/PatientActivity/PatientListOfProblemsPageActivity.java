@@ -168,19 +168,13 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                 Intent intent = new Intent(PatientListOfProblemsPageActivity.this,PatientProblemDetailPageActivity.class);
                 Problem problem = problems.get(position);
                 records = recordController.GetRecordNum(username,problem.getId());
-                /**need to change to save func
-                 *
-                 */
                 passDataToProblemDetail(problem,records,problems,patient);
                 intent.putExtra("ComeFromPatientMainPage", "ComeFromPatientMainPage");
-                /**ends
-                 *
-                 */
                 startActivity(intent);
             }
             @Override
             public void onDeleteClick(int position) {
-                Problem problem = problems.get(position);
+                //TODO add local storage funct.
                 ProblemController.DelteProblem(problems,position,username);
                 mAdapter.notifyDataSetChanged();
             }

@@ -160,18 +160,15 @@ public class ProviderMainPageActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
                     }
                 }
         );
         builderSingle.show();
     }
-
     /**save
      * and
      * get
      */
-
     public void passDataToAListOfProblemPage(Patient patient){
         SharedPreferences sharedPreferences2 = getSharedPreferences("ProviderMainPageData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();
