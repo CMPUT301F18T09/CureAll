@@ -10,14 +10,13 @@
         android:id="@+id/input_search"
         android:layout_width="246dp"
         android:layout_height="50dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="100dp"
         android:ems="10"
         android:hint="search keywords here"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.161"
+        app:layout_constraintHorizontal_bias="0.146"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/back_btn1" />
 
@@ -36,11 +35,22 @@
         android:id="@+id/GO"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="36dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="100dp"
         app:layout_constraintStart_toEndOf="@+id/input_search"
         app:layout_constraintTop_toBottomOf="@+id/back_btn1"
         app:srcCompat="@android:drawable/ic_menu_search" />
+
+    <ListView
+        android:id="@+id/testListView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.396"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_search"></ListView>
 
 </android.support.constraint.ConstraintLayout>

@@ -38,6 +38,22 @@ public class ProblemController {
         return problems;
     }
 
+    public ArrayList<Problem> GetAllProblem(){
+        ArrayList<Problem> problems = new ArrayList<Problem>();
+        ElasticSearchController.GetProblemTask getproblemTask = new ElasticSearchController.GetProblemTask();
+
+        try {
+            List<Problem> foundPatient= getproblemTask.get();
+            problems.addAll(foundPatient);
+        } catch (Exception e) {
+            Log.i("Error", "Failed to get the user from the async object");
+        }
+
+        Log.i("Read","read end");
+
+        return problems;
+    }
+
     public static void DelteProblem(ArrayList<Problem> problems, int position, String username)
     {
         Problem problem = problems.get(position);

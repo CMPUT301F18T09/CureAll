@@ -42,5 +42,7 @@ dependencies {
     implementation files('src/include/jest-droid-2.0.1-SNAPSHOT.jar')
     implementation 'com.google.android.gms:play-services:12.0.1'
 
+    compile'com.google.zxing:core:3.2.1'
+    compile'com.journeyapps:zxing-android-embedded:3.2.0@aar'
 
 }

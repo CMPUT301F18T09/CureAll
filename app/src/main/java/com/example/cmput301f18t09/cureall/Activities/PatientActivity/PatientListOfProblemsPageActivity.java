@@ -30,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cmput301f18t09.cureall.Activities.publicActitivy.SearchActivity;
 import com.example.cmput301f18t09.cureall.Patient;
 import com.example.cmput301f18t09.cureall.PatientAdapter.PatientProblemListPageAdapter;
 import com.example.cmput301f18t09.cureall.Problem;
@@ -104,7 +105,8 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                 custom.setPositiveButton("Search by Body Location", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        Intent intent = new Intent(PatientListOfProblemsPageActivity.this, SearchActivity.class);
+                        startActivity(intent);
                     }
                 });
                 custom.setNegativeButton("Search by Key words", new DialogInterface.OnClickListener() {
