@@ -37,7 +37,7 @@ public class PatientPhotoFlowPageActivity extends AppCompatActivity {
     private ImageButton backButton;
     private TextView fixedText1;
     private ArrayList<AllKindsOfPhotos> photos = new ArrayList<>();
-    private ArrayList<Bitmap> mImageBitmaps = new ArrayList<>();
+    private ArrayList<String> mImageBitmaps = new ArrayList<>();
     private BodyLocation bodyLocation;
 
     /**
@@ -59,7 +59,7 @@ public class PatientPhotoFlowPageActivity extends AppCompatActivity {
 
             for (AllKindsOfPhotos each : photos) {
 
-                mImageBitmaps.add(each.getPic());/**new*/
+                mImageBitmaps.add(each.getPhotoLocation());/**new*/
                 //mImageUrls.add(each.getPhotoLocation());
                 //mNames.add("123");
             }

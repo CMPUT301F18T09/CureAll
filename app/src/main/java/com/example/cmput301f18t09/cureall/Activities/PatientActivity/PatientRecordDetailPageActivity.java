@@ -53,9 +53,7 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
 
     private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     //images from internet test
-    private ArrayList<String> mNames = new ArrayList<>();
-    private ArrayList<String> mImageUrls = new ArrayList<>();
-    private ArrayList<Bitmap> mImageBitmaps = new ArrayList<>();/**new*/
+    private ArrayList<String> mImageBitmaps = new ArrayList<>();/**new*/
     ///
     private BodyLocation bodyLocation2;
     //ends..
@@ -91,16 +89,15 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
 
             for (AllKindsOfPhotos each : photos) {
 
-                mImageBitmaps.add(each.getPic());/**new*/
+                mImageBitmaps.add(each.getPhotoLocation());/**new*/
                 //mImageUrls.add(each.getPhotoLocation());
                 //mNames.add("123");
             }
         }
-
         recyclerView = findViewById(R.id.ListOfPhotos);
         recyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
-        mAdapter = new PatientRecordDetailPageAdapter(mImageBitmaps);/**new*/
+        mAdapter = new PatientRecordDetailPageAdapter(this,mImageBitmaps);/**new*/
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
     }
@@ -174,7 +171,7 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        //TODO activity need to terminate
+        finish();
     }
 
     public void getDataFromProblemDetailPage(){

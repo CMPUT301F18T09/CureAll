@@ -11,8 +11,10 @@ package com.example.cmput301f18t09.cureall.PatientAdapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
+import android.util.Base64;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -29,14 +31,16 @@ import java.util.ArrayList;
 //TODO change data type here!!!!string to bitmap arraylist
 public class photoFlowPageAdapter extends PagerAdapter {
     private Context mContext;
-    private ArrayList<Bitmap> imageUrls;
+    private ArrayList<String> imageUrls;
+    private Bitmap bitmap;
+    private String stringbitmap;
 
     /**
      * the constructor get the image source and context
      * @param context
      * @param imageUrls
      */
-    public photoFlowPageAdapter(Context context, ArrayList<Bitmap> imageUrls){
+    public photoFlowPageAdapter(Context context, ArrayList<String> imageUrls){
         mContext = context;
         this.imageUrls = imageUrls;
     }
@@ -66,7 +70,14 @@ public class photoFlowPageAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         ImageView imageView = new ImageView(mContext);
-        Bitmap bitmap = imageUrls.get(position);
+        stringbitmap = imageUrls.get(position);
+        try {
+            byte [] encodeByte= Base64.decode(stringbitmap,Base64.DEFAULT);
+            bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+        } catch(Exception e) {
+            e.getMessage();
+        }
+
         imageView.setImageBitmap(bitmap);
         //imageView.setImageResource(mImageIds[position]);
         imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);

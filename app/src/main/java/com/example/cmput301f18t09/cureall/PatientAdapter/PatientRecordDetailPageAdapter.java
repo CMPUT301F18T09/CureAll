@@ -11,9 +11,11 @@ package com.example.cmput301f18t09.cureall.PatientAdapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,12 +41,15 @@ public class PatientRecordDetailPageAdapter extends RecyclerView.Adapter<Patient
     //photo upload as bitmap test...
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
-    private ArrayList<Bitmap> mImageBitmaps = new ArrayList<>();/**new*/
+    private ArrayList<String> mImageBitmaps = new ArrayList<>();/**new*/
     private Context mContext;
+    private Bitmap bitmap;
+    private String stringbitmap;
     /**
      * The contructor of adapter
      */
-    public PatientRecordDetailPageAdapter(ArrayList<Bitmap> bits) {
+    public PatientRecordDetailPageAdapter(Context context,ArrayList<String> bits) {
+        mContext = context;
         mImageBitmaps = bits;/**new*/
     }
     // contructor ends
@@ -83,9 +88,16 @@ public class PatientRecordDetailPageAdapter extends RecyclerView.Adapter<Patient
     @Override
     public void onBindViewHolder(viewHolder viewHolder, final int position) {
         Log.i("Show","show pic");
-        Bitmap bitmap = mImageBitmaps.get(position);
-        viewHolder.imageView.setImageBitmap(bitmap);
+        stringbitmap = mImageBitmaps.get(position);
 
+        //TODO string to bitmap
+        try {
+            byte [] encodeByte= Base64.decode(stringbitmap,Base64.DEFAULT);
+            bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+        } catch(Exception e) {
+            e.getMessage();
+        }
+        viewHolder.imageView.setImageBitmap(bitmap);
         viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

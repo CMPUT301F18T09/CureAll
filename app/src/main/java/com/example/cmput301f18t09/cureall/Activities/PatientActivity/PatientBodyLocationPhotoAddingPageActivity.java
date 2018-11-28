@@ -21,6 +21,7 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -36,6 +37,7 @@ import com.example.cmput301f18t09.cureall.Record;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -195,7 +197,12 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE) {
             Bitmap bitmap = (Bitmap)data.getExtras().get("data");
-            AllKindsOfPhotos newpicture = new AllKindsOfPhotos(bitmap,"","type",0.0,0.0,0.0);
+            //TODO to string
+            ByteArrayOutputStream baos=new  ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+            byte [] b=baos.toByteArray();
+            String temp= Base64.encodeToString(b, Base64.DEFAULT);
+            AllKindsOfPhotos newpicture = new AllKindsOfPhotos(bitmap,temp,"type",0.0,0.0,0.0);
             // TODO this part need to be double check
             pictures.add(newpicture);
             ///////////////////
