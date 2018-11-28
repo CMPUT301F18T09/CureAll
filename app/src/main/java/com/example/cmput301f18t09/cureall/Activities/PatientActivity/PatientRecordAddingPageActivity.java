@@ -284,6 +284,8 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
     private void dispatchTakePictureIntent() {
     Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
     // Ensure that there's a camera activity to handle the intent
+    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+    /**
     if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
         // Create the File where the photo should go
         File photoFile = null;
@@ -302,18 +304,15 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
     }
+     **/
 }
 
-    /**
-     * create for image file
-     * @return image
-     * @throws IOException
-     */
     private File createImageFile() throws IOException {
         // Create an image file name
 
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
+
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
@@ -326,7 +325,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
         //add photos into array;ist
         //pictures not save!!!!!!!!!when leave the activity!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!to select bodylocation.
         //when back from body location, everything not save!!!!!!!!!!!!!!!!!!!!!!!!!
-        pictures.add(new AllKindsOfPhotos(mCurrentPhotoPath,"type",0.0,0.0,0.0));
+        Bitmap pic = BitmapFactory.decodeFile(mCurrentPhotoPath);
         return image;
     }
     //////////////////////////////////////////////////////////////////////////////
@@ -340,33 +339,45 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath);
-            Drawable drawable = new BitmapDrawable(bitmap);
-
+        if (requestCode == REQUEST_IMAGE_CAPTURE) {
+            Bitmap bitmap = (Bitmap)data.getExtras().get("data");
+            AllKindsOfPhotos newpicture = new AllKindsOfPhotos(bitmap,"","type",0.0,0.0,0.0);
+            pictures.add(newpicture);
+            /**
+            Bitmap image;
+            InputStream inputStream;
+            Uri imageUri = data.getData();
+            try {
+                inputStream = getContentResolver().openInputStream(imageUri);
+                image = BitmapFactory.decodeStream(inputStream);
+                AllKindsOfPhotos newpicture = new AllKindsOfPhotos(image,"","type",0.0,0.0,0.0);
+                pictures.add(newpicture);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }**/
         }
-        if (resultCode == RESULT_OK) {
-            if (requestCode == IMAGE_GALLERY_REQUEST) {
-                // if we are here, we are hearing back from the image gallery.
-                // the address of the image on the SD Card.
-                Uri imageUri = data.getData();
-                // declare a stream to read the image data from the SD Card.
-                InputStream inputStream;
-                // we are getting an input stream, based on the URI of the image.
-                try {
-                    inputStream = getContentResolver().openInputStream(imageUri);
-                    // get a bitmap from the stream.
-                    Bitmap image = BitmapFactory.decodeStream(inputStream);
-
-                    // show the image to the use
-                    writeSymbol.setImageBitmap(image);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                    // show a message to the user indictating that the image is unavailable.
-                    Toast.makeText(this, "Unable to open image", Toast.LENGTH_LONG).show();
-                }
+        if (requestCode == IMAGE_GALLERY_REQUEST) {
+            // if we are here, we are hearing back from the image gallery.
+            // the address of the image on the SD Card.
+            Uri imageUri = data.getData();
+            // declare a stream to read the image data from the SD Card.
+            InputStream inputStream;
+            // we are getting an input stream, based on the URI of the image.
+            try {
+                inputStream = getContentResolver().openInputStream(imageUri);
+                // get a bitmap from the stream.
+                Bitmap image = BitmapFactory.decodeStream(inputStream);
+                AllKindsOfPhotos newpicture = new AllKindsOfPhotos(image,"","type",0.0,0.0,0.0);
+                pictures.add(newpicture);
+                // show the image to the use
+                writeSymbol.setImageBitmap(image);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                // show a message to the user indictating that the image is unavailable.
+                Toast.makeText(this, "Unable to open image", Toast.LENGTH_LONG).show();
             }
         }
+
     }
 
     /**

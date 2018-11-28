@@ -27,6 +27,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
 import com.example.cmput301f18t09.cureall.BodyLocation;
 import com.example.cmput301f18t09.cureall.Patient;
 import com.example.cmput301f18t09.cureall.Problem;
@@ -51,7 +52,7 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
     private TextView selectedBodyLocation, fixedText1,fixedText2,fixedText3,fixedText4,fixedText5;
     private String mCurrentPhotoPath;
     private int switcher;
-    private ArrayList<String> pictures = new ArrayList<String>();
+    private ArrayList<AllKindsOfPhotos> pictures = new ArrayList<>();
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private Record record;
     private BodyLocation bodyLocation;
@@ -162,6 +163,8 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
+        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        /**
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
             File photoFile = null;
@@ -179,7 +182,7 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
-        }
+        }**/
     }
 
     /**
@@ -190,41 +193,22 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath);
-            Drawable drawable = new BitmapDrawable(bitmap);
+        if (requestCode == REQUEST_IMAGE_CAPTURE) {
+            Bitmap bitmap = (Bitmap)data.getExtras().get("data");
+            AllKindsOfPhotos newpicture = new AllKindsOfPhotos(bitmap,"","type",0.0,0.0,0.0);
+            // TODO this part need to be double check
+            pictures.add(newpicture);
+            ///////////////////
             if (switcher == 0)
             {
-                frontPhotoButton.setBackground(drawable);
+                frontPhotoButton.setImageBitmap(bitmap);
             }
             else if (switcher == 1){
-                backPhotoButton.setBackground(drawable);
+                backPhotoButton.setImageBitmap(bitmap);
             }
         }
     }
 
-    /**
-     * crear for a image file
-     * @return image
-     * @throws IOException
-     */
-    private File createImageFile() throws IOException {
-        // Create an image file name
-
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = image.getAbsolutePath();
-        pictures.add(mCurrentPhotoPath);
-        return image;
-    }
 
     @Override
     protected void onDestroy() {

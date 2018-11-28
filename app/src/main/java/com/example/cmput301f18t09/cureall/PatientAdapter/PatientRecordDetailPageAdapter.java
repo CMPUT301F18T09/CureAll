@@ -10,7 +10,11 @@
 package com.example.cmput301f18t09.cureall.PatientAdapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +22,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
 import com.example.cmput301f18t09.cureall.R;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 /**
  * The record details has some arraylist of photos, such as recordtracking photos
@@ -31,17 +39,13 @@ public class PatientRecordDetailPageAdapter extends RecyclerView.Adapter<Patient
     //photo upload as bitmap test...
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
+    private ArrayList<Bitmap> mImageBitmaps = new ArrayList<>();/**new*/
     private Context mContext;
     /**
      * The contructor of adapter
-     * @param context
-     * @param names
-     * @param imageUrls
      */
-    public PatientRecordDetailPageAdapter(Context context, ArrayList<String> names, ArrayList<String> imageUrls) {
-        mNames = names;
-        mImageUrls = imageUrls;
-        mContext = context;
+    public PatientRecordDetailPageAdapter(ArrayList<Bitmap> bits) {
+        mImageBitmaps = bits;/**new*/
     }
     // contructor ends
     /**
@@ -78,20 +82,21 @@ public class PatientRecordDetailPageAdapter extends RecyclerView.Adapter<Patient
      */
     @Override
     public void onBindViewHolder(viewHolder viewHolder, final int position) {
-        Glide.with(mContext)
-                .asBitmap()
-                .load(mImageUrls.get(position))
-                .into(viewHolder.imageView);
+        Log.i("Show","show pic");
+        Bitmap bitmap = mImageBitmaps.get(position);
+        viewHolder.imageView.setImageBitmap(bitmap);
+
         viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext,mNames.get(position),Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ImageView,"default name",Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     @Override
     public int getItemCount() {
-        return mImageUrls.size();
+        return mImageBitmaps.size();
     }
 }

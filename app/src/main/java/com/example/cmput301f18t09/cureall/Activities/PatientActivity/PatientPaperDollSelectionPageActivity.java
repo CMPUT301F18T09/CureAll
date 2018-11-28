@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
 import com.example.cmput301f18t09.cureall.BodyLocation;
 import com.example.cmput301f18t09.cureall.PaperDollController.*;
 
@@ -143,7 +144,7 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
      */
     private BodyLocation checkBody(BodyPart bodyPart)
     {
-        BodyLocation bodyLocation = new BodyLocation(null,new ArrayList<String>());
+        BodyLocation bodyLocation = new BodyLocation(null,new ArrayList<AllKindsOfPhotos>());
         switch (bodyPart){
 
             // define color values

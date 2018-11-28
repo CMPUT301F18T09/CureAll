@@ -10,16 +10,17 @@
 package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
 import com.example.cmput301f18t09.cureall.BodyLocation;
 import com.example.cmput301f18t09.cureall.PatientAdapter.photoFlowPageAdapter;
 import com.example.cmput301f18t09.cureall.R;
-import com.example.cmput301f18t09.cureall.Record;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -35,14 +36,14 @@ import java.util.ArrayList;
 public class PatientPhotoFlowPageActivity extends AppCompatActivity {
     private ImageButton backButton;
     private TextView fixedText1;
-    private ArrayList<String> imageUrls = new ArrayList<>();
-    private ArrayList<String> imageUrls2 = new ArrayList<>();
+    private ArrayList<AllKindsOfPhotos> photos = new ArrayList<>();
+    private ArrayList<Bitmap> mImageBitmaps = new ArrayList<>();
     private BodyLocation bodyLocation;
 
     /**
      * set init value for elements used in this activity
      * (or give reference)
-     * including buttons, textviews, bodylocations, imageUrls
+     * including buttons, textviews, bodylocations, photos
      * @param savedInstanceState
      */
     @Override
@@ -53,18 +54,25 @@ public class PatientPhotoFlowPageActivity extends AppCompatActivity {
         fixedText1 = findViewById(R.id.fixedText1);
 
         getDataFromRecordDetailPage();
-        imageUrls = bodyLocation.getBodyLocationPhotoArrayList();
-        //modify url format
-        for (String url : imageUrls){
-            imageUrls2.add("file://"+url);
+        photos = bodyLocation.getBodyLocationPhotoArrayList();
+        if(photos!=null){
+
+            for (AllKindsOfPhotos each : photos) {
+
+                mImageBitmaps.add(each.getPic());/**new*/
+                //mImageUrls.add(each.getPhotoLocation());
+                //mNames.add("123");
+            }
         }
+
+        //modify url format
         //viewPager...
-        /*imageUrls.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542265804198&di=681947a18d595e101bf49cd909597207&imgtype=0&src=http%3A%2F%2Fupload.mnw.cn%2F2017%2F1227%2F1514344378520.jpg");
-        imageUrls.add("file:///storage/emulated/0/sina/weibo/weibo/test2.jpg");*/
+        /*photos.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542265804198&di=681947a18d595e101bf49cd909597207&imgtype=0&src=http%3A%2F%2Fupload.mnw.cn%2F2017%2F1227%2F1514344378520.jpg");
+        photos.add("file:///storage/emulated/0/sina/weibo/weibo/test2.jpg");*/
 
 
         ViewPager viewPager = findViewById(R.id.viewPager);
-        photoFlowPageAdapter adapter = new photoFlowPageAdapter(this,imageUrls2);
+        photoFlowPageAdapter adapter = new photoFlowPageAdapter(this, mImageBitmaps);
         viewPager.setAdapter(adapter);
     }
     public void getDataFromRecordDetailPage(){

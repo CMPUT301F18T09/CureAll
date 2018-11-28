@@ -11,6 +11,7 @@ package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -54,7 +55,7 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
     //images from internet test
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
-
+    private ArrayList<Bitmap> mImageBitmaps = new ArrayList<>();/**new*/
     ///
     private BodyLocation bodyLocation2;
     //ends..
@@ -70,12 +71,7 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_record_detail_page);
         initalizeAllElements();
-        recyclerView = findViewById(R.id.ListOfPhotos);
-        recyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
-        mAdapter = new PatientRecordDetailPageAdapter(this,mNames,mImageUrls);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setAdapter(mAdapter);
+
         Intent intent = getIntent();
         if (intent.getStringExtra("ComeFromProblemDetail") != null && intent.getStringExtra("ComeFromProblemDetail").equals("ComeFromProblemDetail")){
             getDataFromProblemDetailPage();
@@ -94,10 +90,19 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
         if(photos!=null){
 
             for (AllKindsOfPhotos each : photos) {
-                mImageUrls.add(each.getPhotoLocation());
-                mNames.add("123");
+
+                mImageBitmaps.add(each.getPic());/**new*/
+                //mImageUrls.add(each.getPhotoLocation());
+                //mNames.add("123");
             }
         }
+
+        recyclerView = findViewById(R.id.ListOfPhotos);
+        recyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+        mAdapter = new PatientRecordDetailPageAdapter(mImageBitmaps);/**new*/
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setAdapter(mAdapter);
     }
 
     /**
