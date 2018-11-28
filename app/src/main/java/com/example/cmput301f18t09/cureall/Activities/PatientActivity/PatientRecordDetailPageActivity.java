@@ -9,6 +9,7 @@
  */
 package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -46,18 +47,11 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
     private PatientRecordDetailPageAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private Record record;
-    private Problem problem;
-    private ArrayList<Problem> problems;
-    private Patient patient;
-    private ArrayList<Record> records;
-
     private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    //images from internet test
-    private ArrayList<String> mImageBitmaps = new ArrayList<>();/**new*/
-    ///
+
     private BodyLocation bodyLocation2;
     //ends..
-
+    private ArrayList<AllKindsOfPhotos> photos;
     /**
      * set init value for elements used in this activity
      * (or give reference)
@@ -84,16 +78,11 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
         if (record.getBodyLocation()!=null) {
             bodyLocationContent.setText(record.getBodyLocation().getBodyLocationName());
         }
-        ArrayList<AllKindsOfPhotos> photos = record.getRecordTrackingPhotoArrayList();
-        if(photos!=null){
-            for (AllKindsOfPhotos each : photos) {
-                mImageBitmaps.add(each.getPhotoLocation());/**new*/
-            }
-        }
+        photos = record.getRecordTrackingPhotoArrayList();
         recyclerView = findViewById(R.id.ListOfPhotos);
         recyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
-        mAdapter = new PatientRecordDetailPageAdapter(this,mImageBitmaps);/**new*/
+        mAdapter = new PatientRecordDetailPageAdapter(this,photos);/**new*/
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
     }
@@ -104,8 +93,8 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
      * including (Image)buttons, textviews, record's info
      */
     public void initalizeAllElements(){
-        backButton = (ImageButton) findViewById(R.id.backButton);
-        geoLocationButton = (ImageButton) findViewById(R.id.geoLocationButton);
+        backButton =  findViewById(R.id.backButton);
+        geoLocationButton =  findViewById(R.id.geoLocationButton);
         title = findViewById(R.id.title);
         titleContent = findViewById(R.id.titleContent);
         comment = findViewById(R.id.comment);
@@ -162,6 +151,28 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
                 startActivity(map);
             }
         });
+        mAdapter.setOnItemClickListener(new PatientRecordDetailPageAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                customDialog(photos.get(position).getPhotoType());
+            }
+        });
+    }
+    public void customDialog(String name) {
+        final android.support.v7.app.AlertDialog.Builder builderSingle = new android.support.v7.app.AlertDialog.Builder(this);
+        builderSingle.setTitle("Photo Name");
+        String message = name;
+        builderSingle.setMessage(message);
+
+        builderSingle.setNegativeButton(
+                "OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                }
+        );
+        builderSingle.show();
     }
 
     @Override
