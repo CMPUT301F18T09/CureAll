@@ -65,11 +65,6 @@ public class PatientPhotoFlowPageActivity extends AppCompatActivity {
             }
         }
 
-        //modify url format
-        //viewPager...
-        /*photos.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542265804198&di=681947a18d595e101bf49cd909597207&imgtype=0&src=http%3A%2F%2Fupload.mnw.cn%2F2017%2F1227%2F1514344378520.jpg");
-        photos.add("file:///storage/emulated/0/sina/weibo/weibo/test2.jpg");*/
-
 
         ViewPager viewPager = findViewById(R.id.viewPager);
         photoFlowPageAdapter adapter = new photoFlowPageAdapter(this, mImageBitmaps);

@@ -32,6 +32,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cmput301f18t09.cureall.Activities.publicActitivy.DialogueForAddingPhotoName;
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.LocationPickerActivity;
 import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
 import com.example.cmput301f18t09.cureall.BodyLocation;
@@ -59,7 +60,7 @@ import java.util.Date;
 /**
  * For this activity, user(patient) can add record into a problem
  */
-public class PatientRecordAddingPageActivity extends AppCompatActivity {
+public class PatientRecordAddingPageActivity extends AppCompatActivity implements DialogueForAddingPhotoName.DialogListener {
     private ArrayList<String> photoPaths = new ArrayList<String>();
     private ImageButton backButton, saveButton, fromAlbumButton,
             cameraButton,geoLocationSelectButton,timeSelectButton,bodyLocationSelectButton;
@@ -77,6 +78,8 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
     private Patient patient;
     private BodyLocation bodyLocation;
     private ArrayList<Record> records;
+    private AllKindsOfPhotos newpicture;
+    private String photoName;
 
 
     public static final int IMAGE_GALLERY_REQUEST = 20;
@@ -352,7 +355,9 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
             byte [] b=baos.toByteArray();
             String temp= Base64.encodeToString(b, Base64.DEFAULT);
 
-            AllKindsOfPhotos newpicture = new AllKindsOfPhotos(bitmap,temp,"type",0.0,0.0,0.0);
+            openDialogue();
+
+            newpicture = new AllKindsOfPhotos(bitmap,temp,photoName,0.0,0.0,0.0);
             pictures.add(newpicture);
             /**
             Bitmap image;
@@ -378,7 +383,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
                 inputStream = getContentResolver().openInputStream(imageUri);
                 // get a bitmap from the stream.
                 Bitmap image = BitmapFactory.decodeStream(inputStream);
-                AllKindsOfPhotos newpicture = new AllKindsOfPhotos(image,"","type",0.0,0.0,0.0);
+                newpicture = new AllKindsOfPhotos(image,"","type",0.0,0.0,0.0);
                 pictures.add(newpicture);
                 // show the image to the use
                 writeSymbol.setImageBitmap(image);
@@ -388,7 +393,14 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity {
                 Toast.makeText(this, "Unable to open image", Toast.LENGTH_LONG).show();
             }
         }
-
+    }
+    public void openDialogue(){
+        DialogueForAddingPhotoName dialogueForAddingPhotoName = new DialogueForAddingPhotoName();
+        dialogueForAddingPhotoName.show(getSupportFragmentManager(),"dialogueForAddingPhotoName");
+    }
+    @Override
+    public void applyTexts(String name) {
+        photoName = name;
     }
 
     /**

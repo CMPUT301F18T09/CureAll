@@ -86,12 +86,8 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
         }
         ArrayList<AllKindsOfPhotos> photos = record.getRecordTrackingPhotoArrayList();
         if(photos!=null){
-
             for (AllKindsOfPhotos each : photos) {
-
                 mImageBitmaps.add(each.getPhotoLocation());/**new*/
-                //mImageUrls.add(each.getPhotoLocation());
-                //mNames.add("123");
             }
         }
         recyclerView = findViewById(R.id.ListOfPhotos);

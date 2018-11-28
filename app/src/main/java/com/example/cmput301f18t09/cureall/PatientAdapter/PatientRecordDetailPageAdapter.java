@@ -86,11 +86,9 @@ public class PatientRecordDetailPageAdapter extends RecyclerView.Adapter<Patient
      * @param position
      */
     @Override
-    public void onBindViewHolder(viewHolder viewHolder, final int position) {
+    public void onBindViewHolder(final viewHolder viewHolder, final int position) {
         Log.i("Show","show pic");
         stringbitmap = mImageBitmaps.get(position);
-
-        //TODO string to bitmap
         try {
             byte [] encodeByte= Base64.decode(stringbitmap,Base64.DEFAULT);
             bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
@@ -101,7 +99,7 @@ public class PatientRecordDetailPageAdapter extends RecyclerView.Adapter<Patient
         viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(ImageView,"default name",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(viewHolder.imageView,,Toast.LENGTH_SHORT).show();
             }
         });
 
