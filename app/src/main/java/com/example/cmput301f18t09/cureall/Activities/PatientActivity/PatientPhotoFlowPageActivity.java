@@ -14,7 +14,9 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
@@ -35,6 +37,7 @@ import java.util.ArrayList;
  */
 public class PatientPhotoFlowPageActivity extends AppCompatActivity {
     private ImageButton backButton;
+    private Button showFront;
     private TextView fixedText1;
     private ArrayList<AllKindsOfPhotos> photos = new ArrayList<>();
     private ArrayList<String> mImageBitmaps = new ArrayList<>();
@@ -52,30 +55,37 @@ public class PatientPhotoFlowPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_patient_photo_flow_page);
         backButton = findViewById(R.id.backButton);
         fixedText1 = findViewById(R.id.fixedText1);
+        showFront = findViewById(R.id.showFrontAndBack);
 
         getDataFromRecordDetailPage();
-        photos = bodyLocation.getBodyLocationPhotoArrayList();
+        //photos = bodyLocation.getBodyLocationPhotoArrayList();
         if(photos!=null){
 
             for (AllKindsOfPhotos each : photos) {
 
                 mImageBitmaps.add(each.getPhotoLocation());/**new*/
-                //mImageUrls.add(each.getPhotoLocation());
-                //mNames.add("123");
             }
         }
 
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
         ViewPager viewPager = findViewById(R.id.viewPager);
         photoFlowPageAdapter adapter = new photoFlowPageAdapter(this, mImageBitmaps);
         viewPager.setAdapter(adapter);
     }
+
     public void getDataFromRecordDetailPage(){
         SharedPreferences sharedPreferences2 = getSharedPreferences("RecordDetailData",MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences2.getString("bodyLocation2",null);
+        String json2 = sharedPreferences2.getString("photoFlowShow",null);
         Type type = new TypeToken<BodyLocation>(){}.getType();
+        Type type2 = new TypeToken<ArrayList<AllKindsOfPhotos>>(){}.getType();
         bodyLocation = gson.fromJson(json,type);
+        photos = gson.fromJson(json2,type2);
     }
 
 }
