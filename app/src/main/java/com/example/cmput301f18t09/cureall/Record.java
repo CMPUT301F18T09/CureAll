@@ -27,6 +27,7 @@ public class Record implements Serializable{
     public String username;
     public String problemid;
     public String ID;
+    public Date EditTime;
     //special fucntion
     //since getter and setter only deal with arraylist of Photos
     //we create a function to deal with single photo addition
@@ -46,6 +47,7 @@ public class Record implements Serializable{
         this.title = title;
         this.comment = comment;
         this.time = time;
+        this.EditTime = new Date();
     }
 
     /**

@@ -11,6 +11,8 @@ package com.example.cmput301f18t09.cureall;
 
 import java.util.ArrayList;
 import java.io.Serializable;
+import java.util.Date;
+
 /**
  * Model class for recording CareProvider
  *
@@ -23,6 +25,7 @@ public class Problem implements Serializable{
     private ArrayList<Record> recordArrayList;
     private String doctorcomment;
     private String Id;
+    private Date editdate;
 
     /**
      * add a record to problem
@@ -50,7 +53,7 @@ public class Problem implements Serializable{
         this.description = description;
         this.time = time;
         this.doctorcomment = comment;
-        this.recordArrayList = new ArrayList<>( );
+        this.editdate = new Date();
     }
 
     /**

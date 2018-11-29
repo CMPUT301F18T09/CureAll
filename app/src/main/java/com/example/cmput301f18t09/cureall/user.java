@@ -24,13 +24,11 @@ public abstract class user implements Serializable{
     /**
      * Init for user
      * @param username      username
-     * @param password      corresponding password
      * @param Phone         corresponding Phone number
      * @param email         corresponding email address
      */
-    public user(String username, String password, String Phone, String email){
+    public user(String username,  String Phone, String email){
         this.username = username;
-        this.password = password;
         this.Phone = Phone;
         this.Email = email;
     }

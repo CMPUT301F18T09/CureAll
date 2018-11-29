@@ -22,7 +22,11 @@ import android.widget.ImageView;
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.MainActivity;
 import com.example.cmput301f18t09.cureall.ElasticSearchController;
 import com.example.cmput301f18t09.cureall.Patient;
+import com.example.cmput301f18t09.cureall.PatientController.PatientController;
 import com.example.cmput301f18t09.cureall.R;
+import com.example.cmput301f18t09.cureall.UserState;
+
+import java.util.ArrayList;
 
 /**
  * For this activity, user(patient) can sign up for an account
@@ -31,6 +35,7 @@ public class PatientSignUpActivity extends AppCompatActivity{
     private Button backButton, continueButton;
     private EditText username, password, rePassword, email, phone ;
     private ImageView patientSymbol;
+    private ArrayList<Patient> patients = new ArrayList<>();
 
     /**
      * start up
@@ -72,24 +77,30 @@ public class PatientSignUpActivity extends AppCompatActivity{
                 String Username = username.getText().toString();                                                       //get the input of year/month/day/hour/minute/
                 String Emial = email.getText().toString();
                 String Phone = phone.getText().toString();
-                String Password = password.getText().toString();
-                String RePassword = rePassword.getText().toString();
-                if (Password.equals(RePassword)){
 
-                        Log.i("Patient","choose sign up as a patient");
-                        Patient user = new Patient(Username,Password,Emial,Phone);
-                        //NormalTweet newtweent = new NormalTweet("Well, Will.");
-                        setResult(RESULT_OK);
+                UserState currentState = new UserState(PatientSignUpActivity.this);
+                if(currentState.getState()){
+                    Log.i("Patient","choose sign up as a patient online");
+                    Patient user = new Patient(Username,Emial,Phone);
 
-                        //saveInFile(); // TODO replace this with elastic search
-                        ElasticSearchController.AddPatientTask addUserTask = new ElasticSearchController.AddPatientTask();
-                        addUserTask.execute(user);
-                        // TODO we might also need a local save here
+                    setResult(RESULT_OK);
+
+                    //saveInFile(); // TODO replace this with elastic search
+                    ElasticSearchController.AddPatientTask addUserTask = new ElasticSearchController.AddPatientTask();
+                    addUserTask.execute(user);
+                    // TODO we might also need a local save here
+                    patients.add(user);
+                    PatientController.saveInFile(PatientSignUpActivity.this,"userinfo.txt",patients,Username);
+                }
+                else{
+                    Log.i("Patient","choose sign up as a patient offline");
+                    Patient user = new Patient(Username,Emial,Phone);
+                    patients.add(user);
+                    PatientController.saveInFile(PatientSignUpActivity.this,"userinfo.txt",patients,Username);
                 }
 
                 Intent intent = new Intent(PatientSignUpActivity.this,MainActivity.class);
                 startActivity(intent);
             }
         });
-    }
-}
+    }}

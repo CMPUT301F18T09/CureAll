@@ -11,19 +11,14 @@ package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
@@ -43,16 +38,16 @@ import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.R;
 import com.example.cmput301f18t09.cureall.Record;
 import com.example.cmput301f18t09.cureall.RecordController.RecordController;
+import com.example.cmput301f18t09.cureall.UserState;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -234,7 +229,17 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
                 record.setRecordTrackingPhotoArrayList(pictures);
                 records.add(record);
                 //TODO this is online save, we also need a local save for record
-                saveRecord(problem.getUsername(),record,problem.getId());
+                UserState currentState = new UserState(PatientRecordAddingPageActivity.this);
+                if (currentState.getState()){
+                    saveRecord(problem.getUsername(),record,problem.getId());
+                }
+                else{
+                    record.setTitle(titleInput.getText().toString());
+                    record.setComment(descriptionInput.getText().toString());
+
+                    saveLocal(problem.getUsername(), record, problem.getId());
+                }
+
 
                 Intent intent = new Intent(PatientRecordAddingPageActivity.this, PatientProblemDetailPageActivity.class);
                 //TODO replace this with shared perrference
@@ -478,6 +483,15 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
         editor2.putString("problem",json4);
         editor2.apply();
     }
+    private void saveLocal(String username, Record record, String problemID) {
+        String currentDate = DateFormat.getDateTimeInstance().format(new Date());
+        ArrayList<Record> AllRecords = new ArrayList<>();
+        AllRecords = RecordController.loadFromFile(PatientRecordAddingPageActivity.this, "records.txt", AllRecords, username);
+        if (record.getID() == null) {
+            record.setID(record.getTitle() + currentDate);
+        }
+        AllRecords.add(record);
 
-
+        RecordController.saveInFile(PatientRecordAddingPageActivity.this, "records.txt", AllRecords, username);
+    }
 }

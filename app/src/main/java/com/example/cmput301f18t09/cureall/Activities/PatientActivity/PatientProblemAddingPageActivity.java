@@ -27,6 +27,7 @@ import com.example.cmput301f18t09.cureall.Patient;
 import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.ProblemController.ProblemController;
 import com.example.cmput301f18t09.cureall.R;
+import com.example.cmput301f18t09.cureall.UserState;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -67,18 +68,30 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
 
                 //Problem problem = new Problem(username,prob_title,prob_desp,currentDateTimeString,null);
                 saveProblem(username,prob_title,prob_desp,currentDateTimeString);
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        // Actions to do after 10 seconds
-                        problems = problemController.GetProblemNum(username);
-                        Intent intent = new Intent(PatientProblemAddingPageActivity.this, PatientListOfProblemsPageActivity.class);
-                        passDataToMainPage(problems,username);
-                        intent.putExtra("ComeFromAddingPage","ComeFromAddingPage");
-                        startActivity(intent);
-                        //setResult(RESULT_OK, intent);
-                    }
-                }, 1000);
+
+                UserState currentState = new UserState(PatientProblemAddingPageActivity.this);
+                if (currentState.getState()){
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            // Actions to do after 10 seconds
+                            problems = problemController.GetProblemNum(username);
+                            Intent intent = new Intent(PatientProblemAddingPageActivity.this, PatientListOfProblemsPageActivity.class);
+                            passDataToMainPage(problems,username);
+                            intent.putExtra("ComeFromAddingPage","ComeFromAddingPage");
+                            startActivity(intent);
+                            //setResult(RESULT_OK, intent);
+                        }
+                    }, 1000);
+                }
+                else{
+                    problems = new ArrayList<>();
+                    problems = ProblemController.loadFromFile(PatientProblemAddingPageActivity.this,"problems.txt",problems,username);
+                    Intent intent = new Intent(PatientProblemAddingPageActivity.this, PatientListOfProblemsPageActivity.class);
+                    passDataToMainPage(problems,username);
+                    intent.putExtra("ComeFromAddingPage","ComeFromAddingPage");
+                    startActivity(intent);
+                }
 
 
             }
@@ -164,14 +177,30 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
      * @param date          new problem's date
      */
     public void saveProblem(String username, String prob_title,String prob_desp,String date){
-        ArrayList<Problem> problems = GetProblemNum(username);
+        UserState currentState = new UserState(PatientProblemAddingPageActivity.this);
+        if (currentState.getState()) {
+            ArrayList<Problem> problems = GetProblemNum(username);
 
-        Problem problem = new Problem(username,prob_title,prob_desp,date,null);
+            Problem problem = new Problem(username, prob_title, prob_desp, date, null);
 
-        ElasticSearchParams param = new ElasticSearchParams(problems.size(),problem,username);
+            ElasticSearchParams param = new ElasticSearchParams(problems.size(), problem, username);
 
-        ElasticSearchController.AddProblemTask addproblemTask = new ElasticSearchController.AddProblemTask();
-        addproblemTask.execute(param);
+            ElasticSearchController.AddProblemTask addproblemTask = new ElasticSearchController.AddProblemTask();
+            addproblemTask.execute(param);
+        }
+        else{
+            String currentDate = DateFormat.getDateTimeInstance().format(new Date());
+
+            ArrayList<Problem> problems = new ArrayList<>();
+            ProblemController.loadFromFile(PatientProblemAddingPageActivity.this,"problems.txt",problems,username);
+            Problem problem = new Problem(username, prob_title, prob_desp, date, null);
+
+            //if this is an offline behavior, then we need to assign an 'unique' id to the problem automatically
+            problem.setId(prob_title+currentDate);
+
+            problems.add(problem);
+            ProblemController.saveInFile(PatientProblemAddingPageActivity.this,"problems.txt",problems,username);
+        }
     }
 
 }

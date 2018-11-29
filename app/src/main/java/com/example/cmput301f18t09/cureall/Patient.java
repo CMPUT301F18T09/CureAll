@@ -10,6 +10,7 @@
 package com.example.cmput301f18t09.cureall;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Model class for recording CareProvider
@@ -23,6 +24,7 @@ public class Patient extends user{
     private ArrayList<Problem> problemArrayList;
     //private ArrayList<Record> recordArrayList;
     public String doctorID;
+    private Date creatTime;
 
     /**
      * userAuthenticate
@@ -37,13 +39,13 @@ public class Patient extends user{
     /**
      * Init for Patient
      * @param username  user name
-     * @param password  corresponding password
+
      * @param email     corresponding email address
      * @param phone     corresponding phone number
      */
-    public Patient(String username, String password, String email, String phone) {
-        super(username, password,email, phone);
-        this.problemArrayList = new ArrayList<>( );
+    public Patient(String username,String email, String phone) {
+        super(username, email, phone);
+        this.creatTime = new Date();
     }
 
     /**
@@ -140,5 +142,9 @@ public class Patient extends user{
     public void editProblem(Problem problem, Problem newproblem){
         problemArrayList.remove(problem);
         problemArrayList.add(newproblem);
+    }
+
+    public Date getCreatTime(){
+        return creatTime;
     }
 }

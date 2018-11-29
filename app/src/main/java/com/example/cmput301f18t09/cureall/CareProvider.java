@@ -79,7 +79,7 @@ public class CareProvider extends user {
      * @param phone         corresponding phone
      */
     public CareProvider(String username, String password, String email, String phone) {
-        super(username, password,email, phone);
+        super(username,email, phone);
     }
 
 

@@ -24,9 +24,11 @@ import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderMa
 import com.example.cmput301f18t09.cureall.CareProvider;
 import com.example.cmput301f18t09.cureall.ElasticSearchController;
 import com.example.cmput301f18t09.cureall.Patient;
+import com.example.cmput301f18t09.cureall.PatientController.PatientController;
 import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.ProblemController.ProblemController;
 import com.example.cmput301f18t09.cureall.R;
+import com.example.cmput301f18t09.cureall.UserState;
 import com.google.gson.Gson;
 
 import java.security.Provider;
@@ -42,7 +44,7 @@ public class UserLoginActivity extends AppCompatActivity {
     private ImageView loveSymbol;
     private EditText userNameInput, passwordInput;
     private Button loginButton, backButton;
-    private ArrayList<Problem> problems;
+    private ArrayList<Problem> problems = new ArrayList<>();
     private ProblemController problemController = new ProblemController();
     @Override
     /**
@@ -98,22 +100,22 @@ public class UserLoginActivity extends AppCompatActivity {
             setResult(RESULT_OK);
 
             String Username = userNameInput.getText().toString();
-            String Password = passwordInput.getText().toString();
+            //String Password = passwordInput.getText().toString();
 
-            ElasticSearchController.GetPatientTask getuserTask = new ElasticSearchController.GetPatientTask();
-            getuserTask.execute(Username);
+            UserState currentState = new UserState(this);
+            if (currentState.getState()){
+                ElasticSearchController.GetPatientTask getuserTask = new ElasticSearchController.GetPatientTask();
+                getuserTask.execute(Username);
 
-            try {
-                List<Patient> foundPatient= getuserTask.get();
-                patients.addAll(foundPatient);
-            } catch (Exception e) {
-                //TODO after a successful login online, this current patient data will store in local
-                //TODO next time, when offline login with same account, it could read data from local
-                Log.i("Chen", "Failed to get the user from the async object");
-            }
-            Log.i("Read","read end");
-            String pass =  patients.get(0).getPassword();
-            if (pass.equals(Password)){
+                try {
+                    List<Patient> foundPatient= getuserTask.get();
+                    patients.addAll(foundPatient);
+                } catch (Exception e) {
+                    //TODO after a successful login online, this current patient data will store in local
+                    //TODO next time, when offline login with same account, it could read data from local
+                    Log.i("Chen", "Failed to get the user from the async object");
+                }
+                Log.i("Read","read end");
                 problems = problemController.GetProblemNum(patients.get(0).getUsername());
                 //TODO implement local retrieve funct.
                 Intent intent = new Intent(UserLoginActivity.this,PatientListOfProblemsPageActivity.class);
@@ -128,7 +130,25 @@ public class UserLoginActivity extends AppCompatActivity {
                  *
                  */
                 startActivity(intent);
+
+
             }
+            else {//offline behaviour
+                Log.i("State","Login as patient(offline)");
+                ArrayList<Patient> patient = new ArrayList<>();
+                patient = PatientController.loadFromFile(UserLoginActivity.this,"userinfo.txt",patient,Username);
+                if (patient.size()!=0) {
+                    problems =ProblemController.loadFromFile(UserLoginActivity.this, "problems.txt", problems, Username);
+                    Intent intent = new Intent(UserLoginActivity.this, PatientListOfProblemsPageActivity.class);
+                    intent.putExtra("ComeFromLogin", "ComeFromLogin");
+                    passDataToPatient(patient.get(0), problems);
+                    startActivity(intent);
+                }
+            }
+
+
+
+
 
         }
         else{

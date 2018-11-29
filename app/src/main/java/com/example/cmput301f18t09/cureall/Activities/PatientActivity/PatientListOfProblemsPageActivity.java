@@ -23,6 +23,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -39,6 +40,7 @@ import com.example.cmput301f18t09.cureall.ProblemController.ProblemController;
 import com.example.cmput301f18t09.cureall.R;
 import com.example.cmput301f18t09.cureall.Record;
 import com.example.cmput301f18t09.cureall.RecordController.RecordController;
+import com.example.cmput301f18t09.cureall.UserState;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -167,7 +169,22 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
 
                 Intent intent = new Intent(PatientListOfProblemsPageActivity.this,PatientProblemDetailPageActivity.class);
                 Problem problem = problems.get(position);
-                records = recordController.GetRecordNum(username,problem.getId());
+
+                UserState currentState = new UserState(PatientListOfProblemsPageActivity.this);
+                if (currentState.getState()) {
+                    records = recordController.GetRecordNum(username, problem.getId());
+                }
+                else{
+                    ArrayList<Record> Allrecords = new ArrayList<>();
+                    records = new ArrayList<>();
+                    Allrecords = RecordController.loadFromFile(PatientListOfProblemsPageActivity.this,"records.txt",Allrecords,username);
+                    Log.i("State","the current problemid is"+ problem.getId());
+                    for (Record r : Allrecords){
+                        if (r.getProblemid().equals(problem.getId())){
+                            records.add(r);
+                        }
+                    }
+                }
                 passDataToProblemDetail(problem,records,problems,patient);
                 intent.putExtra("ComeFromPatientMainPage", "ComeFromPatientMainPage");
                 startActivity(intent);

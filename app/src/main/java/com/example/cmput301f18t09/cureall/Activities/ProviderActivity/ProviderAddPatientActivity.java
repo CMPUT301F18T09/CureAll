@@ -66,7 +66,7 @@ public class ProviderAddPatientActivity extends AppCompatActivity {
                 try {
                     List<Patient> foundPatient= getPatientTask.get();
                     patients.addAll(foundPatient);
-                    Patient new_patient = new Patient(patients.get(0).getUsername(),patients.get(0).getPassword(),patients.get(0).getEmail(),patients.get(0).getPhone());
+                    Patient new_patient = new Patient(patients.get(0).getUsername(),patients.get(0).getEmail(),patients.get(0).getPhone());
                     new_patient.setDoctorID(doctorname);
                     ElasticSearchController.AddPatientTask addPatientTask = new ElasticSearchController.AddPatientTask();
                     addPatientTask.execute(new_patient);
