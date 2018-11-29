@@ -147,9 +147,6 @@ public class ElasticSearchController {
             String username = params[0].username;
             String problemid = params[0].problemid;
 
-
-
-
             Index index = new Index.Builder(record).index("cmput301f18t09test").type("records").build();
             try {
                 // where is the client?
@@ -261,7 +258,6 @@ public class ElasticSearchController {
                         //Log.i("Read",p.getUsername());
                         IDs.add(id);
                         Log.i("Read",id);
-
                     }
 
                     Integer a = 0;
@@ -674,6 +670,67 @@ public class ElasticSearchController {
             return users;
         }
     }
+
+    public static class SyncRecordTask extends AsyncTask<String, Void, ArrayList<Record>> {
+        @Override
+        protected ArrayList<Record> doInBackground(String... search_parameters) {
+            verifySettings();
+
+            ArrayList<Record> users = new ArrayList<Record>();
+
+            // TODO Build the query
+            String username = search_parameters[0];
+
+            //String query = "{ \"query\" : { \"match\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
+            String query = "{\"size\":100,\n" +
+                    "\"query\": { \n" +
+                    "\"bool\":{\n" +
+                    "\"must\": [\n" +
+                    "{\"match\":{ \"username\": \""+username+"\"}},\n" +
+                    "]\n" +
+                    "}\n" +
+                    "}\n" +
+                    "}";
+
+            Search search = new Search.Builder(query)
+                    .addIndex("cmput301f18t09test")
+                    .addType("records")
+                    .build();
+
+            try {
+                // TODO get the results of the query
+                SearchResult result = client.execute(search);
+                if (result.isSucceeded()) {
+                    ArrayList<String> IDs = new ArrayList<String>();
+                    Log.i("Read","Read success");
+                    List<SearchResult.Hit<Map,Void>> hits= result.getHits(Map.class);
+                    for (SearchResult.Hit hit : hits){
+                        Map source = (Map) hit.source;
+                        String id = (String)source.get(JestResult.ES_METADATA_ID);
+                        //Patient p = (Patient)source.get(Patient.class);
+                        //Log.i("Read",p.getUsername());
+                        IDs.add(id);
+                        Log.i("Read",id);
+                    }
+
+                    Integer a = 0;
+                    List<Record> foundPatients = result.getSourceAsObjectList(Record.class);
+                    for (Record p : foundPatients) {
+                        p.setID(IDs.get(a));
+                        a++;
+                        users.add(p);
+                    }
+
+                } else {
+                    Log.i("Error", "The search query failed to find any tweets that matched");
+                }
+            } catch (Exception e) {
+                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+            }
+            return users;
+        }
+    }
+
 
 
     public static void verifySettings() {

@@ -28,6 +28,7 @@ import com.example.cmput301f18t09.cureall.PatientController.PatientController;
 import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.ProblemController.ProblemController;
 import com.example.cmput301f18t09.cureall.R;
+import com.example.cmput301f18t09.cureall.Sync;
 import com.example.cmput301f18t09.cureall.UserState;
 import com.google.gson.Gson;
 
@@ -117,6 +118,21 @@ public class UserLoginActivity extends AppCompatActivity {
                 }
                 Log.i("Read","read end");
                 problems = problemController.GetProblemNum(patients.get(0).getUsername());
+
+                //TODO if user login (online) then do an sync automatically
+                Sync sync = new Sync(UserLoginActivity.this,Username);
+                if (!sync.Check()){
+                    sync.SyncUSer(patients.get(0));
+                    sync.SyncAllProblem(problems,Username);
+                    sync.SyncAllRecord(Username);
+                }
+
+                //TODO renew the logintime
+
+
+
+
+
                 //TODO implement local retrieve funct.
                 Intent intent = new Intent(UserLoginActivity.this,PatientListOfProblemsPageActivity.class);
                 /**should be change to save func
@@ -124,6 +140,7 @@ public class UserLoginActivity extends AppCompatActivity {
                  * NEED TO CONSIDER OFFLINE DATA GET, in this case, problems and patients.get(0) is null!!!!!
                  * ADD try and catch
                  */
+
                 intent.putExtra("ComeFromLogin", "ComeFromLogin");
                 passDataToPatient(patients.get(0),problems);
                 /**ends
