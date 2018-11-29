@@ -27,6 +27,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
 import com.example.cmput301f18t09.cureall.BodyLocation;
@@ -51,11 +52,10 @@ import java.util.Date;
 public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivity {
     private ImageView bodySelectionSymbol;
     private ImageButton backButton, saveButton, frontPhotoButton, backPhotoButton, cameraButton;
-    private TextView selectedBodyLocation, fixedText1,fixedText2,fixedText3,fixedText4,fixedText5;
-    private String mCurrentPhotoPath;
-    private int switcher;
+    private TextView selectedBodyLocation, fixedText1,fixedText2,fixedText4,fixedText5;
     private ArrayList<AllKindsOfPhotos> pictures = new ArrayList<>();
-    static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int FRONT_IMAGE_CAPTURE = 1;
+    static final int BACK_IMAGE_CAPTURE = 2;
     private Record record;
     private BodyLocation bodyLocation;
 
@@ -76,7 +76,6 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
         {
             selectedBodyLocation.setText(bodyLocation.getBodyLocationName());
         }
-
     }
     @Override
     protected void onStart() {
@@ -85,8 +84,7 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
         frontPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switcher = 0;
-                dispatchTakePictureIntent();
+                dispatchTakePictureIntent(FRONT_IMAGE_CAPTURE);
                 //Log.i("pics", String.valueOf(pictures.size()));
 
             }
@@ -96,34 +94,30 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
         backPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switcher = 1;
-                dispatchTakePictureIntent();
+                dispatchTakePictureIntent(BACK_IMAGE_CAPTURE);
 
             }
         });
 
-        //set cameraButton listener
-        cameraButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switcher = 3;
-                Log.i("pics", String.valueOf(pictures.size()));
-                dispatchTakePictureIntent();
-
-            }
-        });
 
         //set saveButton listener
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bodyLocation.setBodyLocationPhotoArrayList(pictures);
-                record.setBodyLocation(bodyLocation);
-                Intent intent = new Intent(PatientBodyLocationPhotoAddingPageActivity.this, PatientRecordAddingPageActivity.class);
-                passDataToRecordAddingPage(record);
-                intent.putExtra("ComeFromBodyLocationPhotoAddingPage","ComeFromBodyLocationPhotoAddingPage");
-                startActivity(intent);
-
+                //TODO add a check if patient has two body location pictures
+                if (frontPhotoButton.getDrawable().getConstantState()
+                        != getResources().getDrawable(R.drawable.body_location_button).getConstantState() &&
+                        backPhotoButton.getDrawable().getConstantState() !=
+                                getResources().getDrawable(R.drawable.body_location_button).getConstantState()) {
+                    bodyLocation.setBodyLocationPhotoArrayList(pictures);
+                    record.setBodyLocation(bodyLocation);
+                    Intent intent = new Intent(PatientBodyLocationPhotoAddingPageActivity.this, PatientRecordAddingPageActivity.class);
+                    passDataToRecordAddingPage(record);
+                    intent.putExtra("ComeFromBodyLocationPhotoAddingPage", "ComeFromBodyLocationPhotoAddingPage");
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(PatientBodyLocationPhotoAddingPageActivity.this, "You have to sumbit front or back body location pictures!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -154,7 +148,6 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
         selectedBodyLocation = findViewById(R.id.selectedBodyLocation);
         fixedText1 = findViewById(R.id.fixedText1);
         fixedText2 = findViewById(R.id.fixedText2);
-        fixedText3 = findViewById(R.id.fixedText3);
         fixedText4 = findViewById(R.id.fixedText4);
         fixedText5 = findViewById(R.id.fixedText5);
     }
@@ -162,10 +155,10 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
     /**
      * active next activity: take photos
      */
-    private void dispatchTakePictureIntent() {
+    private void dispatchTakePictureIntent(Integer code) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
-        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        startActivityForResult(takePictureIntent, code);
         /**
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
@@ -195,24 +188,35 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE) {
-            Bitmap bitmap = (Bitmap)data.getExtras().get("data");
-            //TODO to string
-            ByteArrayOutputStream baos=new  ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
-            byte [] b=baos.toByteArray();
-            String temp= Base64.encodeToString(b, Base64.DEFAULT);
-            AllKindsOfPhotos newpicture = new AllKindsOfPhotos(bitmap,temp,"type",0.0,0.0,0.0);
+        Bitmap bitmap = (Bitmap)data.getExtras().get("data");
+        //TODO to string
+        ByteArrayOutputStream baos=new  ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+        byte [] b=baos.toByteArray();
+        String temp= Base64.encodeToString(b, Base64.DEFAULT);
+        if (requestCode == FRONT_IMAGE_CAPTURE) {
+            AllKindsOfPhotos newpicture = new AllKindsOfPhotos(bitmap,temp,"Front Picture",0.0,0.0,0.0);
             // TODO this part need to be double check
+            frontPhotoButton.setImageBitmap(bitmap);
+            for (AllKindsOfPhotos each: pictures){
+                if (each.getPhotoType() .equals("Front Picture")){
+                    pictures.remove(each);
+                }
+            }
             pictures.add(newpicture);
-            ///////////////////
-            if (switcher == 0)
-            {
-                frontPhotoButton.setImageBitmap(bitmap);
+
+
+        }
+        else if (requestCode == BACK_IMAGE_CAPTURE){
+            AllKindsOfPhotos newpicture = new AllKindsOfPhotos(bitmap,temp,"Back Picture",0.0,0.0,0.0);
+            // TODO this part need to be double check
+            backPhotoButton.setImageBitmap(bitmap);
+            for (AllKindsOfPhotos each: pictures){
+                if (each.getPhotoType() .equals("Back Picture")){
+                    pictures.remove(each);
+                }
             }
-            else if (switcher == 1){
-                backPhotoButton.setImageBitmap(bitmap);
-            }
+            pictures.add(newpicture);
         }
     }
 
@@ -238,9 +242,4 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
         editor2.putString("record",json);
         editor2.apply();
     }
-    public void passDataToPaperDollSelectionPage(){
-    //TODO could left here and do nothing
-    }
-
-
 }

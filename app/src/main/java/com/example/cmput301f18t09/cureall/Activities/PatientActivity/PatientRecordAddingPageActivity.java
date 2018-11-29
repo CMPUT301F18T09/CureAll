@@ -84,7 +84,6 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
 
     public static final int IMAGE_GALLERY_REQUEST = 20;
     final int REQUEST_IMAGE_CAPTURE = 1;
-    private String mCurrentPhotoPath;
     //photos
     private ArrayList<AllKindsOfPhotos> pictures ;
     public static final int CAMERA_REQUEST_CODE = 228;
@@ -147,7 +146,6 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
     @Override
     protected void onStart() {
         super.onStart();
-
         //set bodyLocationSelectButton listener
         bodyLocationSelectButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,7 +182,6 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
 //                invokeCamera();
                 //TODO
                 dispatchTakePictureIntent();
-
             }
         });
 
@@ -201,6 +198,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
             @Override
             public void onClick(View v) {
                 //pass problem and record to ...
+
                 record.setRecordTrackingPhotoArrayList(pictures);
                 Intent intent = new Intent(PatientRecordAddingPageActivity.this,LocationPickerActivity.class);
                 saveDataToLocal(patient,records,problems,problem);
@@ -282,7 +280,6 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
         Uri data = Uri.parse(pictureDirectoryPath);
         // set the data and type.  Get all imageypes.
         photoPickerIntent.setDataAndType(data, "image/*");
-
         // we will invoke this activity, and get something back from it.
         startActivityForResult(photoPickerIntent, IMAGE_GALLERY_REQUEST);
     }
@@ -292,51 +289,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
     Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
     // Ensure that there's a camera activity to handle the intent
     startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-    /**
-    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-        // Create the File where the photo should go
-        File photoFile = null;
-        try {
-            photoFile = createImageFile();
-        } catch (IOException ex) {
-            // Error occurred while creating the File
-
-        }
-        // Continue only if the File was successfully created
-        if (photoFile != null) {
-            Uri photoURI = FileProvider.getUriForFile(this,
-                    "com.example.cmput301f18t09.cureall.fileprovider",
-                    photoFile);
-            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        }
-    }
-     **/
 }
-
-    private File createImageFile() throws IOException {
-        // Create an image file name
-
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = image.getAbsolutePath();
-        //add photos into array;ist
-        //pictures not save!!!!!!!!!when leave the activity!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!to select bodylocation.
-        //when back from body location, everything not save!!!!!!!!!!!!!!!!!!!!!!!!!
-        Bitmap pic = BitmapFactory.decodeFile(mCurrentPhotoPath);
-        return image;
-    }
-    //////////////////////////////////////////////////////////////////////////////
-
     /**
      * deal with the result for activity done
      * @param requestCode   (build in)
@@ -346,7 +299,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
+
         if (requestCode == REQUEST_IMAGE_CAPTURE) {
             Bitmap bitmap = (Bitmap)data.getExtras().get("data");
             //TODO to string
@@ -354,10 +307,9 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
             bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
             byte [] b=baos.toByteArray();
             String temp= Base64.encodeToString(b, Base64.DEFAULT);
-
-            openDialogue();
-
             newpicture = new AllKindsOfPhotos(bitmap,temp,photoName,0.0,0.0,0.0);
+            openDialogue();
+            newpicture.setPhotoType(photoName);
             pictures.add(newpicture);
             /**
             Bitmap image;
@@ -397,6 +349,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
     public void openDialogue(){
         DialogueForAddingPhotoName dialogueForAddingPhotoName = new DialogueForAddingPhotoName();
         dialogueForAddingPhotoName.show(getSupportFragmentManager(),"dialogueForAddingPhotoName");
+        dialogueForAddingPhotoName.setCancelable(false);
     }
     @Override
     public void applyTexts(String name) {

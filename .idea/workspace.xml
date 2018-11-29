@@ -19,9 +19,9 @@
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientRecordDetailPageActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientRecordDetailPageActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/PatientAdapter/PatientRecordDetailPageAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/PatientAdapter/PatientRecordDetailPageAdapter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_patient_record_detail_page.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_patient_record_detail_page.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientBodyLocationPhotoAddingPageActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientBodyLocationPhotoAddingPageActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientRecordAddingPageActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientRecordAddingPageActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_patient_body_location_photo_adding_page.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_patient_body_location_photo_adding_page.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -47,30 +47,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="PatientRecordDetailPageAdapter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/PatientAdapter/PatientRecordDetailPageAdapter.java">
+      <file leaf-file-name="PatientRecordAddingPageActivity.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientRecordAddingPageActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="106" column="39" lean-forward="false" selection-start-line="106" selection-start-column="39" selection-end-line="106" selection-end-column="39" />
+            <state relative-caret-position="369">
+              <caret line="310" column="27" lean-forward="false" selection-start-line="310" selection-start-column="27" selection-end-line="310" selection-end-column="27" />
               <folding>
-                <element signature="e#2141#2493#0" expanded="true" />
-                <element signature="e#2492#2493#0" expanded="true" />
-                <element signature="e#3926#3927#0" expanded="true" />
-                <element signature="e#3962#3963#0" expanded="true" />
+                <element signature="e#15462#15463#0" expanded="true" />
+                <element signature="e#15494#15495#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PatientRecordDetailPageActivity.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientRecordDetailPageActivity.java">
+      <file leaf-file-name="DialogueForAddingPhotoName.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/publicActitivy/DialogueForAddingPhotoName.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
-              <caret line="156" column="64" lean-forward="false" selection-start-line="156" selection-start-column="64" selection-end-line="156" selection-end-column="64" />
-              <folding>
-                <element signature="e#6491#6714#0" expanded="true" />
-                <element signature="e#6713#6714#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="150">
+              <caret line="34" column="5" lean-forward="false" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -2130,18 +2125,19 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/ProviderActivity/ProviderMainPageActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/ProviderActivity/ProviderSignUpActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientProblemDetailPageActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientBodyLocationPhotoAddingPageActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/PatientAdapter/photoFlowPageAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/patient_each_photo_in_recycle_view.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientPhotoFlowPageActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/photo_name_input_dialogue.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/publicActitivy/DialogueForAddingPhotoName.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientRecordAddingPageActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_patient_record_detail_page.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/publicActitivy/DialogueForShowPhotoName.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/PatientAdapter/PatientRecordDetailPageAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientListOfProblemsPageActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientRecordDetailPageActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_patient_body_location_photo_adding_page.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientBodyLocationPhotoAddingPageActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/publicActitivy/DialogueForAddingPhotoName.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientRecordAddingPageActivity.java" />
       </list>
     </option>
   </component>
@@ -2167,9 +2163,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -2307,6 +2301,24 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="res" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="CureAll" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CureAll" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+              <item name="drawable" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CureAll" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CureAll" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+              <item name="layout" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -2389,6 +2401,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2609,7 +2623,14 @@
       <option name="project" value="LOCAL" />
       <updated>1543393328262</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="fix bitmap memory leak">
+      <created>1543395267167</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1543395267167</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2629,17 +2650,15 @@
       <window_info id="Code Iris" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="simpleUML" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32998884" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" x="92" y="92" width="1736" height="856" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43924192" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2820513" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32998884" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32998884" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24860647" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28997868" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2531983" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -2648,6 +2667,8 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32998884" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" x="92" y="92" width="1736" height="856" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -2695,7 +2716,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="41" />
+      <option name="time" value="57" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="app">
@@ -2706,9 +2727,31 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientRecordAddingPageActivity.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7770">
+          <caret line="315" column="67" lean-forward="false" selection-start-line="315" selection-start-column="58" selection-end-line="315" selection-end-column="67" />
+          <folding>
+            <element signature="e#15462#15463#0" expanded="true" />
+            <element signature="e#15494#15495#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/publicActitivy/DialogueForAddingPhotoName.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="29" column="52" lean-forward="false" selection-start-line="29" selection-start-column="44" selection-end-line="29" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientRecordAddingPageActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4620">
           <caret line="154" column="84" lean-forward="false" selection-start-line="154" selection-start-column="60" selection-end-line="154" selection-end-column="84" />
-          <folding />
+          <folding>
+            <element signature="e#15462#15463#0" expanded="true" />
+            <element signature="e#15494#15495#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2732,7 +2775,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4350">
           <caret line="197" column="22" lean-forward="false" selection-start-line="197" selection-start-column="16" selection-end-line="197" selection-end-column="22" />
-          <folding />
+          <folding>
+            <element signature="e#15462#15463#0" expanded="true" />
+            <element signature="e#15494#15495#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2753,14 +2799,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_user_login.xml">
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/publicActitivy/LocationPickerActivity.java">
@@ -2831,7 +2877,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1295">
           <caret line="38" column="13" lean-forward="false" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2839,7 +2884,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="609">
           <caret line="47" column="70" lean-forward="false" selection-start-line="47" selection-start-column="70" selection-end-line="47" selection-end-column="70" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2847,7 +2891,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="920">
           <caret line="57" column="26" lean-forward="false" selection-start-line="57" selection-start-column="19" selection-end-line="57" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2911,19 +2954,18 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="253">
           <caret line="247" column="0" lean-forward="false" selection-start-line="247" selection-start-column="0" selection-end-line="247" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_patient_problem_detail_page.xml">
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientProblemAddingPageActivity.java">
@@ -2942,14 +2984,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientBodyLocationPhotoAddingPageActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="204" column="74" lean-forward="false" selection-start-line="204" selection-start-column="74" selection-end-line="204" selection-end-column="74" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/PatientAdapter/photoFlowPageAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="840">
@@ -2959,25 +2993,25 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/patient_each_photo_in_recycle_view.xml">
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="3" column="31" lean-forward="false" selection-start-line="3" selection-start-column="27" selection-end-line="3" selection-end-column="31" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_patient_list_of_problems_page.xml">
       <provider selected="true" editor-type-id="android-designer2">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_patient_list_of_problems_page.xml">
       <provider editor-type-id="text-editor">
         <state relative-caret-position="2580">
           <caret line="86" column="10" lean-forward="true" selection-start-line="86" selection-start-column="10" selection-end-line="86" selection-end-column="10" />
           <folding />
         </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientPhotoFlowPageActivity.java">
@@ -2996,72 +3030,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/publicActitivy/DialogueForAddingPhotos.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="2" column="36" lean-forward="false" selection-start-line="2" selection-start-column="36" selection-end-line="2" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/publicActitivy/DialogueForAddingPhotoName.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="39">
-          <caret line="29" column="52" lean-forward="false" selection-start-line="29" selection-start-column="52" selection-end-line="29" selection-end-column="52" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1010#1325#0" expanded="false" />
-            <element signature="e#1324#1325#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/publicActitivy/DialogueForAddingPhotos.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/photo_name_input_dialogue.xml">
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="10" column="33" lean-forward="false" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="33" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientRecordAddingPageActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-91">
-          <caret line="356" column="0" lean-forward="true" selection-start-line="356" selection-start-column="0" selection-end-line="356" selection-end-column="0" />
-          <folding>
-            <element signature="e#17271#17272#0" expanded="false" />
-            <element signature="e#17303#17304#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_patient_record_detail_page.xml">
       <provider selected="true" editor-type-id="android-designer2">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_patient_record_detail_page.xml">
       <provider editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/publicActitivy/DialogueForShowPhotoName.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="21" column="5" lean-forward="false" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
-          <folding />
-        </state>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/publicActitivy/DialogueForShowPhotoName.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/ProviderActivity/ProviderMainPageActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="152" column="121" lean-forward="true" selection-start-line="152" selection-start-column="121" selection-end-line="152" selection-end-column="121" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3089,21 +3085,72 @@
         <state relative-caret-position="240">
           <caret line="106" column="39" lean-forward="false" selection-start-line="106" selection-start-column="39" selection-end-line="106" selection-end-column="39" />
           <folding>
-            <element signature="e#2141#2493#0" expanded="true" />
-            <element signature="e#2492#2493#0" expanded="true" />
-            <element signature="e#3926#3927#0" expanded="true" />
-            <element signature="e#3962#3963#0" expanded="true" />
+            <element signature="e#2141#2493#0" expanded="false" />
+            <element signature="e#2492#2493#0" expanded="false" />
+            <element signature="e#3926#3927#0" expanded="false" />
+            <element signature="e#3962#3963#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Record.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3294">
+          <caret line="35" column="38" lean-forward="false" selection-start-line="35" selection-start-column="16" selection-end-line="35" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_assignment_black_24dp.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_patient_body_location_photo_adding_page.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientBodyLocationPhotoAddingPageActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1200">
+          <caret line="85" column="41" lean-forward="false" selection-start-line="85" selection-start-column="41" selection-end-line="85" selection-end-column="41" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientRecordDetailPageActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="156" column="64" lean-forward="false" selection-start-line="156" selection-start-column="64" selection-end-line="156" selection-end-column="64" />
+        <state relative-caret-position="30">
+          <caret line="156" column="62" lean-forward="false" selection-start-line="156" selection-start-column="50" selection-end-line="156" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/publicActitivy/DialogueForAddingPhotoName.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="34" column="5" lean-forward="false" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientRecordAddingPageActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="369">
+          <caret line="310" column="27" lean-forward="false" selection-start-line="310" selection-start-column="27" selection-end-line="310" selection-end-column="27" />
           <folding>
-            <element signature="e#6491#6714#0" expanded="true" />
-            <element signature="e#6713#6714#0" expanded="true" />
+            <element signature="e#15462#15463#0" expanded="true" />
+            <element signature="e#15494#15495#0" expanded="true" />
           </folding>
         </state>
       </provider>
