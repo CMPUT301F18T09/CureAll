@@ -59,8 +59,6 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
     final int REQUEST_RECORD_ADDING = 1;
 
     String id;
-
-
     /**
      * set listener for all buttons
      * set init value for elements used in this activity
@@ -184,8 +182,6 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
                 ///String comment = problem.getDoctorcomment();
                 //Toast.makeText(PatientProblemDetailPageActivity.this,comment,Toast.LENGTH_SHORT).show();
                 Intent intent =new Intent(PatientProblemDetailPageActivity.this,PatientShowProviderCommentPageActivity.class);
-
-
                 passDataToCommentViewPage(problem);
                 saveDataToLocal(problems, patient, records,problem);
                 intent.putExtra("ComeFromProblemDetail","ComeFromProblemDetail");
