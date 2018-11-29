@@ -10,7 +10,11 @@
 package com.example.cmput301f18t09.cureall.ProviderAdapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,20 +31,17 @@ import java.util.ArrayList;
  * Therefore, this is an Adapter for recycleview used for presenting an arraylist of records of a paticular's problem
  */
 public class RecordDetailPageAdapter extends RecyclerView.Adapter <RecordDetailPageAdapter.viewHolder> {
-    private ArrayList<AllKindsOfPhotos> photosArrayList;
+    private ArrayList<AllKindsOfPhotos> mphotosArrayList;
     //photo upload as bitmap test...
-    private ArrayList<String> mNames = new ArrayList<>();
-    private ArrayList<String> mImageUrls = new ArrayList<>();
+
     private Context mContext;
     /**
      * The contructor of adapter
      * @param context
-     * @param names
-     * @param imageUrls
+     * @param
      */
-    public RecordDetailPageAdapter(Context context, ArrayList<String> names, ArrayList<String> imageUrls) {
-        mNames = names;
-        mImageUrls = imageUrls;
+    public RecordDetailPageAdapter(Context context, ArrayList<AllKindsOfPhotos> photosArrayList) {
+        mphotosArrayList = photosArrayList;
         mContext = context;
     }
     // contructor ends
@@ -80,21 +81,22 @@ public class RecordDetailPageAdapter extends RecyclerView.Adapter <RecordDetailP
      */
     @Override
     public void onBindViewHolder(viewHolder viewHolder, final int position) {
-        Glide.with(mContext)
-                .asBitmap()
-                .load(mImageUrls.get(position))
-                .into(viewHolder.imageView);
-        viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mContext,mNames.get(position),Toast.LENGTH_SHORT).show();
-            }
-        });
+        Log.i("Show","show pic");
+        AllKindsOfPhotos photo = mphotosArrayList.get(position);
+        String stringbitmap = photo.getPhotoLocation();
+        Bitmap bitmap;
+        try {
+            byte [] encodeByte= Base64.decode(stringbitmap,Base64.DEFAULT);
+            bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            viewHolder.imageView.setImageBitmap(bitmap);
+        } catch(Exception e) {
+            e.getMessage();
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mImageUrls.size();
+        return mphotosArrayList.size();
     }
 }
 

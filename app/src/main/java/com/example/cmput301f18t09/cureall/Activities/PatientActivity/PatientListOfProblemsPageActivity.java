@@ -58,10 +58,11 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
     private RecyclerView.LayoutManager mLayoutManager;
     View.OnClickListener buttomListener;
     private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    ArrayList<Problem> problems;
+    private ArrayList<Problem> problems;
     private ProblemController problemController = new ProblemController();
     private ArrayList<Record> records;
     private RecordController recordController= new RecordController();
+    private ArrayList<Integer> numberOfRecords = new ArrayList<>();
     String username;
     String user_email;
     String phone;
@@ -108,8 +109,11 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         user_email = patient.getEmail();
         phone = patient.getPhone();
         id = patient.getPatientID();
-        pw = patient.getPassword();
-
+        System.out.print(problems.size());
+        for (Problem problem : problems){
+            Integer number = recordController.GetRecordNum(username,problem.getId()).size();
+            numberOfRecords.add(number);
+        }
     }
 
     /**
@@ -152,7 +156,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         recyclerView = findViewById(R.id.listOfProblems);
         recyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
-        mAdapter = new PatientProblemListPageAdapter(problems);
+        mAdapter = new PatientProblemListPageAdapter(problems,numberOfRecords);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
         //Log.i("111","111");

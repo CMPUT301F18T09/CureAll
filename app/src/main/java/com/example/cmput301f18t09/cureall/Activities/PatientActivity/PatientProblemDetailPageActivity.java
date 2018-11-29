@@ -157,6 +157,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(PatientProblemDetailPageActivity.this,PatientListOfProblemsPageActivity.class);
+                problem.setTitle(titleInput.getText().toString());
                 passDataToPatientMainpage(patient,problems);
                 intent.putExtra("ComeFromProblemDetail","ComeFromProblemDetail");
                 startActivity(intent);

@@ -21,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderRecordDetailPageActivity;
 import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
 import com.example.cmput301f18t09.cureall.BodyLocation;
 import com.example.cmput301f18t09.cureall.PatientAdapter.photoFlowPageAdapter;
@@ -46,6 +47,7 @@ public class PatientPhotoFlowPageActivity extends AppCompatActivity {
     private BodyLocation bodyLocation;
     private ViewPager viewPager;
     private photoFlowPageAdapter photoFlowPageAdapter;
+    private String thecomer;
     /**
      * set init value for elements used in this activity
      * (or give reference)
@@ -60,6 +62,8 @@ public class PatientPhotoFlowPageActivity extends AppCompatActivity {
         fixedText1 = findViewById(R.id.fixedText1);
         aSwitch = findViewById(R.id.switch2);
         getDataFromRecordDetailPage();
+        Intent intent = getIntent();
+        thecomer = intent.getStringExtra("ComeFromRecordDetailPage");
         //photos = bodyLocation.getBodyLocationPhotoArrayList();
         if(photos!=null){
 
@@ -81,7 +85,7 @@ public class PatientPhotoFlowPageActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 mImageBitmaps = new ArrayList<>();
                 if (isChecked){
-                    for (AllKindsOfPhotos each : photos) {
+                    for (AllKindsOfPhotos each : bodyLocation.getBodyLocationPhotoArrayList()) {
                         mImageBitmaps.add(each.getPhotoLocation());/**new*/
                         photoFlowPageAdapter.updateItems(mImageBitmaps);
                         viewPager.setAdapter(photoFlowPageAdapter);
@@ -89,7 +93,7 @@ public class PatientPhotoFlowPageActivity extends AppCompatActivity {
                     }
                 }
                 else {
-                    for (AllKindsOfPhotos each : bodyLocation.getBodyLocationPhotoArrayList()) {
+                    for (AllKindsOfPhotos each : photos) {
                         mImageBitmaps.add(each.getPhotoLocation());/**new*/
                         photoFlowPageAdapter.updateItems(mImageBitmaps);
                         viewPager.setAdapter(photoFlowPageAdapter);
@@ -101,9 +105,15 @@ public class PatientPhotoFlowPageActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PatientPhotoFlowPageActivity.this, PatientRecordDetailPageActivity.class);
-                intent.putExtra("ComeFromPhotoPage","ComeFromPhotoPage");
-                startActivity(intent);
+                if (thecomer.equals("ComeFromRecordDetailPagePATIENT")){
+                    Intent intent = new Intent(PatientPhotoFlowPageActivity.this, PatientRecordDetailPageActivity.class);
+                    intent.putExtra("ComeFromPhotoPage","ComeFromPhotoPage");
+                    startActivity(intent);
+                }else if(thecomer.equals("ComeFromRecordDetailPagePROVIDER")){//TODO add if statement to jump to either provider or patient pages
+                    Intent intent = new Intent(PatientPhotoFlowPageActivity.this, ProviderRecordDetailPageActivity.class);
+                    intent.putExtra("ComeFromPhotoPage","ComeFromPhotoPage");
+                    startActivity(intent);
+                }
             }
         });
     }

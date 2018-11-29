@@ -54,6 +54,7 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
     //ends..
     private ArrayList<AllKindsOfPhotos> photos;
     private ArrayList<AllKindsOfPhotos> photoFlowShow;
+    private String targetPage;
     /**
      * set init value for elements used in this activity
      * (or give reference)
@@ -119,7 +120,7 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
+        targetPage ="default";
         //set viewBodyLocationPhotoButton listener
         viewBodyLocationPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,7 +130,8 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
                 // TODO change "PatientViewBodyLocationPhotoPageActivity"
                 Intent intent = new Intent(PatientRecordDetailPageActivity.this, PatientPhotoFlowPageActivity.class);
                 passDataToPhotoFlowPage(bodyLocation2,photoFlowShow);
-                intent.putExtra("ComeFromRecordDetailPage","ComeFromRecordDetailPage");
+                saveDataChanged(record);
+                intent.putExtra("ComeFromRecordDetailPage","ComeFromRecordDetailPagePATIENT");
                 startActivity(intent);
             }
         });
@@ -144,7 +146,6 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
             }
         });
         //2018-11-19 addons
-        final int PLACE_PICKER_REQUEST = 1;
         geoLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,6 +155,7 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
                 geoLocation.putDouble("log", record.getGeoLocation().getLocation().get(0));
                 geoLocation.putDouble("lat", record.getGeoLocation().getLocation().get(1));
                 map.putExtras(geoLocation);
+                targetPage = "map";
                 startActivity(map);
             }
         });
@@ -207,7 +209,11 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        finish();
+        //TODO do not find bug right now. maybe there is a bug here
+        if (targetPage.equals("default")){
+            finish();
+        }
+
     }
     public void saveDataChanged(Record record){
         SharedPreferences sharedPreferences2 = getSharedPreferences("updateRecordPhotos",MODE_PRIVATE);
