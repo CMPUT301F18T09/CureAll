@@ -12,11 +12,12 @@ package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -24,9 +25,9 @@ import android.widget.TextView;
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.ViewLocationOnMapActivity;
 import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
 import com.example.cmput301f18t09.cureall.BodyLocation;
-import com.example.cmput301f18t09.cureall.Patient;
+import com.example.cmput301f18t09.cureall.ElasticSearchController;
+import com.example.cmput301f18t09.cureall.ElasticSearchParams;
 import com.example.cmput301f18t09.cureall.PatientAdapter.PatientRecordDetailPageAdapter;
-import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.R;
 import com.example.cmput301f18t09.cureall.Record;
 import com.google.gson.Gson;
@@ -52,6 +53,7 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
     private BodyLocation bodyLocation2;
     //ends..
     private ArrayList<AllKindsOfPhotos> photos;
+    private ArrayList<AllKindsOfPhotos> photoFlowShow;
     /**
      * set init value for elements used in this activity
      * (or give reference)
@@ -66,7 +68,10 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent.getStringExtra("ComeFromProblemDetail") != null && intent.getStringExtra("ComeFromProblemDetail").equals("ComeFromProblemDetail")){
-            getDataFromProblemDetailPage();
+            getDataFromLocal("ProblemDetailData");
+        }
+        else if(intent.getStringExtra("ComeFromPhotoPage") != null && intent.getStringExtra("ComeFromPhotoPage").equals("ComeFromPhotoPage")){
+            getDataFromLocal("updateRecordPhotos");
         }
 
         /**
@@ -120,9 +125,10 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 bodyLocation2 = record.getBodyLocation();
+                photoFlowShow = record.getRecordTrackingPhotoArrayList();
                 // TODO change "PatientViewBodyLocationPhotoPageActivity"
                 Intent intent = new Intent(PatientRecordDetailPageActivity.this, PatientPhotoFlowPageActivity.class);
-                passDataToPhotoFlowPage(bodyLocation2);
+                passDataToPhotoFlowPage(bodyLocation2,photoFlowShow);
                 intent.putExtra("ComeFromRecordDetailPage","ComeFromRecordDetailPage");
                 startActivity(intent);
             }
@@ -157,7 +163,31 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
                 customDialog(photos.get(position).getPhotoType());
             }
         });
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.UP) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                if (direction == ItemTouchHelper.UP){
+                    mAdapter.deletePhotos(viewHolder.getAdapterPosition());
+                    saveDataChanged(record);
+                }
+            }
+        }).attachToRecyclerView(recyclerView);
+        recyclerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+
+            }
+        });
+
     }
+    //on start ends...
+
     public void customDialog(String name) {
         final android.support.v7.app.AlertDialog.Builder builderSingle = new android.support.v7.app.AlertDialog.Builder(this);
         builderSingle.setTitle("Photo Name");
@@ -174,27 +204,35 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
         );
         builderSingle.show();
     }
-
     @Override
     protected void onStop() {
         super.onStop();
         finish();
     }
+    public void saveDataChanged(Record record){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("updateRecordPhotos",MODE_PRIVATE);
+        SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(record);
+        editor2.putString("record",json);
+        editor2.apply();
+    }
 
-    public void getDataFromProblemDetailPage(){
-        SharedPreferences sharedPreferences2 = getSharedPreferences("ProblemDetailData",MODE_PRIVATE);
+    public void getDataFromLocal(String name){
+        SharedPreferences sharedPreferences2 = getSharedPreferences(name,MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences2.getString("record",null);
         Type type = new TypeToken<Record>(){}.getType();
         record = gson.fromJson(json,type);
     }
-    public void passDataToPhotoFlowPage(BodyLocation bodyLocation2){
+    public void passDataToPhotoFlowPage(BodyLocation bodyLocation2,ArrayList<AllKindsOfPhotos> photoFlowShow){
         SharedPreferences sharedPreferences2 = getSharedPreferences("RecordDetailData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();
         Gson gson = new Gson();
         String json = gson.toJson(bodyLocation2);/**save in gson format*/
+        String json2 = gson.toJson(photoFlowShow);
         editor2.putString("bodyLocation2",json);
+        editor2.putString("photoFlowShow",json2);
         editor2.apply();
     }
-
 }

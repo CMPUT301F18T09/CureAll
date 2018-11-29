@@ -170,6 +170,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                 records = recordController.GetRecordNum(username,problem.getId());
                 passDataToProblemDetail(problem,records,problems,patient);
                 intent.putExtra("ComeFromPatientMainPage", "ComeFromPatientMainPage");
+                intent.putExtra("ProblemPosition",position);
                 startActivity(intent);
             }
             @Override

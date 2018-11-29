@@ -44,6 +44,9 @@ public class photoFlowPageAdapter extends PagerAdapter {
         mContext = context;
         this.imageUrls = imageUrls;
     }
+    public void updateItems( ArrayList<String> imageUrls){
+        this.imageUrls = imageUrls;
+    }
 
     /**
      * count the images in pager view

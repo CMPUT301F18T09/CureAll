@@ -111,6 +111,12 @@ public class PatientRecordDetailPageAdapter extends RecyclerView.Adapter<Patient
         mlistener = listener;
     }
 
+    public void deletePhotos(int position){
+        mphotosArrayList.remove(position);//remove that info from our universe list that presented in history
+        //notifyDataSetChanged(); no animation
+        notifyItemRemoved(position);
+    }
+
     @Override
     public int getItemCount() {
         return mphotosArrayList.size();

@@ -147,9 +147,6 @@ public class ElasticSearchController {
             String username = params[0].username;
             String problemid = params[0].problemid;
 
-
-
-
             Index index = new Index.Builder(record).index("cmput301f18t09test").type("records").build();
             try {
                 // where is the client?

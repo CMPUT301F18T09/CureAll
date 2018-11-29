@@ -9,14 +9,16 @@
  */
 package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
-import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
@@ -37,12 +39,13 @@ import java.util.ArrayList;
  */
 public class PatientPhotoFlowPageActivity extends AppCompatActivity {
     private ImageButton backButton;
-    private Button showFront;
+    private Switch aSwitch;
     private TextView fixedText1;
     private ArrayList<AllKindsOfPhotos> photos = new ArrayList<>();
     private ArrayList<String> mImageBitmaps = new ArrayList<>();
     private BodyLocation bodyLocation;
-
+    private ViewPager viewPager;
+    private photoFlowPageAdapter photoFlowPageAdapter;
     /**
      * set init value for elements used in this activity
      * (or give reference)
@@ -55,8 +58,7 @@ public class PatientPhotoFlowPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_patient_photo_flow_page);
         backButton = findViewById(R.id.backButton);
         fixedText1 = findViewById(R.id.fixedText1);
-        showFront = findViewById(R.id.showFrontAndBack);
-
+        aSwitch = findViewById(R.id.switch2);
         getDataFromRecordDetailPage();
         //photos = bodyLocation.getBodyLocationPhotoArrayList();
         if(photos!=null){
@@ -66,15 +68,50 @@ public class PatientPhotoFlowPageActivity extends AppCompatActivity {
                 mImageBitmaps.add(each.getPhotoLocation());/**new*/
             }
         }
-
+        viewPager = findViewById(R.id.viewPager);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        ViewPager viewPager = findViewById(R.id.viewPager);
-        photoFlowPageAdapter adapter = new photoFlowPageAdapter(this, mImageBitmaps);
-        viewPager.setAdapter(adapter);
+        photoFlowPageAdapter = new photoFlowPageAdapter(this, mImageBitmaps);
+        viewPager.setAdapter(photoFlowPageAdapter);
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mImageBitmaps = new ArrayList<>();
+                if (isChecked){
+                    for (AllKindsOfPhotos each : photos) {
+                        mImageBitmaps.add(each.getPhotoLocation());/**new*/
+                        photoFlowPageAdapter.updateItems(mImageBitmaps);
+                        viewPager.setAdapter(photoFlowPageAdapter);
+                        //TODO set data change
+                    }
+                }
+                else {
+                    for (AllKindsOfPhotos each : bodyLocation.getBodyLocationPhotoArrayList()) {
+                        mImageBitmaps.add(each.getPhotoLocation());/**new*/
+                        photoFlowPageAdapter.updateItems(mImageBitmaps);
+                        viewPager.setAdapter(photoFlowPageAdapter);
+                        //TODO set data change
+                    }
+                }
+            }
+        });
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PatientPhotoFlowPageActivity.this, PatientRecordDetailPageActivity.class);
+                intent.putExtra("ComeFromPhotoPage","ComeFromPhotoPage");
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
     }
 
     public void getDataFromRecordDetailPage(){

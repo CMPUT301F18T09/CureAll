@@ -47,4 +47,11 @@ public class ProblemController {
         deleteProblemTask.execute(params);
         problems.remove(position);
     }
+    //TODO we need a fucntion that are able a problem
+    //TODO here is the function i may need to use and its parameters
+    public static void UpdateProblem(ArrayList<Problem> problems, int position, Problem problem){
+        Problem oldProblem = problems.get(position);
+        Problem newProblem = problem;
+
+    }
 }

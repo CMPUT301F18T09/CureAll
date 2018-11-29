@@ -79,7 +79,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
     private BodyLocation bodyLocation;
     private ArrayList<Record> records;
     private AllKindsOfPhotos newpicture;
-    private String photoName;
+    private String photoName = "default";
 
 
     public static final int IMAGE_GALLERY_REQUEST = 20;
@@ -87,7 +87,6 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
     //photos
     private ArrayList<AllKindsOfPhotos> pictures ;
     public static final int CAMERA_REQUEST_CODE = 228;
-
     /**
      * get patients info and corresponding problems & records
      * @param savedInstanceState
@@ -215,16 +214,6 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
                 /**
                  * the check if statement has not finished yet!
                  */
-                /*if (record.getRecordTrackingPhotoArrayList().size() < 10){
-                    Toast.makeText(PatientRecordAddingPageActivity.this, "Your tracking photo is less than 10", Toast.LENGTH_SHORT).show();
-                }
-                else if(record.getGeoLocation() == null){
-                    Toast.makeText(PatientRecordAddingPageActivity.this, "You didn't specific any geoLocation yet!", Toast.LENGTH_SHORT).show();
-                }
-                else if(record.getBodyLocation() == null){
-                    Toast.makeText(PatientRecordAddingPageActivity.this, "You didn't specific any body Location yet!", Toast.LENGTH_SHORT).show();
-                }*/
-
                 title = titleInput.getText().toString();
                 description = descriptionInput.getText().toString();
                 date = new Date();
@@ -303,26 +292,14 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
         if (requestCode == REQUEST_IMAGE_CAPTURE) {
             Bitmap bitmap = (Bitmap)data.getExtras().get("data");
             //TODO to string
+            System.out.println(bitmap.getRowBytes());
             ByteArrayOutputStream baos=new  ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
             byte [] b=baos.toByteArray();
             String temp= Base64.encodeToString(b, Base64.DEFAULT);
             newpicture = new AllKindsOfPhotos(bitmap,temp,photoName,0.0,0.0,0.0);
             openDialogue();
-            newpicture.setPhotoType(photoName);
-            pictures.add(newpicture);
-            /**
-            Bitmap image;
-            InputStream inputStream;
-            Uri imageUri = data.getData();
-            try {
-                inputStream = getContentResolver().openInputStream(imageUri);
-                image = BitmapFactory.decodeStream(inputStream);
-                AllKindsOfPhotos newpicture = new AllKindsOfPhotos(image,"","type",0.0,0.0,0.0);
-                pictures.add(newpicture);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }**/
+
         }
         if (requestCode == IMAGE_GALLERY_REQUEST) {
             // if we are here, we are hearing back from the image gallery.
@@ -335,9 +312,13 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
                 inputStream = getContentResolver().openInputStream(imageUri);
                 // get a bitmap from the stream.
                 Bitmap image = BitmapFactory.decodeStream(inputStream);
-                newpicture = new AllKindsOfPhotos(image,"","type",0.0,0.0,0.0);
-                pictures.add(newpicture);
-                // show the image to the use
+                ByteArrayOutputStream baos=new  ByteArrayOutputStream();
+                image.compress(Bitmap.CompressFormat.JPEG,10, baos);
+                System.out.println(image.getRowBytes());
+                byte [] b=baos.toByteArray();
+                String temp= Base64.encodeToString(b, Base64.DEFAULT);
+                newpicture = new AllKindsOfPhotos(image,temp,"default name",0.0,0.0,0.0);
+                openDialogue();
                 writeSymbol.setImageBitmap(image);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -354,6 +335,8 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
     @Override
     public void applyTexts(String name) {
         photoName = name;
+        newpicture.setPhotoType(photoName);
+        pictures.add(newpicture);
     }
 
     /**

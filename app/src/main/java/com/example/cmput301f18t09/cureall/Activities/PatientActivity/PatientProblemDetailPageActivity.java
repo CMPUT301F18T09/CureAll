@@ -53,7 +53,9 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
     private Problem problem;
     private Patient patient;
     private ArrayList<Problem> problems;
-    ArrayList<Record> records = new ArrayList<>();
+    private ArrayList<Record> records = new ArrayList<>();
+    private Record record;
+    private Integer position, problemPosition;
     final int REQUEST_RECORD_ADDING = 1;
 
     String id;
@@ -81,6 +83,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.getStringExtra("ComeFromPatientMainPage") != null && intent.getStringExtra("ComeFromPatientMainPage").equals("ComeFromPatientMainPage")){
             loadDataFromLocal("PatientMainPageData");
+            problemPosition = intent.getIntExtra("ProblemPosition",0);
         }
         else if (intent.getStringExtra("ComeFromCommentViewPage") != null && intent.getStringExtra("ComeFromCommentViewPage").equals("ComeFromCommentViewPage")){
             loadDataFromLocal("saveToLocal");
@@ -92,6 +95,18 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
         }
         else if (intent.getStringExtra("ComeFromRecordDetailPage") != null && intent.getStringExtra("ComeFromRecordDetailPage").equals("ComeFromRecordDetailPage")){
             loadDataFromLocal("saveToLocal");
+            updatePhotosFromRecordDetail();
+            //TODO GET THE POSITION OF WHAT WE CLICK ON
+            //REPLACE THE RECORD WITH THE NEW ONE
+            loadPosition();
+            //TODO call save problem es ...
+            records.set(position,record);
+            problem.setRecordArrayList(records);
+            System.out.println(position);
+            System.out.println(problemPosition);
+            //TODO we can use delete problem and then add problem method..
+            //TODO treat that one as a new problem
+
         }
         else if (intent.getStringExtra("ComeFromRecordAddingPageSAVE") != null && intent.getStringExtra("ComeFromRecordAddingPageSAVE").equals("ComeFromRecordAddingPageSAVE")){
             loadDataFromLocal("RecordAddingData");
@@ -127,9 +142,10 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
             @Override
             public void onDetailClick(int position) {
                 Intent intent = new Intent(PatientProblemDetailPageActivity.this,PatientRecordDetailPageActivity.class);
-                Record record = records.get(position);
+                record = records.get(position);
                 saveDataToLocal(problems, patient, records,problem);
                 passDataToRecordDetailPage(record);
+                savePosition(position,problemPosition);
                 intent.putExtra("ComeFromProblemDetail","ComeFromProblemDetail");
                 startActivity(intent);
             }
@@ -227,8 +243,13 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
         problems = gson.fromJson(json2,type2);
         records = gson.fromJson(json4,type4);
     }
-    public void getDataFromRecordDetailPage(){
+    public void updatePhotosFromRecordDetail(){
         //TODO this function may need to update record. we may delete photos
+        SharedPreferences sharedPreferences2 = getSharedPreferences("updateRecordPhotos",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences2.getString("record",null);
+        Type type = new TypeToken<Record>(){}.getType();
+        record = gson.fromJson(json,type);
     }
 
     public void passDataToPatientMainpage(Patient patient, ArrayList<Problem> problems){
@@ -290,6 +311,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
         editor2.putString("problem",json4);
         editor2.apply();
     }
+
     public void loadDataFromLocal(String name){
         SharedPreferences sharedPreferences2 = getSharedPreferences(name,MODE_PRIVATE);
         Gson gson = new Gson();
@@ -305,7 +327,27 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
         patient = gson.fromJson(json2,type2);
         records = gson.fromJson(json3,type3);
         problem = gson.fromJson(json4,type4);
-
+    }
+    //TODO IF WE HAVE UPDATE RECORD CONTROLLER, WE DON'T NEED THESE
+    public void savePosition(Integer position, Integer problemPosition){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("Position",MODE_PRIVATE);
+        SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(position);
+        String json2 = gson.toJson(problemPosition);
+        editor2.putString("position",json);
+        editor2.putString("problemPosition",json2);
+        editor2.apply();
+    }
+    public void loadPosition(){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("Position",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences2.getString("position",null);
+        String json2 = sharedPreferences2.getString("problemPosition",null);
+        Type type = new TypeToken<Integer>(){}.getType();
+        Type type2 = new TypeToken<Integer>(){}.getType();
+        position = gson.fromJson(json,type);
+        problemPosition = gson.fromJson(json2,type2);
     }
 }
 

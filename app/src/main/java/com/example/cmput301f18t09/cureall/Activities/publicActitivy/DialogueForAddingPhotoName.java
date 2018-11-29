@@ -15,7 +15,7 @@ import com.example.cmput301f18t09.cureall.R;
 
 public class DialogueForAddingPhotoName extends AppCompatDialogFragment{
     private EditText editText2;
-    private DialogListener listener;
+    private DialogListener listener;//comment
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
