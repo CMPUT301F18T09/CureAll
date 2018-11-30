@@ -33,51 +33,45 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="PatientProblemDetailPageIntentTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientProblemDetailPageIntentTest.java">
+      <file leaf-file-name="PatientRecordAddingPageActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientRecordAddingPageActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="54" column="59" selection-start-line="54" selection-start-column="27" selection-end-line="54" selection-end-column="59" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainActivityTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/example/cmput301f18t09/cureall/Activities/publicActitivy/MainActivityTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="443">
-              <caret line="48" selection-start-line="48" selection-end-line="48" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PatientRecordDetailPageIntentTest.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientRecordDetailPageIntentTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="274">
-              <caret line="82" column="58" selection-start-line="82" selection-start-column="58" selection-end-line="82" selection-end-column="58" />
+            <state relative-caret-position="325">
+              <caret line="199" column="102" selection-start-line="199" selection-start-column="80" selection-end-line="199" selection-end-column="102" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2473#2491#0" expanded="true" />
+                <element signature="e#7435#7592#0" expanded="true" />
+                <element signature="e#7591#7592#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PatientRecordDetailPageActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientRecordDetailPageActivity.java">
+      <file leaf-file-name="PatientRecordAddingPageIntentTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientRecordAddingPageIntentTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="123" column="109" selection-start-line="123" selection-start-column="81" selection-end-line="123" selection-end-column="109" />
+            <state relative-caret-position="520">
+              <caret line="38" column="33" lean-forward="true" selection-start-line="38" selection-start-column="33" selection-end-line="38" selection-end-column="33" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Activity.java" pinned="false" current-in-tab="false">
-        <entry file="file://E:/Android/SDK/sources/android-28/android/app/Activity.java">
+      <file leaf-file-name="PatientProblemAddingPageActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientProblemAddingPageActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="7137" selection-start-line="7137" selection-end-line="7137" />
+            <state relative-caret-position="160">
+              <caret line="43" column="24" lean-forward="true" selection-start-line="43" selection-start-column="24" selection-end-line="43" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PatientProblemAddingPageIntentTest.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientProblemAddingPageIntentTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="100">
+              <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
             </state>
           </provider>
         </entry>
@@ -85,17 +79,26 @@
       <file leaf-file-name="PatientProblemDetailPageActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientProblemDetailPageActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
-              <caret line="176" column="16" selection-start-line="176" selection-start-column="16" selection-end-line="176" selection-end-column="81" />
+            <state relative-caret-position="594">
+              <caret line="204" column="35" selection-start-line="204" selection-start-column="35" selection-end-line="204" selection-end-column="35" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AllKindsOfPhotos.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/AllKindsOfPhotos.java">
+      <file leaf-file-name="PatientSignUpIntentTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientSignUpIntentTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-340">
-              <caret line="47" column="24" selection-start-line="47" selection-start-column="24" selection-end-line="47" selection-end-column="24" />
+            <state relative-caret-position="100">
+              <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PatientListOfProblemsPageIntentTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientListOfProblemsPageIntentTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-326">
+              <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -113,11 +116,16 @@
     <findStrings>
       <find>imageview.set</find>
       <find>uri</find>
-      <find>new intent</find>
       <find>button</find>
-      <find>passDataToRecordDetailPage</find>
       <find>viewgeoloc</find>
+      <find>passDataToRecordDetailPage</find>
       <find>geoLocationButton</find>
+      <find>passDatato</find>
+      <find>new intent</find>
+      <find>bodyLocationSelectButton</find>
+      <find>PatientPaperDollSelectionPageActivity</find>
+      <find>fromAlbumButton</find>
+      <find>geoLocationSelectButton</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -2383,8 +2391,10 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientRecordDetailPageActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/androidTest/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientProblemDetailPageIntentTest.java" />
         <option value="$PROJECT_DIR$/app/src/androidTest/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientRecordDetailPageIntentTest.java" />
+        <option value="$PROJECT_DIR$/app/src/androidTest/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientProblemDetailPageIntentTest.java" />
+        <option value="$PROJECT_DIR$/app/src/androidTest/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientRecordAddingPageIntentTest.java" />
+        <option value="$PROJECT_DIR$/app/src/androidTest/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientProblemAddingPageIntentTest.java" />
       </list>
     </option>
   </component>
@@ -2524,7 +2534,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Android Instrumented Tests.PatientRecordDetailP...">
+  <component name="RunManager" selected="Android Instrumented Tests.PatientRecordAddingP...">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -2594,6 +2604,52 @@
       <option name="DEEP_LINK" value="" />
       <option name="ACTIVITY_CLASS" value="" />
     </configuration>
+    <configuration name="PatientRecordAddingP..." type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests" temporary="true" nameIsGenerated="true">
+      <module name="app" />
+      <option name="TESTING_TYPE" value="2" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientRecordAddingPageIntentTest" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="EXTRA_OPTIONS" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sampled (Java)" />
+      </Profilers>
+    </configuration>
     <configuration name="PatientRecordDetailP..." type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests" temporary="true" nameIsGenerated="true">
       <module name="app" />
       <option name="TESTING_TYPE" value="2" />
@@ -2640,12 +2696,12 @@
         <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sampled (Java)" />
       </Profilers>
     </configuration>
-    <configuration name="RecordAddingTest()" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests" temporary="true" nameIsGenerated="true">
+    <configuration name="PickLocationTest()" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests" temporary="true" nameIsGenerated="true">
       <module name="app" />
       <option name="TESTING_TYPE" value="3" />
       <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
-      <option name="METHOD_NAME" value="RecordAddingTest" />
-      <option name="CLASS_NAME" value="com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientRecordDetailPageIntentTest" />
+      <option name="METHOD_NAME" value="PickLocationTest" />
+      <option name="CLASS_NAME" value="com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientRecordAddingPageIntentTest" />
       <option name="PACKAGE_NAME" value="" />
       <option name="EXTRA_OPTIONS" value="" />
       <option name="CLEAR_LOGCAT" value="false" />
@@ -2732,58 +2788,12 @@
         <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sampled (Java)" />
       </Profilers>
     </configuration>
-    <configuration name="ViewBodyPhotoTest()" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests" temporary="true" nameIsGenerated="true">
+    <configuration name="chooseBodyLocation...()" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests" temporary="true" nameIsGenerated="true">
       <module name="app" />
       <option name="TESTING_TYPE" value="3" />
       <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
-      <option name="METHOD_NAME" value="ViewBodyPhotoTest" />
-      <option name="CLASS_NAME" value="com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientProblemDetailPageIntentTest" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="EXTRA_OPTIONS" value="" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
-      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
-      <option name="FORCE_STOP_RUNNING_APP" value="true" />
-      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
-      <option name="PREFERRED_AVD" value="" />
-      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
-      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
-      <option name="DEBUGGER_TYPE" value="Auto" />
-      <Auto>
-        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
-        <option name="SHOW_STATIC_VARS" value="true" />
-        <option name="WORKING_DIR" value="" />
-        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
-        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
-      </Auto>
-      <Hybrid>
-        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
-        <option name="SHOW_STATIC_VARS" value="true" />
-        <option name="WORKING_DIR" value="" />
-        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
-        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
-      </Hybrid>
-      <Java />
-      <Native>
-        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
-        <option name="SHOW_STATIC_VARS" value="true" />
-        <option name="WORKING_DIR" value="" />
-        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
-        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
-      </Native>
-      <Profilers>
-        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
-        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
-        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sampled (Java)" />
-      </Profilers>
-    </configuration>
-    <configuration name="ViewGeolocationTest()" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests" temporary="true" nameIsGenerated="true">
-      <module name="app" />
-      <option name="TESTING_TYPE" value="3" />
-      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
-      <option name="METHOD_NAME" value="ViewGeolocationTest" />
-      <option name="CLASS_NAME" value="com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientRecordDetailPageIntentTest" />
+      <option name="METHOD_NAME" value="chooseBodyLocationTest" />
+      <option name="CLASS_NAME" value="com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientRecordAddingPageIntentTest" />
       <option name="PACKAGE_NAME" value="" />
       <option name="EXTRA_OPTIONS" value="" />
       <option name="CLEAR_LOGCAT" value="false" />
@@ -2855,19 +2865,19 @@
     </configuration>
     <list>
       <item itemvalue="Android App.app" />
-      <item itemvalue="Android Instrumented Tests.ViewBodyPhotoTest()" />
-      <item itemvalue="Android Instrumented Tests.RecordAddingTest()" />
-      <item itemvalue="Android Instrumented Tests.ViewGeolocationTest()" />
       <item itemvalue="Android Instrumented Tests.RecordDetailTest()" />
       <item itemvalue="Android Instrumented Tests.PatientRecordDetailP..." />
+      <item itemvalue="Android Instrumented Tests.chooseBodyLocation...()" />
+      <item itemvalue="Android Instrumented Tests.PickLocationTest()" />
+      <item itemvalue="Android Instrumented Tests.PatientRecordAddingP..." />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Android Instrumented Tests.PatientRecordAddingP..." />
+        <item itemvalue="Android Instrumented Tests.PickLocationTest()" />
+        <item itemvalue="Android Instrumented Tests.chooseBodyLocation...()" />
         <item itemvalue="Android Instrumented Tests.PatientRecordDetailP..." />
         <item itemvalue="Android Instrumented Tests.RecordDetailTest()" />
-        <item itemvalue="Android Instrumented Tests.ViewGeolocationTest()" />
-        <item itemvalue="Android Instrumented Tests.RecordAddingTest()" />
-        <item itemvalue="Android Instrumented Tests.ViewBodyPhotoTest()" />
       </list>
     </recent_temporary>
   </component>
@@ -2885,21 +2895,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="MainActivityTest - 2018.11.30 at 14h 13m 21s.xml">
-      <configuration name="MainActivityTest" configurationId="AndroidTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="ProviderSignUpIntent___ - 2018.11.30 at 14h 15m 07s.xml">
-      <configuration name="ProviderSignUpIntent..." configurationId="AndroidTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="PatientProblemDetail___ - 2018.11.30 at 15h 05m 54s.xml">
-      <configuration name="PatientProblemDetail..." configurationId="AndroidTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="ViewBodyPhotoTest() - 2018.11.30 at 15h 38m 44s.xml">
-      <configuration name="ViewBodyPhotoTest()" configurationId="AndroidTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="ViewBodyPhotoTest() - 2018.11.30 at 15h 40m 06s.xml">
-      <configuration name="ViewBodyPhotoTest()" configurationId="AndroidTestRunConfigurationType" />
-    </history-entry>
     <history-entry file="RecordAddingTest() - 2018.11.30 at 15h 43m 53s.xml">
       <configuration name="RecordAddingTest()" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
@@ -2911,6 +2906,24 @@
     </history-entry>
     <history-entry file="ViewGeolocationTest() - 2018.11.30 at 15h 51m 54s.xml">
       <configuration name="ViewGeolocationTest()" configurationId="AndroidTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="RecordDetailTest() - 2018.11.30 at 15h 57m 28s.xml">
+      <configuration name="RecordDetailTest()" configurationId="AndroidTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="PatientRecordDetailP___ - 2018.11.30 at 15h 57m 40s.xml">
+      <configuration name="PatientRecordDetailP..." configurationId="AndroidTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="chooseBodyLocation___() - 2018.11.30 at 16h 25m 04s.xml">
+      <configuration name="chooseBodyLocation...()" configurationId="AndroidTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="PickLocationTest() - 2018.11.30 at 16h 28m 56s.xml">
+      <configuration name="PickLocationTest()" configurationId="AndroidTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="PickLocationTest() - 2018.11.30 at 16h 30m 04s.xml">
+      <configuration name="PickLocationTest()" configurationId="AndroidTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="PatientRecordAddingP___ - 2018.11.30 at 16h 30m 17s.xml">
+      <configuration name="PatientRecordAddingP..." configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
@@ -2924,14 +2937,14 @@
       <window_info id="Build Variants" order="2" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3298969" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3298969" />
       <window_info anchor="bottom" id="Version Control" order="11" />
       <window_info anchor="bottom" id="Terminal" order="12" />
       <window_info anchor="bottom" id="Logcat" order="9" />
       <window_info id="Captures" order="2" weight="0.25" />
       <window_info id="Capture Tool" order="3" />
       <window_info id="Designer" order="4" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16494435" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16494435" />
       <window_info anchor="bottom" id="Build" order="10" weight="0.32751784" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="right" id="Gradle" order="6" />
@@ -2986,20 +2999,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientRecordAddingPageActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="345" column="41" lean-forward="true" selection-start-line="345" selection-start-column="41" selection-end-line="345" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientProblemDetailPageActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="176" column="16" selection-start-line="176" selection-start-column="16" selection-end-line="176" selection-end-column="81" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://E:/Android/SDK/sources/android-28/android/app/Activity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
@@ -3011,13 +3010,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="443">
           <caret line="48" selection-start-line="48" selection-end-line="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientProblemDetailPageIntentTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="54" column="59" selection-start-line="54" selection-start-column="27" selection-end-line="54" selection-end-column="59" />
         </state>
       </provider>
     </entry>
@@ -3040,14 +3032,76 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientSignUpIntentTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientProblemDetailPageIntentTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="514">
+          <caret line="106" column="44" lean-forward="true" selection-start-line="106" selection-start-column="44" selection-end-line="106" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientRecordDetailPageIntentTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="82" column="58" selection-start-line="82" selection-start-column="58" selection-end-line="82" selection-end-column="58" />
+        <state relative-caret-position="934">
+          <caret line="100" column="16" selection-start-line="100" selection-start-column="16" selection-end-line="100" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2473#2491#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientProblemDetailPageActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="204" column="35" selection-start-line="204" selection-start-column="35" selection-end-line="204" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientListOfProblemsPageIntentTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-326">
+          <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientRecordAddingPageActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="199" column="102" selection-start-line="199" selection-start-column="80" selection-end-line="199" selection-end-column="102" />
+          <folding>
+            <element signature="e#7435#7592#0" expanded="true" />
+            <element signature="e#7591#7592#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientRecordAddingPageIntentTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="520">
+          <caret line="38" column="33" lean-forward="true" selection-start-line="38" selection-start-column="33" selection-end-line="38" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientProblemAddingPageActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="43" column="24" lean-forward="true" selection-start-line="43" selection-start-column="24" selection-end-line="43" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientProblemAddingPageIntentTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
         </state>
       </provider>
     </entry>
