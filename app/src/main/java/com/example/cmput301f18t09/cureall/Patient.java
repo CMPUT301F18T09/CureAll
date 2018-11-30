@@ -26,9 +26,11 @@ public class Patient extends user{
     private ArrayList<Problem> problemArrayList;
     //private ArrayList<Record> recordArrayList;
     public String doctorID;
+    //TODO
     private Date LastLoginTime;//the last time the user login/pull
     private Date LastPushTime;//the last time the user push something to the es
     private Date creatTime;//the last time the userinfo had been modified.
+    //TODO
     /**
      * userAuthenticate
      * @return True

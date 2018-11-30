@@ -118,7 +118,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         phone = patient.getPhone();
         id = patient.getPatientID();
         pw = patient.getPassword();
-
+//TODO
         UserState current = new UserState(PatientListOfProblemsPageActivity.this);
         if (current.getState()){
             checker = true;
@@ -167,7 +167,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
 
         SyncCheck(runnable);
     }
-
+//TODO
     /**
      * set listener for search button
      * user can active 3 search methods: by body location, by key words, by geolocation
@@ -220,7 +220,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
             }
             @Override
             public void onDetailClick(int position){
-
+//TODO
                 Intent intent = new Intent(PatientListOfProblemsPageActivity.this,PatientProblemDetailPageActivity.class);
                 Problem problem = problems.get(position);
 
@@ -244,6 +244,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                 intent.putExtra("ComeFromPatientMainPage", "ComeFromPatientMainPage");
                 startActivity(intent);
             }
+//TODO
             @Override
             public void onDeleteClick(int position) {
                 //TODO add local storage funct.
@@ -409,10 +410,11 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         Type type = new TypeToken<Patient>(){}.getType();
         patient = gson.fromJson(json,type);
     }
-
+//TODO
     public void SyncCheck(Runnable runnable){
 
         service = Executors.newSingleThreadScheduledExecutor();
         service.scheduleAtFixedRate(runnable,10,1, TimeUnit.SECONDS);
     }
+//TODO
 }

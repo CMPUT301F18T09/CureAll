@@ -112,7 +112,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
         dateInput.setText(problem.getTime());
         descriptionInput.setText(problem.getDescription());
 
-
+//TODO
         UserState current = new UserState(PatientProblemDetailPageActivity.this);
         if (current.getState()){
             checker = true;
@@ -149,7 +149,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
 
         SyncCheck(runnable);
     }
-
+//TODO
     /**
      * set adapter listener
      */
@@ -184,7 +184,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-
+//TODO
                 Intent intent = new Intent(PatientProblemDetailPageActivity.this,PatientListOfProblemsPageActivity.class);
                 passDataToPatientMainpage(patient,problems);
                 intent.putExtra("ComeFromProblemDetail","ComeFromProblemDetail");
@@ -224,7 +224,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
             }
         });
     }
-
+//TODO
     /**
      * deal with the result for activity done
      * @param requestCode   (build in)
@@ -355,11 +355,11 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
         problem = gson.fromJson(json4,type4);
 
     }
-
+    //TODO
     public void SyncCheck(Runnable runnable){
 
         service = Executors.newSingleThreadScheduledExecutor();
         service.scheduleAtFixedRate(runnable,10,5, TimeUnit.SECONDS);
     }
-}
+}//TODO
 

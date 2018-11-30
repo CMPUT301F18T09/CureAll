@@ -27,6 +27,7 @@ public class Record implements Serializable{
     public String username;
     public String problemid;
     public String ID;
+    //TODO add an editTime 没什么用，可以删掉，不删也没影响
     public Date EditTime;
     //special fucntion
     //since getter and setter only deal with arraylist of Photos

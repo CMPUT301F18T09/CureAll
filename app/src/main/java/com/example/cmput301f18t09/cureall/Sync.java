@@ -59,34 +59,6 @@ public class Sync {
         Log.i("Read","read end");
     }
 
-    public void SyncPartProblem(Patient patient) {
-        ArrayList<Problem> problems = new ArrayList<Problem>();
-        ElasticSearchParams params = new ElasticSearchParams(patient.getUsername(), patient.getLastLoginTime());
-
-        ElasticSearchController.SyncPartProblemTask syncPartProblemTask = new ElasticSearchController.SyncPartProblemTask();
-        syncPartProblemTask.execute(params);
-        try{
-            List<Problem> foundProblems = syncPartProblemTask.get();
-            problems.addAll(foundProblems);
-        }catch (Exception e){
-            Log.i("Error","Failed to get the part problem for sync");
-        }
-
-        ArrayList<Problem> localproblems = new ArrayList<>();
-        localproblems = ProblemController.loadFromFile(context, "problems.txt", problems, username);
-
-        HashSet<Problem> map = new HashSet<>();
-        for (Problem p : localproblems){
-            map.add(p);
-        }
-        for (Problem i: problems){
-            if (!map.contains(i)){
-                map.add(i);
-            }
-        }
-
-
-    }
 
     public void SyncPushProblem(Problem problem,String username,ArrayList<Problem> problems){
         problem.setId(null);

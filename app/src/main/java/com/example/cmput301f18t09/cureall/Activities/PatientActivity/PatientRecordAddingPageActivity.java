@@ -204,7 +204,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
                 startActivity(intent);
             }
         });
-
+//TODO
         //set for saveButton listener
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -250,7 +250,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
                 startActivity(intent);
             }
         });
-
+//TODO
     }
 
     /**
@@ -369,6 +369,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
      * @param record        new added record
      * @param problemID     corresponding problemID
      */
+//TODO
     public Record saveRecord(String username, Record record, String problemID){
         Record temp = record;
         ElasticSearchParams param = new ElasticSearchParams(username,record,problemID);
@@ -393,6 +394,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
         temp.setComment(descriptionInput.getText().toString());
         return temp;
     }
+//TODO
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -497,6 +499,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
         editor2.putString("problem",json4);
         editor2.apply();
     }
+//TODO
     private void saveLocal(String username, Record record, String problemID,Record temp) {
 
         ArrayList<Record> AllRecords = new ArrayList<>();
@@ -509,4 +512,5 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
         RecordController.saveInFile(PatientRecordAddingPageActivity.this,"records.txt",AllRecords,username);
 
     }
+//TODO
 }

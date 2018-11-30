@@ -66,8 +66,7 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
                 String prob_title = titleInput.getText().toString();
                 String prob_desp = descriptionInput.getText().toString();
                 String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
-
-                //Problem problem = new Problem(username,prob_title,prob_desp,currentDateTimeString,null);
+//TODO                 //Problem problem = new Problem(username,prob_title,prob_desp,currentDateTimeString,null);
                 problems = saveProblem(username,prob_title,prob_desp,currentDateTimeString);
 
                 UserState currentState = new UserState(PatientProblemAddingPageActivity.this);
@@ -102,7 +101,7 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
 
             }
         });
-
+//TODO
     }
 
     @Override
@@ -184,6 +183,7 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
      * @param prob_desp     new problem's description
      * @param date          new problem's date
      */
+//TODO
     public ArrayList<Problem> saveProblem(String username, String prob_title,String prob_desp,String date){
         Problem p = new Problem(username,prob_title,prob_desp,date,null);
         Problem problem = new Problem(username, prob_title, prob_desp, date, null);
@@ -217,5 +217,5 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
 
         return problems;
     }
-
+//TODO
 }
