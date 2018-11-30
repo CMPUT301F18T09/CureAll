@@ -9,6 +9,7 @@
  */
 package com.example.cmput301f18t09.cureall.Activities.publicActitivy;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -44,6 +45,7 @@ public class UserLoginActivity extends AppCompatActivity {
     private Button loginButton, backButton;
     private ArrayList<Problem> problems;
     private ProblemController problemController = new ProblemController();
+    ProgressDialog progress;
     @Override
     /**
      * initialize the buttons and edittext
@@ -71,6 +73,7 @@ public class UserLoginActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        progress.dismiss();
     }
 
     public void passDataToPatient(Patient patient , ArrayList<Problem> problems){
@@ -122,6 +125,8 @@ public class UserLoginActivity extends AppCompatActivity {
                  * NEED TO CONSIDER OFFLINE DATA GET, in this case, problems and patients.get(0) is null!!!!!
                  * ADD try and catch
                  */
+                progress=ProgressDialog.show(this,"dialog title",
+                        "dialog message", true);
                 intent.putExtra("ComeFromLogin", "ComeFromLogin");
                 passDataToPatient(patients.get(0),problems);
                 /**ends
@@ -163,6 +168,7 @@ public class UserLoginActivity extends AppCompatActivity {
             }
         }
     }
+
     /**
      * the onCreate function will call this function help initialize
      * the elements in its relative xml file

@@ -13,11 +13,9 @@ import android.util.Log;
 
 import com.example.cmput301f18t09.cureall.ElasticSearchController;
 import com.example.cmput301f18t09.cureall.ElasticSearchParams;
-import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.Record;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class RecordController {
@@ -38,6 +36,24 @@ public class RecordController {
         }
 
         return records;
+    }
+
+    public static void UpdateRecord (Record record)
+    {
+        String username = record.getUsername();
+        String problemID = record.getProblemid();
+        // delete record
+        String delete = "delete";
+        ElasticSearchParams params = new ElasticSearchParams("",record,record.getID(),delete);
+        ElasticSearchController.DeleteRecordTask deleteRecordTask = new ElasticSearchController.DeleteRecordTask();
+        deleteRecordTask.execute(params);
+        //Log.i("Unknown bug", );
+        // add new record
+        String add = "add";
+        ElasticSearchParams param = new ElasticSearchParams(username,record,problemID,add);
+        ElasticSearchController.AddRecordTask addRecordTask = new ElasticSearchController.AddRecordTask();
+        addRecordTask.execute(param);
+
     }
 }
 

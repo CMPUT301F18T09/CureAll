@@ -346,7 +346,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
      * @param problemID     corresponding problemID
      */
     public void saveRecord(String username, Record record, String problemID){
-        ElasticSearchParams param = new ElasticSearchParams(username,record,problemID);
+        ElasticSearchParams param = new ElasticSearchParams(username,record,problemID,"add");
         ElasticSearchController.AddRecordTask addRecordTask = new ElasticSearchController.AddRecordTask();
         addRecordTask.execute(param);
         /**

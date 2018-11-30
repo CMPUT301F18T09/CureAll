@@ -12,12 +12,15 @@ package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +28,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.cmput301f18t09.cureall.Activities.publicActitivy.PhotoGallary;
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.SearchActivity;
+import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
 import com.example.cmput301f18t09.cureall.ElasticSearchController;
 import com.example.cmput301f18t09.cureall.ElasticSearchParams;
 import com.example.cmput301f18t09.cureall.Patient;
@@ -57,6 +62,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
     private Record record;
     private Integer position, problemPosition;
     final int REQUEST_RECORD_ADDING = 1;
+    private ArrayList<Bitmap> AllPhotos = new ArrayList<>();
 
     String id;
     /**
@@ -100,8 +106,6 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
             //TODO call save problem es ...
             records.set(position,record);
             problem.setRecordArrayList(records);
-            System.out.println(position);
-            System.out.println(problemPosition);
             //TODO we can use delete problem and then add problem method..
             //TODO treat that one as a new problem
 
@@ -186,6 +190,30 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
                 saveDataToLocal(problems, patient, records,problem);
                 intent.putExtra("ComeFromProblemDetail","ComeFromProblemDetail");
                 startActivity(intent);
+            }
+        });
+        photoAnimationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO THIS loop here can also help us load pictures
+                for (Record record: records){
+                    ArrayList<AllKindsOfPhotos> tempPhotos = record.getRecordTrackingPhotoArrayList();
+                    for (AllKindsOfPhotos photo: tempPhotos){
+                        String temBitmapSting = photo.getPhotoLocation();
+                        try {
+                            byte [] encodeByte= Base64.decode(temBitmapSting,Base64.DEFAULT);
+                            Bitmap tempbitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+                            AllPhotos.add(tempbitmap);
+                        } catch(Exception e) {
+                            e.getMessage();
+                        }
+                    }
+                }
+                Intent intent =new Intent(PatientProblemDetailPageActivity.this,PhotoGallary.class);
+                passDataToGallary(AllPhotos);
+                saveDataToLocal(problems,patient,records,problem);
+                startActivity(intent);
+                System.out.println(AllPhotos.size());
             }
         });
     }
@@ -287,6 +315,14 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
         Gson gson = new Gson();
         String json = gson.toJson(record);
         editor2.putString("record",json);
+        editor2.apply();
+    }
+    public void passDataToGallary(ArrayList<Bitmap> allPhotos){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("ProblemDetailData",MODE_PRIVATE);
+        SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(allPhotos);
+        editor2.putString("allPhotos",json);
         editor2.apply();
     }
 

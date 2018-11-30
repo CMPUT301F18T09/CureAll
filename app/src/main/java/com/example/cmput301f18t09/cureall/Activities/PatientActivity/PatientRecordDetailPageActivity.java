@@ -30,6 +30,7 @@ import com.example.cmput301f18t09.cureall.ElasticSearchParams;
 import com.example.cmput301f18t09.cureall.PatientAdapter.PatientRecordDetailPageAdapter;
 import com.example.cmput301f18t09.cureall.R;
 import com.example.cmput301f18t09.cureall.Record;
+import com.example.cmput301f18t09.cureall.RecordController.RecordController;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -177,6 +178,7 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
                 if (direction == ItemTouchHelper.UP){
                     mAdapter.deletePhotos(viewHolder.getAdapterPosition());
                     saveDataChanged(record);
+                    RecordController.UpdateRecord(record);
                 }
             }
         }).attachToRecyclerView(recyclerView);

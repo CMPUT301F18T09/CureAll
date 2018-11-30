@@ -9,9 +9,12 @@
  */
 package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -23,6 +26,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -32,6 +36,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.load.model.ModelLoader;
+import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
 import com.example.cmput301f18t09.cureall.Patient;
 import com.example.cmput301f18t09.cureall.PatientAdapter.PatientProblemListPageAdapter;
 import com.example.cmput301f18t09.cureall.Problem;
@@ -47,6 +52,7 @@ import org.apache.commons.lang3.ObjectUtils;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.BitSet;
 
 /**
  * For this activity, user(patient) will view a list of problems
@@ -63,6 +69,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
     private ArrayList<Record> records;
     private RecordController recordController= new RecordController();
     private ArrayList<Integer> numberOfRecords = new ArrayList<>();
+    private ArrayList<Bitmap> AllPhotos = new ArrayList<>();
     String username;
     String user_email;
     String phone;
@@ -110,9 +117,13 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         phone = patient.getPhone();
         id = patient.getPatientID();
         System.out.print(problems.size());
+        //TODO make sure the problems in previous page can be retrieved from local
+        //TODO everything will be faster
         for (Problem problem : problems){
-            Integer number = recordController.GetRecordNum(username,problem.getId()).size();
+            ArrayList<Record> tempRecords = recordController.GetRecordNum(username,problem.getId());
+            Integer number = tempRecords.size();
             numberOfRecords.add(number);
+            //TODO THIS loop here can also help us load pictures
         }
     }
 
