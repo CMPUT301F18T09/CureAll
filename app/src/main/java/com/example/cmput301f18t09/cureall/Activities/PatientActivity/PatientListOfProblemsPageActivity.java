@@ -45,7 +45,7 @@ import java.util.ArrayList;
  * For this activity, user(patient) will view a list of problems
  */
 public class PatientListOfProblemsPageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
-    private Button searchButton, problemAddingButton;
+    private Button searchButton, problemAddingButton, editButton;
     private RecyclerView recyclerView;
     private PatientProblemListPageAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -77,6 +77,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         setContentView(R.layout.activity_patient_list_of_problems_page);
         searchButton = (Button) findViewById(R.id.searchButton);
         problemAddingButton = (Button) findViewById(R.id.problemAddingButton);
+        editButton = (Button) findViewById(R.id.editConnectInfo);
         //ArrayList<Problem> problems = new ArrayList<>();
         patient = (Patient)getIntent().getSerializableExtra("patient");
         problems = (ArrayList<Problem>)getIntent().getSerializableExtra("problems");
@@ -199,6 +200,16 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                 //mAdapter.notifyDataSetChanged();
             }
         });
+
+//        editButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                Intent intent = new Intent(PatientListOfProblemsPageActivity.this, PatientEditInfoActivity.class);
+//////                intent.putExtra("email", user_email);
+//////                intent.putExtra("phone", phone);
+////                startActivity(intent);
+//            }
+//        });
     }
 
     /**

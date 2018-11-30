@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.example.cmput301f18t09.cureall.ElasticSearchController;
 import com.example.cmput301f18t09.cureall.ElasticSearchParams;
+import com.example.cmput301f18t09.cureall.Encryption;
 import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.ProblemController.ProblemController;
 import com.example.cmput301f18t09.cureall.R;
@@ -57,6 +58,8 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //String username = Username.getText().toString();                                                       //get the input of year/month/day/hour/minute/
                 String prob_title = titleInput.getText().toString();
+                //prob_title = Encryption.encrypt(prob_title);
+                //prob_title = Encryption.decrypt(prob_title);
                 String prob_desp = descriptionInput.getText().toString();
                 String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
 
