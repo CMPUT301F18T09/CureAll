@@ -187,12 +187,16 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
 
             ElasticSearchController.AddProblemTask addproblemTask = new ElasticSearchController.AddProblemTask();
             addproblemTask.execute(param);
+
+            //TODO update the pushtime
+            ElasticSearchController.OnlineTask onlineTask = new ElasticSearchController.OnlineTask();
+            onlineTask.execute(username);
         }
         else{
             String currentDate = DateFormat.getDateTimeInstance().format(new Date());
 
             ArrayList<Problem> problems = new ArrayList<>();
-            ProblemController.loadFromFile(PatientProblemAddingPageActivity.this,"problems.txt",problems,username);
+            problems = ProblemController.loadFromFile(PatientProblemAddingPageActivity.this,"problems.txt",problems,username);
             Problem problem = new Problem(username, prob_title, prob_desp, date, null);
 
             //if this is an offline behavior, then we need to assign an 'unique' id to the problem automatically

@@ -40,6 +40,7 @@ import com.example.cmput301f18t09.cureall.ProblemController.ProblemController;
 import com.example.cmput301f18t09.cureall.R;
 import com.example.cmput301f18t09.cureall.Record;
 import com.example.cmput301f18t09.cureall.RecordController.RecordController;
+import com.example.cmput301f18t09.cureall.Sync;
 import com.example.cmput301f18t09.cureall.UserState;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -49,12 +50,16 @@ import org.apache.commons.lang3.ObjectUtils;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * For this activity, user(patient) will view a list of problems
  */
 public class PatientListOfProblemsPageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private Button searchButton, problemAddingButton;
+
     private RecyclerView recyclerView;
     private PatientProblemListPageAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -70,6 +75,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
     String id;
     String pw;
     Patient patient;
+    boolean checker;
     final int REQUEST_PROBLEM_ADDING = 1;
 
 
@@ -192,7 +198,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
             @Override
             public void onDeleteClick(int position) {
                 //TODO add local storage funct.
-                ProblemController.DelteProblem(problems,position,username);
+                ProblemController.DelteProblem(problems,position,username,PatientListOfProblemsPageActivity.this);
                 mAdapter.notifyDataSetChanged();
             }
         });
@@ -240,6 +246,34 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                 //mAdapter.notifyDataSetChanged();
             }
         });
+
+        UserState current = new UserState(PatientListOfProblemsPageActivity.this);
+        if (current.getState()){
+            checker = true;
+            Log.i("SYNC", "NOW: ONLINE!");
+        }
+        if (!current.getState()){
+            checker = false;
+            Log.i("SYNC","NOW: OFFLINE!");
+        }
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                UserState current = new UserState(PatientListOfProblemsPageActivity.this);
+                if (current.getState() && !checker){
+                    checker =true;
+                    Sync sync = new Sync(PatientListOfProblemsPageActivity.this,username);
+                    Log.i("SYNC", "start sync");
+                }
+                if (!current.getState()){
+                    checker = false;
+                    Log.i("SYNC","NOW: OFFLINE!");
+                }
+            }
+        };
+        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+        service.scheduleAtFixedRate(runnable,10,5, TimeUnit.SECONDS);
     }
     //allow you click on navigation menus
     @Override

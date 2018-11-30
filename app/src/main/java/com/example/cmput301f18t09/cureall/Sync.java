@@ -11,6 +11,8 @@ import com.example.cmput301f18t09.cureall.ProblemController.ProblemController;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class Sync {
@@ -29,6 +31,8 @@ public class Sync {
     }
 
     public void SyncUSer(Patient patient){
+        patient.setLastLoginTime();
+        patient.setLastPushTime();
         ArrayList<Patient> patients = new ArrayList<>();
         //TODO make a new dir belongs to this user
         patients.add(patient);
@@ -41,18 +45,45 @@ public class Sync {
 
     public void SyncAllRecord(String username){
         ArrayList<Record> records = new ArrayList<Record>();
-        ElasticSearchController.SyncRecordTask syncRecordTask = new ElasticSearchController.SyncRecordTask();
+        ElasticSearchController.SyncAllRecordTask syncRecordTask = new ElasticSearchController.SyncAllRecordTask();
         syncRecordTask.execute(username);
 
         try {
             List<Record> foundrecord= syncRecordTask.get();
             records.addAll(foundrecord);
-
-
         } catch (Exception e) {
             Log.i("Error", "Failed to get the user from the async object");
         }
 
         Log.i("Read","read end");
+    }
+
+    public void SyncPartProblem(Patient patient) {
+        ArrayList<Problem> problems = new ArrayList<Problem>();
+        ElasticSearchParams params = new ElasticSearchParams(patient.getUsername(), patient.getLastLoginTime());
+
+        ElasticSearchController.SyncPartProblemTask syncPartProblemTask = new ElasticSearchController.SyncPartProblemTask();
+        syncPartProblemTask.execute(params);
+        try{
+            List<Problem> foundProblems = syncPartProblemTask.get();
+            problems.addAll(foundProblems);
+        }catch (Exception e){
+            Log.i("Error","Failed to get the part problem for sync");
+        }
+
+        ArrayList<Problem> localproblems = new ArrayList<>();
+        localproblems = ProblemController.loadFromFile(context, "problems.txt", problems, username);
+
+        HashSet<Problem> map = new HashSet<>();
+        for (Problem p : localproblems){
+            map.add(p);
+        }
+        for (Problem i: problems){
+            if (!map.contains(i)){
+                map.add(i);
+            }
+        }
+
+
     }
 }

@@ -9,6 +9,8 @@
  */
 package com.example.cmput301f18t09.cureall;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -24,8 +26,9 @@ public class Patient extends user{
     private ArrayList<Problem> problemArrayList;
     //private ArrayList<Record> recordArrayList;
     public String doctorID;
-    private Date creatTime;
-
+    private Date LastLoginTime;//the last time the user login/pull
+    private Date LastPushTime;//the last time the user push something to the es
+    private Date creatTime;//the last time the userinfo had been modified.
     /**
      * userAuthenticate
      * @return True
@@ -147,4 +150,9 @@ public class Patient extends user{
     public Date getCreatTime(){
         return creatTime;
     }
+    public Date getLastLoginTime() {return LastLoginTime;}
+    public Date getLastPushTime() {return LastPushTime;}
+
+    public void setLastLoginTime() {this.LastLoginTime = new Date();}
+    public void setLastPushTime() {this.LastPushTime = new Date();}
 }

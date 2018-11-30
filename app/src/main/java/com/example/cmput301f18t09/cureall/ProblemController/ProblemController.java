@@ -15,6 +15,7 @@ import android.util.Log;
 import com.example.cmput301f18t09.cureall.ElasticSearchController;
 import com.example.cmput301f18t09.cureall.ElasticSearchParams;
 import com.example.cmput301f18t09.cureall.Problem;
+import com.example.cmput301f18t09.cureall.UserState;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -52,14 +53,21 @@ public class ProblemController {
         return problems;
     }
 
-    public static void DelteProblem(ArrayList<Problem> problems, int position, String username)
+    public static void DelteProblem(ArrayList<Problem> problems, int position, String username,Context context)
     {
         Problem problem = problems.get(position);
-        //Log.i("Unknown bug", );
-        ElasticSearchParams params = new ElasticSearchParams("",problem,problem.getId());
-        ElasticSearchController.DeleteProblemTask deleteProblemTask = new ElasticSearchController.DeleteProblemTask();
-        deleteProblemTask.execute(params);
+        //Log.i("Unknown bug", );\
+        UserState currentState = new UserState(context);
+        if (currentState.getState()){
+            ElasticSearchParams params = new ElasticSearchParams("",problem,problem.getId());
+            ElasticSearchController.DeleteProblemTask deleteProblemTask = new ElasticSearchController.DeleteProblemTask();
+            deleteProblemTask.execute(params);
+
+        }
         problems.remove(position);
+        ProblemController.saveInFile(context,"problems.txt",problems,username);
+
+
     }
 
     public static ArrayList<Problem> loadFromFile(Context context, String FILENAME, ArrayList<Problem> problems, String username) {

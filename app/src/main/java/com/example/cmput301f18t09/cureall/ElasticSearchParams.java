@@ -10,6 +10,8 @@
 package com.example.cmput301f18t09.cureall;
 
 import java.util.ArrayList;
+import java.util.Date;
+
 /**
  * Model class for recording CareProvider
  *
@@ -26,6 +28,7 @@ public class ElasticSearchParams {
     String id;
     ArrayList<String> patients;
     String problemid;
+    Date lastPulltime;
 
     /**
      * one Init for class ElasticSearchParams
@@ -82,6 +85,11 @@ public class ElasticSearchParams {
     public ElasticSearchParams(String username, String problemid){
         this.username = username;
         this.problemid = problemid;
+    }
+
+    public ElasticSearchParams(String username, Date lastPulltime){
+        this.username = username;
+        this.lastPulltime = lastPulltime;
     }
 
 /*  may use later

@@ -117,22 +117,22 @@ public class UserLoginActivity extends AppCompatActivity {
                     Log.i("Chen", "Failed to get the user from the async object");
                 }
                 Log.i("Read","read end");
-                problems = problemController.GetProblemNum(patients.get(0).getUsername());
+
 
                 //TODO if user login (online) then do an sync automatically
                 Sync sync = new Sync(UserLoginActivity.this,Username);
                 if (!sync.Check()){
+                    problems = problemController.GetProblemNum(patients.get(0).getUsername());
                     sync.SyncUSer(patients.get(0));
                     sync.SyncAllProblem(problems,Username);
                     sync.SyncAllRecord(Username);
+                 }
+
+                else{
+                    sync.SyncPartProblem(patients.get(0));
+
+                    problems = problemController.loadFromFile(UserLoginActivity.this,"problems.txt",problems,Username);
                 }
-
-                //TODO renew the logintime
-
-
-
-
-
                 //TODO implement local retrieve funct.
                 Intent intent = new Intent(UserLoginActivity.this,PatientListOfProblemsPageActivity.class);
                 /**should be change to save func
