@@ -20,6 +20,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -38,6 +39,7 @@ import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.R;
 import com.example.cmput301f18t09.cureall.Record;
 import com.example.cmput301f18t09.cureall.RecordController.RecordController;
+import com.example.cmput301f18t09.cureall.Sync;
 import com.example.cmput301f18t09.cureall.UserState;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -228,18 +230,18 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
                 record.setTime(new Date());
                 record.setRecordTrackingPhotoArrayList(pictures);
                 records.add(record);
+                Record temp = record;
                 //TODO this is online save, we also need a local save for record
                 UserState currentState = new UserState(PatientRecordAddingPageActivity.this);
                 if (currentState.getState()){
-                    saveRecord(problem.getUsername(),record,problem.getId());
+                    temp = saveRecord(problem.getUsername(),record,problem.getId());
                 }
                 else{
-                    record.setTitle(titleInput.getText().toString());
-                    record.setComment(descriptionInput.getText().toString());
-
-                    saveLocal(problem.getUsername(), record, problem.getId());
+                    temp.setID("offline");
+                    //record.setTitle(titleInput.getText().toString());
+                    //record.setComment(descriptionInput.getText().toString());
                 }
-
+                saveLocal(problem.getUsername(), record, problem.getId(),temp);
 
                 Intent intent = new Intent(PatientRecordAddingPageActivity.this, PatientProblemDetailPageActivity.class);
                 //TODO replace this with shared perrference
@@ -367,10 +369,19 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
      * @param record        new added record
      * @param problemID     corresponding problemID
      */
-    public void saveRecord(String username, Record record, String problemID){
+    public Record saveRecord(String username, Record record, String problemID){
+        Record temp = record;
         ElasticSearchParams param = new ElasticSearchParams(username,record,problemID);
         ElasticSearchController.AddRecordTask addRecordTask = new ElasticSearchController.AddRecordTask();
         addRecordTask.execute(param);
+        try {
+            record = addRecordTask.get();
+            Sync sync = new Sync(PatientRecordAddingPageActivity.this,username);
+            sync.UpdateTracker(username);
+        }catch (Exception e){
+            Log.i("Record","Something wrong happened when tried to save record to es");
+        }
+
         /**
          * set the record title and description based on the input you enter in both two edittext.
          * A small bug is that, before you click the save button, make sure the content in edittext is what you want to save
@@ -378,6 +389,9 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
          */
         record.setTitle(titleInput.getText().toString());
         record.setComment(descriptionInput.getText().toString());
+        temp.setTitle(titleInput.getText().toString());
+        temp.setComment(descriptionInput.getText().toString());
+        return temp;
     }
     @Override
     protected void onDestroy() {
@@ -483,15 +497,16 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
         editor2.putString("problem",json4);
         editor2.apply();
     }
-    private void saveLocal(String username, Record record, String problemID) {
-        String currentDate = DateFormat.getDateTimeInstance().format(new Date());
+    private void saveLocal(String username, Record record, String problemID,Record temp) {
+
         ArrayList<Record> AllRecords = new ArrayList<>();
         AllRecords = RecordController.loadFromFile(PatientRecordAddingPageActivity.this, "records.txt", AllRecords, username);
-        if (record.getID() == null) {
-            record.setID(record.getTitle() + currentDate);
-        }
-        AllRecords.add(record);
 
-        RecordController.saveInFile(PatientRecordAddingPageActivity.this, "records.txt", AllRecords, username);
+        Log.i("ID",temp.getID());
+        AllRecords.add(temp);
+
+
+        RecordController.saveInFile(PatientRecordAddingPageActivity.this,"records.txt",AllRecords,username);
+
     }
 }

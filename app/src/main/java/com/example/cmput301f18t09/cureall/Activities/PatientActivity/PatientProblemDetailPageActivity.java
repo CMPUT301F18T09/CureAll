@@ -33,6 +33,9 @@ import com.example.cmput301f18t09.cureall.PatientAdapter.PatientProblemDetailPag
 import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.R;
 import com.example.cmput301f18t09.cureall.Record;
+import com.example.cmput301f18t09.cureall.RecordController.RecordController;
+import com.example.cmput301f18t09.cureall.Sync;
+import com.example.cmput301f18t09.cureall.UserState;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -40,6 +43,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * For this activity, user(patient) can view all details for a problem
@@ -55,7 +61,8 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
     private ArrayList<Problem> problems;
     ArrayList<Record> records = new ArrayList<>();
     final int REQUEST_RECORD_ADDING = 1;
-
+    boolean checker;
+    ScheduledExecutorService service;
     String id;
 
 
@@ -104,6 +111,43 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
         titleInput.setText(problem.getTitle());
         dateInput.setText(problem.getTime());
         descriptionInput.setText(problem.getDescription());
+
+
+        UserState current = new UserState(PatientProblemDetailPageActivity.this);
+        if (current.getState()){
+            checker = true;
+            RecordController.saveInFile(PatientProblemDetailPageActivity.this,"records.txt",records,patient.getUsername());
+            Log.i("SYNC", "NOW: ONLINE!");
+        }
+        if (!current.getState()){
+            checker = false;
+            Log.i("SYNC","NOW: OFFLINE!");
+        }
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                UserState current = new UserState(PatientProblemDetailPageActivity.this);
+                if (current.getState() && !checker){
+                    checker =true;
+                    Sync sync = new Sync(PatientProblemDetailPageActivity.this,patient.getUsername());
+
+                    for (Record r : records){
+                        if (r.getID().equals("offline")){
+                            Log.i("SYNC","begin");
+                            sync.SyncPushRecord(r,patient.getUsername(),problem,records);
+                        }
+                    }
+                    Log.i("SYNC", "start sync");
+                }
+                if (!current.getState()){
+                    checker = false;
+                    Log.i("SYNC","NOW: OFFLINE!");
+                }
+            }
+        };
+
+        SyncCheck(runnable);
     }
 
     /**
@@ -131,6 +175,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
                 saveDataToLocal(problems, patient, records,problem);
                 passDataToRecordDetailPage(record);
                 intent.putExtra("ComeFromProblemDetail","ComeFromProblemDetail");
+                service.shutdown();
                 startActivity(intent);
             }
         });
@@ -143,6 +188,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
                 Intent intent = new Intent(PatientProblemDetailPageActivity.this,PatientListOfProblemsPageActivity.class);
                 passDataToPatientMainpage(patient,problems);
                 intent.putExtra("ComeFromProblemDetail","ComeFromProblemDetail");
+                service.shutdown();
                 startActivity(intent);
             }
         });
@@ -156,6 +202,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
                 passDataToAddingRecordPage(problem,problems,patient,records);
                 saveDataToLocal(problems,patient,records,problem);
                 intent.putExtra("ComeFromProblemDetail","ComeFromProblemDetail");
+                service.shutdown();
                 startActivity(intent);
             }
         });
@@ -172,6 +219,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
                 passDataToCommentViewPage(problem);
                 saveDataToLocal(problems, patient, records,problem);
                 intent.putExtra("ComeFromProblemDetail","ComeFromProblemDetail");
+                service.shutdown();
                 startActivity(intent);
             }
         });
@@ -306,6 +354,12 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
         records = gson.fromJson(json3,type3);
         problem = gson.fromJson(json4,type4);
 
+    }
+
+    public void SyncCheck(Runnable runnable){
+
+        service = Executors.newSingleThreadScheduledExecutor();
+        service.scheduleAtFixedRate(runnable,10,5, TimeUnit.SECONDS);
     }
 }
 

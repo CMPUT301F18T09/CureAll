@@ -138,10 +138,10 @@ public class ElasticSearchController {
         }
     }
 
-    public static class AddRecordTask extends AsyncTask<ElasticSearchParams, Void, Void> {
+    public static class AddRecordTask extends AsyncTask<ElasticSearchParams, Void, Record> {
 
         @Override
-        protected Void doInBackground(ElasticSearchParams... params) {
+        protected Record doInBackground(ElasticSearchParams... params) {
             verifySettings();
 
             Record record = params[0].record;
@@ -159,12 +159,13 @@ public class ElasticSearchController {
                 } else {
                     Log.i("Error", "Elasticsearch was not able to add the patient");
                 }
+
             } catch (Exception e) {
                 Log.i("Error", "The application failed to build and send the patient");
             }
 
             Log.i("map","end");
-            return null;
+            return record;
         }
     }
 
@@ -314,7 +315,7 @@ public class ElasticSearchController {
                         //Patient p = (Patient)source.get(Patient.class);
                         //Log.i("Read",p.getUsername());
                         IDs.add(id);
-                        Log.i("Read",id);
+                        //Log.i("Read",id);
 
                     }
 
@@ -336,55 +337,33 @@ public class ElasticSearchController {
         }
     }
 
-    public static class AddProblemTask extends AsyncTask<ElasticSearchParams, Void, Void> {
+    public static class AddProblemTask extends AsyncTask<Problem, Void, Problem> {
 
         @Override
-        protected Void doInBackground(ElasticSearchParams... params) {
+        protected Problem doInBackground(Problem... params) {
             verifySettings();
-            Integer num = params[0].num;
-            Problem problem = params[0].problem;
+            //Integer num = params[0].num;
+            Problem problem = params[0];
 
-            if (num < 1000000){
-                String Num = String.format("%06d",num);
-                String id =  problem.getUsername()+ "2" + Num;
-                Index index = new Index.Builder(problem).index("cmput301f18t09test").type("problem").build();
-                try {
-                    // where is the client?
-                    DocumentResult result = client.execute(index);
+            Index index = new Index.Builder(problem).index("cmput301f18t09test").type("problem").build();
+            try {
+                // where is the client?
+                DocumentResult result = client.execute(index);
 
-                    if (result.isSucceeded()) {
-                        problem.setId(result.getId());
-                        Log.i("Problem","Problem save success!");
-                    } else {
-                        Log.i("Error", "Elasticsearch was not able to add the patient");
-                    }
-                } catch (Exception e) {
-                    Log.i("Error", "The application failed to build and send the patient");
+                if (result.isSucceeded()) {
+                    problem.setId(result.getId());
+                    Log.i("Problem","Problem save success!"+problem.getId());
+                } else {
+                    Log.i("Error", "Elasticsearch was not able to add the patient");
                 }
+            } catch (Exception e) {
+                Log.i("Error", "The application failed to build and send the patient");
             }
 
 
-            else{
-                String id = params[0].username + "2" + Integer.toString(num);
-                Index index = new Index.Builder(problem).index("cmput301f18t09test").type("problem").build();
-                try {
-                    // where is the client?
-                    DocumentResult result = client.execute(index);
-
-                    if (result.isSucceeded()) {
-                        problem.setId(result.getId());
-                        //user.setPatientID(result.getId());
-                        Log.i("Problem","Problem save success!");
-                    } else {
-                        Log.i("Error", "Elasticsearch was not able to add the patient");
-                    }
-                } catch (Exception e) {
-                    Log.i("Error", "The application failed to build and send the patient");
-                }
-            }
 
 
-            return null;
+            return problem;
         }
     }
 
@@ -818,6 +797,7 @@ public class ElasticSearchController {
             factory.setDroidClientConfig(config);
             client = (JestDroidClient) factory.getObject();
         }
+
     }
 }
 /*

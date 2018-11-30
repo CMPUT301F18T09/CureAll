@@ -53,7 +53,7 @@ public class Problem implements Serializable{
         this.description = description;
         this.time = time;
         this.doctorcomment = comment;
-        this.editdate = new Date();
+        this.Id = null;
     }
 
     /**

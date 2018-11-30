@@ -76,6 +76,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
     String pw;
     Patient patient;
     boolean checker;
+    ScheduledExecutorService service;
     final int REQUEST_PROBLEM_ADDING = 1;
 
 
@@ -118,6 +119,53 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         id = patient.getPatientID();
         pw = patient.getPassword();
 
+        UserState current = new UserState(PatientListOfProblemsPageActivity.this);
+        if (current.getState()){
+            checker = true;
+            Log.i("SYNC", "NOW: ONLINE!");
+        }
+        if (!current.getState()){
+            checker = false;
+            Log.i("SYNC","NOW: OFFLINE!");
+        }
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                Log.i("SYNC","run");
+                UserState current = new UserState(PatientListOfProblemsPageActivity.this);
+
+                if (current.getState()){
+                    Log.i("SYNC","Now in");
+                    if (!checker){
+                        Log.i("SYNC","Now sync end");
+                        checker =true;
+                        Sync sync = new Sync(PatientListOfProblemsPageActivity.this,username);
+                        for (Problem p : problems){
+                            Log.i("SYNC","Now inloop");
+                            if (p.getId().equals("offline")){
+                                Log.i("SYNC","begin");
+                                sync.SyncPushProblem(p,username,problems);
+                            }
+                        }
+
+                    }
+                    else{
+                        Sync sync = new Sync(PatientListOfProblemsPageActivity.this,username);
+                        checker = true;
+                    }
+
+                    Log.i("SYNC", "start sync");
+                }
+
+                else{
+                    checker = false;
+                    Log.i("SYNC","NOW: OFFLINE!");
+                }
+            }
+        };
+
+        SyncCheck(runnable);
     }
 
     /**
@@ -191,6 +239,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                         }
                     }
                 }
+                service.shutdown();
                 passDataToProblemDetail(problem,records,problems,patient);
                 intent.putExtra("ComeFromPatientMainPage", "ComeFromPatientMainPage");
                 startActivity(intent);
@@ -232,6 +281,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PatientListOfProblemsPageActivity.this,PatientProblemAddingPageActivity.class);
+                service.shutdown();
                 /**should be change to save func
                  *
                  */
@@ -247,33 +297,8 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
             }
         });
 
-        UserState current = new UserState(PatientListOfProblemsPageActivity.this);
-        if (current.getState()){
-            checker = true;
-            Log.i("SYNC", "NOW: ONLINE!");
-        }
-        if (!current.getState()){
-            checker = false;
-            Log.i("SYNC","NOW: OFFLINE!");
-        }
 
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                UserState current = new UserState(PatientListOfProblemsPageActivity.this);
-                if (current.getState() && !checker){
-                    checker =true;
-                    Sync sync = new Sync(PatientListOfProblemsPageActivity.this,username);
-                    Log.i("SYNC", "start sync");
-                }
-                if (!current.getState()){
-                    checker = false;
-                    Log.i("SYNC","NOW: OFFLINE!");
-                }
-            }
-        };
-        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
-        service.scheduleAtFixedRate(runnable,10,5, TimeUnit.SECONDS);
+
     }
     //allow you click on navigation menus
     @Override
@@ -385,5 +410,9 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         patient = gson.fromJson(json,type);
     }
 
+    public void SyncCheck(Runnable runnable){
 
+        service = Executors.newSingleThreadScheduledExecutor();
+        service.scheduleAtFixedRate(runnable,10,1, TimeUnit.SECONDS);
+    }
 }

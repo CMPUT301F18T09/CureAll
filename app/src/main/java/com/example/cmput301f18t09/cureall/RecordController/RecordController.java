@@ -67,7 +67,7 @@ public class RecordController {
             //Gson gson = new Gson();
             //Type listTweetTYpe = new TypeToken<ArrayList<Tweet>>();
             //!!!!the code below may need a subclass like joy, Arraylist<joy>
-            Type recordType = new TypeToken<ArrayList<Problem>>(){}.getType();
+            Type recordType = new TypeToken<ArrayList<Record>>(){}.getType();
             //Log.i("fangpei","success");
             records = gson.create().fromJson(reader, recordType);
 

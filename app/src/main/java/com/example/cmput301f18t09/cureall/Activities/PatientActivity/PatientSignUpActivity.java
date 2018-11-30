@@ -92,12 +92,12 @@ public class PatientSignUpActivity extends AppCompatActivity{
                     patients.add(user);
                     PatientController.saveInFile(PatientSignUpActivity.this,"userinfo.txt",patients,Username);
                 }
-                else{
-                    Log.i("Patient","choose sign up as a patient offline");
-                    Patient user = new Patient(Username,Emial,Phone);
-                    patients.add(user);
-                    PatientController.saveInFile(PatientSignUpActivity.this,"userinfo.txt",patients,Username);
-                }
+
+                Log.i("Patient","choose sign up as a patient offline");
+                Patient user = new Patient(Username,Emial,Phone);
+                patients.add(user);
+                PatientController.saveInFile(PatientSignUpActivity.this,"userinfo.txt",patients,Username);
+
 
                 Intent intent = new Intent(PatientSignUpActivity.this,MainActivity.class);
                 startActivity(intent);

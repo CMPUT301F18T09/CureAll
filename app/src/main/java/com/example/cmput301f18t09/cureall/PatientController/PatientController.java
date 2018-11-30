@@ -19,6 +19,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class PatientController {
     public static ArrayList<Patient> loadFromFile(Context context, String FILENAME, ArrayList<Patient> patientName, String username) {
@@ -83,5 +84,28 @@ public class PatientController {
         }
 
     }
+    public static void SaveLocalTracker(Context context, String username) {
+        try {
+            File rootDir = new File(context.getFilesDir(),username);
+            rootDir.mkdir();
 
+            FileOutputStream fos = new FileOutputStream(new File(rootDir,"tracker.txt"));//context.openFileOutput(FILENAME,0);
+            OutputStreamWriter osw = new OutputStreamWriter(fos);
+            BufferedWriter writer = new BufferedWriter(osw);
+            Gson gson = new Gson();
+            Date date = new Date();
+             gson.toJson(date, writer);
+
+            writer.flush();
+            fos.close();
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
 }

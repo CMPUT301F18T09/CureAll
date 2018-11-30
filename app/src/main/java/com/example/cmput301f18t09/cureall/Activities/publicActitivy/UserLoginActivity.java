@@ -104,7 +104,12 @@ public class UserLoginActivity extends AppCompatActivity {
             //String Password = passwordInput.getText().toString();
 
             UserState currentState = new UserState(this);
+
+
+
             if (currentState.getState()){
+                PatientController.SaveLocalTracker(UserLoginActivity.this,Username);
+
                 ElasticSearchController.GetPatientTask getuserTask = new ElasticSearchController.GetPatientTask();
                 getuserTask.execute(Username);
 
@@ -121,7 +126,7 @@ public class UserLoginActivity extends AppCompatActivity {
 
                 //TODO if user login (online) then do an sync automatically
                 Sync sync = new Sync(UserLoginActivity.this,Username);
-                if (!sync.Check()){
+                if (!sync.Check()){//device doesnt have anyfolder belongs to the user
                     problems = problemController.GetProblemNum(patients.get(0).getUsername());
                     sync.SyncUSer(patients.get(0));
                     sync.SyncAllProblem(problems,Username);
@@ -129,9 +134,10 @@ public class UserLoginActivity extends AppCompatActivity {
                  }
 
                 else{
-                    sync.SyncPartProblem(patients.get(0));
-
-                    problems = problemController.loadFromFile(UserLoginActivity.this,"problems.txt",problems,Username);
+                    problems = problemController.GetProblemNum(patients.get(0).getUsername());
+                    sync.SyncUSer(patients.get(0));
+                    sync.SyncAllProblem(problems,Username);
+                    sync.SyncAllRecord(Username);
                 }
                 //TODO implement local retrieve funct.
                 Intent intent = new Intent(UserLoginActivity.this,PatientListOfProblemsPageActivity.class);
