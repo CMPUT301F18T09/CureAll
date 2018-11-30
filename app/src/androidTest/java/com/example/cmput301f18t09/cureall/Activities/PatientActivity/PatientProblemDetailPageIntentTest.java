@@ -11,6 +11,7 @@ import android.support.test.espresso.matcher.BoundedMatcher;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.MainActivity;
+import com.example.cmput301f18t09.cureall.Activities.publicActitivy.ViewLocationOnMapActivity;
 import com.example.cmput301f18t09.cureall.Patient;
 import com.example.cmput301f18t09.cureall.PatientAdapter.PatientProblemListPageAdapter;
 import com.example.cmput301f18t09.cureall.Problem;
@@ -68,16 +69,16 @@ public class PatientProblemDetailPageIntentTest {
         records.add(record);
         passDataToProblemDetail(problem,records,problems,patient);
         Intent intent= new Intent();
-        intent.putExtra("ComeFromPatientMainPage", "ComeFromPatientMainPage");
+        intent.putExtra("ComeFromProblemDetail","ComeFromProblemDetail");
         patientProblemDetailPageActivityIntentsTestRule.launchActivity(intent);
 
     }
 
     @Test
-    public void RecordAddingTest() {
+    public void ViewBodyPhotoTest() {
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.record_addButton)).perform(click());
-        intended(hasComponent(PatientRecordAddingPageActivity.class.getName()));
+        onView(withId(R.id.geoLocationButton)).perform(click());
+        intended(hasComponent(ViewLocationOnMapActivity.class.getName()));
 
     }
 
