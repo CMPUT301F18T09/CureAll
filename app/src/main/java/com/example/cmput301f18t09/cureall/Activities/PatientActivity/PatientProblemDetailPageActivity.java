@@ -66,6 +66,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
     private ArrayList<Bitmap> AllPhotos = new ArrayList<>();
     ProgressDialog progress;
     String id;
+    private String onstopControl;
     /**
      * set listener for all buttons
      * set init value for elements used in this activity
@@ -104,11 +105,9 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
             //TODO GET THE POSITION OF WHAT WE CLICK ON
             //REPLACE THE RECORD WITH THE NEW ONE
             loadPosition();
-            //TODO call save problem es ...
+            //TODO replace data for locally usage
             records.set(position,record);
             problem.setRecordArrayList(records);
-            //TODO we can use delete problem and then add problem method..
-            //TODO treat that one as a new problem
 
         }
         else if (intent.getStringExtra("ComeFromRecordAddingPageSAVE") != null && intent.getStringExtra("ComeFromRecordAddingPageSAVE").equals("ComeFromRecordAddingPageSAVE")){
@@ -158,12 +157,11 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-
+                progress=ProgressDialog.show(PatientProblemDetailPageActivity.this,"Loading",
+                        "Loading", true);
                 Intent intent = new Intent(PatientProblemDetailPageActivity.this,PatientListOfProblemsPageActivity.class);
                 problem.setTitle(titleInput.getText().toString());
                 passDataToPatientMainpage(patient,problems);
-                progress=ProgressDialog.show(PatientProblemDetailPageActivity.this,"Loading",
-                        "Loading", true);
                 intent.putExtra("ComeFromProblemDetail","ComeFromProblemDetail");
                 startActivity(intent);
             }
@@ -199,6 +197,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //TODO THIS loop here can also help us load pictures
+                onstopControl = "animate";
                 for (Record record: records){
                     ArrayList<AllKindsOfPhotos> tempPhotos = record.getRecordTrackingPhotoArrayList();
                     for (AllKindsOfPhotos photo: tempPhotos){
@@ -247,7 +246,10 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
         if (progress != null){
             progress.dismiss();
         }
-        finish();
+        if (onstopControl == null){
+            finish();
+        }
+
     }
 
     /**data passing, loading and saving part

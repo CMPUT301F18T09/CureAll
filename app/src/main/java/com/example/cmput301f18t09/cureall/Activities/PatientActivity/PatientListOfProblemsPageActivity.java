@@ -167,20 +167,17 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
 
         mAdapter.setOnItemClickListener(new PatientProblemListPageAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(int position) {
-
-            }
+            public void onItemClick(int position) {}
             @Override
             public void onDetailClick(int position){
-
+                progress=ProgressDialog.show(PatientListOfProblemsPageActivity.this,"Loading",
+                        "Loading", true);
                 Intent intent = new Intent(PatientListOfProblemsPageActivity.this,PatientProblemDetailPageActivity.class);
                 Problem problem = problems.get(position);
                 records = recordController.GetRecordNum(username,problem.getId());
                 passDataToProblemDetail(problem,records,problems,patient);
                 intent.putExtra("ComeFromPatientMainPage", "ComeFromPatientMainPage");
                 intent.putExtra("ProblemPosition",position);
-                progress=ProgressDialog.show(PatientListOfProblemsPageActivity.this,"Loading",
-                        "Loading", true);
                 startActivity(intent);
             }
             @Override
@@ -189,6 +186,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                 ProblemController.DelteProblem(problems,position,username);
                 mAdapter.notifyDataSetChanged();
             }
+
         });
 
 

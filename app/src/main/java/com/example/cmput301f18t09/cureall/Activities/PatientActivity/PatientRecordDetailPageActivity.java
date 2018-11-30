@@ -21,7 +21,9 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderRecordDetailPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.ViewLocationOnMapActivity;
 import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
 import com.example.cmput301f18t09.cureall.BodyLocation;
@@ -128,12 +130,15 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 bodyLocation2 = record.getBodyLocation();
                 photoFlowShow = record.getRecordTrackingPhotoArrayList();
-                // TODO change "PatientViewBodyLocationPhotoPageActivity"
-                Intent intent = new Intent(PatientRecordDetailPageActivity.this, PatientPhotoFlowPageActivity.class);
-                passDataToPhotoFlowPage(bodyLocation2,photoFlowShow);
-                saveDataChanged(record);
-                intent.putExtra("ComeFromRecordDetailPage","ComeFromRecordDetailPagePATIENT");
-                startActivity(intent);
+                if (bodyLocation2 != null && photoFlowShow != null) {
+                    Intent intent = new Intent(PatientRecordDetailPageActivity.this, PatientPhotoFlowPageActivity.class);
+                    passDataToPhotoFlowPage(bodyLocation2, photoFlowShow);
+                    saveDataChanged(record);
+                    intent.putExtra("ComeFromRecordDetailPage", "ComeFromRecordDetailPagePATIENT");
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(PatientRecordDetailPageActivity.this,"You have no photos",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -143,6 +148,8 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PatientRecordDetailPageActivity.this, PatientProblemDetailPageActivity.class);
                 intent.putExtra("ComeFromRecordDetailPage","ComeFromRecordDetailPage");
+                //this is used to pass data
+                saveDataChanged(record);
                 startActivity(intent);
             }
         });
@@ -150,14 +157,18 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
         geoLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent map = new Intent(PatientRecordDetailPageActivity.this, ViewLocationOnMapActivity.class);
-                //TODO REMINDER DONT NEED TO CHANGE HERE
-                Bundle geoLocation = new Bundle();
-                geoLocation.putDouble("log", record.getGeoLocation().getLocation().get(0));
-                geoLocation.putDouble("lat", record.getGeoLocation().getLocation().get(1));
-                map.putExtras(geoLocation);
-                targetPage = "map";
-                startActivity(map);
+                if (record.getGeoLocation() != null){
+                    Intent map = new Intent(PatientRecordDetailPageActivity.this, ViewLocationOnMapActivity.class);
+                    Bundle geoLocation = new Bundle();
+                    geoLocation.putDouble("log", record.getGeoLocation().getLocation().get(0));
+                    geoLocation.putDouble("lat", record.getGeoLocation().getLocation().get(1));
+                    map.putExtras(geoLocation);
+                    targetPage = "map";
+                    startActivity(map);
+                }
+                else {
+                    Toast.makeText(PatientRecordDetailPageActivity.this,"You have not choose a location",Toast.LENGTH_SHORT).show();
+                }
             }
         });
         mAdapter.setOnItemClickListener(new PatientRecordDetailPageAdapter.OnItemClickListener() {
@@ -177,15 +188,26 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 if (direction == ItemTouchHelper.UP){
                     mAdapter.deletePhotos(viewHolder.getAdapterPosition());
+                    //this is used to save changed into cloud
+                    //only works when you back to main page.
+                    //Other times, the data changed are performed by activities passing or getting
                     saveDataChanged(record);
                     RecordController.UpdateRecord(record);
+                    //TODO SYNC HERE
+                    if(mAdapter.getItemCount() == 0){
+                        Toast.makeText(PatientRecordDetailPageActivity.this
+                                ,"You have no more photos",Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         }).attachToRecyclerView(recyclerView);
         recyclerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-
+                if(mAdapter.getItemCount() == 0){
+                    Toast.makeText(PatientRecordDetailPageActivity.this
+                            ,"You have no more photos",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

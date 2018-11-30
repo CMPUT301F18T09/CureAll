@@ -20,6 +20,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderRecordDetailPageActivity;
 import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
@@ -64,11 +65,8 @@ public class PatientPhotoFlowPageActivity extends AppCompatActivity {
         getDataFromRecordDetailPage();
         Intent intent = getIntent();
         thecomer = intent.getStringExtra("ComeFromRecordDetailPage");
-        //photos = bodyLocation.getBodyLocationPhotoArrayList();
         if(photos!=null){
-
             for (AllKindsOfPhotos each : photos) {
-
                 mImageBitmaps.add(each.getPhotoLocation());/**new*/
             }
         }
@@ -85,19 +83,27 @@ public class PatientPhotoFlowPageActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 mImageBitmaps = new ArrayList<>();
                 if (isChecked){
-                    for (AllKindsOfPhotos each : bodyLocation.getBodyLocationPhotoArrayList()) {
-                        mImageBitmaps.add(each.getPhotoLocation());/**new*/
-                        photoFlowPageAdapter.updateItems(mImageBitmaps);
+                    if (bodyLocation != null) {
+                        for (AllKindsOfPhotos each : bodyLocation.getBodyLocationPhotoArrayList()) {
+                            mImageBitmaps.add(each.getPhotoLocation());/**new*/
+                            photoFlowPageAdapter.updateItems(mImageBitmaps);
+                            //TODO set data change
+                        }
                         viewPager.setAdapter(photoFlowPageAdapter);
-                        //TODO set data change
+                    }else {
+                        Toast.makeText(PatientPhotoFlowPageActivity.this,"You have no photos to switch",Toast.LENGTH_SHORT).show();
                     }
                 }
                 else {
-                    for (AllKindsOfPhotos each : photos) {
-                        mImageBitmaps.add(each.getPhotoLocation());/**new*/
-                        photoFlowPageAdapter.updateItems(mImageBitmaps);
+                    if (photos != null) {
+                        for (AllKindsOfPhotos each : photos) {
+                            mImageBitmaps.add(each.getPhotoLocation());/**new*/
+                            photoFlowPageAdapter.updateItems(mImageBitmaps);
+                            //TODO set data change
+                        }
                         viewPager.setAdapter(photoFlowPageAdapter);
-                        //TODO set data change
+                    }else{
+                        Toast.makeText(PatientPhotoFlowPageActivity.this,"You have no photos to switch",Toast.LENGTH_SHORT).show();
                     }
                 }
             }
