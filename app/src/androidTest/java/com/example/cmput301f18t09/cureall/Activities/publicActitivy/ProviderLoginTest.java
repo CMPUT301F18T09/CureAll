@@ -1,5 +1,7 @@
 package com.example.cmput301f18t09.cureall.Activities.publicActitivy;
 
+import android.support.test.espresso.intent.rule.IntentsTestRule;
+
 import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderMainPageActivity;
 import com.example.cmput301f18t09.cureall.R;
 
@@ -7,15 +9,14 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-import androidx.test.espresso.intent.rule.IntentsTestRule;
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static android.support.test.espresso.action.ViewActions.typeText;
+import static android.support.test.espresso.intent.Intents.intended;
+import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.espresso.action.ViewActions.typeText;
-import static androidx.test.espresso.intent.Intents.intended;
-import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 public class ProviderLoginTest {
 

@@ -1,0 +1,6 @@
+<root>
+    <item
+        name='androidx.test.espresso.contrib.RecyclerViewActions androidx.test.espresso.contrib.RecyclerViewActions.PositionableRecyclerViewAction actionOnHolderItem(org.hamcrest.Matcher&lt;VH&gt;, androidx.test.espresso.ViewAction)'>
+        <annotation name='java.lang.Deprecated' />
+    </item>
+</root>
