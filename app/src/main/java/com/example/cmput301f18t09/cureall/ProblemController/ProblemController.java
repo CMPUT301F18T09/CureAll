@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProblemController {
-    public ArrayList<Problem> GetProblemNum(String username){
+    public static ArrayList<Problem> GetProblemNum(String username){
         ArrayList<Problem> problems = new ArrayList<Problem>();
         ElasticSearchController.GetProblemTask getproblemTask = new ElasticSearchController.GetProblemTask();
         getproblemTask.execute(username);
@@ -70,6 +70,14 @@ public class ProblemController {
 
     }
 
+    public static void AddProblem(Problem problem,String username){
+            ArrayList<Problem> problems = ProblemController.GetProblemNum(username);
+            ElasticSearchParams param = new ElasticSearchParams(problems.size(), problem, username);
+
+            ElasticSearchController.AddProblemTask addproblemTask = new ElasticSearchController.AddProblemTask();
+            addproblemTask.execute(problem);
+    }
+
     public static ArrayList<Problem> loadFromFile(Context context, String FILENAME, ArrayList<Problem> problems, String username) {
 
         try {
@@ -81,7 +89,7 @@ public class ProblemController {
 
             GsonBuilder gson = new GsonBuilder();
             //gson.registerTypeAdapter(Problem .class, new MoodAdapter());
-            //Gson gson = new Gson();
+            //Gson gson = new Gson()
             //Type listTweetTYpe = new TypeToken<ArrayList<Tweet>>();
             //!!!!the code below may need a subclass like joy, Arraylist<joy>
             Type problemType = new TypeToken<ArrayList<Problem>>(){}.getType();

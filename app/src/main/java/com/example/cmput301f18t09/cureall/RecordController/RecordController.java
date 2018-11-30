@@ -35,7 +35,7 @@ import java.util.List;
 
 public class RecordController {
 
-    public ArrayList<Record> GetRecordNum(String username, String problemID){
+    public static ArrayList<Record> GetRecordNum(String username, String problemID){
         ArrayList<Record> records = new ArrayList<Record>();
         ElasticSearchController.GetRecordTask getRecordTask = new ElasticSearchController.GetRecordTask();
         ElasticSearchParams params = new ElasticSearchParams(username, problemID);
@@ -52,7 +52,6 @@ public class RecordController {
 
         return records;
     }
-
     public static ArrayList<Record> loadFromFile(Context context, String FILENAME, ArrayList<Record> records, String username) {
 //now we can save to the file
         try {

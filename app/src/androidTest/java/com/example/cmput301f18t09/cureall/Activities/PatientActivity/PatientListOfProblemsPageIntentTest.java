@@ -39,35 +39,12 @@ public class PatientListOfProblemsPageIntentTest {
 
     @Before
     public void SetUp() {
-/*        Patient patient = new Patient("u9","1","1");
-        Context targetConxet = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        SharedPreferences sharedPreferences2 = targetConxet.getSharedPreferences("LoginData",targetConxet.MODE_PRIVATE);
-        SharedPreferences.Editor editor2 = sharedPreferences2.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(patient);*//**save in gson format*//*
-        String json2 = gson.toJson(patient.getProblemArrayList());
-        editor2.putString("patientObject",json);
-        editor2.putString("patientProblems",json2);
 
-
-        intent.putExtra("ComeFromLogin", "ComeFromLogin");
-        patientListOfProblemsPageActivityIntentsTestRule.launchActivity(intent);*/
         onView(withId(R.id.patientLogin)).perform(click());
         onView(withId(R.id.userNameInput)).perform(typeText("u9"), closeSoftKeyboard());
         onView(withId(R.id.passwordInputpass)).perform(typeText("1"), closeSoftKeyboard());
         onView(withId(R.id.loginButton)).perform(click());
-        // Context targetConxet = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        //Patient patient = new Patient("u9","1","1");
-        //UserLoginActivity userLoginActivity = new UserLoginActivity();
 
-
-        //Intent intent = new Intent(targetConxet,PatientListOfProblemsPageActivity.class);
-        //intent.putExtra("ComeFromLogin", "ComeFromLogin");
-        //userLoginActivity.passDataToPatient(patient,patient.getProblemArrayList());
-        /**ends
-         *
-         */
-        // patientListOfProblemsPageActivityIntentsTestRule.launchActivity(intent);
     }
 
     @Test
@@ -83,6 +60,7 @@ public class PatientListOfProblemsPageIntentTest {
 
         //onView((withId(R.id.listOfProblems))).perform(RecyclerViewActions.scrollToPosition(0), actionOnHolderItem(withTitle(2131296590),click()));
         onView((withId(R.id.listOfProblems))).perform(RecyclerViewActions.scrollToPosition(0),click());
+
 
     }
 

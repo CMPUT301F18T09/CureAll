@@ -82,7 +82,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
         descriptionInput = findViewById(R.id.descriptionInput);
         backButton = findViewById(R.id.backButton);
         photoAnimationButton = (Button) findViewById(R.id.photoAnimationButton);
-        addButton = (Button) findViewById(R.id.addButton);
+        addButton = (Button) findViewById(R.id.record_addButton);
         viewProviderCommentButton = (Button) findViewById(R.id.viewProviderCommentButton);
 
         Intent intent = getIntent();
@@ -156,7 +156,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        recyclerView = findViewById(R.id.listOfProblems);
+        recyclerView = findViewById(R.id.listOfRecords);
         recyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mAdapter = new PatientProblemDetailPageAdapter(records);
