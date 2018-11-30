@@ -125,8 +125,8 @@ public class UserLoginActivity extends AppCompatActivity {
                  * NEED TO CONSIDER OFFLINE DATA GET, in this case, problems and patients.get(0) is null!!!!!
                  * ADD try and catch
                  */
-                progress=ProgressDialog.show(this,"dialog title",
-                        "dialog message", true);
+                progress=ProgressDialog.show(this,"Loading",
+                        "Loading", true);
                 intent.putExtra("ComeFromLogin", "ComeFromLogin");
                 passDataToPatient(patients.get(0),problems);
                 /**ends

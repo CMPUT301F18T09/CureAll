@@ -77,7 +77,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
     String pw;
     Patient patient;
     final int REQUEST_PROBLEM_ADDING = 1;
-
+    ProgressDialog progress;
 
     //drawer..
     private DrawerLayout drawer;
@@ -99,7 +99,6 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         Intent intent = getIntent();
         if (intent.getStringExtra("ComeFromLogin") != null && intent.getStringExtra("ComeFromLogin").equals("ComeFromLogin")){
             getDataFromLogin();
-
         }
         else if (intent.getStringExtra("ComeFromAddingPage") != null && intent.getStringExtra("ComeFromAddingPage").equals("ComeFromAddingPage")){
             getDataFromProblemAdding();
@@ -109,22 +108,17 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
             //will pass patient and problems back
         }
 
-        /**ends
-         *
-         */
         username = patient.getUsername();
         user_email = patient.getEmail();
         phone = patient.getPhone();
         id = patient.getPatientID();
-        System.out.print(problems.size());
-        //TODO make sure the problems in previous page can be retrieved from local
-        //TODO everything will be faster
+
         for (Problem problem : problems){
             ArrayList<Record> tempRecords = recordController.GetRecordNum(username,problem.getId());
             Integer number = tempRecords.size();
             numberOfRecords.add(number);
-            //TODO THIS loop here can also help us load pictures
         }
+        //TODO load all records' geolocation and put them into a map
     }
 
     /**
@@ -170,7 +164,6 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         mAdapter = new PatientProblemListPageAdapter(problems,numberOfRecords);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
-        //Log.i("111","111");
 
         mAdapter.setOnItemClickListener(new PatientProblemListPageAdapter.OnItemClickListener() {
             @Override
@@ -186,6 +179,8 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                 passDataToProblemDetail(problem,records,problems,patient);
                 intent.putExtra("ComeFromPatientMainPage", "ComeFromPatientMainPage");
                 intent.putExtra("ProblemPosition",position);
+                progress=ProgressDialog.show(PatientListOfProblemsPageActivity.this,"Loading",
+                        "Loading", true);
                 startActivity(intent);
             }
             @Override
@@ -267,6 +262,9 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
     @Override
     protected void onStop() {
         super.onStop();
+        if (progress != null){
+            progress.dismiss();
+        }
         finish();
     }
 

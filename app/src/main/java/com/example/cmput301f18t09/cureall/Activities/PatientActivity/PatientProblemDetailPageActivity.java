@@ -9,6 +9,7 @@
  */
 package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -63,7 +64,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
     private Integer position, problemPosition;
     final int REQUEST_RECORD_ADDING = 1;
     private ArrayList<Bitmap> AllPhotos = new ArrayList<>();
-
+    ProgressDialog progress;
     String id;
     /**
      * set listener for all buttons
@@ -161,6 +162,8 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
                 Intent intent = new Intent(PatientProblemDetailPageActivity.this,PatientListOfProblemsPageActivity.class);
                 problem.setTitle(titleInput.getText().toString());
                 passDataToPatientMainpage(patient,problems);
+                progress=ProgressDialog.show(PatientProblemDetailPageActivity.this,"Loading",
+                        "Loading", true);
                 intent.putExtra("ComeFromProblemDetail","ComeFromProblemDetail");
                 startActivity(intent);
             }
@@ -213,7 +216,6 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
                 passDataToGallary(AllPhotos);
                 saveDataToLocal(problems,patient,records,problem);
                 startActivity(intent);
-                System.out.println(AllPhotos.size());
             }
         });
     }
@@ -242,6 +244,9 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        if (progress != null){
+            progress.dismiss();
+        }
         finish();
     }
 
