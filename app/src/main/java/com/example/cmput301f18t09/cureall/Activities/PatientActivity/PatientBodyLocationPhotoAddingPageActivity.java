@@ -99,7 +99,6 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
             }
         });
 
-
         //set saveButton listener
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,50 +133,12 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
     }
 
     /**
-     * set init value for elements used in this activity
-     * (or give reference)
-     * including buttons, textviews, patients, records, problems, bodylocations
-     */
-    public void initializedAllElements(){
-        bodySelectionSymbol = findViewById(R.id.bodySelectionSymbol);
-        backButton = findViewById(R.id.backButton);
-        saveButton = findViewById(R.id.saveButton);
-        frontPhotoButton = findViewById(R.id.frontPhotoButton);
-        backPhotoButton = findViewById(R.id.backPhotoButton);
-        cameraButton = findViewById(R.id.cameraButton);
-        selectedBodyLocation = findViewById(R.id.selectedBodyLocation);
-        fixedText1 = findViewById(R.id.fixedText1);
-        fixedText2 = findViewById(R.id.fixedText2);
-        fixedText4 = findViewById(R.id.fixedText4);
-        fixedText5 = findViewById(R.id.fixedText5);
-    }
-
-    /**
      * active next activity: take photos
      */
     private void dispatchTakePictureIntent(Integer code) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         startActivityForResult(takePictureIntent, code);
-        /**
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
-
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
-                        "com.example.cmput301f18t09.cureall.fileprovider",
-                        photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-            }
-        }**/
     }
 
     /**
@@ -204,7 +165,6 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
                 }
             }
             pictures.add(newpicture);
-
 
         }
         else if (requestCode == BACK_IMAGE_CAPTURE){
@@ -241,5 +201,23 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
         String json = gson.toJson(record);/**save in gson format*/
         editor2.putString("record",json);
         editor2.apply();
+    }
+    /**
+     * set init value for elements used in this activity
+     * (or give reference)
+     * including buttons, textviews, patients, records, problems, bodylocations
+     */
+    public void initializedAllElements(){
+        bodySelectionSymbol = findViewById(R.id.bodySelectionSymbol);
+        backButton = findViewById(R.id.backButton);
+        saveButton = findViewById(R.id.saveButton);
+        frontPhotoButton = findViewById(R.id.frontPhotoButton);
+        backPhotoButton = findViewById(R.id.backPhotoButton);
+        cameraButton = findViewById(R.id.cameraButton);
+        selectedBodyLocation = findViewById(R.id.selectedBodyLocation);
+        fixedText1 = findViewById(R.id.fixedText1);
+        fixedText2 = findViewById(R.id.fixedText2);
+        fixedText4 = findViewById(R.id.fixedText4);
+        fixedText5 = findViewById(R.id.fixedText5);
     }
 }

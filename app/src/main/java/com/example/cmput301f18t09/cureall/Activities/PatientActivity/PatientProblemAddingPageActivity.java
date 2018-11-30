@@ -58,13 +58,17 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_patient_problem_adding_page);
         initializedAllElements();
         getDataFromPatientMainPage();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //String username = Username.getText().toString();                                                       //get the input of year/month/day/hour/minute/
                 String prob_title = titleInput.getText().toString();
                 String prob_desp = descriptionInput.getText().toString();
                 String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
-
                 //Problem problem = new Problem(username,prob_title,prob_desp,currentDateTimeString,null);
                 saveProblem(username,prob_title,prob_desp,currentDateTimeString);
                 Handler handler = new Handler();
@@ -79,11 +83,8 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
                         //setResult(RESULT_OK, intent);
                     }
                 }, 1000);
-
-
             }
         });
-
     }
 
     @Override

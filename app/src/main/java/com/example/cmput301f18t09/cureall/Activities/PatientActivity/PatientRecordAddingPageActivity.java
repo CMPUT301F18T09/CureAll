@@ -235,29 +235,6 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
 
     }
 
-    /**
-     * set init value for elements used in this activity
-     * (or give reference)
-     * including buttons, textviews, new record's info
-     */
-    private void initializer()
-    {
-        backButton = findViewById(R.id.backButton);
-        saveButton = findViewById(R.id.saveButton);
-        fromAlbumButton = findViewById(R.id.fromAlbumButton);
-        cameraButton = findViewById(R.id.cameraButton);
-        geoLocationSelectButton = findViewById(R.id.geoLocationSelectButton);
-        timeSelectButton = findViewById(R.id.timeSelectButton);
-        bodyLocationSelectButton = findViewById(R.id.bodyLocationSelectButton);
-        writeSymbol = findViewById(R.id.writeSymbol);
-        maxLength30 = findViewById(R.id.maxLength30);
-        maxLength300 = findViewById(R.id.maxLength300);
-        titleInput = findViewById(R.id.titleInput);
-        descriptionInput = findViewById(R.id.descriptionInput);
-        recordController = new RecordController();
-
-
-    }
     //onImageGalleryClicked
     public void onImageGalleryClicked() {
         // invoke the image gallery using an implict intent.
@@ -462,5 +439,26 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
         editor2.apply();
     }
 
+    /**
+     * set init value for elements used in this activity
+     * (or give reference)
+     * including buttons, textviews, new record's info
+     */
+    private void initializer()
+    {
+        backButton = findViewById(R.id.backButton);
+        saveButton = findViewById(R.id.saveButton);
+        fromAlbumButton = findViewById(R.id.fromAlbumButton);
+        cameraButton = findViewById(R.id.cameraButton);
+        geoLocationSelectButton = findViewById(R.id.geoLocationSelectButton);
+        timeSelectButton = findViewById(R.id.timeSelectButton);
+        bodyLocationSelectButton = findViewById(R.id.bodyLocationSelectButton);
+        writeSymbol = findViewById(R.id.writeSymbol);
+        maxLength30 = findViewById(R.id.maxLength30);
+        maxLength300 = findViewById(R.id.maxLength300);
+        titleInput = findViewById(R.id.titleInput);
+        descriptionInput = findViewById(R.id.descriptionInput);
+        recordController = new RecordController();
+    }
 
 }

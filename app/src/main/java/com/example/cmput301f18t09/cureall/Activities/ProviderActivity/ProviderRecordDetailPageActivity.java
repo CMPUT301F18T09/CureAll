@@ -107,6 +107,23 @@ public class ProviderRecordDetailPageActivity extends AppCompatActivity {
             }
         });
     }
+    public void getDataFromProblemDetailPage(){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("ProviderProblemDetailData",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences2.getString("record",null);
+        Type type = new TypeToken<Record>(){}.getType();
+        record = gson.fromJson(json,type);
+    }
+    public void passDataToPhotoFlowPage(BodyLocation bodyLocation2,ArrayList<AllKindsOfPhotos> photoFlowShow){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("RecordDetailData",MODE_PRIVATE);
+        SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(bodyLocation2);/**save in gson format*/
+        String json2 = gson.toJson(photoFlowShow);
+        editor2.putString("bodyLocation2",json);
+        editor2.putString("photoFlowShow",json2);
+        editor2.apply();
+    }
 
     /**
      * This function is a helper to help initialize the buttons and textviews,
@@ -125,23 +142,6 @@ public class ProviderRecordDetailPageActivity extends AppCompatActivity {
         bodyLocationContent =  findViewById(R.id.bodyLocationContent);
         viewPhotoFlow = findViewById(R.id.viewPhotoFlow);
         photo = findViewById(R.id.photo);
-    }
-    public void getDataFromProblemDetailPage(){
-        SharedPreferences sharedPreferences2 = getSharedPreferences("ProviderProblemDetailData",MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences2.getString("record",null);
-        Type type = new TypeToken<Record>(){}.getType();
-        record = gson.fromJson(json,type);
-    }
-    public void passDataToPhotoFlowPage(BodyLocation bodyLocation2,ArrayList<AllKindsOfPhotos> photoFlowShow){
-        SharedPreferences sharedPreferences2 = getSharedPreferences("RecordDetailData",MODE_PRIVATE);
-        SharedPreferences.Editor editor2 = sharedPreferences2.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(bodyLocation2);/**save in gson format*/
-        String json2 = gson.toJson(photoFlowShow);
-        editor2.putString("bodyLocation2",json);
-        editor2.putString("photoFlowShow",json2);
-        editor2.apply();
     }
 
 }

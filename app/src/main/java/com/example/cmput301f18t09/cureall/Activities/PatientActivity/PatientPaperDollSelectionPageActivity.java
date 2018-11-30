@@ -51,8 +51,6 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
     private Patient patient;
     private BodyLocation bodyLocation;
     private ArrayList<Record> records;
-
-    final int REQUEST_BODY = 2;
     /**
      * initialize some buttons/ image buttons from its relative xml file
      * that allows the user to click from the image
@@ -67,21 +65,6 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
         paperDoll.setOnTouchListener(touchListener);
         //TODO
         getDataFromRecordAddingPage();
-    }
-
-    /**
-     * set init value for elements used in this activity
-     * (or give reference)
-     *  including buttons, textviews,  patients, records, problems
-     *  There is still a problem, which is the gender can not be switch right now.
-     *  The two gender will be presented in next project
-     */
-    public void initializeAllElements(){
-        paperDoll =findViewById(R.id.paperDoll);
-        paperDollColorDivide =findViewById(R.id.paperDollColorDivide);
-        femaleText =findViewById(R.id.femaleText);
-        maleText =findViewById(R.id.maleText);
-        switch1 =findViewById(R.id.switch1);// the switch has not been applied yet, we only have a male gender right now
     }
     /**
      * A touch listener handles all functions that deal with the case of which body location
@@ -232,6 +215,21 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
         String json = gson.toJson(record);/**save in gson format*/
         editor2.putString("record",json);
         editor2.apply();
+    }
+
+    /**
+     * set init value for elements used in this activity
+     * (or give reference)
+     *  including buttons, textviews,  patients, records, problems
+     *  There is still a problem, which is the gender can not be switch right now.
+     *  The two gender will be presented in next project
+     */
+    public void initializeAllElements(){
+        paperDoll =findViewById(R.id.paperDoll);
+        paperDollColorDivide =findViewById(R.id.paperDollColorDivide);
+        femaleText =findViewById(R.id.femaleText);
+        maleText =findViewById(R.id.maleText);
+        switch1 =findViewById(R.id.switch1);// the switch has not been applied yet, we only have a male gender right now
     }
 
 }

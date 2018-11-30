@@ -45,22 +45,6 @@ public class PatientSignUpActivity extends AppCompatActivity{
     }
 
     /**
-     * get all info needed for creating a new patient account from EditText
-     */
-    public void initalizeAllElements(){
-        backButton = (Button) findViewById(R.id.backButton);
-        continueButton = (Button) findViewById(R.id.continueButton);
-        username = (EditText) findViewById(R.id.userNameInput);
-        password = (EditText) findViewById(R.id.passwordInputpass);
-        rePassword = (EditText) findViewById(R.id.confirmPasswodInput);
-        email = (EditText) findViewById(R.id.emailAddressInput);
-        phone = (EditText) findViewById(R.id.phoneNumberInput);
-        patientSymbol = (ImageView) findViewById(R.id.patientSymbol);
-
-
-    }
-
-    /**
      * set continueButton listener
      * sign for a patient
      */
@@ -91,5 +75,21 @@ public class PatientSignUpActivity extends AppCompatActivity{
                 startActivity(intent);
             }
         });
+    }
+
+    /**
+     * get all info needed for creating a new patient account from EditText
+     */
+    public void initalizeAllElements(){
+        backButton = (Button) findViewById(R.id.backButton);
+        continueButton = (Button) findViewById(R.id.continueButton);
+        username = (EditText) findViewById(R.id.userNameInput);
+        password = (EditText) findViewById(R.id.passwordInputpass);
+        rePassword = (EditText) findViewById(R.id.confirmPasswodInput);
+        email = (EditText) findViewById(R.id.emailAddressInput);
+        phone = (EditText) findViewById(R.id.phoneNumberInput);
+        patientSymbol = (ImageView) findViewById(R.id.patientSymbol);
+
+
     }
 }

@@ -35,9 +35,6 @@ public class PatientShowProviderCommentPageActivity extends AppCompatActivity {
     private TextView titleTextView, problemDescription,problemProviderComment,
             titleContent,descriptionContent,commentContent;
     private Problem problem;
-    private Patient patient;
-    private ArrayList<Problem> problems;
-    ArrayList<Record> records = new ArrayList<>();
 
     /**
      * get basic info for problems & records
@@ -62,12 +59,15 @@ public class PatientShowProviderCommentPageActivity extends AppCompatActivity {
         commentContent.setText(problem.getDoctorcomment());
         descriptionContent.setText((problem.getDescription()));
         titleContent.setText(problem.getTitle());
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PatientShowProviderCommentPageActivity.this,PatientProblemDetailPageActivity.class);
-
                 passDataToProblemDetailPage(problem);
                 intent.putExtra("ComeFromCommentViewPage","ComeFromCommentViewPage");
                 startActivity(intent);

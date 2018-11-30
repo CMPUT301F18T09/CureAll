@@ -129,6 +129,12 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
     @Override
     protected void onStart() {
         super.onStart();
+        recyclerView = findViewById(R.id.listOfProblems);
+        recyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this);
+        mAdapter = new PatientProblemListPageAdapter(problems,numberOfRecords);
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setAdapter(mAdapter);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -155,15 +161,6 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                 custom.show();
             }
         });
-       // problems = problemController.GetProblemNum(username);
-
-
-        recyclerView = findViewById(R.id.listOfProblems);
-        recyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this);
-        mAdapter = new PatientProblemListPageAdapter(problems,numberOfRecords);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setAdapter(mAdapter);
 
         mAdapter.setOnItemClickListener(new PatientProblemListPageAdapter.OnItemClickListener() {
             @Override
@@ -242,6 +239,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                 break;
             case R.id.mapOfRecords:
                 Toast.makeText(this,"Here is a map of all records",Toast.LENGTH_SHORT).show();
+                //TODO ADD A ACTIVITY TO VIEW A all geolocation on map
                 break;
         }
         return true;

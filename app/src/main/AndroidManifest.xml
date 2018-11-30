@@ -40,7 +40,6 @@
         <activity android:name=".Activities.PatientActivity.PatientRecordDetailPageActivity" />
         <activity android:name=".Activities.PatientActivity.PatientPaperDollSelectionPageActivity" />
         <activity android:name=".Activities.PatientActivity.PatientBodyLocationPhotoAddingPageActivity" />
-        <activity android:name=".Activities.PatientActivity.PatientViewBodyLocationPhotoPageActivity" />
         <activity android:name=".Activities.PatientActivity.PatientPhotoFlowPageActivity" />
         <activity android:name=".Activities.publicActitivy.SearchActivity" />
         <activity android:name=".Activities.publicActitivy.SearchResultActivity" />

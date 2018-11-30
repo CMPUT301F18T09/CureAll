@@ -97,27 +97,6 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
     }
 
     /**
-     * set init value for elements used in this activity
-     * (or give reference)
-     * including (Image)buttons, textviews, record's info
-     */
-    public void initalizeAllElements(){
-        backButton =  findViewById(R.id.backButton);
-        geoLocationButton =  findViewById(R.id.geoLocationButton);
-        title = findViewById(R.id.title);
-        titleContent = findViewById(R.id.titleContent);
-        comment = findViewById(R.id.comment);
-        commentContent = findViewById(R.id.commentContent);
-        time = findViewById(R.id.time);
-        timeContent = findViewById(R.id.timeContent);
-        bodyLocation = findViewById(R.id.bodyLocation);
-        bodyLocationContent = findViewById(R.id.bodyLocationContent);
-        photo = findViewById(R.id.photo);
-        viewBodyLocationPhotoButton = findViewById(R.id.viewBodyLocationPhotoButton);
-        recordDetailHeader = findViewById(R.id.recordDetailHeader);
-    }
-
-    /**
      * set listeners for buttons
      */
     @Override
@@ -264,5 +243,26 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
         editor2.putString("bodyLocation2",json);
         editor2.putString("photoFlowShow",json2);
         editor2.apply();
+    }
+
+    /**
+     * set init value for elements used in this activity
+     * (or give reference)
+     * including (Image)buttons, textviews, record's info
+     */
+    public void initalizeAllElements(){
+        backButton =  findViewById(R.id.backButton);
+        geoLocationButton =  findViewById(R.id.geoLocationButton);
+        title = findViewById(R.id.title);
+        titleContent = findViewById(R.id.titleContent);
+        comment = findViewById(R.id.comment);
+        commentContent = findViewById(R.id.commentContent);
+        time = findViewById(R.id.time);
+        timeContent = findViewById(R.id.timeContent);
+        bodyLocation = findViewById(R.id.bodyLocation);
+        bodyLocationContent = findViewById(R.id.bodyLocationContent);
+        photo = findViewById(R.id.photo);
+        viewBodyLocationPhotoButton = findViewById(R.id.viewBodyLocationPhotoButton);
+        recordDetailHeader = findViewById(R.id.recordDetailHeader);
     }
 }

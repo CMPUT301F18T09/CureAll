@@ -71,8 +71,6 @@ public class ProviderMainPageActivity extends AppCompatActivity {
             //TODO implememnt local data retrive function here
         }
         //test ends...
-
-
     }
 
     /**

@@ -63,10 +63,6 @@ public class LocationPickerActivity extends AppCompatActivity {
     //variables from former activities..
     private Problem problem;
     private Record record;
-    private Patient patient;
-    private ArrayList<Problem> problems;
-
-    private ArrayList<Record> records;
     private GeoLocation recordGeoLocation;
     private Double longitude;
     private Double latitude;

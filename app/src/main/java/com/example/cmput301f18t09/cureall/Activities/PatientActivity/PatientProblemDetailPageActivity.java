@@ -117,7 +117,6 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
 
         //final String username = incomingIntent.getStringExtra("username");
         id = patient.getPatientID();
-        //set the content on view
         titleInput.setText(problem.getTitle());
         dateInput.setText(problem.getTime());
         descriptionInput.setText(problem.getDescription());
