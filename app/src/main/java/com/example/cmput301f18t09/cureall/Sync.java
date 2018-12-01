@@ -92,6 +92,7 @@ public class Sync {
         for (Record r: records){
             if(r.getProblemid().equals(checker) && r.getState().equals("offline")){
                 SyncPushRecord(r,username,problem,records);
+                r.setState("Online");
             }
         }
 
@@ -100,9 +101,13 @@ public class Sync {
     }
 
     public void SyncPushRecord(Record record,String username,Problem problem,ArrayList<Record> records){
+
         record.setID(null);
         record.setProblemid(problem.getId());
+
         Record temp = record;
+        record.setState("Online");
+
         ElasticSearchParams param = new ElasticSearchParams(username,record,problem.getId());
         ElasticSearchController.AddRecordTask addRecordTask = new ElasticSearchController.AddRecordTask();
 

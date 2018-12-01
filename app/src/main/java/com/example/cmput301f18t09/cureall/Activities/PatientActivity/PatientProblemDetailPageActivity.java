@@ -64,7 +64,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
     boolean checker;
     ScheduledExecutorService service;
     String id;
-
+    boolean flag;
 
     /**
      * set listener for all buttons
@@ -131,18 +131,18 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
                 if (current.getState()){
                     checker =true;
                     Sync sync = new Sync(PatientProblemDetailPageActivity.this,patient.getUsername());
-
+                    flag = false;
                     for (Record r : records){
+                        flag = true;
                         if (r.getState().equals("offline") && problem.getState().equals("Online")){
                             Log.i("SYNC","begin");
                             sync.SyncPushRecord(r,patient.getUsername(),problem,records);
+                            r.setState("Online");
                         }
                     }
                     Log.i("SYNC", "start sync");
 
-                    RecordController recordcontrol = new RecordController();
-                    records = recordcontrol.GetRecordNum(problem.getUsername(),problem.getId());
-                    RecordController.saveInFile(PatientProblemDetailPageActivity.this,"records.txt",records,problem.getUsername());
+
                 }
                 if (!current.getState()){
                     checker = false;

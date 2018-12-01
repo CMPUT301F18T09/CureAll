@@ -188,6 +188,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                     }
                     ArrayList<Problem> Allproblems = problemController.GetProblemNum(username);
                     ProblemController.saveInFile(PatientListOfProblemsPageActivity.this,"problems.txt",Allproblems,username);
+
                     Allproblems = new ArrayList<>();
                     ProblemController.saveInFile(PatientListOfProblemsPageActivity.this,"Deleteproblems.txt",Allproblems,username);
 
