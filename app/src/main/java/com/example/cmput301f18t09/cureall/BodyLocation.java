@@ -9,6 +9,8 @@
  */
 package com.example.cmput301f18t09.cureall;
 
+import android.graphics.Bitmap;
+
 import java.util.ArrayList;
 import java.io.Serializable;
 
@@ -20,24 +22,16 @@ import java.io.Serializable;
  */
 public class BodyLocation implements Serializable {
     private String bodyLocationName;
-    private ArrayList<String> photoPaths;
-
-    //special fucntion
-    public String getLocationFromPaperDollPhoto(){
-        return "arm";
-    }
-    //only deal with one photo addition
-    public void addBodyLocationPhoto(){ }
-    //end
+    private ArrayList<AllKindsOfPhotos> photos;
 
     /**
      * Init for class BodyLocation
      * @param bodyLocationName              name of bodyLocation
      * @param bodyLocationPhotoArrayList    an ArrayList of bodylocationPhoto
      */
-    public BodyLocation(String bodyLocationName, ArrayList<String> bodyLocationPhotoArrayList) {
+    public BodyLocation(String bodyLocationName, ArrayList<AllKindsOfPhotos> bodyLocationPhotoArrayList) {
         this.bodyLocationName = bodyLocationName;
-        this.photoPaths = bodyLocationPhotoArrayList;
+        this.photos = bodyLocationPhotoArrayList;
     }
 
     /**
@@ -60,16 +54,16 @@ public class BodyLocation implements Serializable {
      * getter for photoPaths
      * @return photoPaths
      */
-    public ArrayList<String> getBodyLocationPhotoArrayList() {
-        return photoPaths;
+    public ArrayList<AllKindsOfPhotos> getBodyLocationPhotoArrayList() {
+        return photos;
     }
 
     /**
      * setter for bodyLocationPhotoArrayList
      * @param bodyLocationPhotoArrayList        new bodyLocationPhotoArrayList
      */
-    public void setBodyLocationPhotoArrayList(ArrayList<String> bodyLocationPhotoArrayList) {
-        this.photoPaths = bodyLocationPhotoArrayList;
+    public void setBodyLocationPhotoArrayList(ArrayList<AllKindsOfPhotos> bodyLocationPhotoArrayList) {
+        this.photos = bodyLocationPhotoArrayList;
     }
 
 }

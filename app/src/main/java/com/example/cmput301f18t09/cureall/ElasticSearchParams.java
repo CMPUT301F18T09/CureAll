@@ -10,6 +10,8 @@
 package com.example.cmput301f18t09.cureall;
 
 import java.util.ArrayList;
+import java.util.Date;
+
 /**
  * Model class for recording CareProvider
  *
@@ -26,6 +28,7 @@ public class ElasticSearchParams {
     String id;
     ArrayList<String> patients;
     String problemid;
+    Date lastPulltime;
 
     /**
      * one Init for class ElasticSearchParams
@@ -33,7 +36,7 @@ public class ElasticSearchParams {
      * @param problem   searched problem
      * @param id        id
      */
-    public ElasticSearchParams(String username,Problem problem,String id){
+    public ElasticSearchParams(String username, Problem problem, String id){
         this.username = username;
         this.problem = problem;
         this.id = id;
@@ -46,7 +49,7 @@ public class ElasticSearchParams {
      * @param problem
      * @param Patientid
      */
-    public ElasticSearchParams(Integer num,Problem problem,String Patientid){
+    public ElasticSearchParams(Integer num, Problem problem, String Patientid){
         this.num = num;
         this.problem = problem;
         this.id = id;
@@ -66,13 +69,24 @@ public class ElasticSearchParams {
      * one init for class ElasticSearchParams
      * @param username
      * @param record
-     * @param problemid
      */
-    public ElasticSearchParams(String username, Record record, String problemid){
+    // delete record
+    public ElasticSearchParams(String username, Record record, String ID, String identify){
         this.username = username;
         this.record = record;
-        this.problemid = problemid;
+        if (identify.equals("delete")){
+            this.id = ID;
+        }else{
+            this.problemid = ID;
+        }
+
     }
+    // add record
+    /*public ElasticSearchParams(String username, Record record, String problemid){
+        this.username = username;
+        this.record = record;
+
+    }*/
 
     /**
      * one init for class ElasticSearchParams
@@ -82,6 +96,10 @@ public class ElasticSearchParams {
     public ElasticSearchParams(String username, String problemid){
         this.username = username;
         this.problemid = problemid;
+    }
+    public ElasticSearchParams(String username, Date lastPulltime){
+        this.username = username;
+        this.lastPulltime = lastPulltime;
     }
 
 /*  may use later

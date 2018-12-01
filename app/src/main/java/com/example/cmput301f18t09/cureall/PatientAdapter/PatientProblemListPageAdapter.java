@@ -34,6 +34,8 @@ import java.util.ArrayList;
 public class PatientProblemListPageAdapter extends RecyclerView.Adapter<PatientProblemListPageAdapter.viewHolder> {
     private ArrayList<Problem> problemArrayList;
     private OnItemClickListener mlistener;
+    private ArrayList<Integer> numerOfRecords;
+    private Integer currentNumber;
     /**
      * The view holder is used to carry a card view
      * which is used to contain the preview information of a problem
@@ -104,9 +106,9 @@ public class PatientProblemListPageAdapter extends RecyclerView.Adapter<PatientP
      * constructor of this adapter
      * @param problemList
      */
-    public PatientProblemListPageAdapter(ArrayList<Problem> problemList){
+    public PatientProblemListPageAdapter(ArrayList<Problem> problemList, ArrayList<Integer> numberofRecords){
         problemArrayList = problemList;
-
+        numerOfRecords = numberofRecords;
 
     }
     /**
@@ -137,8 +139,11 @@ public class PatientProblemListPageAdapter extends RecyclerView.Adapter<PatientP
              * This part has not been finished yet, so you cant see how many records, a problem has.
              * It will be finished at the next project
              */
+            currentNumber = numerOfRecords.get(position);
+            viewHolder.numberOfRecords.setText(currentNumber.toString());
         }
         viewHolder.date.setText(currentProblem.getTime());
+
         // viewHolder.date.setText(currentProblem.getTime());
         //viewHolder.numberOfRecords.setText(currentProblem.get(...));
 

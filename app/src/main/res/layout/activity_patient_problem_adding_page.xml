@@ -60,10 +60,11 @@
         android:id="@+id/descriptionInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="93dp"
+        android:layout_marginBottom="100dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="156dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:inputType="textCapSentences|textMultiLine"
         android:maxLength="300"
         android:maxLines="5"
@@ -73,8 +74,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/maxLength30" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/titleInput"

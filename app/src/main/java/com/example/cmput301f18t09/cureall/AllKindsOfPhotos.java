@@ -10,6 +10,8 @@
 package com.example.cmput301f18t09.cureall;
 
 //?PhotoLocation=/Location/c/abd.jpg&PhotoType=jpg&photoSize=12342&photoWidth=123.22&photoLength=126.88
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 /**
  * Model class for recording all kinds of photos
@@ -21,6 +23,7 @@ import java.io.Serializable;
 public class AllKindsOfPhotos implements Serializable{
     private String photoLocation, photoType;
     private Double photoSize, photoWidth, photoLength;
+    private Bitmap pic;
 
     /**
      * Init for class AllKindsOfPhotos
@@ -30,12 +33,13 @@ public class AllKindsOfPhotos implements Serializable{
      * @param photoWidth        width of photo
      * @param photoLength       length of photo
      */
-    public AllKindsOfPhotos(String photoLocation, String photoType, Double photoSize, Double photoWidth, Double photoLength) {
+    public AllKindsOfPhotos(Bitmap pic,String photoLocation, String photoType, Double photoSize, Double photoWidth, Double photoLength) {
         this.photoLocation = photoLocation;
         this.photoType = photoType;
         this.photoSize = photoSize;
         this.photoWidth = photoWidth;
         this.photoLength = photoLength;
+        this.pic = pic;
     }
     public AllKindsOfPhotos(){}
 
@@ -119,4 +123,7 @@ public class AllKindsOfPhotos implements Serializable{
         this.photoLength = photoLength;
     }
 
+    public Bitmap getPic() {
+        return pic;
+    }
 }

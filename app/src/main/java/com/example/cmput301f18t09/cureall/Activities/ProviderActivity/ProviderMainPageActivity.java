@@ -11,6 +11,7 @@ package com.example.cmput301f18t09.cureall.Activities.ProviderActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,6 +26,7 @@ import com.example.cmput301f18t09.cureall.ElasticSearchController;
 import com.example.cmput301f18t09.cureall.Patient;
 import com.example.cmput301f18t09.cureall.ProviderAdapter.ProviderMainPageAdapter;
 import com.example.cmput301f18t09.cureall.R;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,25 +57,20 @@ public class ProviderMainPageActivity extends AppCompatActivity {
         addPatientButton = (ImageButton) findViewById(R.id.addPatientButton);
         searchProblemRecordButton =(ImageButton) findViewById(R.id.searchProblemRecordButton);
         providerMainPage = findViewById(R.id.providerMainPage);
+        examplePatientList = new ArrayList<>();
         //test samples...
         Intent incomingIntent = getIntent();
-        //final ArrayList<Patient> username = incomingIntent.getStringExtra("username");
         username = incomingIntent.getStringExtra("username");
-        examplePatientList = new ArrayList<>();
-
         ElasticSearchController.GetPatientListTask getPatientListTask = new ElasticSearchController.GetPatientListTask();
         getPatientListTask.execute(username);
         try {
             List<Patient> foundPatient= getPatientListTask.get();
             examplePatientList.addAll(foundPatient);
-
-
         } catch (Exception e) {
             Log.i("Error", "Failed to get the user from the async object");
+            //TODO implememnt local data retrive function here
         }
         //test ends...
-
-
     }
 
     /**
@@ -105,7 +102,6 @@ public class ProviderMainPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(ProviderMainPageActivity.this,"Add patient button..", Toast.LENGTH_SHORT).show();
-
                 Intent intent = new Intent(ProviderMainPageActivity.this,ProviderAddPatientActivity.class);
                 intent.putExtra("username", username);
                 startActivity(intent);
@@ -130,15 +126,19 @@ public class ProviderMainPageActivity extends AppCompatActivity {
             public void onDetailClick(int position){
                 Intent intent = new Intent(ProviderMainPageActivity.this,ProviderAListOfProblemsPageActivity.class);
                 Patient patient = examplePatientList.get(position);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("patient", patient);
-                intent.putExtras(bundle);
-//                intent.putExtra("problem",problem.getId());
+                passDataToAListOfProblemPage(patient);
+                intent.putExtra("ComeFromProviderMainPage","ComeFromProviderMainPage");
                 startActivity(intent);
             }
         });
 
 
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
     }
 
     /**
@@ -158,10 +158,22 @@ public class ProviderMainPageActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
                     }
                 }
         );
         builderSingle.show();
     }
+    /**save
+     * and
+     * get
+     */
+    public void passDataToAListOfProblemPage(Patient patient){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("ProviderMainPageData",MODE_PRIVATE);
+        SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(patient);
+        editor2.putString("patient",json);
+        editor2.apply();
+    }
+
 }

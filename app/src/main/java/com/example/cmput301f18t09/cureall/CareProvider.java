@@ -74,12 +74,11 @@ public class CareProvider extends user {
     /**
      * Init for class CareProvider
      * @param username      Careprovider name (account)
-     * @param password      corresponding password
      * @param email         corresponding email
      * @param phone         corresponding phone
      */
-    public CareProvider(String username, String password, String email, String phone) {
-        super(username, password,email, phone);
+    public CareProvider(String username, String email, String phone) {
+        super(username,email, phone);
     }
 
 

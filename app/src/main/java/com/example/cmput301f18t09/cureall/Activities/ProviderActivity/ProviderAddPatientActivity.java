@@ -66,27 +66,28 @@ public class ProviderAddPatientActivity extends AppCompatActivity {
                 try {
                     List<Patient> foundPatient= getPatientTask.get();
                     patients.addAll(foundPatient);
-                    Patient new_patient = new Patient(patients.get(0).getUsername(),patients.get(0).getPassword(),patients.get(0).getEmail(),patients.get(0).getPhone());
+                    Patient new_patient = new Patient(patients.get(0).getUsername(),patients.get(0).getEmail(),patients.get(0).getPhone());
                     new_patient.setDoctorID(doctorname);
                     ElasticSearchController.AddPatientTask addPatientTask = new ElasticSearchController.AddPatientTask();
                     addPatientTask.execute(new_patient);
                 } catch (Exception e) {
                     Log.i("Error", "Failed to get the user from the async object");
                 }
-                Intent intent = new Intent(ProviderAddPatientActivity.this, ProviderMainPageActivity.class);
-                intent.putExtra("doctorname", doctorname);
-                intent.putExtra("patientname", patients.get(0).getUsername());
-                intent.putExtra("patientEmail", patients.get(0).getEmail());
-                intent.putExtra("patientPassword", patients.get(0).getPassword());
-                intent.putExtra("patientPhone", patients.get(0).getPhone());
-                setResult(0, intent);
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
-                        ProviderAddPatientActivity.this.finish();
+                        Intent intent = new Intent(ProviderAddPatientActivity.this, ProviderMainPageActivity.class);
+                        intent.putExtra("username", doctorname);
+                        startActivity(intent);
                     }
                 },1000);
             }
         });
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
     }
 }

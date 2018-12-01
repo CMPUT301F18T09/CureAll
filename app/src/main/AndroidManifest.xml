@@ -40,7 +40,6 @@
         <activity android:name=".Activities.PatientActivity.PatientRecordDetailPageActivity" />
         <activity android:name=".Activities.PatientActivity.PatientPaperDollSelectionPageActivity" />
         <activity android:name=".Activities.PatientActivity.PatientBodyLocationPhotoAddingPageActivity" />
-        <activity android:name=".Activities.PatientActivity.PatientViewBodyLocationPhotoPageActivity" />
         <activity android:name=".Activities.PatientActivity.PatientPhotoFlowPageActivity" />
         <activity android:name=".Activities.publicActitivy.SearchActivity" />
         <activity android:name=".Activities.publicActitivy.SearchResultActivity" />
@@ -64,14 +63,18 @@
             android:value="@string/google_place_api" />
 
         <activity android:name=".Activities.publicActitivy.LocationPickerActivity" />
-        <activity android:name=".Activities.ProviderActivity.ProviderAddPatientActivity"></activity>
-        <activity
-            android:name=".Activities.publicActitivy.ViewLocationOnMapActivity"
-            />
-        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+        <activity android:name=".Activities.ProviderActivity.ProviderAddPatientActivity" />
+        <activity android:name=".Activities.publicActitivy.ViewLocationOnMapActivity" />
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <activity android:name=".Activities.publicActitivy.PhotoGallary"></activity>
     </application>
 
 </manifest>

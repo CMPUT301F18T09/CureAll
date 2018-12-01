@@ -9,9 +9,10 @@
  */
 package com.example.cmput301f18t09.cureall;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.io.Serializable;
+
 /**
  * Model class for recording CareProvider
  *
@@ -27,6 +28,8 @@ public class Record implements Serializable{
     public String username;
     public String problemid;
     public String ID;
+    //TODO add an editTime 没什么用，可以删掉，不删也没影响
+    public Date EditTime;
     //special fucntion
     //since getter and setter only deal with arraylist of Photos
     //we create a function to deal with single photo addition
@@ -46,6 +49,7 @@ public class Record implements Serializable{
         this.title = title;
         this.comment = comment;
         this.time = time;
+        this.EditTime = new Date();
     }
 
     /**

@@ -46,7 +46,5 @@ public class ProviderSignUpActivity extends AppCompatActivity{
         emailAddressInput = (EditText) findViewById(R.id.emailAddressInput);
         phoneNumberInput = (EditText) findViewById(R.id.phoneNumberInput);
         patientSymbol = (ImageView) findViewById(R.id.ProviderSymbol);
-
-
     }
 }

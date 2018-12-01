@@ -8,6 +8,7 @@ import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -137,18 +138,15 @@ public class ElasticSearchController {
         }
     }
 
-    public static class AddRecordTask extends AsyncTask<ElasticSearchParams, Void, Void> {
+    public static class AddRecordTask extends AsyncTask<ElasticSearchParams, Void, Record> {
 
         @Override
-        protected Void doInBackground(ElasticSearchParams... params) {
+        protected Record doInBackground(ElasticSearchParams... params) {
             verifySettings();
 
             Record record = params[0].record;
             String username = params[0].username;
             String problemid = params[0].problemid;
-
-
-
 
             Index index = new Index.Builder(record).index("cmput301f18t09test").type("records").build();
             try {
@@ -161,12 +159,13 @@ public class ElasticSearchController {
                 } else {
                     Log.i("Error", "Elasticsearch was not able to add the patient");
                 }
+
             } catch (Exception e) {
                 Log.i("Error", "The application failed to build and send the patient");
             }
 
             Log.i("map","end");
-            return null;
+            return record;
         }
     }
 
@@ -261,7 +260,6 @@ public class ElasticSearchController {
                         //Log.i("Read",p.getUsername());
                         IDs.add(id);
                         Log.i("Read",id);
-
                     }
 
                     Integer a = 0;
@@ -317,7 +315,7 @@ public class ElasticSearchController {
                         //Patient p = (Patient)source.get(Patient.class);
                         //Log.i("Read",p.getUsername());
                         IDs.add(id);
-                        Log.i("Read",id);
+                        //Log.i("Read",id);
 
                     }
 
@@ -339,55 +337,33 @@ public class ElasticSearchController {
         }
     }
 
-    public static class AddProblemTask extends AsyncTask<ElasticSearchParams, Void, Void> {
+    public static class AddProblemTask extends AsyncTask<Problem, Void, Problem> {
 
         @Override
-        protected Void doInBackground(ElasticSearchParams... params) {
+        protected Problem doInBackground(Problem... params) {
             verifySettings();
-            Integer num = params[0].num;
-            Problem problem = params[0].problem;
+            //Integer num = params[0].num;
+            Problem problem = params[0];
 
-            if (num < 1000000){
-                String Num = String.format("%06d",num);
-                String id =  problem.getUsername()+ "2" + Num;
-                Index index = new Index.Builder(problem).index("cmput301f18t09test").type("problem").build();
-                try {
-                    // where is the client?
-                    DocumentResult result = client.execute(index);
+            Index index = new Index.Builder(problem).index("cmput301f18t09test").type("problem").build();
+            try {
+                // where is the client?
+                DocumentResult result = client.execute(index);
 
-                    if (result.isSucceeded()) {
-                        problem.setId(result.getId());
-                        Log.i("Problem","Problem save success!");
-                    } else {
-                        Log.i("Error", "Elasticsearch was not able to add the patient");
-                    }
-                } catch (Exception e) {
-                    Log.i("Error", "The application failed to build and send the patient");
+                if (result.isSucceeded()) {
+                    problem.setId(result.getId());
+                    Log.i("Problem","Problem save success!"+problem.getId());
+                } else {
+                    Log.i("Error", "Elasticsearch was not able to add the patient");
                 }
+            } catch (Exception e) {
+                Log.i("Error", "The application failed to build and send the patient");
             }
 
 
-            else{
-                String id = params[0].username + "2" + Integer.toString(num);
-                Index index = new Index.Builder(problem).index("cmput301f18t09test").type("problem").build();
-                try {
-                    // where is the client?
-                    DocumentResult result = client.execute(index);
-
-                    if (result.isSucceeded()) {
-                        problem.setId(result.getId());
-                        //user.setPatientID(result.getId());
-                        Log.i("Problem","Problem save success!");
-                    } else {
-                        Log.i("Error", "Elasticsearch was not able to add the patient");
-                    }
-                } catch (Exception e) {
-                    Log.i("Error", "The application failed to build and send the patient");
-                }
-            }
 
 
-            return null;
+            return problem;
         }
     }
 
@@ -656,9 +632,7 @@ public class ElasticSearchController {
                 SearchResult result = client.execute(search);
                 if (result.isSucceeded()) {
 
-
-
-                    Log.i("Read","Read success");
+                     Log.i("Read","Read success");
 
                     List<CareProvider> foundusers = result.getSourceAsObjectList(CareProvider.class);
                     users.addAll(foundusers);
@@ -675,6 +649,144 @@ public class ElasticSearchController {
         }
     }
 
+    public static class SyncAllRecordTask extends AsyncTask<String, Void, ArrayList<Record>> {
+        @Override
+        protected ArrayList<Record> doInBackground(String... search_parameters) {
+            verifySettings();
+
+            ArrayList<Record> users = new ArrayList<Record>();
+
+            // TODO Build the query
+            String username = search_parameters[0];
+
+            //String query = "{ \"query\" : { \"match\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
+            String query = "{\"size\":100,\n" +
+                    "\"query\": { \n" +
+                    "\"bool\":{\n" +
+                    "\"must\": [\n" +
+                    "{\"match\":{ \"username\": \""+username+"\"}},\n" +
+                    "]\n" +
+                    "}\n" +
+                    "}\n" +
+                    "}";
+
+            Search search = new Search.Builder(query)
+                    .addIndex("cmput301f18t09test")
+                    .addType("records")
+                    .build();
+
+            try {
+                // TODO get the results of the query
+                SearchResult result = client.execute(search);
+                if (result.isSucceeded()) {
+                    ArrayList<String> IDs = new ArrayList<String>();
+                    Log.i("Read","Read success");
+                    List<SearchResult.Hit<Map,Void>> hits= result.getHits(Map.class);
+                    for (SearchResult.Hit hit : hits){
+                        Map source = (Map) hit.source;
+                        String id = (String)source.get(JestResult.ES_METADATA_ID);
+                        IDs.add(id);
+                        Log.i("Read",id);
+                    }
+
+                    Integer a = 0;
+                    List<Record> foundPatients = result.getSourceAsObjectList(Record.class);
+                    for (Record p : foundPatients) {
+                        p.setID(IDs.get(a));
+                        a++;
+                        users.add(p);
+                    }
+
+                } else {
+                    Log.i("Error", "The search query failed to find any tweets that matched");
+                }
+            } catch (Exception e) {
+                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+            }
+            return users;
+        }
+    }
+
+    public static class SyncPartProblemTask extends AsyncTask<ElasticSearchParams, Void, ArrayList<Problem>> {
+
+        @Override
+        protected ArrayList<Problem> doInBackground(ElasticSearchParams... params) {
+            verifySettings();
+            ArrayList<Problem> problems = new ArrayList<>();
+            String username = params[0].username;
+            Date pulltime = params[0].lastPulltime;
+            String query =  "{\"size\":100,\n" +
+                    "\"query\": { \n" +
+                    "\"range\":{\n" +
+                    "\"EditTime\": {\n" +
+                    "\"gte\": "+pulltime+"}\n" +
+                    "}\n" +
+                    "}\n" +
+                    "}";
+            Search search = new Search.Builder(query)
+                    .addIndex("cmput301f18t09test")
+                    .addType("problems")
+                    .build();
+            try {
+                SearchResult result = client.execute(search);
+                if (result.isSucceeded()) {
+                    ArrayList<String> IDs = new ArrayList<String>();
+                    Log.i("Read","Read success");
+                    List<SearchResult.Hit<Map,Void>> hits= result.getHits(Map.class);
+                    for (SearchResult.Hit hit : hits){
+                        Map source = (Map) hit.source;
+                        String id = (String)source.get(JestResult.ES_METADATA_ID);
+                        IDs.add(id);
+                        Log.i("Read",id);
+                    }
+
+                    Integer a = 0;
+                    List<Problem> foundPatients = result.getSourceAsObjectList(Problem.class);
+                    for (Problem p : foundPatients) {
+                        p.setId(IDs.get(a));
+                        a++;
+                        problems.add(p);
+                    }
+
+                } else {
+                    Log.i("Error", "The search query failed to find any tweets that matched");
+                }
+            } catch (Exception e) {
+                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+            }
+            return problems;
+        }
+    }
+    public static class OnlineTask extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected Void doInBackground(String... users) {
+            verifySettings();
+
+
+            String id = users[0]+"2000001";
+            Date date = new Date();
+            ElasticSearchParams tracker = new ElasticSearchParams(users[0],date);
+            Index index = new Index.Builder(tracker).index("cmput301f18t09test").type("Tracker").id(id).build();
+
+            try {
+                // where is the client?
+                DocumentResult result = client.execute(index);
+
+                if (result.isSucceeded()) {
+                    //user.setPatientID(result.getId());
+                } else {
+                    Log.i("Error", "Elasticsearch was not able to add the patient");
+                }
+            } catch (Exception e) {
+                Log.i("Error", "The application failed to build and send the patient");
+            }
+
+
+            return null;
+        }
+    }
+
 
     public static void verifySettings() {
         if (client == null) {
@@ -685,6 +797,7 @@ public class ElasticSearchController {
             factory.setDroidClientConfig(config);
             client = (JestDroidClient) factory.getObject();
         }
+
     }
 }
 /*

@@ -10,6 +10,7 @@
 package com.example.cmput301f18t09.cureall;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Model class for recording CareProvider
@@ -17,13 +18,17 @@ import java.util.ArrayList;
  * @author Ruiqin, Pi
  * @version 1.0.0
  */
-public class Patient extends user{
+public class Patient extends user {
     //private String username, password, email, phone;
     public String patientID;
     private ArrayList<Problem> problemArrayList;
     //private ArrayList<Record> recordArrayList;
     public String doctorID;
-
+    //TODO
+    private Date LastLoginTime;//the last time the user login/pull
+    private Date LastPushTime;//the last time the user push something to the es
+    private Date creatTime;//the last time the userinfo had been modified.
+    //TODO
     /**
      * userAuthenticate
      * @return True
@@ -37,13 +42,13 @@ public class Patient extends user{
     /**
      * Init for Patient
      * @param username  user name
-     * @param password  corresponding password
+
      * @param email     corresponding email address
      * @param phone     corresponding phone number
      */
-    public Patient(String username, String password, String email, String phone) {
-        super(username, password,email, phone);
-        this.problemArrayList = new ArrayList<>( );
+    public Patient(String username, String email, String phone) {
+        super(username, email, phone);
+        this.creatTime = new Date();
     }
 
     /**
@@ -89,17 +94,6 @@ public class Patient extends user{
         this.problemArrayList = problemArrayList;
     }
 
-/*
-    public ArrayList<Record> getRecordArrayList() {
-        return recordArrayList;
-    }
-
-    public void setRecordArrayList(ArrayList<Record> recordArrayList) {
-        this.recordArrayList = recordArrayList;
-    }
-*/
-
-
     /**
      * add new problem to problem list
      * @param problem problem to be added in problem list
@@ -141,4 +135,12 @@ public class Patient extends user{
         problemArrayList.remove(problem);
         problemArrayList.add(newproblem);
     }
+    public Date getCreatTime(){
+        return creatTime;
+    }
+    public Date getLastLoginTime() {return LastLoginTime;}
+    public Date getLastPushTime() {return LastPushTime;}
+
+    public void setLastLoginTime() {this.LastLoginTime = new Date();}
+    public void setLastPushTime() {this.LastPushTime = new Date();}
 }

@@ -74,10 +74,6 @@ public class Problem implements Serializable{
      * @return Id
      */
     public String getId(){return this.Id;}
-/*  may use later
-    public ElasticSearchParams getParamID(){
-        new ElasticSearchParams()
-    }*/
 
     /**
      * setter for id
