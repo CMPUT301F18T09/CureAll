@@ -131,17 +131,21 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
                 if (current.getState()){
                     checker =true;
                     Sync sync = new Sync(PatientProblemDetailPageActivity.this,patient.getUsername());
+                    ArrayList<Record> temp = new ArrayList<>();
+                    temp = records;
                     flag = false;
                     for (Record r : records){
                         flag = true;
                         if (r.getState().equals("offline") && problem.getState().equals("Online")){
+                            temp.remove(r);
                             Log.i("SYNC","begin");
                             sync.SyncPushRecord(r,patient.getUsername(),problem,records);
                             r.setState("Online");
+                            temp.add(r);
                         }
                     }
                     Log.i("SYNC", "start sync");
-
+                    RecordController.saveInFile(PatientProblemDetailPageActivity.this,"records.txt",temp,problem.getUsername());
 
                 }
                 if (!current.getState()){
