@@ -63,8 +63,8 @@ public class Sync {
         ElasticSearchParams params = new ElasticSearchParams("",problem,problem.getId());
         ElasticSearchController.DeleteProblemTask deleteProblemTask = new ElasticSearchController.DeleteProblemTask();
         deleteProblemTask.execute(params);
-        problems.remove(problem);
-        ProblemController.saveInFile(context,"Deleteproblems.txt",problems,username);
+        //problems.remove(problem);
+       // ProblemController.saveInFile(context,"Deleteproblems.txt",problems,username);
     }
 
 
@@ -95,11 +95,7 @@ public class Sync {
             }
         }
 
-        //problems.remove(temp);
-        //temp.setState("Online");
-        //problems.add(temp);
-        //ProblemController.saveInFile(context,"problems.txt",problems,username);
-        //problems = ProblemController.loadFromFile(context,"problems.txt",problems,username);
+
         Log.i("SYNC","push end");
     }
 

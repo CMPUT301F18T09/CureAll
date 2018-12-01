@@ -154,7 +154,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
 
                 if (current.getState()){
 
-
+                    checker =true;
                     Log.i("SYNC","Now sync end");
 
                     Sync sync = new Sync(PatientListOfProblemsPageActivity.this,username);
@@ -164,7 +164,6 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                         if (p.getState().equals("Offline")){
                             Log.i("SYNC","push problem");
                             sync.SyncPushProblem(p,username,problems);
-                            //problems = ProblemController.loadFromFile(PatientListOfProblemsPageActivity.this,"problems.txt",problems,username);
                             sync.UpdateTracker(username);
                             continue;
                         }
@@ -175,10 +174,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
 
                     }
 
-         //           problems = problemController.GetProblemNum(username);
-         //           ProblemController.saveInFile(PatientListOfProblemsPageActivity.this,"problems.txt",problems,username);
 
-                    checker =true;
 
                     for (Problem p1: deleteProblem){
                         Log.i("SYNC","Now DELETE in");
