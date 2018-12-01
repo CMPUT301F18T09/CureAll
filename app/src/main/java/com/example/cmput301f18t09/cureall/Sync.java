@@ -95,15 +95,12 @@ public class Sync {
             }
         }
 
-
-
-
-
-        problems.remove(temp);
-        temp.setState("Online");
-        problems.add(temp);
-        ProblemController.saveInFile(context,"problems.txt",problems,username);
-
+        //problems.remove(temp);
+        //temp.setState("Online");
+        //problems.add(temp);
+        //ProblemController.saveInFile(context,"problems.txt",problems,username);
+        //problems = ProblemController.loadFromFile(context,"problems.txt",problems,username);
+        Log.i("SYNC","push end");
     }
 
     public void SyncPushRecord(Record record,String username,Problem problem,ArrayList<Record> records){
@@ -122,10 +119,10 @@ public class Sync {
         Log.i("ID",temp.getID());
 
 
-        records.remove(record);
-        record.setState("Online");
-        records.add(record);
-        RecordController.saveInFile(context,"problems.txt",records,username);
+        //records.remove(record);
+        //record.setState("Online");
+        //records.add(record);
+        //RecordController.saveInFile(context,"problems.txt",records,username);
 
     }
 

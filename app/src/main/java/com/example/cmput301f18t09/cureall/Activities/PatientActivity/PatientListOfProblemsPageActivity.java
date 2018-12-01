@@ -133,6 +133,19 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
             Log.i("SYNC","NOW: OFFLINE!");
         }
 
+
+
+
+    }
+//TODO
+    /**
+     * set listener for search button
+     * user can active 3 search methods: by body location, by key words, by geolocation
+     * set listener for adapter
+     */
+    @Override
+    protected void onStart() {
+        super.onStart();
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -145,16 +158,26 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                     Log.i("SYNC","Now sync end");
 
                     Sync sync = new Sync(PatientListOfProblemsPageActivity.this,username);
-                    if (!checker){
-                        for (Problem p : problems){
-                            Log.i("SYNC","Now in PUSH loop");
-                            if (p.getState().equals("Offline")){
-                                Log.i("SYNC","push problem");
-                                sync.SyncPushProblem(p,username,problems);
-                                sync.UpdateTracker(username);
-                            }
+
+                    for (Problem p : problems){
+                        Log.i("SYNC","Now in PUSH loop");
+                        if (p.getState().equals("Offline")){
+                            Log.i("SYNC","push problem");
+                            sync.SyncPushProblem(p,username,problems);
+                            //problems = ProblemController.loadFromFile(PatientListOfProblemsPageActivity.this,"problems.txt",problems,username);
+                            sync.UpdateTracker(username);
+                            continue;
                         }
+                        else{
+                            Log.i("PLOPlin158","CONTINUE");
+                            continue;
+                        }
+
                     }
+
+         //           problems = problemController.GetProblemNum(username);
+         //           ProblemController.saveInFile(PatientListOfProblemsPageActivity.this,"problems.txt",problems,username);
+
                     checker =true;
 
                     for (Problem p1: deleteProblem){
@@ -163,16 +186,13 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                             Log.i("SYNC","delete problem");
                             sync.SyncDeleteProblem(p1,username,problems);
                             sync.UpdateTracker(username);
-
-                        }
-                        if (problems.contains(p1)){
-                            problems.remove(p1);
-                            ProblemController.saveInFile(PatientListOfProblemsPageActivity.this,"problems.txt",problems,username);
+                            mAdapter.notifyDataSetChanged();
                         }
                     }
-             //       deleteProblem = new ArrayList<>();
-             //       ProblemController.saveInFile(PatientListOfProblemsPageActivity.this,"Deleteproblems.txt",deleteProblem,username);
-
+                    problems = problemController.GetProblemNum(username);
+                    ProblemController.saveInFile(PatientListOfProblemsPageActivity.this,"problems.txt",problems,username);
+                    //       deleteProblem = new ArrayList<>();
+                    //       ProblemController.saveInFile(PatientListOfProblemsPageActivity.this,"Deleteproblems.txt",deleteProblem,username);
                     //Log.i("SYNC", "start sync");
                 }
 
@@ -182,18 +202,9 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                 }
             }
         };
-
         SyncCheck(runnable);
-    }
-//TODO
-    /**
-     * set listener for search button
-     * user can active 3 search methods: by body location, by key words, by geolocation
-     * set listener for adapter
-     */
-    @Override
-    protected void onStart() {
-        super.onStart();
+
+
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -452,7 +463,6 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
     }
 //TODO
     public void SyncCheck(Runnable runnable){
-
         service = Executors.newSingleThreadScheduledExecutor();
         service.scheduleAtFixedRate(runnable,2,3, TimeUnit.SECONDS);
     }

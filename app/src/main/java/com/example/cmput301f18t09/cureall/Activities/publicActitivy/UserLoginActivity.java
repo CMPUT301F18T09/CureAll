@@ -178,7 +178,7 @@ public class UserLoginActivity extends AppCompatActivity {
                  * NEED TO CONSIDER OFFLINE DATA GET, in this case, problems and patients.get(0) is null!!!!!
                  * ADD try and catch
                  */
-                PatientController.SaveLocalTracker(UserLoginActivity.this,Username);
+                //PatientController.SaveLocalTracker(UserLoginActivity.this,Username);
                 intent.putExtra("ComeFromLogin", "ComeFromLogin");
                 passDataToPatient(patients.get(0),problems);
                 /**ends
