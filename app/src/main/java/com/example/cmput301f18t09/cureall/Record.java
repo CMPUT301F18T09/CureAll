@@ -29,6 +29,7 @@ public class Record implements Serializable{
     public String ID;
     //TODO add an editTime 没什么用，可以删掉，不删也没影响
     public Date EditTime;
+    public String State;
     //special fucntion
     //since getter and setter only deal with arraylist of Photos
     //we create a function to deal with single photo addition
@@ -186,4 +187,6 @@ public class Record implements Serializable{
         this.recordTrackingPhotoArrayList = recordTrackingPhotoArrayList;
     }
 
+    public void setState(String State){this.State = State;}
+    public String getState() {return this.State;}
 }

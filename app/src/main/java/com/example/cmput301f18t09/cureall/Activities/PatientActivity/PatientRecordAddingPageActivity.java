@@ -35,6 +35,7 @@ import com.example.cmput301f18t09.cureall.BodyLocation;
 import com.example.cmput301f18t09.cureall.ElasticSearchController;
 import com.example.cmput301f18t09.cureall.ElasticSearchParams;
 import com.example.cmput301f18t09.cureall.Patient;
+import com.example.cmput301f18t09.cureall.PatientController.PatientController;
 import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.R;
 import com.example.cmput301f18t09.cureall.Record;
@@ -237,11 +238,14 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
                     temp = saveRecord(problem.getUsername(),record,problem.getId());
                 }
                 else{
-                    temp.setID("offline");
-                    //record.setTitle(titleInput.getText().toString());
-                    //record.setComment(descriptionInput.getText().toString());
+                    String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+                    temp.setID(temp.getTitle()+currentDateTimeString);
+
+                    temp.setState("offline");
+
                 }
                 saveLocal(problem.getUsername(), record, problem.getId(),temp);
+                PatientController.SaveLocalTracker(PatientRecordAddingPageActivity.this,problem.getUsername());
 
                 Intent intent = new Intent(PatientRecordAddingPageActivity.this, PatientProblemDetailPageActivity.class);
                 //TODO replace this with shared perrference
@@ -372,6 +376,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
 //TODO
     public Record saveRecord(String username, Record record, String problemID){
         Record temp = record;
+        record.setState("Online");
         ElasticSearchParams param = new ElasticSearchParams(username,record,problemID);
         ElasticSearchController.AddRecordTask addRecordTask = new ElasticSearchController.AddRecordTask();
         addRecordTask.execute(param);
@@ -382,6 +387,9 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
         }catch (Exception e){
             Log.i("Record","Something wrong happened when tried to save record to es");
         }
+        Sync sync = new Sync(PatientRecordAddingPageActivity.this,username);
+        sync.UpdateTracker(username);
+
 
         /**
          * set the record title and description based on the input you enter in both two edittext.
@@ -506,6 +514,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
         AllRecords = RecordController.loadFromFile(PatientRecordAddingPageActivity.this, "records.txt", AllRecords, username);
 
         Log.i("ID",temp.getID());
+       // temp.setState();
         AllRecords.add(temp);
 
 

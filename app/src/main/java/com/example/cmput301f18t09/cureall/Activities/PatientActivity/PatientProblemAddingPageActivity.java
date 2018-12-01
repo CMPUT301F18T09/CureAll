@@ -21,9 +21,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.cmput301f18t09.cureall.Activities.publicActitivy.UserLoginActivity;
 import com.example.cmput301f18t09.cureall.ElasticSearchController;
 import com.example.cmput301f18t09.cureall.ElasticSearchParams;
 import com.example.cmput301f18t09.cureall.Patient;
+import com.example.cmput301f18t09.cureall.PatientController.PatientController;
 import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.ProblemController.ProblemController;
 import com.example.cmput301f18t09.cureall.R;
@@ -190,7 +192,7 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
         UserState currentState = new UserState(PatientProblemAddingPageActivity.this);
         if (currentState.getState()) {
             ArrayList<Problem> problems = GetProblemNum(username);
-
+            problem.setState("Online");
             ElasticSearchParams param = new ElasticSearchParams(problems.size(), problem, username);
 
             ElasticSearchController.AddProblemTask addproblemTask = new ElasticSearchController.AddProblemTask();
@@ -201,10 +203,16 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
                 Log.i("Problem","Something wrong happend at saveProblem function in PatientProblemAddingPage");
             }
             Log.i("ID",p.getId());
+            Sync sync = new Sync(PatientProblemAddingPageActivity.this,username);
+            sync.UpdateTracker(username);
 
         }
         else{
-           p.setId("offline");
+           String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+           p.setId(p.getTime()+currentDateTimeString);
+           p.setState("Offline");
+
+
          }
         //TODO renew local file.(up to date)
         ArrayList<Problem> problems = new ArrayList<>();
@@ -212,7 +220,7 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
         Log.i("ID",p.getId());
         problems.add(p);
 
-
+        PatientController.SaveLocalTracker(PatientProblemAddingPageActivity.this,username);
         ProblemController.saveInFile(PatientProblemAddingPageActivity.this,"problems.txt",problems,username);
 
         return problems;

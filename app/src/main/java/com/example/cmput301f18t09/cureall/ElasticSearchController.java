@@ -2,6 +2,7 @@ package com.example.cmput301f18t09.cureall;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.TableRow;
 
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
@@ -18,6 +19,7 @@ import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
+import io.searchbox.indices.mapping.PutMapping;
 
 //import org.elasticsearch.action.update.UpdateRequest;
 
@@ -784,6 +786,51 @@ public class ElasticSearchController {
 
 
             return null;
+        }
+    }
+
+    public static class GetTrackerTask extends AsyncTask<String, Void, Date> {
+        @Override
+        protected Date doInBackground(String... search_parameters) {
+            verifySettings();
+
+            ArrayList<ElasticSearchParams> tracker = new ArrayList<>();
+
+
+            // TODO Build the query
+
+            //String query = "{ \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
+            String query = "{ \"size\":1, \"query\" : {\n" +
+                    "        \"match\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
+                    "    }\n" +
+                    "}";
+
+
+            Search search = new Search.Builder(query)
+                    .addIndex("cmput301f18t09test")
+                    .addType("Tracker")
+                    .build();
+
+            try {
+                // TODO get the results of the query
+                SearchResult result = client.execute(search);
+                if (result.isSucceeded()) {
+
+                    Log.i("Read","Read success");
+
+                    List<ElasticSearchParams> foundusers = result.getSourceAsObjectList(ElasticSearchParams.class);
+                    tracker.addAll(foundusers);
+
+                    //Log.i("Read",Integer.toString(users.size()));
+                   // Log.i("Read", tracker.get(0).GetTime());
+                } else {
+                    Log.i("Error", "The search query failed to find any tweets that matched");
+                }
+            } catch (Exception e) {
+                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+            }
+
+            return tracker.get(0).GetTime();
         }
     }
 

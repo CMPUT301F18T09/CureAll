@@ -33,7 +33,9 @@ import com.example.cmput301f18t09.cureall.UserState;
 import com.google.gson.Gson;
 
 import java.security.Provider;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 /**
  * This activity handles the case when user login
@@ -134,10 +136,34 @@ public class UserLoginActivity extends AppCompatActivity {
                  }
 
                 else{
-                    problems = problemController.GetProblemNum(patients.get(0).getUsername());
-                    sync.SyncUSer(patients.get(0));
-                    sync.SyncAllProblem(problems,Username);
-                    sync.SyncAllRecord(Username);
+                    //problems = problemController.GetProblemNum(patients.get(0).getUsername());
+                    Date local = new Date();
+                    Date stream= new Date();
+                    try{
+                        local= PatientController.GetLocalTracker(UserLoginActivity.this,Username,local);
+
+                    }catch(Exception e)
+                    {
+                        local = new Date();
+                        PatientController.SaveLocalTracker(UserLoginActivity.this,Username);
+                    }
+
+                    stream = PatientController.GetOnlineTracker(Username,stream);
+
+                    if (local.compareTo(stream)>0) {
+                        Log.i("Tracker","本地比较新");
+                        problems =ProblemController.loadFromFile(UserLoginActivity.this, "problems.txt", problems, Username);
+                    }
+                    else{
+                        Log.i("Tracker","es比较新");
+                        problems = problemController.GetProblemNum(patients.get(0).getUsername());
+                        sync.SyncUSer(patients.get(0));
+                        sync.SyncAllProblem(problems,Username);
+                        sync.SyncAllRecord(Username);
+                    }
+                    //sync.SyncUSer(patients.get(0));
+                    //sync.SyncAllProblem(problems,Username);
+                    //sync.SyncAllRecord(Username);
                 }
                 //TODO implement local retrieve funct.
                 Intent intent = new Intent(UserLoginActivity.this,PatientListOfProblemsPageActivity.class);

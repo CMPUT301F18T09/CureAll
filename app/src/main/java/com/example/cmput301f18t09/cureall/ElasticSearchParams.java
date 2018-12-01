@@ -92,6 +92,10 @@ public class ElasticSearchParams {
         this.lastPulltime = lastPulltime;
     }
 
+    public Date GetTime(){
+        return lastPulltime;
+    }
+
 /*  may use later
     public ElasticSearchParams(String problemid)
     {

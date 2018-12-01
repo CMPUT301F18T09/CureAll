@@ -33,8 +33,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.load.model.ModelLoader;
+import com.example.cmput301f18t09.cureall.Activities.publicActitivy.UserLoginActivity;
 import com.example.cmput301f18t09.cureall.Patient;
 import com.example.cmput301f18t09.cureall.PatientAdapter.PatientProblemListPageAdapter;
+import com.example.cmput301f18t09.cureall.PatientController.PatientController;
 import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.ProblemController.ProblemController;
 import com.example.cmput301f18t09.cureall.R;
@@ -78,7 +80,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
     boolean checker;
     ScheduledExecutorService service;
     final int REQUEST_PROBLEM_ADDING = 1;
-
+    ArrayList<Problem> deleteProblem;
 
     //drawer..
     private DrawerLayout drawer;
@@ -118,6 +120,8 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         phone = patient.getPhone();
         id = patient.getPatientID();
         pw = patient.getPassword();
+
+        deleteProblem = ProblemController.loadFromFile(PatientListOfProblemsPageActivity.this,"Deleteproblems.txt",deleteProblem,username);
 //TODO
         UserState current = new UserState(PatientListOfProblemsPageActivity.this);
         if (current.getState()){
@@ -136,26 +140,40 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                 UserState current = new UserState(PatientListOfProblemsPageActivity.this);
 
                 if (current.getState()){
-                    Log.i("SYNC","Now in");
+
+
+                    Log.i("SYNC","Now sync end");
+
+                    Sync sync = new Sync(PatientListOfProblemsPageActivity.this,username);
                     if (!checker){
-                        Log.i("SYNC","Now sync end");
-                        checker =true;
-                        Sync sync = new Sync(PatientListOfProblemsPageActivity.this,username);
                         for (Problem p : problems){
-                            Log.i("SYNC","Now inloop");
-                            if (p.getId().equals("offline")){
-                                Log.i("SYNC","begin");
+                            Log.i("SYNC","Now in PUSH loop");
+                            if (p.getState().equals("Offline")){
+                                Log.i("SYNC","push problem");
                                 sync.SyncPushProblem(p,username,problems);
+                                sync.UpdateTracker(username);
                             }
                         }
-
                     }
-                    else{
-                        Sync sync = new Sync(PatientListOfProblemsPageActivity.this,username);
-                        checker = true;
-                    }
+                    checker =true;
 
-                    Log.i("SYNC", "start sync");
+                    for (Problem p1: deleteProblem){
+                        Log.i("SYNC","Now DELETE in");
+                        if (p1.getState().equals("DeleteOffline")){
+                            Log.i("SYNC","delete problem");
+                            sync.SyncDeleteProblem(p1,username,problems);
+                            sync.UpdateTracker(username);
+
+                        }
+                        if (problems.contains(p1)){
+                            problems.remove(p1);
+                            ProblemController.saveInFile(PatientListOfProblemsPageActivity.this,"problems.txt",problems,username);
+                        }
+                    }
+                    deleteProblem = new ArrayList<>();
+                    ProblemController.saveInFile(PatientListOfProblemsPageActivity.this,"Deleteproblems.txt",deleteProblem,username);
+
+                    //Log.i("SYNC", "start sync");
                 }
 
                 else{
@@ -248,8 +266,30 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
             @Override
             public void onDeleteClick(int position) {
                 //TODO add local storage funct.
+                Problem p = problems.get(position);
+                Problem temp = p;
+
+
                 ProblemController.DelteProblem(problems,position,username,PatientListOfProblemsPageActivity.this);
+
                 mAdapter.notifyDataSetChanged();
+
+                UserState userState = new UserState(PatientListOfProblemsPageActivity.this);
+                if (!userState.getState()){
+
+                    temp.setState("DeleteOffline");
+                    ArrayList<Problem> tempproblems = problems;
+                    tempproblems.add(temp);
+                    ProblemController.saveInFile(PatientListOfProblemsPageActivity.this,"Deleteproblems.txt",tempproblems,username);
+                    tempproblems.remove(temp);
+                    deleteProblem = ProblemController.loadFromFile(PatientListOfProblemsPageActivity.this,"Deleteproblems.txt",deleteProblem,username);
+                }
+                else{
+                    Sync sync = new Sync (PatientListOfProblemsPageActivity.this,username);
+                    sync.SyncPushProblem(p,username,problems);
+                    sync.UpdateTracker(username);
+                }
+                PatientController.SaveLocalTracker(PatientListOfProblemsPageActivity.this,username);
             }
         });
 

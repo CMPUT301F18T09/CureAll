@@ -56,16 +56,16 @@ public class ProblemController {
     public static void DelteProblem(ArrayList<Problem> problems, int position, String username,Context context)
     {
         Problem problem = problems.get(position);
-        //Log.i("Unknown bug", );\
+        Log.i("offline","OfflineDelete" );
         UserState currentState = new UserState(context);
-        if (currentState.getState()){
-            ElasticSearchParams params = new ElasticSearchParams("",problem,problem.getId());
-            ElasticSearchController.DeleteProblemTask deleteProblemTask = new ElasticSearchController.DeleteProblemTask();
-            deleteProblemTask.execute(params);
 
-        }
+        ElasticSearchParams params = new ElasticSearchParams("",problem,problem.getId());
+        ElasticSearchController.DeleteProblemTask deleteProblemTask = new ElasticSearchController.DeleteProblemTask();
+        deleteProblemTask.execute(params);
         problems.remove(position);
         ProblemController.saveInFile(context,"problems.txt",problems,username);
+
+
 
 
     }

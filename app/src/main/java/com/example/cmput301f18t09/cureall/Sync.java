@@ -59,13 +59,21 @@ public class Sync {
         Log.i("Read","read end");
     }
 
+    public void SyncDeleteProblem(Problem problem,String username,ArrayList<Problem> problems){
+        ElasticSearchParams params = new ElasticSearchParams("",problem,problem.getId());
+        ElasticSearchController.DeleteProblemTask deleteProblemTask = new ElasticSearchController.DeleteProblemTask();
+        deleteProblemTask.execute(params);
+        problems.remove(problem);
+        ProblemController.saveInFile(context,"Deleteproblems.txt",problems,username);
+    }
+
 
     public void SyncPushProblem(Problem problem,String username,ArrayList<Problem> problems){
         problem.setId(null);
 
         Problem temp = problem;
         ElasticSearchParams param = new ElasticSearchParams(0, problem, username);
-
+        problem.setState("Online");
         ElasticSearchController.AddProblemTask addproblemTask = new ElasticSearchController.AddProblemTask();
         addproblemTask.execute(problem);
         try{
@@ -77,7 +85,8 @@ public class Sync {
 
         Log.i("SYNC",temp.getId());
 
-        problems.remove(problem);
+        problems.remove(temp);
+        temp.setState("Online");
         problems.add(temp);
         ProblemController.saveInFile(context,"problems.txt",problems,username);
 
@@ -109,4 +118,5 @@ public class Sync {
         ElasticSearchController.OnlineTask onlineTask = new ElasticSearchController.OnlineTask();
         onlineTask.execute(username);
     }
+
 }

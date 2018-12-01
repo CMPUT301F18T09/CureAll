@@ -133,7 +133,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
                     Sync sync = new Sync(PatientProblemDetailPageActivity.this,patient.getUsername());
 
                     for (Record r : records){
-                        if (r.getID().equals("offline")){
+                        if (r.getState().equals("offline")){
                             Log.i("SYNC","begin");
                             sync.SyncPushRecord(r,patient.getUsername(),problem,records);
                         }

@@ -26,6 +26,7 @@ public class Problem implements Serializable{
     private String doctorcomment;
     private String Id;
     private Date editdate;
+    private String State;
 
     /**
      * add a record to problem
@@ -154,4 +155,6 @@ public class Problem implements Serializable{
         this.time = time;
     }
 
+    public void setState(String State){this.State = State;}
+    public String getState() {return this.State;}
 }
