@@ -15,6 +15,8 @@ import android.util.Log;
 import com.example.cmput301f18t09.cureall.ElasticSearchController;
 import com.example.cmput301f18t09.cureall.ElasticSearchParams;
 import com.example.cmput301f18t09.cureall.Problem;
+import com.example.cmput301f18t09.cureall.Record;
+import com.example.cmput301f18t09.cureall.RecordController.RecordController;
 import com.example.cmput301f18t09.cureall.UserState;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -56,12 +58,14 @@ public class ProblemController {
     public static void DelteProblem(ArrayList<Problem> problems, int position, String username,Context context)
     {
         Problem problem = problems.get(position);
-        Log.i("offline","OfflineDelete" );
         UserState currentState = new UserState(context);
 
         ElasticSearchParams params = new ElasticSearchParams("",problem,problem.getId());
         ElasticSearchController.DeleteProblemTask deleteProblemTask = new ElasticSearchController.DeleteProblemTask();
         deleteProblemTask.execute(params);
+
+
+
         problems.remove(position);
         ProblemController.saveInFile(context,"problems.txt",problems,username);
 

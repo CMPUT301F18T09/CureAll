@@ -128,7 +128,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
             @Override
             public void run() {
                 UserState current = new UserState(PatientProblemDetailPageActivity.this);
-                if (current.getState() && !checker){
+                if (current.getState()){
                     checker =true;
                     Sync sync = new Sync(PatientProblemDetailPageActivity.this,patient.getUsername());
 
@@ -359,7 +359,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
     public void SyncCheck(Runnable runnable){
 
         service = Executors.newSingleThreadScheduledExecutor();
-        service.scheduleAtFixedRate(runnable,10,5, TimeUnit.SECONDS);
+        service.scheduleAtFixedRate(runnable,2,3, TimeUnit.SECONDS);
     }
 }//TODO
 

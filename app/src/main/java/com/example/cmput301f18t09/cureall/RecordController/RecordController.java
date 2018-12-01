@@ -113,6 +113,40 @@ public class RecordController {
         }
 
     }
+/*
+    public static void DelteRecord(String problemID,Problem problem, String username,Context context)
+    {
+        ArrayList<Record> records = new ArrayList<Record>();
+
+
+        ElasticSearchController.GetRecordTask getRecordTask = new ElasticSearchController.GetRecordTask();
+        ElasticSearchParams params = new ElasticSearchParams(username, problemID);
+
+        getRecordTask.execute(params);
+        try {
+            List<Record> foundPatient= getRecordTask.get();
+            records.addAll(foundPatient);
+
+
+        } catch (Exception e) {
+            Log.i("Error", "Failed to get the user from the async object");
+        }
+
+        for (Record record : records){
+            ElasticSearchParams params = new ElasticSearchParams("",problem,problem.getId());
+            ElasticSearchController.DeleteRecordTask deleteProblemTask = new ElasticSearchController.DeleteRecordTask();
+            deleteProblemTask.execute(params);
+
+        }
+
+
+        problems.remove(position);
+        ProblemController.saveInFile(context,"problems.txt",problems,username);
+
+
+
+
+    }*/
 }
 
 

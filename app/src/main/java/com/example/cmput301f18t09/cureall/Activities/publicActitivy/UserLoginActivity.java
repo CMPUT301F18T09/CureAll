@@ -44,6 +44,7 @@ import java.util.List;
  * It will bring the user to their main page.
  */
 public class UserLoginActivity extends AppCompatActivity {
+
     private ImageView loveSymbol;
     private EditText userNameInput, passwordInput;
     private Button loginButton, backButton;
@@ -110,7 +111,7 @@ public class UserLoginActivity extends AppCompatActivity {
 
 
             if (currentState.getState()){
-                PatientController.SaveLocalTracker(UserLoginActivity.this,Username);
+
 
                 ElasticSearchController.GetPatientTask getuserTask = new ElasticSearchController.GetPatientTask();
                 getuserTask.execute(Username);
@@ -149,18 +150,23 @@ public class UserLoginActivity extends AppCompatActivity {
                     }
 
                     stream = PatientController.GetOnlineTracker(Username,stream);
-
-                    if (local.compareTo(stream)>0) {
-                        Log.i("Tracker","本地比较新");
-                        problems =ProblemController.loadFromFile(UserLoginActivity.this, "problems.txt", problems, Username);
-                    }
-                    else{
+                    Log.i("Tracker","es比较新");
+                    problems = problemController.GetProblemNum(patients.get(0).getUsername());
+                    sync.SyncUSer(patients.get(0));
+                    sync.SyncAllProblem(problems,Username);
+                    sync.SyncAllRecord(Username);
+/*                    if (local.compareTo(stream)<0) {
                         Log.i("Tracker","es比较新");
                         problems = problemController.GetProblemNum(patients.get(0).getUsername());
                         sync.SyncUSer(patients.get(0));
                         sync.SyncAllProblem(problems,Username);
                         sync.SyncAllRecord(Username);
+
                     }
+                    else{
+                        Log.i("Tracker","本地比较新");
+                        problems =ProblemController.loadFromFile(UserLoginActivity.this, "problems.txt", problems, Username);
+                    }*/
                     //sync.SyncUSer(patients.get(0));
                     //sync.SyncAllProblem(problems,Username);
                     //sync.SyncAllRecord(Username);
@@ -172,7 +178,7 @@ public class UserLoginActivity extends AppCompatActivity {
                  * NEED TO CONSIDER OFFLINE DATA GET, in this case, problems and patients.get(0) is null!!!!!
                  * ADD try and catch
                  */
-
+                PatientController.SaveLocalTracker(UserLoginActivity.this,Username);
                 intent.putExtra("ComeFromLogin", "ComeFromLogin");
                 passDataToPatient(patients.get(0),problems);
                 /**ends

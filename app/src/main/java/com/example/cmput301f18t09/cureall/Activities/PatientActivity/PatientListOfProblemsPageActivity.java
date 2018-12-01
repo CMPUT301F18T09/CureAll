@@ -170,8 +170,8 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                             ProblemController.saveInFile(PatientListOfProblemsPageActivity.this,"problems.txt",problems,username);
                         }
                     }
-                    deleteProblem = new ArrayList<>();
-                    ProblemController.saveInFile(PatientListOfProblemsPageActivity.this,"Deleteproblems.txt",deleteProblem,username);
+             //       deleteProblem = new ArrayList<>();
+             //       ProblemController.saveInFile(PatientListOfProblemsPageActivity.this,"Deleteproblems.txt",deleteProblem,username);
 
                     //Log.i("SYNC", "start sync");
                 }
@@ -286,7 +286,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                 }
                 else{
                     Sync sync = new Sync (PatientListOfProblemsPageActivity.this,username);
-                    sync.SyncPushProblem(p,username,problems);
+                    //sync.SyncPushProblem(p,username,problems);
                     sync.UpdateTracker(username);
                 }
                 PatientController.SaveLocalTracker(PatientListOfProblemsPageActivity.this,username);
@@ -454,7 +454,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
     public void SyncCheck(Runnable runnable){
 
         service = Executors.newSingleThreadScheduledExecutor();
-        service.scheduleAtFixedRate(runnable,10,1, TimeUnit.SECONDS);
+        service.scheduleAtFixedRate(runnable,2,3, TimeUnit.SECONDS);
     }
 //TODO
 }

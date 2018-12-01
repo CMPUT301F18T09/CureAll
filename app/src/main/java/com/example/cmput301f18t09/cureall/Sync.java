@@ -69,6 +69,7 @@ public class Sync {
 
 
     public void SyncPushProblem(Problem problem,String username,ArrayList<Problem> problems){
+        String checker = problem.getId();
         problem.setId(null);
 
         Problem temp = problem;
@@ -85,6 +86,19 @@ public class Sync {
 
         Log.i("SYNC",temp.getId());
 
+        ArrayList<Record> records = new ArrayList<>();
+        records = RecordController.loadFromFile(context,"records.txt",records,username);
+
+        for (Record r: records){
+            if(r.getProblemid().equals(checker) && r.getState().equals("offline")){
+                SyncPushRecord(r,username,problem,records);
+            }
+        }
+
+
+
+
+
         problems.remove(temp);
         temp.setState("Online");
         problems.add(temp);
@@ -94,7 +108,7 @@ public class Sync {
 
     public void SyncPushRecord(Record record,String username,Problem problem,ArrayList<Record> records){
         record.setID(null);
-
+        record.setProblemid(problem.getId());
         Record temp = record;
         ElasticSearchParams param = new ElasticSearchParams(username,record,problem.getId());
         ElasticSearchController.AddRecordTask addRecordTask = new ElasticSearchController.AddRecordTask();
@@ -109,6 +123,7 @@ public class Sync {
 
 
         records.remove(record);
+        record.setState("Online");
         records.add(record);
         RecordController.saveInFile(context,"problems.txt",records,username);
 

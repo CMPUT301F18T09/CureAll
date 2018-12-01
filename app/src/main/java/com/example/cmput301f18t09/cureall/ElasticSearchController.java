@@ -406,7 +406,8 @@ public class ElasticSearchController {
         protected Void doInBackground(ElasticSearchParams... params) {
             verifySettings();
             Problem problem = params[0].problem;
-            String id = params[0].id;
+            String id = params[0].problemid;
+            id = "AWdoXJLQ5fBYrXv4dPeR";
             //Index index = new Index.Builder(problem).index("cmput301f18t09test").type("problem").id(id).build();
             try {
                 // where is the client?
