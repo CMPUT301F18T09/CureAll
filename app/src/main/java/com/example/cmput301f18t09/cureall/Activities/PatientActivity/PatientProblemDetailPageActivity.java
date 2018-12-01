@@ -139,6 +139,10 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
                         }
                     }
                     Log.i("SYNC", "start sync");
+
+                    RecordController recordcontrol = new RecordController();
+                    records = recordcontrol.GetRecordNum(problem.getUsername(),problem.getId());
+                    RecordController.saveInFile(PatientProblemDetailPageActivity.this,"records.txt",records,problem.getUsername());
                 }
                 if (!current.getState()){
                     checker = false;

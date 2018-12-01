@@ -63,8 +63,8 @@ public class Sync {
         ElasticSearchParams params = new ElasticSearchParams("",problem,problem.getId());
         ElasticSearchController.DeleteProblemTask deleteProblemTask = new ElasticSearchController.DeleteProblemTask();
         deleteProblemTask.execute(params);
-        //problems.remove(problem);
-       // ProblemController.saveInFile(context,"Deleteproblems.txt",problems,username);
+        problems.remove(problem);
+        ProblemController.saveInFile(context,"Deleteproblems.txt",problems,username);
     }
 
 

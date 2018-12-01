@@ -236,6 +236,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
                 UserState currentState = new UserState(PatientRecordAddingPageActivity.this);
                 if (currentState.getState()){
                     temp = saveRecord(problem.getUsername(),record,problem.getId());
+                    temp.setState("online");
                 }
                 else{
                     String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
@@ -514,7 +515,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
         AllRecords = RecordController.loadFromFile(PatientRecordAddingPageActivity.this, "records.txt", AllRecords, username);
 
         Log.i("ID",temp.getID());
-       // temp.setState();
+
         AllRecords.add(temp);
 
 

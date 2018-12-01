@@ -49,6 +49,7 @@ import com.google.gson.reflect.TypeToken;
 
 import org.apache.commons.lang3.ObjectUtils;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -121,7 +122,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         id = patient.getPatientID();
         pw = patient.getPassword();
 
-        deleteProblem = ProblemController.loadFromFile(PatientListOfProblemsPageActivity.this,"Deleteproblems.txt",deleteProblem,username);
+
 //TODO
         UserState current = new UserState(PatientListOfProblemsPageActivity.this);
         if (current.getState()){
@@ -174,7 +175,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
 
                     }
 
-
+                    deleteProblem = ProblemController.loadFromFile(PatientListOfProblemsPageActivity.this,"Deleteproblems.txt",deleteProblem,username);
 
                     for (Problem p1: deleteProblem){
                         Log.i("SYNC","Now DELETE in");
@@ -182,14 +183,14 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                             Log.i("SYNC","delete problem");
                             sync.SyncDeleteProblem(p1,username,problems);
                             sync.UpdateTracker(username);
-                            mAdapter.notifyDataSetChanged();
+                            continue;
                         }
                     }
-                    problems = problemController.GetProblemNum(username);
-                    ProblemController.saveInFile(PatientListOfProblemsPageActivity.this,"problems.txt",problems,username);
-                    //       deleteProblem = new ArrayList<>();
-                    //       ProblemController.saveInFile(PatientListOfProblemsPageActivity.this,"Deleteproblems.txt",deleteProblem,username);
-                    //Log.i("SYNC", "start sync");
+                    ArrayList<Problem> Allproblems = problemController.GetProblemNum(username);
+                    ProblemController.saveInFile(PatientListOfProblemsPageActivity.this,"problems.txt",Allproblems,username);
+                    Allproblems = new ArrayList<>();
+                    ProblemController.saveInFile(PatientListOfProblemsPageActivity.this,"Deleteproblems.txt",Allproblems,username);
+
                 }
 
                 else{
@@ -276,20 +277,31 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                 Problem p = problems.get(position);
                 Problem temp = p;
 
-
                 ProblemController.DelteProblem(problems,position,username,PatientListOfProblemsPageActivity.this);
 
                 mAdapter.notifyDataSetChanged();
 
                 UserState userState = new UserState(PatientListOfProblemsPageActivity.this);
                 if (!userState.getState()){
-
+                    Log.i("Delete","OnDeleteClick");
                     temp.setState("DeleteOffline");
                     ArrayList<Problem> tempproblems = problems;
                     tempproblems.add(temp);
-                    ProblemController.saveInFile(PatientListOfProblemsPageActivity.this,"Deleteproblems.txt",tempproblems,username);
-                    tempproblems.remove(temp);
                     deleteProblem = ProblemController.loadFromFile(PatientListOfProblemsPageActivity.this,"Deleteproblems.txt",deleteProblem,username);
+                    if (deleteProblem.size()==0){
+                        ProblemController.saveInFile(PatientListOfProblemsPageActivity.this,"Deleteproblems.txt",tempproblems,username);
+                    }
+                    else{
+                        deleteProblem.remove(problems.get(position));
+                        deleteProblem.add(temp);
+                        ProblemController.saveInFile(PatientListOfProblemsPageActivity.this,"Deleteproblems.txt",deleteProblem,username);
+                    }
+                    //ProblemController.saveInFile(PatientListOfProblemsPageActivity.this,"Deleteproblems.txt",tempproblems,username);
+                    tempproblems.remove(temp);
+
+                    deleteProblem = ProblemController.loadFromFile(PatientListOfProblemsPageActivity.this,"Deleteproblems.txt",deleteProblem,username);
+
+
                 }
                 else{
                     Sync sync = new Sync (PatientListOfProblemsPageActivity.this,username);
