@@ -32,16 +32,16 @@ import static android.support.test.espresso.intent.matcher.IntentMatchers.hasCom
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.*;
 
-public class PatientProblemAddingPageIntentTest {
+public class PatientBodyLocationPhotoAddingPageIntentTest {
     @Rule
-    public IntentsTestRule<PatientProblemAddingPageActivity> patientProblemDetailPageActivityIntentsTestRule
-            = new IntentsTestRule<>(PatientProblemAddingPageActivity.class,
+    public IntentsTestRule<PatientPaperDollSelectionPageActivity> patientProblemDetailPageActivityIntentsTestRule
+            = new IntentsTestRule<>(PatientPaperDollSelectionPageActivity.class,
             false,
             false);
 
     @Before
     public void before() {
-        Patient patient = new Patient ("u9","1","1");
+  /*      Patient patient = new Patient ("u9","1","1");
         ArrayList<Problem> problems = ProblemController.GetProblemNum(patient.getUsername());
         Problem problem = new Problem(patient.getUsername()
                 ,"1"
@@ -49,29 +49,26 @@ public class PatientProblemAddingPageIntentTest {
                 , DateFormat.getDateTimeInstance().format(new Date())
                 , "1");
         ProblemController.AddProblem(problem,patient.getUsername());
-        //passDataToProblemAdding(patient.getUsername(),problems);
+        ArrayList<Record> records = RecordController.GetRecordNum(patient.getUsername()
+                ,ProblemController.GetProblemNum(patient.getUsername()).get(0).getId());*/
+        Record record = new Record("1","1",new Date());
+/*        records.add(record);
+        passDataToAddingRecordPage(problem,problems,patient,records);*/
+        passDataToRecordAddingPage(record);
         Intent intent= new Intent();
-        intent.putExtra("ComeFromPatientMainPage", "ComeFromPatientMainPage");
+        intent.putExtra("ComeFromRecordAddingPage","ComeFromRecordAddingPage");
         patientProblemDetailPageActivityIntentsTestRule.launchActivity(intent);
 
     }
 
- /*   @Test
+    @Test
     public void chooseBodyLocationTest() {
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.bodyLocationSelectButton)).perform(click());
-        intended(hasComponent(PatientPaperDollSelectionPageActivity.class.getName()));
+        onView(withId(R.id.paperDoll)).perform(click());
+        //intended(hasComponent(PatientPaperDollSelectionPageActivity.class.getName()));
 
     }
 
-    @Test
-    public void PickLocationTest() {
-        Espresso.closeSoftKeyboard();
-        onView((withId(R.id.geoLocationSelectButton))).perform(click());
-        intended(hasComponent(LocationPickerActivity.class.getName()));
-
-
-    }
     @After
     public void after()
     {
@@ -79,15 +76,13 @@ public class PatientProblemAddingPageIntentTest {
     }
 
 
-    public void passDataToProblemAdding(String username, ArrayList<Problem> problems){
+    public void passDataToRecordAddingPage(Record record){
         Context targetConxet = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        SharedPreferences sharedPreferences2 = targetConxet.getSharedPreferences("PatientMainPageData",targetConxet.MODE_PRIVATE);
+        SharedPreferences sharedPreferences2 = targetConxet.getSharedPreferences("BodyLocationPhotoAddingData",targetConxet.MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(username);*//**save in gson format*//*
-        String json2 = gson.toJson(problems);
-        editor2.putString("username",json);
-        editor2.putString("patientProblems",json2);
+        String json = gson.toJson(record);/**save in gson format*/
+        editor2.putString("record",json);
         editor2.apply();
-    }*/
+    }
 }
