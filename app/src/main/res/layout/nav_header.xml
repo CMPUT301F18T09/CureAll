@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:layout_gravity="bottom"
+    android:background="@color/colorAccent"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingTop="40dp"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <ImageView
+        android:id="@+id/nav_headScript"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:adjustViewBounds="false"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/nav_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+    <TextView
+        android:id="@+id/nav_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="email address" />
+
+    <TextView
+        android:id="@+id/nav_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PhoneNumber" />
+
+    <Button
+        android:id="@+id/editConnectInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit connect information" />
+</LinearLayout>
