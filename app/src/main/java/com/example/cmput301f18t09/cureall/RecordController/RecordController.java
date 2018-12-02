@@ -112,6 +112,42 @@ public class RecordController {
         }
 
     }
+
+    public static void UpdateRecord (Record record)
+    {
+        String username = record.getUsername();
+        String problemID = record.getProblemid();
+        // delete record
+        String delete = "delete";
+        ElasticSearchParams params = new ElasticSearchParams("",record,record.getID(),delete);
+        ElasticSearchController.DeleteRecordTask deleteRecordTask = new ElasticSearchController.DeleteRecordTask();
+        deleteRecordTask.execute(params);
+        //Log.i("Unknown bug", );
+        // add new record
+        String add = "add";
+        ElasticSearchParams param = new ElasticSearchParams(username,record,problemID,add);
+        ElasticSearchController.AddRecordTask addRecordTask = new ElasticSearchController.AddRecordTask();
+        addRecordTask.execute(param);
+
+    }
+
+    public static void AddRecord(Record record)
+    {
+        String username = record.getUsername();
+        String problemID = record.getProblemid();
+        ElasticSearchController.AddRecordTask addRecordTask = new ElasticSearchController.AddRecordTask();
+        ElasticSearchParams param = new ElasticSearchParams(username,record,problemID);
+        addRecordTask.execute(param);
+    }
+
+    public static void DeleteRecord (Record record)
+    {
+        // delete record
+        String delete = "delete";
+        ElasticSearchParams params = new ElasticSearchParams("",record,record.getID(),delete);
+        ElasticSearchController.DeleteRecordTask deleteRecordTask = new ElasticSearchController.DeleteRecordTask();
+        deleteRecordTask.execute(params);
+    }
 }
 
 

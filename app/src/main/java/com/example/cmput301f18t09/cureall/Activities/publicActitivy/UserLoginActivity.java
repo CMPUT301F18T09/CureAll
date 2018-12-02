@@ -109,7 +109,7 @@ public class UserLoginActivity extends AppCompatActivity {
 
             if (currentState.getState()){
                 PatientController.SaveLocalTracker(UserLoginActivity.this,Username);
-
+                patients = PatientController.GetNumPatients(Username);
                 ElasticSearchController.GetPatientTask getuserTask = new ElasticSearchController.GetPatientTask();
                 getuserTask.execute(Username);
 

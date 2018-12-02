@@ -92,6 +92,17 @@ public class ElasticSearchParams {
         this.lastPulltime = lastPulltime;
     }
 
+    public ElasticSearchParams(String username, Record record, String ID, String identify){
+        this.username = username;
+        this.record = record;
+        if (identify.equals("delete")){
+            this.id = ID;
+        }else{
+            this.problemid = ID;
+        }
+
+    }
+
 /*  may use later
     public ElasticSearchParams(String problemid)
     {

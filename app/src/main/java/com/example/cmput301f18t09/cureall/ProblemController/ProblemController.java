@@ -70,6 +70,14 @@ public class ProblemController {
 
     }
 
+
+    public static void DelteProblem(Problem problem)
+    {
+            ElasticSearchParams params = new ElasticSearchParams("",problem,problem.getId());
+            ElasticSearchController.DeleteProblemTask deleteProblemTask = new ElasticSearchController.DeleteProblemTask();
+            deleteProblemTask.execute(params);
+    }
+
     public static void AddProblem(Problem problem,String username){
             ArrayList<Problem> problems = ProblemController.GetProblemNum(username);
             ElasticSearchParams param = new ElasticSearchParams(problems.size(), problem, username);

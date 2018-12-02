@@ -3,6 +3,7 @@ package com.example.cmput301f18t09.cureall.PatientController;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.cmput301f18t09.cureall.ElasticSearchController;
 import com.example.cmput301f18t09.cureall.Patient;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -20,6 +21,7 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class PatientController {
     public static ArrayList<Patient> loadFromFile(Context context, String FILENAME, ArrayList<Patient> patientName, String username) {
@@ -107,5 +109,28 @@ public class PatientController {
             e.printStackTrace();
         }
 
+    }
+
+    public static ArrayList<Patient> GetNumPatients(String username)
+    {
+        ArrayList<Patient> patients = new ArrayList<Patient>();
+        ElasticSearchController.GetPatientTask getuserTask = new ElasticSearchController.GetPatientTask();
+        getuserTask.execute(username);
+        try {
+            List<Patient> foundPatient= getuserTask.get();
+            patients.addAll(foundPatient);
+        } catch (Exception e) {
+            Log.i("Error", "Failed to get the user from the async object");
+            //TODO implememnt local data retrive function here
+        }
+        return patients;
+    }
+
+    public static void AddPatient(Patient patient)
+    {
+
+        //saveInFile(); // TODO replace this with elastic search
+        ElasticSearchController.AddPatientTask addUserTask = new ElasticSearchController.AddPatientTask();
+        addUserTask.execute(patient);
     }
 }
