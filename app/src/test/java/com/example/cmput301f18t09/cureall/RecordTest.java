@@ -1,9 +1,6 @@
 /**..*/
 package com.example.cmput301f18t09.cureall;
 
-import com.example.cmput301f18t09.cureall.model.BodyLocation;
-import com.example.cmput301f18t09.cureall.model.Record;
-
 import org.junit.Test;
 
 import java.util.ArrayList;

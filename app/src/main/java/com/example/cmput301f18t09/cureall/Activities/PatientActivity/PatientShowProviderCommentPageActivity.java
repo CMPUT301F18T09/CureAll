@@ -17,12 +17,15 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.cmput301f18t09.cureall.model.Problem;
+import com.example.cmput301f18t09.cureall.Patient;
+import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.R;
+import com.example.cmput301f18t09.cureall.Record;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 /**
  * For this activity, user(patient) can view comment provided by care provider
@@ -58,9 +61,6 @@ public class PatientShowProviderCommentPageActivity extends AppCompatActivity {
         titleContent.setText(problem.getTitle());
     }
 
-    /**
-     * behaviour of activity starts
-     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -75,18 +75,12 @@ public class PatientShowProviderCommentPageActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * behaviour of activity stops
-     */
     @Override
     protected void onStop() {
         super.onStop();
         finish();
     }
 
-    /**
-     * get data from ProblemDetailPage
-     */
     public void getDataFromProblemDetailPage(){
         SharedPreferences sharedPreferences2 = getSharedPreferences("ProblemDetailData",MODE_PRIVATE);
         Gson gson = new Gson();
@@ -94,11 +88,6 @@ public class PatientShowProviderCommentPageActivity extends AppCompatActivity {
         Type type = new TypeToken<Problem>(){}.getType();
         problem = gson.fromJson(json,type);
     }
-
-    /**
-     *
-     * @param problem the problem to be passed
-     */
     //TODO THIS IS USELESS
     public void passDataToProblemDetailPage(Problem problem){
         SharedPreferences sharedPreferences2 = getSharedPreferences("ProblemDetailData",MODE_PRIVATE);

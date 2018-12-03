@@ -36,19 +36,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.cmput301f18t09.cureall.Activities.publicActitivy.ViewLocationOnMapActivity;
-import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchController;
-import com.example.cmput301f18t09.cureall.model.GeoLocation;
-import com.example.cmput301f18t09.cureall.model.Patient;
+import com.example.cmput301f18t09.cureall.Activities.SearchActivity;
+import com.example.cmput301f18t09.cureall.ElasticSearchController;
+import com.example.cmput301f18t09.cureall.Patient;
 import com.example.cmput301f18t09.cureall.PatientAdapter.PatientProblemListPageAdapter;
 import com.example.cmput301f18t09.cureall.PatientController.PatientController;
-import com.example.cmput301f18t09.cureall.model.Problem;
+import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.ProblemController.ProblemController;
 import com.example.cmput301f18t09.cureall.R;
-import com.example.cmput301f18t09.cureall.model.Record;
+import com.example.cmput301f18t09.cureall.Record;
 import com.example.cmput301f18t09.cureall.RecordController.RecordController;
-import com.example.cmput301f18t09.cureall.model.Sync;
-import com.example.cmput301f18t09.cureall.model.UserState;
+import com.example.cmput301f18t09.cureall.Sync;
+import com.example.cmput301f18t09.cureall.UserState;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.zxing.BarcodeFormat;
@@ -86,7 +85,6 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
     ScheduledExecutorService service;
     ProgressDialog progress;
     ArrayList<Problem> deleteProblem;
-    private String control = "default";
 
     //drawer..
     private DrawerLayout drawer;
@@ -257,9 +255,6 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         phoneNumber.setText("Phone: "+ phone);
 
 
-        /**
-         * click to edit email address
-         */
         email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -293,9 +288,6 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
             }
         });
 
-        /**
-         * click to edit phone number
-         */
         phoneNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -326,24 +318,25 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         });
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                AlertDialog.Builder custom = new AlertDialog.Builder(PatientListOfProblemsPageActivity.this);
+            public void onClick(View view) {                AlertDialog.Builder custom = new AlertDialog.Builder(PatientListOfProblemsPageActivity.this);
                 custom.setCancelable(true);
-                custom.setPositiveButton("Search by Body Location", new DialogInterface.OnClickListener() {
+
+                custom.setPositiveButton("Problem", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        ;                   Intent intent = new Intent(PatientListOfProblemsPageActivity.this,SearchActivity.class);
+                        intent.putExtra("search method","problem");
+                        startActivity(intent);
 
                     }
                 });
-                custom.setNegativeButton("Search by Key words", new DialogInterface.OnClickListener() {
+                custom.setNegativeButton("Record", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(PatientListOfProblemsPageActivity.this,SearchActivity.class);
+                        intent.putExtra("search method","record");
+                        startActivity(intent);
 
-                    }
-                });
-                custom.setNeutralButton("Search by Geo-location", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
 
                     }
                 });
@@ -458,9 +451,8 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
     }
 
 
-    /**
-     * a customized dialog
-     */
+
+
     public void MyCustomAlertDialog(){
         MyDialog = new Dialog(PatientListOfProblemsPageActivity.this);
         MyDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -479,47 +471,9 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                 Toast.makeText(this,"sync info with internet",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.mapOfRecords:
+                Toast.makeText(this,"Here is a map of all records",Toast.LENGTH_SHORT).show();
                 //TODO ADD A ACTIVITY TO VIEW A all geolocation on map
-                UserState current = new UserState(PatientListOfProblemsPageActivity.this);
-                if (current.getState()){
-                    Toast.makeText(this,"Here is a map of all records",Toast.LENGTH_SHORT).show();
-                    ArrayList<Record> AllRecords = new ArrayList<>();
-                    ArrayList<Record> realAllRecords = new ArrayList<>();
-                    for (Problem problem : problems){
-                        //ArrayList<Record> tempRecords = recordController.GetRecordNum(username,problem.getId());
-                        //Integer number = tempRecords.size();
-                        AllRecords = RecordController.loadFromFile(PatientListOfProblemsPageActivity.this,"records.txt",AllRecords,username);
-                        Integer num = 0;
-                        for (Record r:AllRecords){
-                            if(r.getProblemid().equals(problem.getId())){
-                                realAllRecords.add(r);
-                            }
-                        }
-                    }
-
-                    Intent map = new Intent(PatientListOfProblemsPageActivity.this, ViewLocationOnMapActivity.class);
-                    Bundle geoLocation = new Bundle();
-                    ArrayList<GeoLocation> geoLocationArrayList = new ArrayList<>();
-                    for (Record r : realAllRecords){
-                        if (r.getGeoLocation() != null){
-                            geoLocationArrayList.add(r.getGeoLocation());
-                        }
-                    }
-                    geoLocation.putSerializable("GeolocationList",geoLocationArrayList);
-                    control = "geo";
-                    map.putExtras(geoLocation);
-                    startActivity(map);
-
-
-                }
-                if (!current.getState()) {
-                    Toast.makeText(this,"Here is a map of all records",Toast.LENGTH_SHORT).show();
-                }
-
                 break;
-            /**
-             * QR scanner
-             */
             case R.id.qr_code:
                 Toast.makeText(this,"Scan QR code",Toast.LENGTH_SHORT).show();
                 String text = username.trim();
@@ -549,9 +503,6 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         }
     }
 
-    /**
-     * behaviour of activity stops
-     */
     @Override
     protected void onStop() {
         super.onStop();
@@ -559,12 +510,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
             progress.dismiss();
         }
         service.shutdown();
-        if(control.equals("geo")){
-
-        }else{
-            finish();
-        }
-
+        finish();
     }
 
     /**data passing, loading and saving part
@@ -582,10 +528,6 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
 
     }
 
-    /**
-     * get data from ProblemAdding
-     */
-
     public void getDataFromProblemAdding(){
         SharedPreferences sharedPreferences2 = getSharedPreferences("problemAddingData",MODE_PRIVATE);
         Gson gson = new Gson();
@@ -598,10 +540,6 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         problems = gson.fromJson(json2,type2);
         //mAdapter.notifyDataSetChanged();
     }
-
-    /**
-     * get data from ProblemDetail
-     */
     public void getDataFromProblemDetail(){
         SharedPreferences sharedPreferences2 = getSharedPreferences("ProblemDetailData",MODE_PRIVATE);
         Gson gson = new Gson();
@@ -612,12 +550,6 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         patient = gson.fromJson(json,type);
         problems = gson.fromJson(json2,type2);
     }
-
-    /**
-     *
-     * @param username username
-     * @param problems patient's problems
-     */
     public void passDataToProblemAdding(String username, ArrayList<Problem> problems){
         SharedPreferences sharedPreferences2 = getSharedPreferences("PatientMainPageData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();
@@ -628,14 +560,6 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         editor2.putString("patientProblems",json2);
         editor2.apply();
     }
-
-    /**
-     *
-     * @param problem current problem
-     * @param records problem's records
-     * @param problems patient's problems
-     * @param patient current user
-     */
     public void passDataToProblemDetail(Problem problem, ArrayList<Record> records, ArrayList<Problem> problems, Patient patient){
         SharedPreferences sharedPreferences2 = getSharedPreferences("PatientMainPageData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();
@@ -661,10 +585,6 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         editor2.putString("patient",json);
         editor2.apply();
     }
-
-    /**
-     * load patient file form local
-     */
     public void loadPatientObjectFromLocal(){
         SharedPreferences sharedPreferences2 = getSharedPreferences("saveToLocal",MODE_PRIVATE);
         Gson gson = new Gson();
@@ -672,11 +592,7 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         Type type = new TypeToken<Patient>(){}.getType();
         patient = gson.fromJson(json,type);
     }
-
-    /**
-     *
-     * @param runnable (build in)
-     */
+    //
     public void SyncCheck(Runnable runnable){
 
         service = Executors.newSingleThreadScheduledExecutor();

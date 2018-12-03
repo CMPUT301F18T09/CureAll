@@ -12,6 +12,7 @@ package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -26,14 +27,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchController;
-import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchParams;
+import com.example.cmput301f18t09.cureall.ElasticSearchController;
+import com.example.cmput301f18t09.cureall.ElasticSearchParams;
+import com.example.cmput301f18t09.cureall.Patient;
 import com.example.cmput301f18t09.cureall.PatientController.PatientController;
-import com.example.cmput301f18t09.cureall.model.Problem;
+import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.ProblemController.ProblemController;
 import com.example.cmput301f18t09.cureall.R;
-import com.example.cmput301f18t09.cureall.model.Sync;
-import com.example.cmput301f18t09.cureall.model.UserState;
+import com.example.cmput301f18t09.cureall.Sync;
+import com.example.cmput301f18t09.cureall.UserState;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -41,6 +43,7 @@ import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -74,9 +77,6 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
         getDataFromPatientMainPage();
     }
 
-    /**
-     * behaviour of activity starts
-     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -179,9 +179,6 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * behaviour of activity stops
-     */
     @Override
     protected void onStop() {
         super.onStop();
@@ -204,10 +201,6 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
         descriptionInput = findViewById(R.id.descriptionInput);
         date = new Date();
     }
-
-    /**
-     * get data from PatientMainPage
-     */
     public void getDataFromPatientMainPage(){
         SharedPreferences sharedPreferences2 = getSharedPreferences("PatientMainPageData",MODE_PRIVATE);
         Gson gson = new Gson();
@@ -218,12 +211,6 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
         username = gson.fromJson(json,type);
         problems = gson.fromJson(json2,type2);
     }
-
-    /**
-     *
-     * @param problems arrayList of problems
-     * @param username username
-     */
     public void passDataToMainPage(ArrayList<Problem> problems, String username){
         SharedPreferences sharedPreferences2 = getSharedPreferences("problemAddingData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();

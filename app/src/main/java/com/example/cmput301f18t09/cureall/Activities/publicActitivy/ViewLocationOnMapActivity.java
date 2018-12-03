@@ -12,7 +12,7 @@ package com.example.cmput301f18t09.cureall.Activities.publicActitivy;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.cmput301f18t09.cureall.model.GeoLocation;
+import com.example.cmput301f18t09.cureall.GeoLocation;
 import com.example.cmput301f18t09.cureall.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;

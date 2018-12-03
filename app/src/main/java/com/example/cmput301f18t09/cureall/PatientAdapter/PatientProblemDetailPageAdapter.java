@@ -16,9 +16,9 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import com.example.cmput301f18t09.cureall.R;
-import com.example.cmput301f18t09.cureall.model.Record;
+import com.example.cmput301f18t09.cureall.Record;
 
 import java.util.ArrayList;
 /**

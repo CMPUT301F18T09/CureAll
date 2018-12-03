@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.cmput301f18t09.cureall.R;
-import com.example.cmput301f18t09.cureall.model.Record;
+import com.example.cmput301f18t09.cureall.Record;
 
 import java.util.ArrayList;
 

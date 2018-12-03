@@ -26,17 +26,17 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.PhotoGallary;
-import com.example.cmput301f18t09.cureall.model.AllKindsOfPhotos;
-import com.example.cmput301f18t09.cureall.model.Patient;
+import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
+import com.example.cmput301f18t09.cureall.Patient;
 import com.example.cmput301f18t09.cureall.PatientAdapter.PatientProblemDetailPageAdapter;
 import com.example.cmput301f18t09.cureall.PatientController.PatientController;
-import com.example.cmput301f18t09.cureall.model.Problem;
+import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.ProblemController.ProblemController;
 import com.example.cmput301f18t09.cureall.R;
-import com.example.cmput301f18t09.cureall.model.Record;
+import com.example.cmput301f18t09.cureall.Record;
 import com.example.cmput301f18t09.cureall.RecordController.RecordController;
-import com.example.cmput301f18t09.cureall.model.Sync;
-import com.example.cmput301f18t09.cureall.model.UserState;
+import com.example.cmput301f18t09.cureall.Sync;
+import com.example.cmput301f18t09.cureall.UserState;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -394,9 +394,6 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * behaviour of activity stops
-     */
     @Override
     protected void onStop() {
         super.onStop();
@@ -425,10 +422,6 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
         problems = gson.fromJson(json2,type2);
         records = gson.fromJson(json4,type4);
     }
-
-    /**
-     * synchronize record photos
-     */
     public void updatePhotosFromRecordDetail(){
         //TODO this function is necessary once we update the record to server and we pass that record to this page
         //TODO overwrite original data
@@ -441,11 +434,6 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
         record = gson.fromJson(json,type);
     }
 
-    /**
-     *
-     * @param patient current patient
-     * @param problems arrayList of problems
-     */
     public void passDataToPatientMainpage(Patient patient, ArrayList<Problem> problems){
         SharedPreferences sharedPreferences2 = getSharedPreferences("ProblemDetailData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();
@@ -456,11 +444,6 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
         editor2.putString("patientProblems",json2);
         editor2.apply();
     }
-
-    /**
-     *
-     * @param problem current problem
-     */
     public void passDataToCommentViewPage(Problem problem){
         SharedPreferences sharedPreferences2 = getSharedPreferences("ProblemDetailData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();
@@ -469,14 +452,6 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
         editor2.putString("problem",json);
         editor2.apply();
     }
-
-    /**
-     *
-     * @param problem current problem
-     * @param problems patient's problems
-     * @param patient current patient
-     * @param records patient's all records
-     */
     public void passDataToAddingRecordPage(Problem problem, ArrayList<Problem> problems, Patient patient, ArrayList<Record> records){
         SharedPreferences sharedPreferences2 = getSharedPreferences("ProblemDetailData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();
@@ -491,11 +466,6 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
         editor2.putString("records",json4);
         editor2.apply();
     }
-
-    /**
-     *
-     * @param record the specific record
-     */
     public void passDataToRecordDetailPage(Record record){
         SharedPreferences sharedPreferences2 = getSharedPreferences("ProblemDetailData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();
@@ -504,11 +474,6 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
         editor2.putString("record",json);
         editor2.apply();
     }
-
-    /**
-     *
-     * @param allPhotos record photos
-     */
     public void passDataToGallary(ArrayList<Bitmap> allPhotos){
         SharedPreferences sharedPreferences2 = getSharedPreferences("ProblemDetailData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();
@@ -537,10 +502,6 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
         editor2.apply();
     }
 
-    /**
-     *
-     * @param name file name
-     */
     public void loadDataFromLocal(String name){
         SharedPreferences sharedPreferences2 = getSharedPreferences(name,MODE_PRIVATE);
         Gson gson = new Gson();
@@ -568,10 +529,6 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
         editor2.putString("problemPosition",json2);
         editor2.apply();
     }
-
-    /**
-     * get position
-     */
     public void loadPosition(){
         SharedPreferences sharedPreferences2 = getSharedPreferences("Position",MODE_PRIVATE);
         Gson gson = new Gson();
@@ -584,18 +541,10 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
     }
 
 
-    /**
-     *
-     * @param runnable (build in)
-     */
     public void SyncCheck(Runnable runnable){
         service = Executors.newSingleThreadScheduledExecutor();
         service.scheduleAtFixedRate(runnable,2,3, TimeUnit.SECONDS);
     }
-
-    /**
-     * edit problem
-     */
     //TODO new funct
     public void EditProblem(){
         problem.setTitle(titleInput.getText().toString());

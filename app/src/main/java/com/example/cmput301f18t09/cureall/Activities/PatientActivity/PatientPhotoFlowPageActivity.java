@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Switch;
@@ -22,8 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderRecordDetailPageActivity;
-import com.example.cmput301f18t09.cureall.model.AllKindsOfPhotos;
-import com.example.cmput301f18t09.cureall.model.BodyLocation;
+import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
+import com.example.cmput301f18t09.cureall.BodyLocation;
 import com.example.cmput301f18t09.cureall.PatientAdapter.photoFlowPageAdapter;
 import com.example.cmput301f18t09.cureall.R;
 import com.google.gson.Gson;
@@ -72,9 +73,6 @@ public class PatientPhotoFlowPageActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewPager);
     }
 
-    /**
-     * behaviour of activity starts
-     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -124,18 +122,12 @@ public class PatientPhotoFlowPageActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * behaviour of activity stops
-     */
     @Override
     protected void onStop() {
         super.onStop();
         finish();
     }
 
-    /**
-     * get data from RecordDetailPage
-     */
     public void getDataFromRecordDetailPage(){
         SharedPreferences sharedPreferences2 = getSharedPreferences("RecordDetailData",MODE_PRIVATE);
         Gson gson = new Gson();

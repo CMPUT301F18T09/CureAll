@@ -1,13 +1,12 @@
 package com.example.cmput301f18t09.cureall.SearchController;
 
-import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchController;
-import com.example.cmput301f18t09.cureall.model.GeoLocation;
-import com.example.cmput301f18t09.cureall.model.Record;
+import com.example.cmput301f18t09.cureall.ElasticSearchController;
+import com.example.cmput301f18t09.cureall.GeoLocation;
+import com.example.cmput301f18t09.cureall.Record;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-import static com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderMainPageActivity.stringContainsItemFromList;
 import static com.example.cmput301f18t09.cureall.SearchController.ProblemSearchController.stringContainsItemFromList;
 
 public class RecordSearchController {

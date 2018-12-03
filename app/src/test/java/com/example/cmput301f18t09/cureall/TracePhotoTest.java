@@ -1,8 +1,6 @@
 /**..*/
 package com.example.cmput301f18t09.cureall;
 
-import com.example.cmput301f18t09.cureall.model.AllKindsOfPhotos;
-
 import org.junit.Test;
 import static org.junit.Assert.*;
 

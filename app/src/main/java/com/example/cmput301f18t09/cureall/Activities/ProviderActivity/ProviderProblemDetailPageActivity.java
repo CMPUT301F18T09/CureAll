@@ -22,13 +22,14 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchController;
-import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchParams;
-import com.example.cmput301f18t09.cureall.model.Patient;
-import com.example.cmput301f18t09.cureall.model.Problem;
+import com.example.cmput301f18t09.cureall.Activities.SearchActivity;
+import com.example.cmput301f18t09.cureall.ElasticSearchController;
+import com.example.cmput301f18t09.cureall.ElasticSearchParams;
+import com.example.cmput301f18t09.cureall.Patient;
+import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.ProviderAdapter.ProblemDetailPageAdapter;
 import com.example.cmput301f18t09.cureall.R;
-import com.example.cmput301f18t09.cureall.model.Record;
+import com.example.cmput301f18t09.cureall.Record;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -174,11 +175,6 @@ public class ProviderProblemDetailPageActivity extends AppCompatActivity {
         });
 
     }
-
-    /**
-     *
-     * @param record all records under this problem
-     */
     public void passDataToRecordDetailPage(Record record){
         SharedPreferences sharedPreferences2 = getSharedPreferences("ProviderProblemDetailData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();
@@ -187,11 +183,6 @@ public class ProviderProblemDetailPageActivity extends AppCompatActivity {
         editor2.putString("record",json);
         editor2.apply();
     }
-
-    /**
-     *
-     * @param name file name
-     */
     public void loadDataFromLocal(String name){
         SharedPreferences sharedPreferences2 = getSharedPreferences(name,MODE_PRIVATE);
         Gson gson = new Gson();
@@ -202,12 +193,6 @@ public class ProviderProblemDetailPageActivity extends AppCompatActivity {
         patient = gson.fromJson(json,type);
         problem = gson.fromJson(json2,type2);
     }
-
-    /**
-     *
-     * @param patient problem's owner
-     * @param problem the problem to be saved
-     */
     public void saveDataToLocal(Patient patient, Problem problem){
         SharedPreferences sharedPreferences2 = getSharedPreferences("ProviderProblemDetailData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();
@@ -219,12 +204,6 @@ public class ProviderProblemDetailPageActivity extends AppCompatActivity {
         editor2.apply();
     }
 
-    /**
-     *
-     * @param requestCode (build in)
-     * @param resultCode (build in)
-     * @param data (build in)
-     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {

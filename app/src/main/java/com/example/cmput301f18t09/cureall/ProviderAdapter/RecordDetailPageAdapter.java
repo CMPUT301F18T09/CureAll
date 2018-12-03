@@ -19,8 +19,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
-import com.example.cmput301f18t09.cureall.model.AllKindsOfPhotos;
+import com.bumptech.glide.Glide;
+import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
 import com.example.cmput301f18t09.cureall.R;
 
 import java.util.ArrayList;

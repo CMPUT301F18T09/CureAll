@@ -9,7 +9,6 @@ import android.widget.ListView;
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.SearchAdapter;
 import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.R;
-import com.example.cmput301f18t09.cureall.model.Problem;
 
 import java.util.ArrayList;
 
@@ -43,9 +42,9 @@ public class ShowSearchResultActivity extends AppCompatActivity {
         else {
             records = (ArrayList<String>)getIntent().getSerializableExtra("records");
             //for(Record each:records)
-            // {
-            // msg_list.add(each.getTitle());
-            // }
+           // {
+               // msg_list.add(each.getTitle());
+           // }
             SearchAdapter arrayAdapter = new SearchAdapter(this,R.layout.search_each_result_in_listview, records);
             search_result_list.setAdapter(arrayAdapter);
         }

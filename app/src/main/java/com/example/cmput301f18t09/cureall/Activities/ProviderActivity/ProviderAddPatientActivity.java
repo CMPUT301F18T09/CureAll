@@ -10,16 +10,19 @@
 package com.example.cmput301f18t09.cureall.Activities.ProviderActivity;
 
 import android.Manifest;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -27,8 +30,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchController;
-import com.example.cmput301f18t09.cureall.model.Patient;
+import com.example.cmput301f18t09.cureall.ElasticSearchController;
+import com.example.cmput301f18t09.cureall.Patient;
 import com.example.cmput301f18t09.cureall.R;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -54,12 +57,6 @@ public class ProviderAddPatientActivity extends AppCompatActivity {
     final int RequestCameraPermissionID = 1001;
     private String control = "default";
 
-    /**
-     *
-     * @param requestCode (build in)
-     * @param permissions (build in)
-     * @param grantResults (build in)
-     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
@@ -129,10 +126,6 @@ public class ProviderAddPatientActivity extends AppCompatActivity {
 
             }
 
-            /**
-             *
-             * @param holder (build in)
-             */
             @Override
             public void surfaceDestroyed(SurfaceHolder holder) {
                 cameraSource.stop();
@@ -144,10 +137,6 @@ public class ProviderAddPatientActivity extends AppCompatActivity {
             public void release() {
             }
 
-            /**
-             *
-             * @param detections detections for QR code
-             */
             @Override
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> qrcodes = detections.getDetectedItems();
@@ -202,9 +191,6 @@ public class ProviderAddPatientActivity extends AppCompatActivity {
         },1);*/
     }
 
-    /**
-     * behaviour of activity stops
-     */
     @Override
     protected void onStop() {
         super.onStop();

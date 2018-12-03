@@ -14,14 +14,19 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -35,24 +40,27 @@ import android.widget.Toast;
 
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.DialogueForAddingPhotoName;
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.LocationPickerActivity;
-import com.example.cmput301f18t09.cureall.model.AllKindsOfPhotos;
-import com.example.cmput301f18t09.cureall.model.BodyLocation;
-import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchController;
-import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchParams;
-import com.example.cmput301f18t09.cureall.model.Patient;
+import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
+import com.example.cmput301f18t09.cureall.BodyLocation;
+import com.example.cmput301f18t09.cureall.ElasticSearchController;
+import com.example.cmput301f18t09.cureall.ElasticSearchParams;
+import com.example.cmput301f18t09.cureall.GeoLocation;
+import com.example.cmput301f18t09.cureall.Patient;
 import com.example.cmput301f18t09.cureall.PatientController.PatientController;
-import com.example.cmput301f18t09.cureall.model.Problem;
+import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.R;
-import com.example.cmput301f18t09.cureall.model.Record;
+import com.example.cmput301f18t09.cureall.Record;
 import com.example.cmput301f18t09.cureall.RecordController.RecordController;
-import com.example.cmput301f18t09.cureall.model.Sync;
-import com.example.cmput301f18t09.cureall.model.UserState;
+import com.example.cmput301f18t09.cureall.Sync;
+import com.example.cmput301f18t09.cureall.UserState;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.text.DateFormat;
@@ -283,14 +291,16 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
                 UserState currentState = new UserState(PatientRecordAddingPageActivity.this);
                 if (currentState.getState()){
                     //TODO only save to es
-                    temp = saveRecord(problem.getUsername(),record,problem.getId());
-                    temp.setState("Online");
+                  record.setTitle(titleInput.getText().toString());
+                  record.setComment(descriptionInput.getText().toString());
+                  temp = saveRecord(problem.getUsername(),record,problem.getId());
+                  temp.setState("Online");
 
                 }
                 else{
                     String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
                     temp.setID(temp.getTitle()+currentDateTimeString);
-                    //decrypt
+                    //decryptF
                     record.setTitle(titleInput.getText().toString());
                     record.setComment(descriptionInput.getText().toString());
                     temp.setState("offline");
@@ -313,9 +323,6 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
 
     }
 
-    /**
-     * each image is able to be clicked
-     */
     public void onImageGalleryClicked() {
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
         File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
@@ -324,10 +331,6 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
         photoPickerIntent.setDataAndType(data, "image/*");
         startActivityForResult(photoPickerIntent, IMAGE_GALLERY_REQUEST);
     }
-
-    /**
-     * jump activity
-     */
     private void dispatchTakePictureIntent() {
     Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
     startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
@@ -379,20 +382,11 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
             }
         }
     }
-
-    /**
-     * open dialogue for adding photos
-     */
     public void openDialogue(){
         DialogueForAddingPhotoName dialogueForAddingPhotoName = new DialogueForAddingPhotoName();
         dialogueForAddingPhotoName.show(getSupportFragmentManager(),"dialogueForAddingPhotoName");
         dialogueForAddingPhotoName.setCancelable(false);
     }
-
-    /**
-     *
-     * @param name photo name
-     */
     @Override
     public void applyTexts(String name) {
         photoName = name;
@@ -400,13 +394,6 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
         pictures.add(newpicture);
     }
 
-    /**
-     *
-     * @param username username
-     * @param record current record
-     * @param problemID problem ID
-     * @return the record to be saved
-     */
     //TODO
     public Record saveRecord(String username, Record record, String problemID){
         Record temp = record;
@@ -433,10 +420,6 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
 
         return temp;
     }
-
-    /**
-     * behaviour of activity stops
-     */
     //TODO
     @Override
     protected void onStop() {
@@ -448,9 +431,6 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
 
     }
 
-    /**
-     * get data from ProblemDetail
-     */
     public void getDataFromProblemDetail(){
         SharedPreferences sharedPreferences2 = getSharedPreferences("ProblemDetailData",MODE_PRIVATE);
         Gson gson = new Gson();
@@ -467,10 +447,6 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
         patient = gson.fromJson(json3,type3);
         records =gson.fromJson(json4,type4);
     }
-
-    /**
-     * get data from GeolocationSelectionPage
-     */
     public void getDataFromGeolocationSelectionPage(){
         SharedPreferences sharedPreferences2 = getSharedPreferences("GeoLocationData",MODE_PRIVATE);
         Gson gson = new Gson();
@@ -482,9 +458,6 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
         record = gson.fromJson(json2,type2);
     }
 
-    /**
-     * get data from BodyLocationSelectionPage
-     */
     public void getDataFromBodyLocationSelectionPage(){
         SharedPreferences sharedPreferences2 = getSharedPreferences("BodyLocationPhotoAddingData",MODE_PRIVATE);
         Gson gson = new Gson();
@@ -492,10 +465,6 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
         Type type = new TypeToken<Record>(){}.getType();
         record = gson.fromJson(json,type);
     }
-
-    /**
-     * load data from local file
-     */
     public void loaaDataFromLocal(){
         SharedPreferences sharedPreferences2 = getSharedPreferences("RecordAddingData",MODE_PRIVATE);
         Gson gson = new Gson();
@@ -514,12 +483,6 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
     }
 
 
-    /**
-     *
-     * @param problem problem
-     * @param problems arrayList of problems
-     * @param records arrayList of records
-     */
     public void passDataToProblemDetailPage(Problem problem, ArrayList<Problem> problems, ArrayList<Record> records){
         SharedPreferences sharedPreferences2 = getSharedPreferences("RecordAddingData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();
@@ -532,12 +495,6 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
         editor2.putString("records",json4);
         editor2.apply();
     }
-
-    /**
-     *
-     * @param problem current problem
-     * @param record current record
-     */
     public void passDataToGeolocationSelectionPage(Problem problem, Record record){
         SharedPreferences sharedPreferences2 = getSharedPreferences("RecordAddingData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();
@@ -548,11 +505,6 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
         editor2.putString("record",json2);
         editor2.apply();
     }
-
-    /**
-     *
-     * @param record current record
-     */
     public void passDataToPaperDollSelectionPage(Record record){
         SharedPreferences sharedPreferences2 = getSharedPreferences("RecordAddingData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();
@@ -563,13 +515,6 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
     }
 
 
-    /**
-     *
-     * @param patient current patient
-     * @param records arrayList of records
-     * @param problems arrayList of problems
-     * @param problem current problem
-     */
     public void saveDataToLocal(Patient patient, ArrayList<Record> records, ArrayList<Problem> problems,Problem problem){
         SharedPreferences sharedPreferences2 = getSharedPreferences("RecordAddingData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();
@@ -607,14 +552,6 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
         recordController = new RecordController();
         date = new Date();
     }
-
-    /**
-     *
-     * @param username username
-     * @param record current record
-     * @param problemID problem ID
-     * @param temp the record to be saved
-     */
     //TODO add a save local function
     private void saveLocal(String username, Record record, String problemID,Record temp) {
 

@@ -1,8 +1,6 @@
 /**..*/
 package com.example.cmput301f18t09.cureall;
 
-import com.example.cmput301f18t09.cureall.model.GeoLocation;
-
 import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
