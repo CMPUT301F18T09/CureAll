@@ -18,11 +18,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.MainActivity;
-import com.example.cmput301f18t09.cureall.ElasticSearchController;
-import com.example.cmput301f18t09.cureall.Patient;
+import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchController;
+import com.example.cmput301f18t09.cureall.model.Patient;
+import com.example.cmput301f18t09.cureall.PatientController.PatientController;
 import com.example.cmput301f18t09.cureall.R;
+import com.example.cmput301f18t09.cureall.model.UserState;
+
+import java.util.ArrayList;
 
 /**
  * For this activity, user(patient) can sign up for an account
@@ -31,10 +36,11 @@ public class PatientSignUpActivity extends AppCompatActivity{
     private Button backButton, continueButton;
     private EditText username, password, rePassword, email, phone ;
     private ImageView patientSymbol;
+    private ArrayList<Patient> patients = new ArrayList<>();
 
     /**
      * start up
-     * @param savedInstanceState
+     * @param savedInstanceState (build in)
      */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,26 +76,37 @@ public class PatientSignUpActivity extends AppCompatActivity{
 
             public void onClick(View v) {
                 String Username = username.getText().toString();                                                       //get the input of year/month/day/hour/minute/
-                String Emial = email.getText().toString();
-                String Phone = phone.getText().toString();
-                String Password = password.getText().toString();
-                String RePassword = rePassword.getText().toString();
-                if (Password.equals(RePassword)){
+                if (username.length() < 8){
+                    Toast.makeText(PatientSignUpActivity.this,"8 characters required!",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    String Emial = email.getText().toString();
+                    String Phone = phone.getText().toString();
 
-                        Log.i("Patient","choose sign up as a patient");
-                        Patient user = new Patient(Username,Password,Emial,Phone);
-                        //NormalTweet newtweent = new NormalTweet("Well, Will.");
+                    UserState currentState = new UserState(PatientSignUpActivity.this);
+                    if(currentState.getState()){
+                        Log.i("Patient","choose sign up as a patient online");
+                        Patient user = new Patient(Username,Emial,Phone);
+
                         setResult(RESULT_OK);
 
-                        //saveInFile(); // TODO replace this with elastic search
+                        //TODO replace this with elastic search
                         ElasticSearchController.AddPatientTask addUserTask = new ElasticSearchController.AddPatientTask();
                         addUserTask.execute(user);
+                        // TODO we might also need a local save here
+                        patients.add(user);
+                        PatientController.saveInFile(PatientSignUpActivity.this,"userinfo.txt",patients,Username);
+                    }
 
+                    Log.i("Patient","choose sign up as a patient offline");
+                    Patient user = new Patient(Username,Emial,Phone);
+                    patients.add(user);
+                    PatientController.saveInFile(PatientSignUpActivity.this,"userinfo.txt",patients,Username);
+
+
+                    Intent intent = new Intent(PatientSignUpActivity.this,MainActivity.class);
+                    startActivity(intent);
                 }
-
-                Intent intent = new Intent(PatientSignUpActivity.this,MainActivity.class);
-                startActivity(intent);
             }
         });
-    }
-}
+    }}

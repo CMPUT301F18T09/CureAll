@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Activities.ProviderActivity.ProviderMainPageActivity"
     android:id = "@+id/drawer_layout"
+    android:background="@drawable/background2"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
     >
@@ -34,24 +35,24 @@
 
         <Button
             android:id="@+id/searchButton"
-            android:text="Search"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/search_button_icon"
            />
 
         <Button
             android:id="@+id/problemAddingButton"
-            android:text="Problem adding"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/addbutton_icon"
          />
 
     </android.support.constraint.ConstraintLayout>

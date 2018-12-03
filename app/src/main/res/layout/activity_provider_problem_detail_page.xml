@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/provider_background"
     tools:context=".Activities.ProviderActivity.ProviderProblemDetailPageActivity">
 
     <android.support.v7.widget.RecyclerView
@@ -32,7 +33,7 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@mipmap/ic_launcher" />
+       android:background="@drawable/provider_addpatienticon" />
 
     <ImageButton
         android:id="@+id/backButton"
@@ -42,7 +43,7 @@
         android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@mipmap/ic_launcher" />
+        android:background="@drawable/provider_back_icon"/>
 
     <TextView
         android:id="@+id/dateView"

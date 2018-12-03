@@ -10,17 +10,27 @@
 package com.example.cmput301f18t09.cureall.Activities.ProviderActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientPhotoFlowPageActivity;
+import com.example.cmput301f18t09.cureall.Activities.publicActitivy.ViewLocationOnMapActivity;
+import com.example.cmput301f18t09.cureall.model.AllKindsOfPhotos;
+import com.example.cmput301f18t09.cureall.model.BodyLocation;
 import com.example.cmput301f18t09.cureall.ProviderAdapter.RecordDetailPageAdapter;
 import com.example.cmput301f18t09.cureall.R;
-import com.example.cmput301f18t09.cureall.Record;
+import com.example.cmput301f18t09.cureall.model.Record;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -31,18 +41,19 @@ import java.util.ArrayList;
  * In this version, it can only view the word information of each record
  */
 public class ProviderRecordDetailPageActivity extends AppCompatActivity {
-    private ImageButton backButton, geoLocationButton;
+    private ImageButton backButton, geoLocationButton,viewPhotoFlow;
     private TextView recordDetailHeader, title,titleContent, comment, commentContent;
-    private TextView time, timeContent,bodyLocation,bodyLocationContent,photo;
+    private TextView time, timeContent, bodyLocationName,bodyLocationContent,photo;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private Record record;
+    private ArrayList<AllKindsOfPhotos> photoFlowShow;
 
     //images from internet test
-    private ArrayList<String> mNames = new ArrayList<>();
-    private ArrayList<String> mImageUrls = new ArrayList<>();
+    private ArrayList<AllKindsOfPhotos> recordTrackingPhotos = new ArrayList<>();
+    private BodyLocation bodyLocation;
     //ends..
     @Override
     /**
@@ -53,20 +64,104 @@ public class ProviderRecordDetailPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_provider_record_detail_page);
         initalizeAllElements();
         //test samples...
-
+        getDataFromProblemDetailPage();
         titleContent.setText(record.getTitle());
         commentContent.setText(record.getComment());
         timeContent.setText(df.format(record.getTime()));
-        bodyLocation.setText(record.getBodyLocation().getBodyLocationName());
-        //bodyLocation.setText(record.getBodyLocation());
+        if (record.getBodyLocation() == null){
+            bodyLocationName.setText("no body selected");
+        }else{
+            bodyLocationName.setText(record.getBodyLocation().getBodyLocationName());
+        }
 
-
+        //
+        recordTrackingPhotos=record.getRecordTrackingPhotoArrayList();
+        bodyLocation = record.getBodyLocation();
+        //
         recyclerView = findViewById(R.id.ListOfPhotos);
         recyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
-        mAdapter = new RecordDetailPageAdapter(this,mNames,mImageUrls);
+
+        mAdapter = new RecordDetailPageAdapter(this,recordTrackingPhotos);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
+    }
+
+    /**
+     * behaviour of activity starts
+     */
+    @Override
+    protected void onStart() {
+        super.onStart();
+        geoLocationButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             *
+             * @param v view
+             */
+            @Override
+            public void onClick(View v) {
+                if (record.getGeoLocation() != null){
+                    Intent map = new Intent(ProviderRecordDetailPageActivity.this, ViewLocationOnMapActivity.class);
+                    //TODO REMINDER DONT NEED TO CHANGE HERE
+                    Bundle geoLocation = new Bundle();
+                    geoLocation.putDouble("log", record.getGeoLocation().getLocation().get(0));
+                    geoLocation.putDouble("lat", record.getGeoLocation().getLocation().get(1));
+                    map.putExtras(geoLocation);
+                    startActivity(map);
+                }
+                else {
+                    Toast.makeText(ProviderRecordDetailPageActivity.this,"You have not choose a location",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+        viewPhotoFlow.setOnClickListener(new View.OnClickListener() {
+            /**
+             *
+             * @param v view
+             */
+            @Override
+            public void onClick(View v) {
+                bodyLocation = record.getBodyLocation();
+                photoFlowShow = record.getRecordTrackingPhotoArrayList();
+                if (bodyLocation != null && photoFlowShow != null) {
+                    // TODO change "PatientViewBodyLocationPhotoPageActivity"
+                    Intent intent = new Intent(ProviderRecordDetailPageActivity.this, PatientPhotoFlowPageActivity.class);
+                    passDataToPhotoFlowPage(bodyLocation,recordTrackingPhotos);
+                    intent.putExtra("ComeFromRecordDetailPage","ComeFromRecordDetailPagePROVIDER");
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(ProviderRecordDetailPageActivity.this,"You have no photos",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    /**
+     * get data from ProblemDetailPage
+     */
+    public void getDataFromProblemDetailPage(){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("ProviderProblemDetailData",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences2.getString("record",null);
+        Type type = new TypeToken<Record>(){}.getType();
+        record = gson.fromJson(json,type);
+    }
+
+    /**
+     *
+     * @param bodyLocation2 body location
+     * @param photoFlowShow photo arrayList
+     */
+    public void passDataToPhotoFlowPage(BodyLocation bodyLocation2,ArrayList<AllKindsOfPhotos> photoFlowShow){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("RecordDetailData",MODE_PRIVATE);
+        SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(bodyLocation2);/**save in gson format*/
+        String json2 = gson.toJson(photoFlowShow);
+        editor2.putString("bodyLocation2",json);
+        editor2.putString("photoFlowShow",json2);
+        editor2.apply();
     }
 
     /**
@@ -74,19 +169,18 @@ public class ProviderRecordDetailPageActivity extends AppCompatActivity {
      * it link the elements with the source xml file
      */
     public void initalizeAllElements(){
-        Intent incomingIntent = getIntent();
-        record = (Record) getIntent().getSerializableExtra("record");
-        backButton = (ImageButton) findViewById(R.id.backButton);
-        geoLocationButton = (ImageButton) findViewById(R.id.geoLocationButton);
-        title = (TextView) findViewById(R.id.title);
-        titleContent = (TextView) findViewById(R.id.titleContent);
-        comment = (TextView) findViewById(R.id.comment);
-        commentContent = (TextView) findViewById(R.id.commentContent);
-        time = (TextView) findViewById(R.id.time);
-        timeContent = (TextView) findViewById(R.id.timeContent);
-        bodyLocation = (TextView) findViewById(R.id.bodyLocation);
-        bodyLocationContent = (TextView) findViewById(R.id.bodyLocationContent);
-        photo = (TextView) findViewById(R.id.photo);
+        backButton = findViewById(R.id.backButton);
+        geoLocationButton = findViewById(R.id.geoLocationButton);
+        title = findViewById(R.id.title);
+        titleContent = findViewById(R.id.titleContent);
+        comment =  findViewById(R.id.comment);
+        commentContent =  findViewById(R.id.commentContent);
+        time =  findViewById(R.id.time);
+        timeContent =  findViewById(R.id.timeContent);
+        bodyLocationName =  findViewById(R.id.bodyLocation);
+        bodyLocationContent =  findViewById(R.id.bodyLocationContent);
+        viewPhotoFlow = findViewById(R.id.viewPhotoFlow);
+        photo = findViewById(R.id.photo);
     }
 
 }

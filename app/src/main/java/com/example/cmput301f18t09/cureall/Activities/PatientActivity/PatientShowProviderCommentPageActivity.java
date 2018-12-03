@@ -10,18 +10,19 @@
 package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.cmput301f18t09.cureall.Patient;
-import com.example.cmput301f18t09.cureall.Problem;
+import com.example.cmput301f18t09.cureall.model.Problem;
 import com.example.cmput301f18t09.cureall.R;
-import com.example.cmput301f18t09.cureall.Record;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
-import java.util.ArrayList;
+import java.lang.reflect.Type;
 
 /**
  * For this activity, user(patient) can view comment provided by care provider
@@ -31,9 +32,6 @@ public class PatientShowProviderCommentPageActivity extends AppCompatActivity {
     private TextView titleTextView, problemDescription,problemProviderComment,
             titleContent,descriptionContent,commentContent;
     private Problem problem;
-    private Patient patient;
-    private ArrayList<Problem> problems;
-    ArrayList<Record> records = new ArrayList<>();
 
     /**
      * get basic info for problems & records
@@ -52,26 +50,63 @@ public class PatientShowProviderCommentPageActivity extends AppCompatActivity {
         descriptionContent=findViewById(R.id.descriptionContent);
         commentContent=findViewById(R.id.commentContent);
         problem = (Problem)getIntent().getSerializableExtra("problem");
-        records = (ArrayList<Record>)getIntent().getSerializableExtra("records");
-        problems = (ArrayList<Problem>)getIntent().getSerializableExtra("problems");
-        patient = (Patient)getIntent().getSerializableExtra("patient");
+
+        getDataFromProblemDetailPage();
 
         commentContent.setText(problem.getDoctorcomment());
         descriptionContent.setText((problem.getDescription()));
         titleContent.setText(problem.getTitle());
+    }
 
+    /**
+     * behaviour of activity starts
+     */
+    @Override
+    protected void onStart() {
+        super.onStart();
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PatientShowProviderCommentPageActivity.this,PatientProblemDetailPageActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("problem", problem);
-                bundle.putSerializable("problems",problems);
-                bundle.putSerializable("patient",patient);
-                bundle.putSerializable("records", records);
-                intent.putExtras(bundle);
+                passDataToProblemDetailPage(problem);
+                intent.putExtra("ComeFromCommentViewPage","ComeFromCommentViewPage");
                 startActivity(intent);
             }
         });
     }
+
+    /**
+     * behaviour of activity stops
+     */
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
+    }
+
+    /**
+     * get data from ProblemDetailPage
+     */
+    public void getDataFromProblemDetailPage(){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("ProblemDetailData",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences2.getString("problem",null);
+        Type type = new TypeToken<Problem>(){}.getType();
+        problem = gson.fromJson(json,type);
+    }
+
+    /**
+     *
+     * @param problem the problem to be passed
+     */
+    //TODO THIS IS USELESS
+    public void passDataToProblemDetailPage(Problem problem){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("ProblemDetailData",MODE_PRIVATE);
+        SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(problem);/**save in gson format*/
+        editor2.putString("problem",json);
+        editor2.apply();
+    }
+
 }

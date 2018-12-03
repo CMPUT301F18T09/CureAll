@@ -8,24 +8,47 @@
 
     <EditText
         android:id="@+id/input_patient"
-        android:hint="Username"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="305dp"
-        android:layout_marginTop="216dp"
+        android:layout_height="46dp"
+        android:layout_marginBottom="96dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="41dp"
-        android:layout_marginTop="224dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="24dp"
         android:text="Add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="0dp"
+        android:layout_height="37dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="168dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:gravity="center"
+        android:text="@string/result_text_default"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_patient" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <SurfaceView
+        android:id="@+id/cameraView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="45dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

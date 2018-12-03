@@ -11,6 +11,7 @@ package com.example.cmput301f18t09.cureall.Activities.ProviderActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -22,14 +23,17 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.SearchActivity;
-import com.example.cmput301f18t09.cureall.ElasticSearchController;
-import com.example.cmput301f18t09.cureall.ElasticSearchParams;
-import com.example.cmput301f18t09.cureall.Patient;
-import com.example.cmput301f18t09.cureall.Problem;
+import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchController;
+import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchParams;
+import com.example.cmput301f18t09.cureall.model.Patient;
+import com.example.cmput301f18t09.cureall.model.Problem;
 import com.example.cmput301f18t09.cureall.ProviderAdapter.ProblemDetailPageAdapter;
 import com.example.cmput301f18t09.cureall.R;
-import com.example.cmput301f18t09.cureall.Record;
+import com.example.cmput301f18t09.cureall.model.Record;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +51,7 @@ public class ProviderProblemDetailPageActivity extends AppCompatActivity {
     private ArrayList<Record> exampleRecordList;
     private Patient patient;
     private Problem problem;
+    final private int GET_RESULT = 1;
     @Override
     /**
      * Create the necessary elements in this page view
@@ -63,49 +68,14 @@ public class ProviderProblemDetailPageActivity extends AppCompatActivity {
         descriptionView =(TextView) findViewById(R.id.descriptionView);
         searchButton = findViewById(R.id.backButton);
 
-        Intent incomingIntent = getIntent();
-        patient = (Patient) getIntent().getSerializableExtra("patient");
-        problem = (Problem) getIntent().getSerializableExtra("problem");
+        Intent intent = getIntent();
+        if (intent.getStringExtra("ComeFromAListOfProblemPage") != null && intent.getStringExtra("ComeFromAListOfProblemPage").equals("ComeFromAListOfProblemPage")){
+            loadDataFromLocal("ProblemListPageData");
+        }
+        else if(intent.getStringExtra("ComeFromCommentAddingPage") != null && intent.getStringExtra("ComeFromCommentAddingPage").equals("ComeFromCommentAddingPage")){
+            loadDataFromLocal("ProviderProblemDetailData");
+        }
 
-        /**
-         * The search function has not been finshed yet.
-         * It will be finished in next project
-         * Here is just the prototype of codes
-         */
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String[] searchOptions = new String[] {"search by body-location","search by keywords","search by geo-location"};
-                AlertDialog.Builder builder = new AlertDialog.Builder(ProviderProblemDetailPageActivity.this);
-                builder.setSingleChoiceItems(searchOptions,-1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        if (i==0 || i==1) {
-                            startActivity(new Intent(ProviderProblemDetailPageActivity.this,SearchActivity.class).putExtra("From","provider"));
-                        }
-                        else {}
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
-        });
-        /**
-         * provider can click this button to the page
-         * that add comment for each problem.
-         */
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Log.i("Patient",patient.getEmail());
-                Intent intent = new Intent(ProviderProblemDetailPageActivity.this,ProviderCommentPageActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("problem",problem);
-                bundle.putSerializable("patient",patient);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
         /**
          * Elasticsearch here is used to get information from server
          * and present them into the recycleview
@@ -133,7 +103,6 @@ public class ProviderProblemDetailPageActivity extends AppCompatActivity {
         dateView.setText(problem.getTime());
         descriptionView.setText(problem.getDescription());
         //test ends...
-
         recyclerView = findViewById(R.id.listOfProblems);
         recyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
@@ -159,13 +128,111 @@ public class ProviderProblemDetailPageActivity extends AppCompatActivity {
                 Record record= exampleRecordList.get(position);
                 //Log.i("Patient",patient.getEmail());
                 Intent intent = new Intent(ProviderProblemDetailPageActivity.this,ProviderRecordDetailPageActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("record",record);
-                intent.putExtras(bundle);
+                //TODO replace here with sharedpreference
+                passDataToRecordDetailPage(record);
+                intent.putExtra("ComeFromProviderProblemDetailPage","ComeFromProviderProblemDetailPage");
                 startActivity(intent);
             }
         });
+        /**
+         * provider can click this button to the page
+         * that add comment for each problem.
+         */
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Log.i("Patient",patient.getEmail());
+                Intent intent = new Intent(ProviderProblemDetailPageActivity.this,ProviderCommentPageActivity.class);
+                //TODO replace here with sharedpreference
+                saveDataToLocal(patient,problem);
+                intent.putExtra("ComeFromProviderProblemDetailPage","ComeFromProviderProblemDetailPage");
+                //startActivity(intent);
+                startActivityForResult(intent,GET_RESULT);
+            }
+        });
+        /**
+         * The search function has not been finshed yet.
+         * It will be finished in next project
+         * Here is just the prototype of codes
+         */
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String[] searchOptions = new String[] {"search by body-location","search by keywords","search by geo-location"};
+                AlertDialog.Builder builder = new AlertDialog.Builder(ProviderProblemDetailPageActivity.this);
+                builder.setSingleChoiceItems(searchOptions,-1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        if (i==0 || i==1) {
+                            startActivity(new Intent(ProviderProblemDetailPageActivity.this,SearchActivity.class).putExtra("From","provider"));
+                        }
+                        else {}
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
 
+    }
+
+    /**
+     *
+     * @param record all records under this problem
+     */
+    public void passDataToRecordDetailPage(Record record){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("ProviderProblemDetailData",MODE_PRIVATE);
+        SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(record);
+        editor2.putString("record",json);
+        editor2.apply();
+    }
+
+    /**
+     *
+     * @param name file name
+     */
+    public void loadDataFromLocal(String name){
+        SharedPreferences sharedPreferences2 = getSharedPreferences(name,MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences2.getString("patient",null);
+        String json2 = sharedPreferences2.getString("problem",null);
+        Type type = new TypeToken<Patient>(){}.getType();
+        Type type2 = new TypeToken<Problem>(){}.getType();
+        patient = gson.fromJson(json,type);
+        problem = gson.fromJson(json2,type2);
+    }
+
+    /**
+     *
+     * @param patient problem's owner
+     * @param problem the problem to be saved
+     */
+    public void saveDataToLocal(Patient patient, Problem problem){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("ProviderProblemDetailData",MODE_PRIVATE);
+        SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(patient);
+        String json2 = gson.toJson(problem);
+        editor2.putString("patient",json);
+        editor2.putString("problem",json2);
+        editor2.apply();
+    }
+
+    /**
+     *
+     * @param requestCode (build in)
+     * @param resultCode (build in)
+     * @param data (build in)
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if(requestCode == GET_RESULT && resultCode == RESULT_OK)
+        {
+            loadDataFromLocal("ProviderProblemDetailData");
+        }
     }
 
 

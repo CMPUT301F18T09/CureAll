@@ -51,18 +51,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-        Button jump = (Button)findViewById(R.id.jump);
-        jump.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, PatientBodyLocationPhotoAddingPageActivity.class);
-                Bundle bundle = new Bundle();
-
-                intent.putExtras(bundle);
-
-                startActivity(intent);
-            }
-        });
         buttonListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -7,6 +7,9 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -40,7 +43,6 @@
         <activity android:name=".Activities.PatientActivity.PatientRecordDetailPageActivity" />
         <activity android:name=".Activities.PatientActivity.PatientPaperDollSelectionPageActivity" />
         <activity android:name=".Activities.PatientActivity.PatientBodyLocationPhotoAddingPageActivity" />
-        <activity android:name=".Activities.PatientActivity.PatientViewBodyLocationPhotoPageActivity" />
         <activity android:name=".Activities.PatientActivity.PatientPhotoFlowPageActivity" />
         <activity android:name=".Activities.publicActitivy.SearchActivity" />
         <activity android:name=".Activities.publicActitivy.SearchResultActivity" />
@@ -64,14 +66,29 @@
             android:value="@string/google_place_api" />
 
         <activity android:name=".Activities.publicActitivy.LocationPickerActivity" />
-        <activity android:name=".Activities.ProviderActivity.ProviderAddPatientActivity"></activity>
-        <activity
-            android:name=".Activities.publicActitivy.ViewLocationOnMapActivity"
-            />
-        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+        <activity android:name=".Activities.ProviderActivity.ProviderAddPatientActivity" />
+        <activity android:name=".Activities.publicActitivy.ViewLocationOnMapActivity" />
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="barcode" />
+
+        <activity android:name=".Activities.publicActitivy.PhotoGallary" />
+        <activity android:name=".Activities.SearchActivity" />
+        <activity android:name=".Activities.publicActitivy.ShowSearchResultActivity" />
+
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/search_each_result_in_list_view" />
+
+        <activity android:name=".Activities.publicActitivy.Main2Activity"></activity>
     </application>
 
 </manifest>

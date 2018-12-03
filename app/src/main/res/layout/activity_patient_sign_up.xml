@@ -4,12 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background_login">
 
     <ImageView
         android:id="@+id/patientSymbol"
-        android:layout_width="166dp"
-        android:layout_height="159dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -18,7 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_launcher" />
+        app:srcCompat="@drawable/patient_login" />
 
     <EditText
         android:id="@+id/passwordInputpass"
@@ -28,6 +29,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:hint = "password"
+        android:theme="@style/MyEditText"
+        android:textColorHint="@color/white"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/confirmPasswodInput"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,6 +44,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:hint="confirm password"
+        android:theme="@style/MyEditText"
+        android:textColorHint="@color/white"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/emailAddressInput"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,6 +59,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:hint="Phone number"
+        android:theme="@style/MyEditText"
+        android:textColorHint="@color/white"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -67,6 +74,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:hint="E-mail Address"
+        android:theme="@style/MyEditText"
+        android:textColorHint="@color/white"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/phoneNumberInput"
         app:layout_constraintEnd_toEndOf="parent"
@@ -80,6 +89,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:hint = "username"
+        android:theme="@style/MyEditText"
+        android:textColorHint="@color/white"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/passwordInputpass"
         app:layout_constraintEnd_toEndOf="parent"
@@ -92,6 +103,7 @@
         android:layout_marginBottom="32dp"
         android:layout_marginEnd="32dp"
         android:text="Continue"
+        android:background="@drawable/button_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -102,6 +114,7 @@
         android:layout_height="50dp"
         android:layout_marginBottom="32dp"
         android:layout_marginStart="32dp"
+        android:background="@drawable/button_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

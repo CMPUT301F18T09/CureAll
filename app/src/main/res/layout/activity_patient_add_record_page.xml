@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background2"
     tools:context=".Activities.PatientActivity.PatientRecordAddingPageActivity">
 
     <ImageButton
@@ -15,7 +16,7 @@
         android:layout_marginRight="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@mipmap/ic_launcher" />
+        android:background="@drawable/clock_icon" />
 
     <ImageButton
         android:id="@+id/geoLocationSelectButton"
@@ -88,7 +89,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_background" />
+        android:background="@drawable/problem_icon" />
 
     <ImageButton
         android:id="@+id/bodyLocationSelectButton"
@@ -106,21 +107,19 @@
         android:id="@+id/descriptionInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="200dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
         android:inputType="textCapSentences|textMultiLine"
         android:maxLength="300"
         android:maxLines="5"
         android:minLines="1"
         android:scrollbars="vertical"
         android:text="description"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/maxLength30" />
 
     <EditText
         android:id="@+id/titleInput"

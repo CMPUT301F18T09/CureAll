@@ -9,41 +9,38 @@
  */
 package com.example.cmput301f18t09.cureall.Activities.publicActitivy;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
-import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientBodyLocationPhotoAddingPageActivity;
-import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientPaperDollSelectionPageActivity;
-import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientPhotoFlowPageActivity;
-import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientRecordAddingPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientListOfProblemsPageActivity;
-import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientProblemAddingPageActivity;
-import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientProblemDetailPageActivity;
-import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientRecordDetailPageActivity;
-import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientShowProviderCommentPageActivity;
-import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientViewBodyLocationPhotoPageActivity;
-import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderAListOfProblemsPageActivity;
-import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderCommentPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderMainPageActivity;
-import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderProblemDetailPageActivity;
-import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderRecordDetailPageActivity;
-import com.example.cmput301f18t09.cureall.CareProvider;
-import com.example.cmput301f18t09.cureall.ElasticSearchController;
-import com.example.cmput301f18t09.cureall.Patient;
-import com.example.cmput301f18t09.cureall.Problem;
+import com.example.cmput301f18t09.cureall.model.CareProvider;
+import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchController;
+import com.example.cmput301f18t09.cureall.model.Patient;
+import com.example.cmput301f18t09.cureall.PatientController.PatientController;
+import com.example.cmput301f18t09.cureall.model.Problem;
 import com.example.cmput301f18t09.cureall.ProblemController.ProblemController;
 import com.example.cmput301f18t09.cureall.R;
+import com.example.cmput301f18t09.cureall.model.Sync;
+import com.example.cmput301f18t09.cureall.model.UserState;
+import com.google.android.gms.vision.CameraSource;
+import com.google.gson.Gson;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 /**
  * This activity handles the case when user login
@@ -57,6 +54,10 @@ public class UserLoginActivity extends AppCompatActivity {
     private Button loginButton, backButton;
     private ArrayList<Problem> problems;
     private ProblemController problemController = new ProblemController();
+    private String Role;
+    SurfaceView cameraView;
+    CameraSource cameraSource;
+    final int RequestCameraPermissionID = 1001;
     @Override
     /**
      * initialize the buttons and edittext
@@ -68,26 +69,86 @@ public class UserLoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_login);
         initalizeAllElements();
         Intent incomingIntent = getIntent();
-        final String Role = incomingIntent.getStringExtra("Role");
+        Role = incomingIntent.getStringExtra("Role");
+        final Activity activity = this;
         loginButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
                 login(Role);
             }
         });
+        loveSymbol.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //todo
+                if (Role.equals("Patient")){
+                    IntentIntegrator intentIntegrator = new IntentIntegrator(activity);
+                    intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
+                    intentIntegrator.setPrompt("scan");
+                    intentIntegrator.setCameraId(0);
+                    intentIntegrator.setBeepEnabled(false);
+                    intentIntegrator.setBarcodeImageEnabled(false);
+                    intentIntegrator.initiateScan();
+                }
+                else{
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
+        if (result!= null){
+            if (result.getContents() == null){
+                Toast.makeText(this,"You canceled scanning",Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(this,result.getContents(),Toast.LENGTH_LONG).show();
+                userNameInput.setText(result.getContents());
+                login(Role);
+            }
+        }
+        else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+
+
+    }
+
+    /**
+     * behaviour of activity starts
+     */
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+    }
+
+    /**
+     * behaviour of activity stops
+     */
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 
 
     /**
-     * the onCreate function will call this function help initialize
-     * the elements in its relative xml file
+     *
+     * @param patient corresponding patient
+     * @param problems patient's problems (in arrayList)
      */
-    public void initalizeAllElements(){
-        loveSymbol = (ImageView) findViewById(R.id.loveSymbol);
-        userNameInput = (EditText) findViewById(R.id.userNameInput);
-        passwordInput = (EditText) findViewById(R.id.passwordInputpass);
-        loginButton = (Button) findViewById(R.id.loginButton);
-        backButton = (Button) findViewById(R.id.backButton);
+    public void passDataToPatient(Patient patient , ArrayList<Problem> problems){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("LoginData",MODE_PRIVATE);
+        SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(patient);/**save in gson format*/
+        String json2 = gson.toJson(problems);
+        editor2.putString("patientObject",json);
+        editor2.putString("patientProblems",json2);
+        editor2.apply();
     }
     /**
      * The onCreate function will call login function
@@ -104,38 +165,98 @@ public class UserLoginActivity extends AppCompatActivity {
             setResult(RESULT_OK);
 
             String Username = userNameInput.getText().toString();
-            String Password = passwordInput.getText().toString();
+            //String Password = passwordInput.getText().toString();
 
-            ElasticSearchController.GetPatientTask getuserTask = new ElasticSearchController.GetPatientTask();
-            getuserTask.execute(Username);
-
-            try {
-                List<Patient> foundPatient= getuserTask.get();
-                patients.addAll(foundPatient);
+            UserState currentState = new UserState(this);
 
 
-            } catch (Exception e) {
-                Log.i("Chen", "Failed to get the user from the async object");
-            }
 
-            Log.i("Read","read end");
+            if (currentState.getState()){
+                //PatientController.SaveLocalTracker(UserLoginActivity.this,Username);
 
-            String pass =  patients.get(0).getPassword();
-            if (pass.equals(Password)){
-                problems = problemController.GetProblemNum(patients.get(0).getUsername());
+                ElasticSearchController.GetPatientTask getuserTask = new ElasticSearchController.GetPatientTask();
+                getuserTask.execute(Username);
+
+                try {
+                    List<Patient> foundPatient= getuserTask.get();
+                    patients.addAll(foundPatient);
+                } catch (Exception e) {
+                    //TODO after a successful login online, this current patient data will store in local
+                    //TODO next time, when offline login with same account, it could read data from local
+                    Log.i("Chen", "Failed to get the user from the async object");
+                }
+                Log.i("Read","read end");
+
+
+                //TODO if user login (online) then do an sync automatically
+                Sync sync = new Sync(UserLoginActivity.this,Username);
+                if (!sync.Check()){//device doesnt have anyfolder belongs to the user
+                    problems = problemController.GetProblemNum(patients.get(0).getUsername());
+                    sync.SyncUSer(patients.get(0));
+                    sync.SyncAllProblem(problems,Username);
+                    sync.SyncAllRecord(Username);
+                }
+
+                else{
+                    //problems = problemController.GetProblemNum(patients.get(0).getUsername());
+                    Date local = new Date();
+                    Date stream= new Date();
+                    sync.SyncUSer(patients.get(0));
+
+                    local= PatientController.GetLocalTracker(UserLoginActivity.this,Username,local);
+
+                    stream = PatientController.GetOnlineTracker(Username,stream);
+
+                    if (local.compareTo(stream)<0) {
+                        Log.i("Tracker","es比较新");
+                        problems = problemController.GetProblemNum(patients.get(0).getUsername());
+
+                        sync.SyncAllProblem(problems,Username);
+                        sync.SyncAllRecord(Username);
+
+                    }
+                    else{
+                        Log.i("Tracker","本地比较新");
+                        problems = ProblemController.loadFromFile(UserLoginActivity.this, "problems.txt", problems, Username);
+
+                    }
+                    //sync.SyncUSer(patients.get(0));
+                    //sync.SyncAllProblem(problems,Username);
+                    //sync.SyncAllRecord(Username);
+                }
+                //TODO implement local retrieve funct.
                 Intent intent = new Intent(UserLoginActivity.this,PatientListOfProblemsPageActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("patient", patients.get(0));
-                bundle.putSerializable("problems",problems);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
+                /**should be change to save func
+                 * HAS BEEN CHANGED
+                 * NEED TO CONSIDER OFFLINE DATA GET, in this case, problems and patients.get(0) is null!!!!!
+                 * ADD try and catch
+                 */
 
+                intent.putExtra("ComeFromLogin", "ComeFromLogin");
+                passDataToPatient(patients.get(0),problems);
+                /**ends
+                 *
+                 */
+                startActivity(intent);
+
+
+            }
+            else {//offline behaviour
+                Log.i("State","Login as patient(offline)");
+                ArrayList<Patient> patient = new ArrayList<>();
+
+                patient = PatientController.loadFromFile(UserLoginActivity.this,"userinfo.txt",patient,Username);
+                if (patient.size()!=0) {
+                    problems =ProblemController.loadFromFile(UserLoginActivity.this, "problems.txt", problems, Username);
+                    Intent intent = new Intent(UserLoginActivity.this, PatientListOfProblemsPageActivity.class);
+                    intent.putExtra("ComeFromLogin", "ComeFromLogin");
+                    passDataToPatient(patient.get(0), problems);
+                    startActivity(intent);
+                }
+            }
         }
         else{
-
             setResult(RESULT_OK);
-
             String Username = userNameInput.getText().toString();
             String Password = passwordInput.getText().toString();
 
@@ -152,110 +273,29 @@ public class UserLoginActivity extends AppCompatActivity {
                 Log.i("Error", "Failed to get the user from the async object");
             }
             Log.i("CareProviderout",Integer.toString(doctors.size()));
-            String pass =  doctors.get(0).getPassword();
-            if (pass.equals(Password)){
-                Intent intent = new Intent(UserLoginActivity.this,ProviderMainPageActivity.class);
+            Intent intent = new Intent(UserLoginActivity.this,ProviderMainPageActivity.class);
+                /**should be change to save func
+                 **/
                 intent.putExtra("username", doctors.get(0).getUsername());
+                /**ends
+                 *
+                 */
                 startActivity(intent);
-            }
 
         }
     }
 
     /**
-     * This function is only for app ui testing.
-     * Very initially, it used to test the ui layout's presentation on devices
-     * When the project or app finished, this fucntion will be deleted
-     * @param menu
-     * @return
+     * the onCreate function will call this function help initialize
+     * the elements in its relative xml file
      */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        String theUser = getIntent().getStringExtra("Role");
-        if (theUser.equals("Patient")){
-            inflater.inflate(R.menu.patient_testview_menu,menu);
-        }
-        else{
-            inflater.inflate(R.menu.provider_testview_menu,menu);
-        }
-
-        return true;
+    public void initalizeAllElements(){
+        loveSymbol = (ImageView) findViewById(R.id.loveSymbol);
+        userNameInput = (EditText) findViewById(R.id.userNameInput);
+        passwordInput = (EditText) findViewById(R.id.passwordInputpass);
+        loginButton = (Button) findViewById(R.id.loginButton);
+        backButton = (Button) findViewById(R.id.backButton);
     }
-    /**
-     * For each UI test case, it will jump to a specific ui layout.
-     * Now this function is useless
-     * @param item
-     * @return
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.ProviderTest:
-                return true;
-            case R.id.showListPatients:
-                Intent intent = new Intent(this, ProviderMainPageActivity.class);
-                startActivity(intent);
-                return true;
-            case R.id.showListProblem:
-                Intent intent2 = new Intent(this, ProviderAListOfProblemsPageActivity.class);
-                startActivity(intent2);
-                return true;
-            case R.id.ProviderComments:
-                Intent intent3 = new Intent(this, ProviderCommentPageActivity.class);
-                startActivity(intent3);
-                return true;
-            case R.id.showProblemDetail:
-                Intent intent4 = new Intent(this, ProviderProblemDetailPageActivity.class);
-                startActivity(intent4);
-                return true;
-            case R.id.showEachPhotoInRecord:
-                Intent intent5 = new Intent(this, ProviderRecordDetailPageActivity.class);
-                startActivity(intent5);
-                return true;
-            //the above are the test for provider's page... the belows are for patients
-            case R.id.PatientShowListProblem:
-                Intent intent6 = new Intent(this, PatientListOfProblemsPageActivity.class);
-                startActivity(intent6);
-                return true;
-            case R.id.PatientAddProblemPage:
-                Intent intent7 = new Intent(this, PatientProblemAddingPageActivity.class);
-                startActivity(intent7);
-                return true;
-            case R.id.PatientProblemDatailPage:
-                Intent intent8 = new Intent(this, PatientProblemDetailPageActivity.class);
-                startActivity(intent8);
-                return true;
-            case R.id.PatientAddRecordPage:
-                Intent intent9 = new Intent(this, PatientRecordAddingPageActivity.class);
-                startActivity(intent9);
-                return true;
-            case R.id.PatientShowProviderCommentPage:
-                Intent intent10 = new Intent(this, PatientShowProviderCommentPageActivity.class);
-                startActivity(intent10);
-                return true;
-            case R.id.PatientRecordDetailPage:
-                Intent intent11 = new Intent(this, PatientRecordDetailPageActivity.class);
-                startActivity(intent11);
-                return true;
-            case R.id.PatientPaperDollPage:
-                Intent intent12 = new Intent(this, PatientPaperDollSelectionPageActivity.class);
-                startActivity(intent12);
-                return true;
-            case R.id.PatientBodyLocationPhotoAddingPage:
-                Intent intent13 = new Intent(this, PatientBodyLocationPhotoAddingPageActivity.class);
-                startActivity(intent13);
-                return true;
-            case R.id.PatientBodyLocationPhotoViewgPage:
-                Intent intent14 = new Intent(this, PatientViewBodyLocationPhotoPageActivity.class);
-                startActivity(intent14);
-                return true;
-            case R.id.PatientPhotoFlowAnimation:
-                Intent intent15 = new Intent(this, PatientPhotoFlowPageActivity.class);
-                startActivity(intent15);
-                return true;
-        }
 
-        return super.onOptionsItemSelected(item);
-    }
+
 }

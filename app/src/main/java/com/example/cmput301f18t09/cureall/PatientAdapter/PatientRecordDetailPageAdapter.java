@@ -10,15 +10,17 @@
 package com.example.cmput301f18t09.cureall.PatientAdapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
+import com.example.cmput301f18t09.cureall.model.AllKindsOfPhotos;
 import com.example.cmput301f18t09.cureall.R;
 
 import java.util.ArrayList;
@@ -27,21 +29,21 @@ import java.util.ArrayList;
  * Therefore, this is an Adapter for recycleview used for presenting an arraylist of records of a paticular's problem
  */
 public class PatientRecordDetailPageAdapter extends RecyclerView.Adapter<PatientRecordDetailPageAdapter.viewHolder> {
-    private ArrayList<AllKindsOfPhotos> photosArrayList;
+    private ArrayList<AllKindsOfPhotos> mphotosArrayList;
+    private AllKindsOfPhotos photo;
     //photo upload as bitmap test...
-    private ArrayList<String> mNames = new ArrayList<>();
-    private ArrayList<String> mImageUrls = new ArrayList<>();
+    private ArrayList<String> mImageBitmaps = new ArrayList<>();/**new*/
     private Context mContext;
+    private Bitmap bitmap;
+    private String stringbitmap, photoName;
+    private OnItemClickListener mlistener;
+
     /**
      * The contructor of adapter
-     * @param context
-     * @param names
-     * @param imageUrls
      */
-    public PatientRecordDetailPageAdapter(Context context, ArrayList<String> names, ArrayList<String> imageUrls) {
-        mNames = names;
-        mImageUrls = imageUrls;
+    public PatientRecordDetailPageAdapter(Context context,ArrayList<AllKindsOfPhotos> photosArrayList) {
         mContext = context;
+        mphotosArrayList = photosArrayList;/**new*/
     }
     // contructor ends
     /**
@@ -51,9 +53,18 @@ public class PatientRecordDetailPageAdapter extends RecyclerView.Adapter<Patient
     public static class viewHolder extends RecyclerView.ViewHolder {
         public ImageView imageView;
 
-        public viewHolder(View itemView) {
+        public viewHolder(View itemView, final OnItemClickListener listener2) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION && listener2 != null){
+                        listener2.onItemClick(position);
+                    }
+                }
+            });
 
         }
     }
@@ -68,7 +79,7 @@ public class PatientRecordDetailPageAdapter extends RecyclerView.Adapter<Patient
     public viewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.patient_each_photo_in_recycle_view,viewGroup,false);
 
-        return new viewHolder(v);
+        return new viewHolder(v,mlistener);
     }
     /**
      * load each image based on their url and name, and put it into the item inside the recycleview
@@ -77,21 +88,37 @@ public class PatientRecordDetailPageAdapter extends RecyclerView.Adapter<Patient
      * @param position
      */
     @Override
-    public void onBindViewHolder(viewHolder viewHolder, final int position) {
-        Glide.with(mContext)
-                .asBitmap()
-                .load(mImageUrls.get(position))
-                .into(viewHolder.imageView);
-        viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mContext,mNames.get(position),Toast.LENGTH_SHORT).show();
-            }
-        });
+    public void onBindViewHolder(final viewHolder viewHolder, final int position) {
+        Log.i("Show","show pic");
+        photo = mphotosArrayList.get(position);
+        stringbitmap = photo.getPhotoLocation();
+        photoName = photo.getPhotoType();
+        try {
+            byte [] encodeByte= Base64.decode(stringbitmap,Base64.DEFAULT);
+            bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+        } catch(Exception e) {
+            e.getMessage();
+        }
+        viewHolder.imageView.setImageBitmap(bitmap);
+
+    }
+    public interface OnItemClickListener{
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        mlistener = listener;
+    }
+
+    public void deletePhotos(int position){
+        mphotosArrayList.remove(position);//remove that info from our universe list that presented in history
+        //notifyDataSetChanged(); no animation
+        notifyItemRemoved(position);
     }
 
     @Override
     public int getItemCount() {
-        return mImageUrls.size();
+        return mphotosArrayList.size();
     }
+
 }

@@ -11,6 +11,7 @@ package com.example.cmput301f18t09.cureall.Activities.publicActitivy;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -26,18 +27,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientRecordAddingPageActivity;
-import com.example.cmput301f18t09.cureall.GeoLocation;
-import com.example.cmput301f18t09.cureall.Patient;
-import com.example.cmput301f18t09.cureall.Problem;
+import com.example.cmput301f18t09.cureall.model.GeoLocation;
+import com.example.cmput301f18t09.cureall.model.Problem;
 import com.example.cmput301f18t09.cureall.R;
-import com.example.cmput301f18t09.cureall.Record;
+import com.example.cmput301f18t09.cureall.model.Record;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
-import java.util.ArrayList;
+import java.lang.reflect.Type;
 
 /**
  * This is an activity that allows the user choose a geolocation
@@ -54,15 +56,12 @@ public class LocationPickerActivity extends AppCompatActivity {
     private TextView textView;
     private LocationManager locationManager;
     private LocationListener locationListener;
+    private String comefrom ="";
     private String geolocation;
     private LatLng location;
     //variables from former activities..
     private Problem problem;
     private Record record;
-    private Patient patient;
-    private ArrayList<Problem> problems;
-
-    private ArrayList<Record> records;
     private GeoLocation recordGeoLocation;
     private Double longitude;
     private Double latitude;
@@ -81,13 +80,10 @@ public class LocationPickerActivity extends AppCompatActivity {
         saveButton =findViewById(R.id.saveButton);
         textView = (TextView) findViewById(R.id.View);
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        // new added for check whether from search activity
+       // comefrom = getIntent().getStringExtra("mode");
 
-        problem = (Problem)getIntent().getSerializableExtra("problem");
-        record = (Record) getIntent().getSerializableExtra("record");
-        records = (ArrayList<Record>)getIntent().getSerializableExtra("records");
-        patient = (Patient)getIntent().getSerializableExtra("patient");
-        problems = (ArrayList<Problem>)getIntent().getSerializableExtra("problems");
-
+        getDataFromRecordAddingPage();
 
         locationListener = new LocationListener() {
             @Override
@@ -204,31 +200,43 @@ public class LocationPickerActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (geolocation == null){
-                    Toast.makeText(LocationPickerActivity.this, "You havn't choose and location yet!" ,Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    if (record != null && problem != null){
-                        longitude = location.longitude;
-                        latitude = location.latitude;
-                        recordGeoLocation = new GeoLocation(longitude,latitude);
-                    }
-                    record.setGeoLocation(recordGeoLocation);
+             /*   if (comefrom.equals(null))
+                {*/
+
+                    if (geolocation == null) {
+                        Toast.makeText(LocationPickerActivity.this, "You havn't choose and location yet!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (record != null && problem != null) {
+                            longitude = location.longitude;
+                            latitude = location.latitude;
+                            recordGeoLocation = new GeoLocation(longitude, latitude);
+                        }
+
+                        record.setGeoLocation(recordGeoLocation);
 /*                    ElasticSearchParams param = new ElasticSearchParams(record.getUsername(),record,record.getProblemid());
                     ElasticSearchController.AddRecordTask addRecordTask = new ElasticSearchController.AddRecordTask();
                     addRecordTask.execute(param);*/
+                        Intent passGeoLocationBack = new Intent(LocationPickerActivity.this, PatientRecordAddingPageActivity.class);
+                        //              bundle.putSerializable("record", record);
+                        passDataToRecordAddingPage(problem, record);
+                        passGeoLocationBack.putExtra("ComeFromGeoLocationSelectionPage", "ComeFromGeoLocationSelectionPage");
+                        startActivity(passGeoLocationBack);
+
+                    }
+          //  }
+    /*        else if(comefrom.equals("ComeFromRecordSearch")){
+                    longitude = location.longitude;
+                    latitude = location.latitude;
+                    recordGeoLocation = new GeoLocation(longitude, latitude);
+                    Intent passGeoLocationBack = new Intent(LocationPickerActivity.this, SearchActivity.class);
                     Bundle bundle = new Bundle();
-                    Intent passGeoLocationBack = new Intent(LocationPickerActivity.this,PatientRecordAddingPageActivity.class);
+                    bundle.putSerializable("ComefromLocationPicker",recordGeoLocation);
                     //              bundle.putSerializable("record", record);
-                    bundle.putSerializable("problem",problem);
-                    bundle.putSerializable("record", record);
-                    bundle.putSerializable("records", records);
-                    bundle.putSerializable("problems", problems);
-                    bundle.putSerializable("patient", patient);
+                    passGeoLocationBack.putExtra("search method","record");
                     passGeoLocationBack.putExtras(bundle);
                     startActivity(passGeoLocationBack);
+                }*/
 
-                }
             }
         });
     }
@@ -236,8 +244,29 @@ public class LocationPickerActivity extends AppCompatActivity {
      * when leave this activity, kill it
      */
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
         finish();
+    }
+
+    public void getDataFromRecordAddingPage(){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("RecordAddingData",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json1 = sharedPreferences2.getString("problem",null);
+        String json2= sharedPreferences2.getString("record",null);
+        Type type1 = new TypeToken<Problem>(){}.getType();
+        Type type2 = new TypeToken<Record>(){}.getType();
+        problem = gson.fromJson(json1,type1);
+        record =gson.fromJson(json2,type2);
+    }
+    public void passDataToRecordAddingPage(Problem problem, Record record){
+        SharedPreferences sharedPreferences2 = getSharedPreferences("GeoLocationData",MODE_PRIVATE);
+        SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(problem);/**save in gson format*/
+        String json2 = gson.toJson(record);
+        editor2.putString("problem",json);
+        editor2.putString("record",json2);
+        editor2.apply();
     }
 }
