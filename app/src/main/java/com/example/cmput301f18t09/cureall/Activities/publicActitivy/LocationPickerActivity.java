@@ -27,10 +27,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientRecordAddingPageActivity;
-import com.example.cmput301f18t09.cureall.GeoLocation;
-import com.example.cmput301f18t09.cureall.Problem;
+import com.example.cmput301f18t09.cureall.model.GeoLocation;
+import com.example.cmput301f18t09.cureall.model.Problem;
 import com.example.cmput301f18t09.cureall.R;
-import com.example.cmput301f18t09.cureall.Record;
+import com.example.cmput301f18t09.cureall.model.Record;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;

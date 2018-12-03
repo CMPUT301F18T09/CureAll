@@ -24,8 +24,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cmput301f18t09.cureall.Activities.SearchActivity;
-import com.example.cmput301f18t09.cureall.ElasticSearchController;
-import com.example.cmput301f18t09.cureall.Patient;
+import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchController;
+import com.example.cmput301f18t09.cureall.model.Patient;
 import com.example.cmput301f18t09.cureall.ProviderAdapter.ProviderMainPageAdapter;
 import com.example.cmput301f18t09.cureall.R;
 import com.google.gson.Gson;
@@ -78,7 +78,28 @@ public class ProviderMainPageActivity extends AppCompatActivity {
         searchProblemRecordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+     /*           String title ="";
+                boolean a = false;
+                // if click this button, then get all problems
+                ElasticSearchController.GetAllProblemTask getAllProblemTask = new ElasticSearchController.GetAllProblemTask();
+                getAllProblemTask.execute();
+                ArrayList<Problem> problems = new ArrayList<>();
+                try {
+                    problems = getAllProblemTask.get();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                for(Problem each:problems)
+                {
+                     title = each.getTitle();
 
+                     a=stringContainsItemFromList(title, new String[]{"BMW", "Test"});
+                }*/
+           /*     ArrayList<Record> records = new ArrayList<>();
+                records = RecordSearchController.GeoSearch(37.4219,-122.0839);
+                records.size();*/
                 AlertDialog.Builder custom = new AlertDialog.Builder(ProviderMainPageActivity.this);
                 custom.setCancelable(true);
 
@@ -108,6 +129,12 @@ public class ProviderMainPageActivity extends AppCompatActivity {
 
     }
 
+    /**
+     *
+     * @param inputStr the input string
+     * @param items items in stringList
+     * @return true/false
+     */
     public static boolean stringContainsItemFromList(String inputStr, String[] items) {
         return Arrays.stream(items).parallel().anyMatch(inputStr::contains);
     }
@@ -182,9 +209,9 @@ public class ProviderMainPageActivity extends AppCompatActivity {
 
     /**
      * This dialog is used to show patient infos, once you click the patient item in recycleview
-     * @param name
-     * @param Email
-     * @param Phone
+     * @param name username
+     * @param Email user's email
+     * @param Phone user's phone
      */
     public void customDialog(String name, String Email, String Phone) {
         final android.support.v7.app.AlertDialog.Builder builderSingle = new android.support.v7.app.AlertDialog.Builder(this);

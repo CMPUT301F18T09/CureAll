@@ -9,18 +9,15 @@
  */
 package com.example.cmput301f18t09.cureall.PatientAdapter;
 
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.cmput301f18t09.cureall.Problem;
+import com.example.cmput301f18t09.cureall.model.Problem;
 import com.example.cmput301f18t09.cureall.R;
 
 import java.util.ArrayList;

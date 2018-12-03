@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CureAll.iml" filepath="$PROJECT_DIR$/CureAll.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CureAll-leoJavaDOC.iml" filepath="$PROJECT_DIR$/CureAll-leoJavaDOC.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

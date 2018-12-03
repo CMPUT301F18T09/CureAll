@@ -1,0 +1,15 @@
+com.example.cmput301f18t09.cureall
+com.example.cmput301f18t09.cureall.Activities
+com.example.cmput301f18t09.cureall.Activities.PatientActivity
+com.example.cmput301f18t09.cureall.Activities.ProviderActivity
+com.example.cmput301f18t09.cureall.Activities.publicActitivy
+com.example.cmput301f18t09.cureall.GeneralElasticsearch
+com.example.cmput301f18t09.cureall.PaperDollController
+com.example.cmput301f18t09.cureall.PatientAdapter
+com.example.cmput301f18t09.cureall.PatientController
+com.example.cmput301f18t09.cureall.ProblemController
+com.example.cmput301f18t09.cureall.ProviderAdapter
+com.example.cmput301f18t09.cureall.RecordController
+com.example.cmput301f18t09.cureall.SearchController
+com.example.cmput301f18t09.cureall.model
+com.example.cmput301f18t09.cureall.observer

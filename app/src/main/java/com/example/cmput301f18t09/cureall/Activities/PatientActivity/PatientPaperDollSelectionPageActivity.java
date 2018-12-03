@@ -21,15 +21,13 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
-import com.example.cmput301f18t09.cureall.BodyLocation;
+import com.example.cmput301f18t09.cureall.model.AllKindsOfPhotos;
+import com.example.cmput301f18t09.cureall.model.BodyLocation;
 import com.example.cmput301f18t09.cureall.PaperDollController.*;
 
 import com.example.cmput301f18t09.cureall.PaperDollController.BodyColor;
-import com.example.cmput301f18t09.cureall.Patient;
-import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.R;
-import com.example.cmput301f18t09.cureall.Record;
+import com.example.cmput301f18t09.cureall.model.Record;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -194,6 +192,9 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * get data from RecordAddingPage
+     */
     public void getDataFromRecordAddingPage(){
         SharedPreferences sharedPreferences2 = getSharedPreferences("RecordAddingData",MODE_PRIVATE);
         Gson gson = new Gson();
@@ -201,6 +202,11 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
         Type type = new TypeToken<Record>(){}.getType();
         record = gson.fromJson(json,type);
     }
+
+    /**
+     *
+     * @param record the target record
+     */
     public void passDataToBodyLocationPhotoAddingPage(Record record){
         SharedPreferences sharedPreferences2 = getSharedPreferences("PaperDollSelectionData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();

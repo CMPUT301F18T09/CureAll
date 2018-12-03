@@ -18,24 +18,18 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderRecordDetailPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.ViewLocationOnMapActivity;
-import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
-import com.example.cmput301f18t09.cureall.BodyLocation;
-import com.example.cmput301f18t09.cureall.ElasticSearchController;
-import com.example.cmput301f18t09.cureall.ElasticSearchParams;
-import com.example.cmput301f18t09.cureall.GeoLocation;
+import com.example.cmput301f18t09.cureall.model.AllKindsOfPhotos;
+import com.example.cmput301f18t09.cureall.model.BodyLocation;
+import com.example.cmput301f18t09.cureall.model.GeoLocation;
 import com.example.cmput301f18t09.cureall.PatientAdapter.PatientRecordDetailPageAdapter;
 import com.example.cmput301f18t09.cureall.R;
-import com.example.cmput301f18t09.cureall.Record;
-import com.example.cmput301f18t09.cureall.RecordController.RecordController;
-import com.example.cmput301f18t09.cureall.UserState;
+import com.example.cmput301f18t09.cureall.model.Record;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -172,7 +166,7 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
                 if (direction == ItemTouchHelper.UP){
                     mAdapter.deletePhotos(viewHolder.getAdapterPosition());
 
-                    //TODO 之前没有给record set state
+                    //TODO record set state
 
                     saveDataChanged(record);
                     if(mAdapter.getItemCount() == 0){
@@ -198,6 +192,10 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
     }
     //on start ends...
 
+    /**
+     *
+     * @param name photo name
+     */
     public void customDialog(String name) {
         final android.support.v7.app.AlertDialog.Builder builderSingle = new android.support.v7.app.AlertDialog.Builder(this);
         builderSingle.setTitle("Photo Name");
@@ -214,6 +212,10 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
         );
         builderSingle.show();
     }
+
+    /**
+     * behaviour of activity stops
+     */
     @Override
     protected void onStop() {
         super.onStop();
@@ -222,6 +224,11 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
         }
 
     }
+
+    /**
+     *
+     * @param record the current record
+     */
     public void saveDataChanged(Record record){
         SharedPreferences sharedPreferences2 = getSharedPreferences("updateRecordPhotos",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();
@@ -231,6 +238,10 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
         editor2.apply();
     }
 
+    /**
+     *
+     * @param name file name
+     */
     public void getDataFromLocal(String name){
         SharedPreferences sharedPreferences2 = getSharedPreferences(name,MODE_PRIVATE);
         Gson gson = new Gson();
@@ -238,6 +249,12 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
         Type type = new TypeToken<Record>(){}.getType();
         record = gson.fromJson(json,type);
     }
+
+    /**
+     *
+     * @param bodyLocation2 body location
+     * @param photoFlowShow photo arrayList
+     */
     public void passDataToPhotoFlowPage(BodyLocation bodyLocation2,ArrayList<AllKindsOfPhotos> photoFlowShow){
         SharedPreferences sharedPreferences2 = getSharedPreferences("RecordDetailData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();

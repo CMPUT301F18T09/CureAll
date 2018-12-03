@@ -3,8 +3,8 @@ package com.example.cmput301f18t09.cureall.PatientController;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.cmput301f18t09.cureall.ElasticSearchController;
-import com.example.cmput301f18t09.cureall.Patient;
+import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchController;
+import com.example.cmput301f18t09.cureall.model.Patient;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;

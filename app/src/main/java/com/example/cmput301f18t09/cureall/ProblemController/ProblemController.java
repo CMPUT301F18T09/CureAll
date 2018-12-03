@@ -12,10 +12,10 @@ package com.example.cmput301f18t09.cureall.ProblemController;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.cmput301f18t09.cureall.ElasticSearchController;
-import com.example.cmput301f18t09.cureall.ElasticSearchParams;
-import com.example.cmput301f18t09.cureall.Problem;
-import com.example.cmput301f18t09.cureall.UserState;
+import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchController;
+import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchParams;
+import com.example.cmput301f18t09.cureall.model.Problem;
+import com.example.cmput301f18t09.cureall.model.UserState;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;

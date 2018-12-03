@@ -12,39 +12,26 @@ package com.example.cmput301f18t09.cureall.Activities.PatientActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
-import com.example.cmput301f18t09.cureall.BodyLocation;
-import com.example.cmput301f18t09.cureall.Patient;
-import com.example.cmput301f18t09.cureall.Problem;
+import com.example.cmput301f18t09.cureall.model.AllKindsOfPhotos;
+import com.example.cmput301f18t09.cureall.model.BodyLocation;
 import com.example.cmput301f18t09.cureall.R;
-import com.example.cmput301f18t09.cureall.Record;
+import com.example.cmput301f18t09.cureall.model.Record;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * For this activity, user(patient) can add photo for body location
@@ -78,6 +65,10 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
             selectedBodyLocation.setText(bodyLocation.getBodyLocationName());
         }
     }
+
+    /**
+     * behaviour of activity starts
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -180,6 +171,9 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
     }
 
 
+    /**
+     * behaviour of activity stops
+     */
     @Override
     protected void onStop() {
         super.onStop();
@@ -188,6 +182,9 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
         }
     }
 
+    /**
+     * get data from PaperDollSelectionPage
+     */
     public void getDataFromPaperDollSelectionPage(){
         SharedPreferences sharedPreferences2 = getSharedPreferences("PaperDollSelectionData",MODE_PRIVATE);
         Gson gson = new Gson();
@@ -195,6 +192,11 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
         Type type = new TypeToken<Record>(){}.getType();
         record = gson.fromJson(json,type);
     }
+
+    /**
+     *
+     * @param record current record
+     */
     public void passDataToRecordAddingPage(Record record){
         SharedPreferences sharedPreferences2 = getSharedPreferences("BodyLocationPhotoAddingData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();

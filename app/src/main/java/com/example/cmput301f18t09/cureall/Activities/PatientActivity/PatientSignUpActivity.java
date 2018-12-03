@@ -20,13 +20,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderSignUpActivity;
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.MainActivity;
-import com.example.cmput301f18t09.cureall.ElasticSearchController;
-import com.example.cmput301f18t09.cureall.Patient;
+import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchController;
+import com.example.cmput301f18t09.cureall.model.Patient;
 import com.example.cmput301f18t09.cureall.PatientController.PatientController;
 import com.example.cmput301f18t09.cureall.R;
-import com.example.cmput301f18t09.cureall.UserState;
+import com.example.cmput301f18t09.cureall.model.UserState;
 
 import java.util.ArrayList;
 
@@ -41,7 +40,7 @@ public class PatientSignUpActivity extends AppCompatActivity{
 
     /**
      * start up
-     * @param savedInstanceState
+     * @param savedInstanceState (build in)
      */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -21,13 +21,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientPhotoFlowPageActivity;
-import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientRecordDetailPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.ViewLocationOnMapActivity;
-import com.example.cmput301f18t09.cureall.AllKindsOfPhotos;
-import com.example.cmput301f18t09.cureall.BodyLocation;
+import com.example.cmput301f18t09.cureall.model.AllKindsOfPhotos;
+import com.example.cmput301f18t09.cureall.model.BodyLocation;
 import com.example.cmput301f18t09.cureall.ProviderAdapter.RecordDetailPageAdapter;
 import com.example.cmput301f18t09.cureall.R;
-import com.example.cmput301f18t09.cureall.Record;
+import com.example.cmput301f18t09.cureall.model.Record;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -88,10 +87,17 @@ public class ProviderRecordDetailPageActivity extends AppCompatActivity {
         recyclerView.setAdapter(mAdapter);
     }
 
+    /**
+     * behaviour of activity starts
+     */
     @Override
     protected void onStart() {
         super.onStart();
         geoLocationButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             *
+             * @param v view
+             */
             @Override
             public void onClick(View v) {
                 if (record.getGeoLocation() != null){
@@ -110,6 +116,10 @@ public class ProviderRecordDetailPageActivity extends AppCompatActivity {
             }
         });
         viewPhotoFlow.setOnClickListener(new View.OnClickListener() {
+            /**
+             *
+             * @param v view
+             */
             @Override
             public void onClick(View v) {
                 bodyLocation = record.getBodyLocation();
@@ -126,6 +136,10 @@ public class ProviderRecordDetailPageActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * get data from ProblemDetailPage
+     */
     public void getDataFromProblemDetailPage(){
         SharedPreferences sharedPreferences2 = getSharedPreferences("ProviderProblemDetailData",MODE_PRIVATE);
         Gson gson = new Gson();
@@ -133,6 +147,12 @@ public class ProviderRecordDetailPageActivity extends AppCompatActivity {
         Type type = new TypeToken<Record>(){}.getType();
         record = gson.fromJson(json,type);
     }
+
+    /**
+     *
+     * @param bodyLocation2 body location
+     * @param photoFlowShow photo arrayList
+     */
     public void passDataToPhotoFlowPage(BodyLocation bodyLocation2,ArrayList<AllKindsOfPhotos> photoFlowShow){
         SharedPreferences sharedPreferences2 = getSharedPreferences("RecordDetailData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();

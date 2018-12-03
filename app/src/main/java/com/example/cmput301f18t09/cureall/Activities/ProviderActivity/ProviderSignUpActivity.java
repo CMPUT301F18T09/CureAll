@@ -18,19 +18,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientSignUpActivity;
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.MainActivity;
-import com.example.cmput301f18t09.cureall.CareProvider;
-import com.example.cmput301f18t09.cureall.ElasticSearchController;
-import com.example.cmput301f18t09.cureall.Patient;
+import com.example.cmput301f18t09.cureall.model.CareProvider;
+import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchController;
 import com.example.cmput301f18t09.cureall.R;
-import com.example.cmput301f18t09.cureall.UserState;
+import com.example.cmput301f18t09.cureall.model.UserState;
 
-import java.security.Provider;
 import java.util.ArrayList;
 
 /**
@@ -55,6 +51,9 @@ public class ProviderSignUpActivity extends AppCompatActivity{
         Sign();
     }
 
+    /**
+     * sign up as provider
+     */
     public void Sign(){
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +94,9 @@ public class ProviderSignUpActivity extends AppCompatActivity{
 
     }
 
+    /**
+     * initialization
+     */
     public void initalizeAllElements(){
         backButton =  findViewById(R.id.backButton);
         continueButton =  findViewById(R.id.continueButton);

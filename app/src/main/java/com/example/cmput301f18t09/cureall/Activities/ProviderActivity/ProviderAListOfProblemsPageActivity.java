@@ -19,16 +19,15 @@ import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.cmput301f18t09.cureall.ElasticSearchController;
-import com.example.cmput301f18t09.cureall.Patient;
-import com.example.cmput301f18t09.cureall.Problem;
+import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchController;
+import com.example.cmput301f18t09.cureall.model.Patient;
+import com.example.cmput301f18t09.cureall.model.Problem;
 import com.example.cmput301f18t09.cureall.ProviderAdapter.ProblemListPageAdapter;
 import com.example.cmput301f18t09.cureall.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.security.Provider;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -114,6 +113,10 @@ public class ProviderAListOfProblemsPageActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * get data from ProviderMainPage
+     */
     public void getDataFromProviderMainPage(){
         SharedPreferences sharedPreferences2 = getSharedPreferences("ProviderMainPageData",MODE_PRIVATE);
         Gson gson = new Gson();
@@ -121,6 +124,12 @@ public class ProviderAListOfProblemsPageActivity extends AppCompatActivity {
         Type type = new TypeToken<Patient>(){}.getType();
         patient = gson.fromJson(json,type);
     }
+
+    /**
+     *
+     * @param patient problem's owner
+     * @param problem all problems of all assigned patients
+     */
     public void passDataToProblemDetailPage(Patient patient, Problem problem){
         SharedPreferences sharedPreferences2 = getSharedPreferences("ProblemListPageData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();

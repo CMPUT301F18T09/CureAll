@@ -12,6 +12,10 @@ import android.support.test.espresso.intent.rule.IntentsTestRule;
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientPhotoFlowPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientRecordDetailPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.ViewLocationOnMapActivity;
+import com.example.cmput301f18t09.cureall.model.AllKindsOfPhotos;
+import com.example.cmput301f18t09.cureall.model.BodyLocation;
+import com.example.cmput301f18t09.cureall.model.GeoLocation;
+import com.example.cmput301f18t09.cureall.model.Record;
 import com.google.gson.Gson;
 
 import org.junit.After;

@@ -19,12 +19,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientListOfProblemsPageActivity;
-import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientProblemAddingPageActivity;
-import com.example.cmput301f18t09.cureall.ElasticSearchController;
-import com.example.cmput301f18t09.cureall.ElasticSearchParams;
-import com.example.cmput301f18t09.cureall.Patient;
-import com.example.cmput301f18t09.cureall.Problem;
+import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchController;
+import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchParams;
+import com.example.cmput301f18t09.cureall.model.Patient;
+import com.example.cmput301f18t09.cureall.model.Problem;
 import com.example.cmput301f18t09.cureall.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -88,6 +86,11 @@ public class ProviderCommentPageActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     *
+     * @param name file name
+     */
     public void loadDataFromLocal(String name){
         SharedPreferences sharedPreferences2 = getSharedPreferences(name,MODE_PRIVATE);
         Gson gson = new Gson();
@@ -98,6 +101,12 @@ public class ProviderCommentPageActivity extends AppCompatActivity {
         patient = gson.fromJson(json,type);
         problem = gson.fromJson(json2,type2);
     }
+
+    /**
+     *
+     * @param patient problem's owner
+     * @param problem the problem to be saved
+     */
     public void saveDataToLocal(Patient patient, Problem problem){
         SharedPreferences sharedPreferences2 = getSharedPreferences("ProviderProblemDetailData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();

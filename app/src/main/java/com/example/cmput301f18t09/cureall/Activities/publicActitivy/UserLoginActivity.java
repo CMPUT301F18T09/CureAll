@@ -9,46 +9,36 @@
  */
 package com.example.cmput301f18t09.cureall.Activities.publicActitivy;
 
-import android.Manifest;
-import android.app.ProgressDialog;
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.os.Vibrator;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.SparseArray;
-import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientListOfProblemsPageActivity;
-import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderAddPatientActivity;
 import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderMainPageActivity;
-import com.example.cmput301f18t09.cureall.CareProvider;
-import com.example.cmput301f18t09.cureall.ElasticSearchController;
-import com.example.cmput301f18t09.cureall.Patient;
+import com.example.cmput301f18t09.cureall.model.CareProvider;
+import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchController;
+import com.example.cmput301f18t09.cureall.model.Patient;
 import com.example.cmput301f18t09.cureall.PatientController.PatientController;
-import com.example.cmput301f18t09.cureall.Problem;
+import com.example.cmput301f18t09.cureall.model.Problem;
 import com.example.cmput301f18t09.cureall.ProblemController.ProblemController;
 import com.example.cmput301f18t09.cureall.R;
-import com.example.cmput301f18t09.cureall.Sync;
-import com.example.cmput301f18t09.cureall.UserState;
+import com.example.cmput301f18t09.cureall.model.Sync;
+import com.example.cmput301f18t09.cureall.model.UserState;
 import com.google.android.gms.vision.CameraSource;
-import com.google.android.gms.vision.Detector;
-import com.google.android.gms.vision.barcode.Barcode;
-import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.google.gson.Gson;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
-import java.io.IOException;
-import java.security.Provider;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -64,7 +54,7 @@ public class UserLoginActivity extends AppCompatActivity {
     private Button loginButton, backButton;
     private ArrayList<Problem> problems;
     private ProblemController problemController = new ProblemController();
-
+    private String Role;
     SurfaceView cameraView;
     CameraSource cameraSource;
     final int RequestCameraPermissionID = 1001;
@@ -79,7 +69,8 @@ public class UserLoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_login);
         initalizeAllElements();
         Intent incomingIntent = getIntent();
-        final String Role = incomingIntent.getStringExtra("Role");
+        Role = incomingIntent.getStringExtra("Role");
+        final Activity activity = this;
         loginButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
@@ -90,22 +81,65 @@ public class UserLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //todo
+                if (Role.equals("Patient")){
+                    IntentIntegrator intentIntegrator = new IntentIntegrator(activity);
+                    intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
+                    intentIntegrator.setPrompt("scan");
+                    intentIntegrator.setCameraId(0);
+                    intentIntegrator.setBeepEnabled(false);
+                    intentIntegrator.setBarcodeImageEnabled(false);
+                    intentIntegrator.initiateScan();
+                }
+                else{
+                }
             }
         });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
+        if (result!= null){
+            if (result.getContents() == null){
+                Toast.makeText(this,"You canceled scanning",Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(this,result.getContents(),Toast.LENGTH_LONG).show();
+                userNameInput.setText(result.getContents());
+                login(Role);
+            }
+        }
+        else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+
+
+    }
+
+    /**
+     * behaviour of activity starts
+     */
     @Override
     protected void onStart() {
         super.onStart();
 
 
     }
+
+    /**
+     * behaviour of activity stops
+     */
     @Override
     protected void onStop() {
         super.onStop();
     }
 
 
-
+    /**
+     *
+     * @param patient corresponding patient
+     * @param problems patient's problems (in arrayList)
+     */
     public void passDataToPatient(Patient patient , ArrayList<Problem> problems){
         SharedPreferences sharedPreferences2 = getSharedPreferences("LoginData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();
@@ -174,7 +208,7 @@ public class UserLoginActivity extends AppCompatActivity {
                     stream = PatientController.GetOnlineTracker(Username,stream);
 
                     if (local.compareTo(stream)<0) {
-                        Log.i("Tracker","es比较新");
+                        Log.i("Tracker","es very new");
                         problems = problemController.GetProblemNum(patients.get(0).getUsername());
 
                         sync.SyncAllProblem(problems,Username);
@@ -182,7 +216,7 @@ public class UserLoginActivity extends AppCompatActivity {
 
                     }
                     else{
-                        Log.i("Tracker","本地比较新");
+                        Log.i("Tracker","local very new");
                         problems = ProblemController.loadFromFile(UserLoginActivity.this, "problems.txt", problems, Username);
 
                     }

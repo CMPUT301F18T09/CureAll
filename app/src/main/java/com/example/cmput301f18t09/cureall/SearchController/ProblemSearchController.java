@@ -1,12 +1,10 @@
 package com.example.cmput301f18t09.cureall.SearchController;
 
-import android.widget.ArrayAdapter;
 
-import com.example.cmput301f18t09.cureall.ElasticSearchController;
-import com.example.cmput301f18t09.cureall.Problem;
+import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchController;
 import com.example.cmput301f18t09.cureall.ProblemController.ProblemController;
-import com.example.cmput301f18t09.cureall.Record;
-import com.example.cmput301f18t09.cureall.RecordController.RecordController;
+import com.example.cmput301f18t09.cureall.model.Problem;
+import com.example.cmput301f18t09.cureall.model.Record;
 
 import java.util.ArrayList;
 import java.util.Arrays;

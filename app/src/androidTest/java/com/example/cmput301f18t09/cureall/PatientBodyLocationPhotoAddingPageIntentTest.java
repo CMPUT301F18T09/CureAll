@@ -12,6 +12,7 @@ import android.support.test.espresso.Espresso;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientBodyLocationPhotoAddingPageActivity;
+import com.example.cmput301f18t09.cureall.model.Record;
 import com.google.gson.Gson;
 
 import org.junit.After;
