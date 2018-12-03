@@ -90,6 +90,8 @@ public class ProviderAddPatientActivity extends AppCompatActivity {
         save = findViewById(R.id.add_button);
         patientname = findViewById(R.id.input_patient);
         //new stuff...
+        patientname.setVisibility(View.INVISIBLE);
+        save.setVisibility(View.INVISIBLE);
         patientname.setText("123");
         textView = findViewById(R.id.username);
         cameraView = findViewById(R.id.cameraView);
