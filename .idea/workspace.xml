@@ -2091,8 +2091,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="268" />
-    <option name="y" value="4" />
+    <option name="x" value="358" />
+    <option name="y" value="37" />
     <option name="width" value="1294" />
     <option name="height" value="1407" />
   </component>
@@ -2260,6 +2260,9 @@
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
     </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

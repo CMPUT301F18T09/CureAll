@@ -283,6 +283,8 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
                 UserState currentState = new UserState(PatientRecordAddingPageActivity.this);
                 if (currentState.getState()){
                     //TODO only save to es
+                    record.setTitle(titleInput.getText().toString());
+                    record.setComment(descriptionInput.getText().toString());
                     temp = saveRecord(problem.getUsername(),record,problem.getId());
                     temp.setState("Online");
 
@@ -290,7 +292,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
                 else{
                     String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
                     temp.setID(temp.getTitle()+currentDateTimeString);
-                    //decrypt
+                    //decryptF
                     record.setTitle(titleInput.getText().toString());
                     record.setComment(descriptionInput.getText().toString());
                     temp.setState("offline");
