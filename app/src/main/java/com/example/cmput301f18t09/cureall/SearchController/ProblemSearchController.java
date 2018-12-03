@@ -1,138 +1,114 @@
 package com.example.cmput301f18t09.cureall.SearchController;
 
+import com.example.cmput301f18t09.cureall.ElasticSearchController;
 import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchController;
-import com.example.cmput301f18t09.cureall.model.Problem;
-import com.example.cmput301f18t09.cureall.ProblemController.ProblemController;
+import com.example.cmput301f18t09.cureall.GeoLocation;
+import com.example.cmput301f18t09.cureall.Record;
+import com.example.cmput301f18t09.cureall.model.GeoLocation;
 import com.example.cmput301f18t09.cureall.model.Record;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
-public class ProblemSearchController {
-    public static ArrayList<Problem> KeywordSearch(String[] keywords)
+import static com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderMainPageActivity.stringContainsItemFromList;
+import static com.example.cmput301f18t09.cureall.SearchController.ProblemSearchController.stringContainsItemFromList;
+
+public class RecordSearchController {
+
+    public static ArrayList<Record> KeywordSearch(String[] keywords)
     {
         //boolean contain_keywords = false;
         // Get all problems
-        ElasticSearchController.GetAllProblemTask getAllProblemTask = new ElasticSearchController.GetAllProblemTask();
-        getAllProblemTask.execute();
-        ArrayList<Problem> problems = new ArrayList<>();
-        ArrayList<Problem> problems_contain_keywords = new ArrayList<>();
-        try {
-            problems = getAllProblemTask.get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        for(Problem each:problems)
-        {
-           String title = each.getTitle();
-           if (stringContainsItemFromList(title,keywords))
-           {
-               problems_contain_keywords.add(each);
-           }
-        }
-        return problems_contain_keywords;
-
-    }
-
-    public static ArrayList<Problem> BodySearch (String body)
-    {
-        //Problem problem;
-
-        ProblemController problemController = new ProblemController();
-        // used to check
-        ArrayList<String> problemIDs = new ArrayList<>();
-        // list of all problems
-        ArrayList<Problem> problems = new ArrayList<>();
-        // list of needed problems
-        ArrayList<Problem> problems_contain_keywords = new ArrayList<>();
-        // list of result records
+        ElasticSearchController.GetAllRecordTask getAllRecordTask = new ElasticSearchController.GetAllRecordTask();
+        getAllRecordTask.execute();
         ArrayList<Record> records = new ArrayList<>();
-        // get list of needed records
-        records = RecordSearchController.BodySearch(body);
-        ElasticSearchController.GetAllProblemTask getAllProblemTask = new ElasticSearchController.GetAllProblemTask();
-        getAllProblemTask.execute();
+        ArrayList<Record> records_contain_keywords = new ArrayList<>();
         try {
-            // get all problems
-            problems = getAllProblemTask.get();
+            records = getAllRecordTask.get();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        for (Record each:records)
+        for(Record each:records)
         {
-            problemIDs.add(each.getProblemid());
-        }
-
-        for(Problem problem:problems)
-        {
-            // problemids need to include it and it cannot in problem contains
-            if(problemIDs.contains(problem.getId())&&(!(problems_contain_keywords.contains(problem.getId()))) )
+            String title = each.getTitle();
+            if (stringContainsItemFromList(title,keywords))
             {
-                problems_contain_keywords.add(problem);
+                records_contain_keywords.add(each);
             }
         }
+        return records_contain_keywords;
 
-
-
-        return problems_contain_keywords;
     }
 
-    public static ArrayList<Problem> GeoSearch (double lat,double log)
+    public static ArrayList<Record> BodySearch(String body_part)
     {
-        //Problem problem;
-
-        ProblemController problemController = new ProblemController();
-        // used to check
-        ArrayList<String> problemIDs = new ArrayList<>();
-        // list of all problems
-        ArrayList<Problem> problems = new ArrayList<>();
-        // list of needed problems
-        ArrayList<Problem> problems_contain_keywords = new ArrayList<>();
-        // list of result records
+        //boolean contain_keywords = false;
+        // Get all problems
+        String title;
+        ElasticSearchController.GetAllRecordTask getAllRecordTask = new ElasticSearchController.GetAllRecordTask();
+        getAllRecordTask.execute();
         ArrayList<Record> records = new ArrayList<>();
-        // get list of needed records
-        records = RecordSearchController.GeoSearch(lat,log);
-        ElasticSearchController.GetAllProblemTask getAllProblemTask = new ElasticSearchController.GetAllProblemTask();
-        getAllProblemTask.execute();
+        ArrayList<Record> record_contain_body = new ArrayList<>();
         try {
-            // get all problems
-            problems = getAllProblemTask.get();
+            records = getAllRecordTask.get();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        for (Record each:records)
+        for(Record each:records)
         {
-            problemIDs.add(each.getProblemid());
-        }
-
-        for(Problem problem:problems)
-        {
-            // problemids need to include it and it cannot in problem contains
-            if(problemIDs.contains(problem.getId())&&(!(problems_contain_keywords.contains(problem.getId()))) )
-            {
-                problems_contain_keywords.add(problem);
+            if(each.bodyLocation!=null) {
+                title = each.getBodyLocation().getBodyLocationName();
+                if (title.contains(body_part)) {
+                    record_contain_body.add(each);
+                }
             }
         }
+        return record_contain_body;
 
-
-
-        return problems_contain_keywords;
     }
 
+    public static ArrayList<Record> GeoSearch(double lat,double log)
+    {
+        //boolean contain_keywords = false;
+        // Get all problems
+        GeoLocation geoLocation;
+        ElasticSearchController.GetAllRecordTask getAllRecordTask = new ElasticSearchController.GetAllRecordTask();
+        getAllRecordTask.execute();
+        ArrayList<Record> records = new ArrayList<>();
+        ArrayList<Record> record_contain_body = new ArrayList<>();
+        try {
+            records = getAllRecordTask.get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-    public static boolean stringContainsItemFromList(String inputStr, String[] items) {
-        return Arrays.stream(items).parallel().anyMatch(inputStr::contains);
+        for(Record each:records)
+        {
+            if(each.getGeoLocation()!=null) {
+                geoLocation= each.getGeoLocation();
+                if(RangeChecker(geoLocation.getLatitude(),lat) && RangeChecker(geoLocation.getLongitude(),log)) {
+                    record_contain_body.add(each);
+                }
+            }
+        }
+        return record_contain_body;
+
     }
 
-
-
+    public static boolean RangeChecker (double num1, double num2)
+    {
+        if(num1>=(num2-0.01) && num1<=(num2+0.01))
+        {
+            return true;
+        }
+        return false;
+    }
 }

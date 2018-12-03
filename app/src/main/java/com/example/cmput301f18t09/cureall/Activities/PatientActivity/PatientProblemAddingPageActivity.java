@@ -74,6 +74,9 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
         getDataFromPatientMainPage();
     }
 
+    /**
+     * behaviour of activity starts
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -176,6 +179,9 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * behaviour of activity stops
+     */
     @Override
     protected void onStop() {
         super.onStop();
@@ -198,6 +204,10 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
         descriptionInput = findViewById(R.id.descriptionInput);
         date = new Date();
     }
+
+    /**
+     * get data from PatientMainPage
+     */
     public void getDataFromPatientMainPage(){
         SharedPreferences sharedPreferences2 = getSharedPreferences("PatientMainPageData",MODE_PRIVATE);
         Gson gson = new Gson();
@@ -208,6 +218,12 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
         username = gson.fromJson(json,type);
         problems = gson.fromJson(json2,type2);
     }
+
+    /**
+     *
+     * @param problems arrayList of problems
+     * @param username username
+     */
     public void passDataToMainPage(ArrayList<Problem> problems, String username){
         SharedPreferences sharedPreferences2 = getSharedPreferences("problemAddingData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();

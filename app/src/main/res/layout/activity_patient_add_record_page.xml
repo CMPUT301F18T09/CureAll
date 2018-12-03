@@ -27,7 +27,7 @@
         android:layout_marginRight="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/timeSelectButton"
-        app:srcCompat="@drawable/ic_location_on_black_24dp" />
+        android:background="@drawable/dingwei" />
 
     <ImageButton
         android:id="@+id/cameraButton"
@@ -38,7 +38,7 @@
         android:layout_marginRight="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/geoLocationSelectButton"
-        app:srcCompat="@drawable/ic_photo_camera_black_24dp" />
+        android:background="@drawable/paizhao"/>
 
     <ImageButton
         android:id="@+id/saveButton"
@@ -49,7 +49,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_save_black_24dp" />
+        android:background="@drawable/save_button"/>
 
     <ImageButton
         android:id="@+id/fromAlbumButton"
@@ -64,7 +64,7 @@
         app:layout_constraintEnd_toStartOf="@+id/cameraButton"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/more_icon_album" />
+        android:background="@drawable/xiangce" />
 
     <ImageButton
         android:id="@+id/backButton"
@@ -75,7 +75,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
+        android:background="@drawable/back_button" />
 
     <ImageView
         android:id="@+id/writeSymbol"
@@ -101,7 +101,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/body_location_button" />
+        android:background="@drawable/body_icon" />
 
     <EditText
         android:id="@+id/descriptionInput"

@@ -283,9 +283,6 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
                 UserState currentState = new UserState(PatientRecordAddingPageActivity.this);
                 if (currentState.getState()){
                     //TODO only save to es
-                    record.setTitle(titleInput.getText().toString());
-                    record.setComment(descriptionInput.getText().toString());
-                    
                     temp = saveRecord(problem.getUsername(),record,problem.getId());
                     temp.setState("Online");
 
@@ -519,9 +516,9 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
 
     /**
      *
-     * @param problem 
-     * @param problems
-     * @param records
+     * @param problem problem
+     * @param problems arrayList of problems
+     * @param records arrayList of records
      */
     public void passDataToProblemDetailPage(Problem problem, ArrayList<Problem> problems, ArrayList<Record> records){
         SharedPreferences sharedPreferences2 = getSharedPreferences("RecordAddingData",MODE_PRIVATE);
@@ -535,6 +532,12 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
         editor2.putString("records",json4);
         editor2.apply();
     }
+
+    /**
+     *
+     * @param problem current problem
+     * @param record current record
+     */
     public void passDataToGeolocationSelectionPage(Problem problem, Record record){
         SharedPreferences sharedPreferences2 = getSharedPreferences("RecordAddingData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();
@@ -545,6 +548,11 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
         editor2.putString("record",json2);
         editor2.apply();
     }
+
+    /**
+     *
+     * @param record current record
+     */
     public void passDataToPaperDollSelectionPage(Record record){
         SharedPreferences sharedPreferences2 = getSharedPreferences("RecordAddingData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();
@@ -555,6 +563,13 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
     }
 
 
+    /**
+     *
+     * @param patient current patient
+     * @param records arrayList of records
+     * @param problems arrayList of problems
+     * @param problem current problem
+     */
     public void saveDataToLocal(Patient patient, ArrayList<Record> records, ArrayList<Problem> problems,Problem problem){
         SharedPreferences sharedPreferences2 = getSharedPreferences("RecordAddingData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();
@@ -592,6 +607,14 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
         recordController = new RecordController();
         date = new Date();
     }
+
+    /**
+     *
+     * @param username username
+     * @param record current record
+     * @param problemID problem ID
+     * @param temp the record to be saved
+     */
     //TODO add a save local function
     private void saveLocal(String username, Record record, String problemID,Record temp) {
 

@@ -69,9 +69,9 @@ public class SearchAdapter extends ArrayAdapter<String> {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             convertView = inflater.inflate(mResource, parent, false);
             holder= new ViewHolder();
-            holder.name = (TextView) convertView.findViewById(R.id.textView1);
+            //  holder.name = (TextView) convertView.findViewById(R.id.textView1);
             holder.date = (TextView) convertView.findViewById(R.id.textView2);
-            holder.msg = (TextView) convertView.findViewById(R.id.textView3);
+            //holder.msg = (TextView) convertView.findViewById(R.id.textView3);
 
             result = convertView;
 
@@ -96,9 +96,9 @@ public class SearchAdapter extends ArrayAdapter<String> {
         DateFormat pattern = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
 
-        holder.name.setText(name);
-        //holder.date.setText(pattern.format(date));
-       // holder.msg.setText(msg);
+        //holder.name.setText(name);
+        holder.date.setText(name);
+        //holder.msg.setText(name);
 
         return convertView;
     }

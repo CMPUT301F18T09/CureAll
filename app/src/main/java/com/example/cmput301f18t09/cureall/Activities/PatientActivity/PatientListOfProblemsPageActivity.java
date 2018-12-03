@@ -257,6 +257,9 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         phoneNumber.setText("Phone: "+ phone);
 
 
+        /**
+         * click to edit email address
+         */
         email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -290,6 +293,9 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
             }
         });
 
+        /**
+         * click to edit phone number
+         */
         phoneNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -452,8 +458,9 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
     }
 
 
-
-
+    /**
+     * a customized dialog
+     */
     public void MyCustomAlertDialog(){
         MyDialog = new Dialog(PatientListOfProblemsPageActivity.this);
         MyDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -510,6 +517,9 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                 }
 
                 break;
+            /**
+             * QR scanner
+             */
             case R.id.qr_code:
                 Toast.makeText(this,"Scan QR code",Toast.LENGTH_SHORT).show();
                 String text = username.trim();
@@ -539,6 +549,9 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         }
     }
 
+    /**
+     * behaviour of activity stops
+     */
     @Override
     protected void onStop() {
         super.onStop();
@@ -569,6 +582,10 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
 
     }
 
+    /**
+     * get data from ProblemAdding
+     */
+
     public void getDataFromProblemAdding(){
         SharedPreferences sharedPreferences2 = getSharedPreferences("problemAddingData",MODE_PRIVATE);
         Gson gson = new Gson();
@@ -581,6 +598,10 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         problems = gson.fromJson(json2,type2);
         //mAdapter.notifyDataSetChanged();
     }
+
+    /**
+     * get data from ProblemDetail
+     */
     public void getDataFromProblemDetail(){
         SharedPreferences sharedPreferences2 = getSharedPreferences("ProblemDetailData",MODE_PRIVATE);
         Gson gson = new Gson();
@@ -591,6 +612,12 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         patient = gson.fromJson(json,type);
         problems = gson.fromJson(json2,type2);
     }
+
+    /**
+     *
+     * @param username username
+     * @param problems patient's problems
+     */
     public void passDataToProblemAdding(String username, ArrayList<Problem> problems){
         SharedPreferences sharedPreferences2 = getSharedPreferences("PatientMainPageData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();
@@ -601,6 +628,14 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         editor2.putString("patientProblems",json2);
         editor2.apply();
     }
+
+    /**
+     *
+     * @param problem current problem
+     * @param records problem's records
+     * @param problems patient's problems
+     * @param patient current user
+     */
     public void passDataToProblemDetail(Problem problem, ArrayList<Record> records, ArrayList<Problem> problems, Patient patient){
         SharedPreferences sharedPreferences2 = getSharedPreferences("PatientMainPageData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();
@@ -626,6 +661,10 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         editor2.putString("patient",json);
         editor2.apply();
     }
+
+    /**
+     * load patient file form local
+     */
     public void loadPatientObjectFromLocal(){
         SharedPreferences sharedPreferences2 = getSharedPreferences("saveToLocal",MODE_PRIVATE);
         Gson gson = new Gson();
@@ -633,7 +672,11 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
         Type type = new TypeToken<Patient>(){}.getType();
         patient = gson.fromJson(json,type);
     }
-    //
+
+    /**
+     *
+     * @param runnable (build in)
+     */
     public void SyncCheck(Runnable runnable){
 
         service = Executors.newSingleThreadScheduledExecutor();

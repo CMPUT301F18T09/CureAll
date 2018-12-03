@@ -72,6 +72,9 @@ public class PatientPhotoFlowPageActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewPager);
     }
 
+    /**
+     * behaviour of activity starts
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -121,12 +124,18 @@ public class PatientPhotoFlowPageActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * behaviour of activity stops
+     */
     @Override
     protected void onStop() {
         super.onStop();
         finish();
     }
 
+    /**
+     * get data from RecordDetailPage
+     */
     public void getDataFromRecordDetailPage(){
         SharedPreferences sharedPreferences2 = getSharedPreferences("RecordDetailData",MODE_PRIVATE);
         Gson gson = new Gson();

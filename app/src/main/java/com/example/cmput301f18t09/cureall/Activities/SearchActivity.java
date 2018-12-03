@@ -16,13 +16,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.cmput301f18t09.cureall.model.GeoLocation;
-import com.example.cmput301f18t09.cureall.model.Problem;
+import com.example.cmput301f18t09.cureall.GeoLocation;
+import com.example.cmput301f18t09.cureall.Problem;
 import com.example.cmput301f18t09.cureall.R;
-import com.example.cmput301f18t09.cureall.model.Record;
+import com.example.cmput301f18t09.cureall.Record;
 import com.example.cmput301f18t09.cureall.SearchController.ProblemSearchController;
 import com.example.cmput301f18t09.cureall.SearchController.RecordSearchController;
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.ShowSearchResultActivity;
+import com.example.cmput301f18t09.cureall.model.GeoLocation;
+import com.example.cmput301f18t09.cureall.model.Problem;
+import com.example.cmput301f18t09.cureall.model.Record;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
@@ -259,9 +262,21 @@ public class SearchActivity extends AppCompatActivity {
                 Place place = PlacePicker.getPlace(this,data);
                 location = place.getLatLng();
                 records=RecordSearchController.GeoSearch(location.latitude,location.longitude);
-                Intent intent = new Intent(SearchActivity.this,ShowSearchResultActivity.class);
+     /*           Intent intent = new Intent(SearchActivity.this,ShowSearchResultActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("records",records);
+                // notice : only implemented record now, will implement if check statement for implement
+                // problem in the future
+                intent.putExtra("type","record");
+                intent.putExtras(bundle);
+                startActivity(intent);*/
+                for(Record each:records)
+                {
+                    record_string.add(each.getTitle());
+                }
+                Intent intent = new Intent(SearchActivity.this,ShowSearchResultActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("records",record_string);
                 // notice : only implemented record now, will implement if check statement for implement
                 // problem in the future
                 intent.putExtra("type","record");

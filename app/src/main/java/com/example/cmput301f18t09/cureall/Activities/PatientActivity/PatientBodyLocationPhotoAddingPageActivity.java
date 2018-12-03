@@ -65,6 +65,10 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
             selectedBodyLocation.setText(bodyLocation.getBodyLocationName());
         }
     }
+
+    /**
+     * behaviour of activity starts
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -167,6 +171,9 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
     }
 
 
+    /**
+     * behaviour of activity stops
+     */
     @Override
     protected void onStop() {
         super.onStop();
@@ -175,6 +182,9 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
         }
     }
 
+    /**
+     * get data from PaperDollSelectionPage
+     */
     public void getDataFromPaperDollSelectionPage(){
         SharedPreferences sharedPreferences2 = getSharedPreferences("PaperDollSelectionData",MODE_PRIVATE);
         Gson gson = new Gson();
@@ -182,6 +192,11 @@ public class PatientBodyLocationPhotoAddingPageActivity extends AppCompatActivit
         Type type = new TypeToken<Record>(){}.getType();
         record = gson.fromJson(json,type);
     }
+
+    /**
+     *
+     * @param record current record
+     */
     public void passDataToRecordAddingPage(Record record){
         SharedPreferences sharedPreferences2 = getSharedPreferences("BodyLocationPhotoAddingData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();

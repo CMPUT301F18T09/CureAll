@@ -7,6 +7,7 @@ import com.example.cmput301f18t09.cureall.model.Record;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+import static com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderMainPageActivity.stringContainsItemFromList;
 import static com.example.cmput301f18t09.cureall.SearchController.ProblemSearchController.stringContainsItemFromList;
 
 public class RecordSearchController {

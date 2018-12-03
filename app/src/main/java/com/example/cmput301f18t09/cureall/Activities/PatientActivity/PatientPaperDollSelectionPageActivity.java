@@ -192,6 +192,9 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * get data from RecordAddingPage
+     */
     public void getDataFromRecordAddingPage(){
         SharedPreferences sharedPreferences2 = getSharedPreferences("RecordAddingData",MODE_PRIVATE);
         Gson gson = new Gson();
@@ -199,6 +202,11 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
         Type type = new TypeToken<Record>(){}.getType();
         record = gson.fromJson(json,type);
     }
+
+    /**
+     *
+     * @param record the target record
+     */
     public void passDataToBodyLocationPhotoAddingPage(Record record){
         SharedPreferences sharedPreferences2 = getSharedPreferences("PaperDollSelectionData",MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();
