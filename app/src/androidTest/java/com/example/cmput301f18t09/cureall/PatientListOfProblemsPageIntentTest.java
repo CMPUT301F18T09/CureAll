@@ -33,7 +33,7 @@ public class PatientListOfProblemsPageIntentTest {
     public void SetUp() {
 
         onView(withId(R.id.patientLogin)).perform(click());
-        onView(withId(R.id.userNameInput)).perform(typeText("u9"), closeSoftKeyboard());
+        onView(withId(R.id.userNameInput)).perform(typeText("fangpeich"), closeSoftKeyboard());
         onView(withId(R.id.passwordInputpass)).perform(typeText("1"), closeSoftKeyboard());
         onView(withId(R.id.loginButton)).perform(click());
 

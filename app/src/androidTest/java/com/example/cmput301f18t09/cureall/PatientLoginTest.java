@@ -30,7 +30,7 @@ public class PatientLoginTest {
     }
     @Test
     public void patientLoginTest(){
-        onView(withId(R.id.userNameInput)).perform(typeText("u9"),closeSoftKeyboard());
+        onView(withId(R.id.userNameInput)).perform(typeText("fangpeich"),closeSoftKeyboard());
         onView(withId(R.id.passwordInputpass)).perform(typeText("1"),closeSoftKeyboard());
         onView(withId(R.id.loginButton)).perform(click());
         intended(hasComponent(PatientListOfProblemsPageActivity.class.getName()));

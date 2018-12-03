@@ -28,8 +28,8 @@ public class ProviderLoginTest {
     }
     @Test
     public void providerLoginTest(){
-        onView(withId(R.id.userNameInput)).perform(typeText("wade"),closeSoftKeyboard());
-        onView(withId(R.id.passwordInputpass)).perform(typeText("wpass"),closeSoftKeyboard());
+        onView(withId(R.id.userNameInput)).perform(typeText("chenfangpei"),closeSoftKeyboard());
+        onView(withId(R.id.passwordInputpass)).perform(typeText("1"),closeSoftKeyboard());
         onView(withId(R.id.loginButton)).perform(click());
         intended(hasComponent(ProviderMainPageActivity.class.getName()));
     }

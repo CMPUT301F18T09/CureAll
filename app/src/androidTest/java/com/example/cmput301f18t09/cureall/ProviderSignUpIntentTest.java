@@ -27,7 +27,7 @@ public class ProviderSignUpIntentTest {
     }
     @Test
     public void patientLoginTest(){
-        onView(withId(R.id.userNameInput)).perform(typeText("u9"),closeSoftKeyboard());
+        onView(withId(R.id.userNameInput)).perform(typeText("12345678"),closeSoftKeyboard());
         onView(withId(R.id.passwordInputpass)).perform(typeText("1"),closeSoftKeyboard());
         onView(withId(R.id.confirmPasswodInput)).perform(typeText("1"), closeSoftKeyboard());
         onView(withId(R.id.emailAddressInput)).perform(typeText("1"), closeSoftKeyboard());

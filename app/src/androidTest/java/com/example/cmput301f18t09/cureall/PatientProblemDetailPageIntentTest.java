@@ -50,7 +50,7 @@ public class PatientProblemDetailPageIntentTest {
 //        patientListOfProblemsPageActivity.passDataToProblemDetail(problem,records,problems,patient);
         ProblemController problemController = new ProblemController();
         RecordController recordController = new RecordController();
-        Patient patient = new Patient("u9","1","1");
+        Patient patient = new Patient("fangpeich","1","1");
         ArrayList<Problem> problems = problemController.GetProblemNum(patient.getUsername());
         Problem problem = new Problem(patient.getUsername()
                 ,"1"

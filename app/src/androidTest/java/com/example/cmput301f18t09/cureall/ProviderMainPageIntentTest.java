@@ -43,7 +43,7 @@ public class ProviderMainPageIntentTest {
         record.setRecordTrackingPhotoArrayList(new ArrayList<AllKindsOfPhotos>());
         passDataToRecordDetailPage(record);*/
         Intent intent= new Intent();
-        intent.putExtra("username","wade");
+        intent.putExtra("username","chenfangpei");
         patientProblemDetailPageActivityIntentsTestRule.launchActivity(intent);
 
     }
@@ -55,7 +55,7 @@ public class ProviderMainPageIntentTest {
         onView(withId(R.id.addPatientButton)).perform(click());
         intended(hasComponent(ProviderAddPatientActivity.class.getName()));
         // Test add patient function
-        onView(withId(R.id.input_patient)).perform(typeText("u9"),closeSoftKeyboard());
+        onView(withId(R.id.input_patient)).perform(typeText("fangpeich"),closeSoftKeyboard());
         onView(withId(R.id.add_button));
         intended(hasComponent(ProviderMainPageActivity.class.getName()));
 

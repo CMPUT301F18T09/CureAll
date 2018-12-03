@@ -24,7 +24,7 @@ public class PatientProblemAddingPageIntentTest {
 
     @Before
     public void before() {
-        Patient patient = new Patient("u9","1","1");
+        Patient patient = new Patient("fangpeich","1","1");
         ProblemController problemController = new ProblemController();
         ArrayList<Problem> problems = problemController.GetProblemNum(patient.getUsername());
         Problem problem = new Problem(patient.getUsername()
