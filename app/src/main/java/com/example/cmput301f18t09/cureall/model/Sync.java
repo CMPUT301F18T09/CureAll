@@ -3,8 +3,6 @@ package com.example.cmput301f18t09.cureall.model;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchController;
-import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchParams;
 import com.example.cmput301f18t09.cureall.PatientController.PatientController;
 import com.example.cmput301f18t09.cureall.ProblemController.ProblemController;
 import com.example.cmput301f18t09.cureall.RecordController.RecordController;

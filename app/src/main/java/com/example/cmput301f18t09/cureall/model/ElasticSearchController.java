@@ -1,4 +1,4 @@
-package com.example.cmput301f18t09.cureall;
+package com.example.cmput301f18t09.cureall.model;
 
 import android.os.AsyncTask;
 import android.util.Log;

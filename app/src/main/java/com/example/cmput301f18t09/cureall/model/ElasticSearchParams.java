@@ -7,7 +7,7 @@
  *
  * Copyright (c) 2018. Team09, F18 CMPUT301, All rights reserved.
  */
-package com.example.cmput301f18t09.cureall;
+package com.example.cmput301f18t09.cureall.model;
 
 import java.util.ArrayList;
 import java.util.Date;
