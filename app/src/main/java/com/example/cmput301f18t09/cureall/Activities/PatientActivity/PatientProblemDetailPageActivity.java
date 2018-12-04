@@ -199,7 +199,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
                             sync.UpdateTracker(problem.getUsername());
                         }
                     }
-                    if (editRecords.size() == records.size()){
+                    if (editRecords.size()>0){
                         records = editRecords;
                     }
                     RecordController.saveInFile(PatientProblemDetailPageActivity.this,"EditRecords.txt",new ArrayList<Record>(),problem.getUsername());
