@@ -39,7 +39,7 @@ import java.util.ArrayList;
  */
 public class ProviderSignUpActivity extends AppCompatActivity{
     private Button backButton, continueButton;
-    private EditText userNameInput, passwordInput, confirmPasswodInput, emailAddressInput, phoneNumberInput ;
+    private EditText userNameInput, emailAddressInput, phoneNumberInput ;
     private ImageView patientSymbol;
     private ArrayList<CareProvider> careProviders;
 
@@ -101,8 +101,6 @@ public class ProviderSignUpActivity extends AppCompatActivity{
         backButton =  findViewById(R.id.backButton);
         continueButton =  findViewById(R.id.continueButton);
         userNameInput = (EditText) findViewById(R.id.userNameInput);
-        passwordInput = (EditText) findViewById(R.id.passwordInputpass);
-        confirmPasswodInput = (EditText) findViewById(R.id.confirmPasswodInput);
         emailAddressInput = (EditText) findViewById(R.id.emailAddressInput);
         phoneNumberInput = (EditText) findViewById(R.id.phoneNumberInput);
         patientSymbol = (ImageView) findViewById(R.id.ProviderSymbol);

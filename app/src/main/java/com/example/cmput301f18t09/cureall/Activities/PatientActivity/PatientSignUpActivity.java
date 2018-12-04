@@ -34,7 +34,7 @@ import java.util.ArrayList;
  */
 public class PatientSignUpActivity extends AppCompatActivity{
     private Button backButton, continueButton;
-    private EditText username, password, rePassword, email, phone ;
+    private EditText username, email, phone ;
     private ImageView patientSymbol;
     private ArrayList<Patient> patients = new ArrayList<>();
 
@@ -57,8 +57,6 @@ public class PatientSignUpActivity extends AppCompatActivity{
         backButton = (Button) findViewById(R.id.backButton);
         continueButton = (Button) findViewById(R.id.continueButton);
         username = (EditText) findViewById(R.id.userNameInput);
-        password = (EditText) findViewById(R.id.passwordInputpass);
-        rePassword = (EditText) findViewById(R.id.confirmPasswodInput);
         email = (EditText) findViewById(R.id.emailAddressInput);
         phone = (EditText) findViewById(R.id.phoneNumberInput);
         patientSymbol = (ImageView) findViewById(R.id.patientSymbol);
