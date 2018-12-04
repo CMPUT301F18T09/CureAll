@@ -8,33 +8,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ea87065e-a056-4085-a440-649a406f0cc0" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/example/cmput301f18t09/cureall/ElasticSearchControllerTest.java" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/example/cmput301f18t09/cureall/ElasticSearchControllerTest.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/example/cmput301f18t09/cureall/PatientProblemAddingPageIntentTest.java" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/example/cmput301f18t09/cureall/PatientProblemAddingPageIntentTest.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/example/cmput301f18t09/cureall/PatientProblemDetailPageIntentTest.java" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/example/cmput301f18t09/cureall/PatientProblemDetailPageIntentTest.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/example/cmput301f18t09/cureall/PatientRecordAddingPageIntentTest.java" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/example/cmput301f18t09/cureall/PatientRecordAddingPageIntentTest.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientListOfProblemsPageActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientListOfProblemsPageActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientPaperDollSelectionPageActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientPaperDollSelectionPageActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientProblemAddingPageActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientProblemAddingPageActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientProblemDetailPageActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientProblemDetailPageActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientRecordAddingPageActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientRecordAddingPageActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientSignUpActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/PatientActivity/PatientSignUpActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/publicActitivy/SearchActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/publicActitivy/SearchActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/publicActitivy/UserLoginActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/publicActitivy/UserLoginActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/PaperDollController/BodyColor.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/controller/PaperDollController/BodyColor.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/PaperDollController/BodyPart.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/controller/PaperDollController/BodyPart.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/PatientController/PatientController.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/controller/PatientController/PatientController.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/ProblemController/ProblemController.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/controller/ProblemController/ProblemController.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/RecordController/RecordController.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/controller/RecordController/RecordController.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/SearchController/ProblemSearchController.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/controller/SearchController/ProblemSearchController.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/SearchController/RecordSearchController.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/controller/SearchController/RecordSearchController.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/model/Sync.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/model/Sync.java" />
-      <change beforePath="$PROJECT_DIR$/javadoc/com/example/cmput301f18t09/cureall/PaperDollController/BodyColor.html" afterPath="$PROJECT_DIR$/javadoc/com/example/cmput301f18t09/cureall/PaperDollController/BodyColor.html" />
-      <change beforePath="$PROJECT_DIR$/javadoc/com/example/cmput301f18t09/cureall/PaperDollController/BodyPart.html" afterPath="$PROJECT_DIR$/javadoc/com/example/cmput301f18t09/cureall/PaperDollController/BodyPart.html" />
-      <change beforePath="$PROJECT_DIR$/javadoc/com/example/cmput301f18t09/cureall/PatientController/PatientController.html" afterPath="$PROJECT_DIR$/javadoc/com/example/cmput301f18t09/cureall/PatientController/PatientController.html" />
-      <change beforePath="$PROJECT_DIR$/javadoc/com/example/cmput301f18t09/cureall/ProblemController/ProblemController.html" afterPath="$PROJECT_DIR$/javadoc/com/example/cmput301f18t09/cureall/ProblemController/ProblemController.html" />
-      <change beforePath="$PROJECT_DIR$/javadoc/com/example/cmput301f18t09/cureall/RecordController/RecordController.html" afterPath="$PROJECT_DIR$/javadoc/com/example/cmput301f18t09/cureall/RecordController/RecordController.html" />
-      <change beforePath="$PROJECT_DIR$/javadoc/com/example/cmput301f18t09/cureall/SearchController/ProblemSearchController.html" afterPath="$PROJECT_DIR$/javadoc/com/example/cmput301f18t09/cureall/SearchController/ProblemSearchController.html" />
-      <change beforePath="$PROJECT_DIR$/javadoc/com/example/cmput301f18t09/cureall/SearchController/RecordSearchController.html" afterPath="$PROJECT_DIR$/javadoc/com/example/cmput301f18t09/cureall/SearchController/RecordSearchController.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -64,7 +37,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/publicActitivy/SearchActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="388">
-              <caret line="45" column="29" lean-forward="true" selection-start-line="45" selection-start-column="29" selection-end-line="45" selection-end-column="29" />
+              <caret line="45" column="29" lean-forward="false" selection-start-line="45" selection-start-column="29" selection-end-line="45" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -74,7 +47,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/controller/ProblemController/ProblemController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="330">
-              <caret line="19" column="29" lean-forward="true" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="29" />
+              <caret line="19" column="29" lean-forward="false" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -2459,7 +2432,14 @@
       <option name="project" value="LOCAL" />
       <updated>1543912958004</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="file documents">
+      <created>1543913083702</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1543913083702</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2506,7 +2486,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="ui fixed" />
     <MESSAGE value="import fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="import fixed" />
+    <MESSAGE value="file documents" />
+    <option name="LAST_COMMIT_MESSAGE" value="file documents" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -2616,7 +2597,7 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/Activities/publicActitivy/SearchActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="388">
-          <caret line="45" column="29" lean-forward="true" selection-start-line="45" selection-start-column="29" selection-end-line="45" selection-end-column="29" />
+          <caret line="45" column="29" lean-forward="false" selection-start-line="45" selection-start-column="29" selection-end-line="45" selection-end-column="29" />
           <folding />
         </state>
       </provider>
@@ -2624,7 +2605,7 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/cmput301f18t09/cureall/controller/ProblemController/ProblemController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
-          <caret line="19" column="29" lean-forward="true" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="29" />
+          <caret line="19" column="29" lean-forward="false" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="29" />
           <folding />
         </state>
       </provider>
