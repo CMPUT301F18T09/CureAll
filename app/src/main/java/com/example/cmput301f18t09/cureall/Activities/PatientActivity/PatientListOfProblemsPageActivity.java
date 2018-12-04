@@ -36,7 +36,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.cmput301f18t09.cureall.Activities.SearchActivity;
+import com.example.cmput301f18t09.cureall.Activities.publicActitivy.SearchActivity;
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.ViewLocationOnMapActivity;
 import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchController;
 import com.example.cmput301f18t09.cureall.model.GeoLocation;

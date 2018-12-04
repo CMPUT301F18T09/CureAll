@@ -79,7 +79,7 @@
             android:value="barcode" />
 
         <activity android:name=".Activities.publicActitivy.PhotoGallary" />
-        <activity android:name=".Activities.SearchActivity" />
+        <activity android:name=".Activities.publicActitivy.SearchActivity" />
         <activity android:name=".Activities.publicActitivy.ShowSearchResultActivity" />
 
         <meta-data

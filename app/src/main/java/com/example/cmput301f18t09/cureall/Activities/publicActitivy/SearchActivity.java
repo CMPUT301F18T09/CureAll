@@ -1,4 +1,4 @@
-package com.example.cmput301f18t09.cureall.Activities;
+package com.example.cmput301f18t09.cureall.Activities.publicActitivy;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -21,7 +21,6 @@ import com.example.cmput301f18t09.cureall.R;
 
 import com.example.cmput301f18t09.cureall.SearchController.ProblemSearchController;
 import com.example.cmput301f18t09.cureall.SearchController.RecordSearchController;
-import com.example.cmput301f18t09.cureall.Activities.publicActitivy.ShowSearchResultActivity;
 import com.example.cmput301f18t09.cureall.model.GeoLocation;
 import com.example.cmput301f18t09.cureall.model.Problem;
 import com.example.cmput301f18t09.cureall.model.Record;
