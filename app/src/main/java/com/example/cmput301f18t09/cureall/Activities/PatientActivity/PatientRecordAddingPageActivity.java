@@ -373,7 +373,6 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
                 String temp= Base64.encodeToString(b, Base64.DEFAULT);
                 newpicture = new AllKindsOfPhotos(image,temp,"default name",0.0,0.0,0.0);
                 openDialogue();
-                writeSymbol.setImageBitmap(image);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 // show a message to the user indictating that the image is unavailable.

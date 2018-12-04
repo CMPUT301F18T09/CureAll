@@ -115,6 +115,7 @@ public class PatientProblemDetailPageAdapter extends RecyclerView.Adapter<Patien
     public void onBindViewHolder(viewHolder viewHolder, int position) {
         Record currentRecord = recordsArrayList.get(position);
         viewHolder.recordTitle.setText(currentRecord.getTitle());
+        viewHolder.dateComment.setText(currentRecord.getTime().toString());
         /**
          * You can only view the record time, and descriptions in record detail page
          * The preview function is not finished yet, only the record title will be presented.

@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -294,15 +295,18 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
                     eds = RecordController.loadFromFile(PatientProblemDetailPageActivity.this,"EditRecords.txt",records,problem.getUsername());
                     if (records.size() == eds.size()){
                         RecordController.saveInFile(PatientProblemDetailPageActivity.this,"records.txt",eds,problem.getUsername());
-                    }
-
+                    }System.out.println(records);
                 }
 //TODO
 
 
                 service.shutdown();
-
-                startActivity(intent);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(intent);
+                    }
+                }, 4000);
             }
         });
 
