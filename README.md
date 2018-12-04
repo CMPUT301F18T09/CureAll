@@ -34,9 +34,5 @@ CMPUT301F18T09 Project
     Geolocation and Maps:
     Use Case 27: US 10.01.01 SpecifyGeo-location
     Use Case 28: US 10.02.01 ViewGeo-location (half, only patient can view geolocation for a record, click the button in record detail page)
-## For care provider, we provide an account:
-    username: wade
-    password: wpass
     
-## For intent testing, the relative gradle files is in the branch-- "IntentTest". The gradle files in master branch can not run intent test. Sorry about that mistake we have made.
     
