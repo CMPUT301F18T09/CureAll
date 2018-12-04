@@ -36,7 +36,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="100dp"
         android:gravity="top"
-        android:text="comments"
+        android:hint="comments"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

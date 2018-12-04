@@ -102,14 +102,14 @@
         android:layout_height="50dp"
         android:layout_marginBottom="32dp"
         android:layout_marginEnd="32dp"
-        android:text="Continue"
+        android:hint="Continue"
         android:background="@drawable/button_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/backButton"
-        android:text="back"
+        android:hint="back"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginBottom="32dp"

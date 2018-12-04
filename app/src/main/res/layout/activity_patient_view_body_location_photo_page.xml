@@ -14,7 +14,7 @@
         android:layout_marginEnd="52dp"
         android:layout_marginRight="52dp"
         android:layout_marginTop="44dp"
-        android:text="Body Location: "
+        android:hint="Body Location: "
         app:layout_constraintEnd_toStartOf="@+id/selectedBodyLocation"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,7 +25,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginTop="44dp"
-        android:text="TextView"
+        android:hint="TextView"
         android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -68,7 +68,7 @@
         android:layout_marginLeft="140dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="140dp"
-        android:text="Switch"
+        android:hint="Switch"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

@@ -20,18 +20,18 @@
         android:id="@+id/nav_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name"
+        android:hint="Name"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
         android:id="@+id/nav_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="email address" />
+        android:hint="email address" />
 
     <TextView
         android:id="@+id/nav_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="PhoneNumber" />
+        android:hint="PhoneNumber" />
 </LinearLayout>

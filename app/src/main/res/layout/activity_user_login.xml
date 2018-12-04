@@ -56,7 +56,7 @@
     <Button
         android:id="@+id/loginButton"
         android:background="@drawable/button_icon"
-        android:text ="Login"
+        android:hint ="Login"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginBottom="64dp"
@@ -68,7 +68,7 @@
     <Button
         android:id="@+id/backButton"
         android:background="@drawable/button_icon"
-        android:text="back"
+        android:hint="back"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginBottom="64dp"
