@@ -10,6 +10,7 @@ import android.support.test.espresso.intent.rule.IntentsTestRule;
 
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientProblemDetailPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.ViewLocationOnMapActivity;
+import com.example.cmput301f18t09.cureall.PatientController.PatientController;
 import com.example.cmput301f18t09.cureall.ProblemController.ProblemController;
 import com.example.cmput301f18t09.cureall.RecordController.RecordController;
 import com.example.cmput301f18t09.cureall.model.Patient;
@@ -50,7 +51,8 @@ public class PatientProblemDetailPageIntentTest {
 //        patientListOfProblemsPageActivity.passDataToProblemDetail(problem,records,problems,patient);
         ProblemController problemController = new ProblemController();
         RecordController recordController = new RecordController();
-        Patient patient = new Patient("fangpeich","1","1");
+       // Patient patient = new Patient("fangpeich","1","1");
+        Patient patient = PatientController.GetNumPatients("fangpeich").get(0);
         ArrayList<Problem> problems = problemController.GetProblemNum(patient.getUsername());
         Problem problem = new Problem(patient.getUsername()
                 ,"1"
@@ -64,18 +66,18 @@ public class PatientProblemDetailPageIntentTest {
         records.add(record);
         passDataToProblemDetail(problem,records,problems,patient);
         Intent intent= new Intent();
-        intent.putExtra("ComeFromProblemDetail","ComeFromProblemDetail");
+        intent.putExtra("ComeFromPatientMainPage","ComeFromPatientMainPage");
         patientProblemDetailPageActivityIntentsTestRule.launchActivity(intent);
 
     }
 
-    @Test
+/*    @Test
     public void ViewBodyPhotoTest() {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.geoLocationButton)).perform(click());
         intended(hasComponent(ViewLocationOnMapActivity.class.getName()));
 
-    }
+    }*/
 
     @Test
     public void RecordDetailTest() {
