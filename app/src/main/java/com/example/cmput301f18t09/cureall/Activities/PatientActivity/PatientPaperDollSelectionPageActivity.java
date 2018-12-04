@@ -22,7 +22,7 @@ import android.widget.ImageView;
 import com.example.cmput301f18t09.cureall.controller.PaperDollController.BodyPart;
 import com.example.cmput301f18t09.cureall.model.AllKindsOfPhotos;
 import com.example.cmput301f18t09.cureall.model.BodyLocation;
-import com.example.cmput301f18t09.cureall.PaperDollController.*;
+
 
 import com.example.cmput301f18t09.cureall.controller.PaperDollController.BodyColor;
 import com.example.cmput301f18t09.cureall.R;
