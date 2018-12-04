@@ -50,14 +50,11 @@ import java.util.List;
  */
 public class UserLoginActivity extends AppCompatActivity {
     private ImageView loveSymbol;
-    private EditText userNameInput, passwordInput;
-    private Button loginButton, backButton;
+    private EditText userNameInput;
+    private Button loginButton, scanButton;
     private ArrayList<Problem> problems;
     private ProblemController problemController = new ProblemController();
     private String Role;
-    SurfaceView cameraView;
-    CameraSource cameraSource;
-    final int RequestCameraPermissionID = 1001;
     @Override
     /**
      * initialize the buttons and edittext
@@ -71,13 +68,15 @@ public class UserLoginActivity extends AppCompatActivity {
         Intent incomingIntent = getIntent();
         Role = incomingIntent.getStringExtra("Role");
         final Activity activity = this;
+        if (Role.equals("Provider")){
+            scanButton.setVisibility(View.INVISIBLE);
+        }
         loginButton.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View v) {
                 login(Role);
             }
         });
-        loveSymbol.setOnClickListener(new View.OnClickListener() {
+        scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //todo
@@ -258,8 +257,6 @@ public class UserLoginActivity extends AppCompatActivity {
         else{
             setResult(RESULT_OK);
             String Username = userNameInput.getText().toString();
-            String Password = passwordInput.getText().toString();
-
             ElasticSearchController.GetDoctorTask getuserTask = new ElasticSearchController.GetDoctorTask();
             getuserTask.execute(Username);
 
@@ -292,9 +289,8 @@ public class UserLoginActivity extends AppCompatActivity {
     public void initalizeAllElements(){
         loveSymbol = (ImageView) findViewById(R.id.loveSymbol);
         userNameInput = (EditText) findViewById(R.id.userNameInput);
-        passwordInput = (EditText) findViewById(R.id.passwordInputpass);
         loginButton = (Button) findViewById(R.id.loginButton);
-        backButton = (Button) findViewById(R.id.backButton);
+        scanButton = (Button) findViewById(R.id.scanButton);
     }
 
 

@@ -83,7 +83,6 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
     String id;
     Patient patient;
     boolean checker;
-    final int REQUEST_PROBLEM_ADDING = 1;
     ScheduledExecutorService service;
     ProgressDialog progress;
     ArrayList<Problem> deleteProblem;
@@ -136,8 +135,6 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                     num = num+ 1;
                 }
             }
-
-
             numberOfRecords.add(num);
         }
         //numberOfRecords.add(0);
@@ -366,20 +363,6 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                     if (r.getProblemid().equals(problem.getId())){
                         records.add(r);
                     }}
-                /*if (currentState.getState()) {
-                    records = recordController.GetRecordNum(username, problem.getId());
-                }
-                else{
-                    ArrayList<Record> Allrecords = new ArrayList<>();
-                    records = new ArrayList<>();
-                    Allrecords = RecordController.loadFromFile(PatientListOfProblemsPageActivity.this,"records.txt",Allrecords,username);
-                    Log.i("State","the current problemid is"+ problem.getId());
-                    for (Record r : Allrecords){
-                        if (r.getProblemid().equals(problem.getId())){
-                            records.add(r);
-                        }
-                    }
-                }*/
                 service.shutdown();
                 passDataToProblemDetail(problem,records,problems,patient);
                 intent.putExtra("ComeFromPatientMainPage", "ComeFromPatientMainPage");
@@ -395,12 +378,8 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                 String id = p.getId();
 
                 PatientController.SaveLocalTracker(PatientListOfProblemsPageActivity.this,username);
-
-
-
-
                 ProblemController.DelteProblem(problems,position,username,PatientListOfProblemsPageActivity.this);
-
+                numberOfRecords.remove(position);
                 mAdapter.notifyDataSetChanged();
 
                 UserState userState = new UserState(PatientListOfProblemsPageActivity.this);
@@ -433,7 +412,6 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                     sync.UpdateTracker(username);
 
                 }
-                //PatientController.SaveLocalTracker(PatientListOfProblemsPageActivity.this,username);
             }
         });
 
