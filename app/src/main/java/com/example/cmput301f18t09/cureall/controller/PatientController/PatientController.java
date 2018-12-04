@@ -1,4 +1,4 @@
-package com.example.cmput301f18t09.cureall.PatientController;
+package com.example.cmput301f18t09.cureall.controller.PatientController;
 
 import android.content.Context;
 import android.util.Log;

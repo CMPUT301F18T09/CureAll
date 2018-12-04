@@ -1,4 +1,4 @@
-package com.example.cmput301f18t09.cureall.SearchController;
+package com.example.cmput301f18t09.cureall.controller.SearchController;
 
 
 import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchController;
@@ -9,7 +9,7 @@ import com.example.cmput301f18t09.cureall.model.Record;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-import static com.example.cmput301f18t09.cureall.SearchController.ProblemSearchController.stringContainsItemFromList;
+import static com.example.cmput301f18t09.cureall.controller.SearchController.ProblemSearchController.stringContainsItemFromList;
 
 public class RecordSearchController {
 

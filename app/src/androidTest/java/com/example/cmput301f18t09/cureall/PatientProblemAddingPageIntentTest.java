@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientProblemAddingPageActivity;
-import com.example.cmput301f18t09.cureall.ProblemController.ProblemController;
+import com.example.cmput301f18t09.cureall.controller.ProblemController.ProblemController;
 import com.example.cmput301f18t09.cureall.model.Patient;
 import com.example.cmput301f18t09.cureall.model.Problem;
 

@@ -7,7 +7,7 @@
  *
  * Copyright (c) 2018. Team09, F18 CMPUT301, All rights reserved.
  */
-package com.example.cmput301f18t09.cureall.RecordController;
+package com.example.cmput301f18t09.cureall.controller.RecordController;
 
 import android.content.Context;
 import android.util.Log;

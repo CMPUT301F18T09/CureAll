@@ -1,4 +1,4 @@
-package com.example.cmput301f18t09.cureall.PaperDollController;
+package com.example.cmput301f18t09.cureall.controller.PaperDollController;
 
 public enum BodyPart {
 

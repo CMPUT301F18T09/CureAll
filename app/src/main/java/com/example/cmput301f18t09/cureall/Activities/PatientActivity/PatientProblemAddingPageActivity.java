@@ -28,9 +28,9 @@ import android.widget.TimePicker;
 
 import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchController;
 import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchParams;
-import com.example.cmput301f18t09.cureall.PatientController.PatientController;
+import com.example.cmput301f18t09.cureall.controller.PatientController.PatientController;
 import com.example.cmput301f18t09.cureall.model.Problem;
-import com.example.cmput301f18t09.cureall.ProblemController.ProblemController;
+import com.example.cmput301f18t09.cureall.controller.ProblemController.ProblemController;
 import com.example.cmput301f18t09.cureall.R;
 import com.example.cmput301f18t09.cureall.model.Sync;
 import com.example.cmput301f18t09.cureall.model.UserState;

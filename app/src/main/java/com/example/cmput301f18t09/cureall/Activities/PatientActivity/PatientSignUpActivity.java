@@ -23,7 +23,7 @@ import android.widget.Toast;
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.MainActivity;
 import com.example.cmput301f18t09.cureall.GeneralElasticsearch.ElasticSearchController;
 import com.example.cmput301f18t09.cureall.model.Patient;
-import com.example.cmput301f18t09.cureall.PatientController.PatientController;
+import com.example.cmput301f18t09.cureall.controller.PatientController.PatientController;
 import com.example.cmput301f18t09.cureall.R;
 import com.example.cmput301f18t09.cureall.model.UserState;
 

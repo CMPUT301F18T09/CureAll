@@ -18,14 +18,13 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Switch;
-import android.widget.TextView;
 
+import com.example.cmput301f18t09.cureall.controller.PaperDollController.BodyPart;
 import com.example.cmput301f18t09.cureall.model.AllKindsOfPhotos;
 import com.example.cmput301f18t09.cureall.model.BodyLocation;
 import com.example.cmput301f18t09.cureall.PaperDollController.*;
 
-import com.example.cmput301f18t09.cureall.PaperDollController.BodyColor;
+import com.example.cmput301f18t09.cureall.controller.PaperDollController.BodyColor;
 import com.example.cmput301f18t09.cureall.R;
 import com.example.cmput301f18t09.cureall.model.Record;
 import com.google.gson.Gson;

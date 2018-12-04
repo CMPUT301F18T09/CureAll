@@ -3,9 +3,9 @@ package com.example.cmput301f18t09.cureall.model;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.cmput301f18t09.cureall.PatientController.PatientController;
-import com.example.cmput301f18t09.cureall.ProblemController.ProblemController;
-import com.example.cmput301f18t09.cureall.RecordController.RecordController;
+import com.example.cmput301f18t09.cureall.controller.PatientController.PatientController;
+import com.example.cmput301f18t09.cureall.controller.ProblemController.ProblemController;
+import com.example.cmput301f18t09.cureall.controller.RecordController.RecordController;
 
 import java.io.File;
 import java.util.ArrayList;

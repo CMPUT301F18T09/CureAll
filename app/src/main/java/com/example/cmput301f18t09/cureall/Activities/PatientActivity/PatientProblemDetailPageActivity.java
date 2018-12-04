@@ -30,12 +30,12 @@ import com.example.cmput301f18t09.cureall.Activities.publicActitivy.PhotoGallary
 import com.example.cmput301f18t09.cureall.model.AllKindsOfPhotos;
 import com.example.cmput301f18t09.cureall.model.Patient;
 import com.example.cmput301f18t09.cureall.PatientAdapter.PatientProblemDetailPageAdapter;
-import com.example.cmput301f18t09.cureall.PatientController.PatientController;
+import com.example.cmput301f18t09.cureall.controller.PatientController.PatientController;
 import com.example.cmput301f18t09.cureall.model.Problem;
-import com.example.cmput301f18t09.cureall.ProblemController.ProblemController;
+import com.example.cmput301f18t09.cureall.controller.ProblemController.ProblemController;
 import com.example.cmput301f18t09.cureall.R;
 import com.example.cmput301f18t09.cureall.model.Record;
-import com.example.cmput301f18t09.cureall.RecordController.RecordController;
+import com.example.cmput301f18t09.cureall.controller.RecordController.RecordController;
 import com.example.cmput301f18t09.cureall.model.Sync;
 import com.example.cmput301f18t09.cureall.model.UserState;
 import com.google.gson.Gson;
