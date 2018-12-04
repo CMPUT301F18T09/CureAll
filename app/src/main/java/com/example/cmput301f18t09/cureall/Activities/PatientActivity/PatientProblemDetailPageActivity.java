@@ -176,7 +176,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
                     temp = records;
                     flag = false;
                     PatientController.SaveLocalTracker(PatientProblemDetailPageActivity.this,problem.getUsername());
-
+                    editRecords = RecordController.loadFromFile(PatientProblemDetailPageActivity.this,"EditRecords.txt",editRecords,problem.getUsername());
                     for (Record r : records){
                         flag = true;
                         if (r.getState().equals("offline") && problem.getState().equals("Online")){
@@ -188,14 +188,10 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
                         if(r.getState().equals("EditOffline") && problem.getState().equals("Online")){
                             r.setState("Online");
                             RecordController.UpdateRecord(r);
-                            flag = true;
+                            editRecords = new ArrayList<>();
                         }
                     }
-                    if (!flag){
-                        editRecords = RecordController.loadFromFile(PatientProblemDetailPageActivity.this,"EditRecords.txt",editRecords,problem.getUsername());
-                    }else{
-                        editRecords = new ArrayList<>();
-                    }
+                    
                     for (Record r: editRecords){
                         if (r.getState().equals("EditOffline") && problem.getState().equals("Online")){
                             r.setState("Online");
