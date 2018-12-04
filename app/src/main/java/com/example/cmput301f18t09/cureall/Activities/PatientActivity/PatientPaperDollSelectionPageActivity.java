@@ -41,8 +41,6 @@ import java.util.ArrayList;
  */
 public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
     private ImageView paperDoll,paperDollColorDivide;
-    private TextView femaleText, maleText;
-    private Switch switch1;
     private Record record;
     private BodyLocation bodyLocation;
     /**
@@ -226,9 +224,6 @@ public class PatientPaperDollSelectionPageActivity extends AppCompatActivity {
     public void initializeAllElements(){
         paperDoll =findViewById(R.id.paperDoll);
         paperDollColorDivide =findViewById(R.id.paperDollColorDivide);
-        femaleText =findViewById(R.id.femaleText);
-        maleText =findViewById(R.id.maleText);
-        switch1 =findViewById(R.id.switch1);// the switch has not been applied yet, we only have a male gender right now
     }
 
 }

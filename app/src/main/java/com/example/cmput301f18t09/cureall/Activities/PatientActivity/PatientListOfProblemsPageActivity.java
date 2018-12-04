@@ -279,12 +279,9 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                                 patient.setEmail(msg);
                                 Toast.makeText(PatientListOfProblemsPageActivity.this,"new email: "+msg,Toast.LENGTH_SHORT).show();
                                 patient.setPatientID(null);
-
-
                                 ElasticSearchController.ChangeInfoTask changeInfoTask = new ElasticSearchController.ChangeInfoTask();
                                 changeInfoTask.execute(patient);
-
-
+                                email.setText("Email: "+msg);
                             }
                         });
                         msg_editor.show();
@@ -304,7 +301,6 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                 custom.setCancelable(true);
                 custom.setNegativeButton("Change Phone", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogInterface, int i) {
-
                         AlertDialog.Builder msg_editor = new AlertDialog.Builder(PatientListOfProblemsPageActivity.this);
                         final EditText user_input = new EditText(PatientListOfProblemsPageActivity.this);
                         msg_editor.setView(user_input);
@@ -314,9 +310,9 @@ public class PatientListOfProblemsPageActivity extends AppCompatActivity impleme
                                 final String msg = user_input.getText().toString();
                                 patient.setPhone(msg);
                                 Toast.makeText(PatientListOfProblemsPageActivity.this,"new phone: "+msg,Toast.LENGTH_SHORT).show();
-
                                 ElasticSearchController.ChangeInfoTask changeInfoTask = new ElasticSearchController.ChangeInfoTask();
                                 changeInfoTask.execute(patient);
+                                phoneNumber.setText("Phone: "+msg);
                             }
                         });
                         msg_editor.show();

@@ -14,7 +14,7 @@
         android:layout_width="85dp"
         android:layout_height="85dp"
         android:adjustViewBounds="false"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@drawable/head" />
 
     <TextView
         android:id="@+id/nav_name"
