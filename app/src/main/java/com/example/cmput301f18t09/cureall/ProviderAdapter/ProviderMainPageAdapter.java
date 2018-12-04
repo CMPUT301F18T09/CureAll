@@ -31,7 +31,7 @@ public class ProviderMainPageAdapter extends RecyclerView.Adapter<ProviderMainPa
     private ArrayList<Patient> patientArrayList;
     private OnItemClickListener mlistener;
     public static class viewHolder extends RecyclerView.ViewHolder{
-        public ImageButton showProblemButton, showLocationButton;
+        public ImageButton showProblemButton;
         public TextView PatientName;
         private AdapterView.OnItemClickListener mlistener;
         /**
@@ -42,7 +42,6 @@ public class ProviderMainPageAdapter extends RecyclerView.Adapter<ProviderMainPa
          */
         public viewHolder( View itemView,final OnItemClickListener listener2) {
             super(itemView);
-            showLocationButton = itemView.findViewById(R.id.showLocationButton);
             showProblemButton = itemView.findViewById(R.id.showProblemButton);
             PatientName = itemView.findViewById(R.id.patientName);
             /**

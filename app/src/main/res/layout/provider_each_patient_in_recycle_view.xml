@@ -32,16 +32,8 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentTop="true"
-            android:layout_toStartOf="@+id/showLocationButton"
+            android:layout_toEndOf="@+id/patientName"
             app:srcCompat="@drawable/ic_local_hospital_black_24dp" />
-
-        <ImageButton
-            android:id="@+id/showLocationButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            app:srcCompat="@drawable/ic_location" />
 
 
     </RelativeLayout>

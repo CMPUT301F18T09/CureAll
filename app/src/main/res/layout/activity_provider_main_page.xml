@@ -51,7 +51,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:autoText="false"
-        android:hint="Provider Main Page"
+        android:hint="Care Provider Main Page"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/listOfPatients"
         app:layout_constraintEnd_toEndOf="parent"

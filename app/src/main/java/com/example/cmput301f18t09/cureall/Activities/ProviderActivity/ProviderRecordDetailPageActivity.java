@@ -21,11 +21,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientPhotoFlowPageActivity;
+import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientRecordDetailPageActivity;
 import com.example.cmput301f18t09.cureall.Activities.publicActitivy.ViewLocationOnMapActivity;
 import com.example.cmput301f18t09.cureall.model.AllKindsOfPhotos;
 import com.example.cmput301f18t09.cureall.model.BodyLocation;
 import com.example.cmput301f18t09.cureall.ProviderAdapter.RecordDetailPageAdapter;
 import com.example.cmput301f18t09.cureall.R;
+import com.example.cmput301f18t09.cureall.model.GeoLocation;
 import com.example.cmput301f18t09.cureall.model.Record;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -54,6 +56,7 @@ public class ProviderRecordDetailPageActivity extends AppCompatActivity {
     //images from internet test
     private ArrayList<AllKindsOfPhotos> recordTrackingPhotos = new ArrayList<>();
     private BodyLocation bodyLocation;
+    private String targetPage;
     //ends..
     @Override
     /**
@@ -102,11 +105,12 @@ public class ProviderRecordDetailPageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (record.getGeoLocation() != null){
                     Intent map = new Intent(ProviderRecordDetailPageActivity.this, ViewLocationOnMapActivity.class);
-                    //TODO REMINDER DONT NEED TO CHANGE HERE
                     Bundle geoLocation = new Bundle();
-                    geoLocation.putDouble("log", record.getGeoLocation().getLocation().get(0));
-                    geoLocation.putDouble("lat", record.getGeoLocation().getLocation().get(1));
+                    ArrayList<GeoLocation> geoLocationArrayList = new ArrayList<>();
+                    geoLocationArrayList.add(record.getGeoLocation());
+                    geoLocation.putSerializable("GeolocationList",geoLocationArrayList);
                     map.putExtras(geoLocation);
+                    targetPage = "map";
                     startActivity(map);
                 }
                 else {

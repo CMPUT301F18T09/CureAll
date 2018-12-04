@@ -306,7 +306,7 @@ public class PatientProblemDetailPageActivity extends AppCompatActivity {
                     public void run() {
                         startActivity(intent);
                     }
-                }, 4000);
+                }, 2000);
             }
         });
 
