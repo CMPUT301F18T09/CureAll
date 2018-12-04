@@ -112,7 +112,7 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
                 }
                 else{
                    // problems = new ArrayList<>();
-                   // problems = ProblemController.loadFromFile(PatientProblemAddingPageActivity.this,"problems.txt",problems,username);
+                    problems = ProblemController.loadFromFile(PatientProblemAddingPageActivity.this,"problems.txt",problems,username);
                     Intent intent = new Intent(PatientProblemAddingPageActivity.this, PatientListOfProblemsPageActivity.class);
                     passDataToMainPage(problems,username);
                     intent.putExtra("ComeFromAddingPage","ComeFromAddingPage");
