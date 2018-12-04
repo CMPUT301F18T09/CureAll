@@ -222,7 +222,6 @@ public class PatientRecordDetailPageActivity extends AppCompatActivity {
         if (targetPage.equals("default")){
             finish();
         }
-
     }
 
     /**

@@ -56,7 +56,7 @@ public class ProviderRecordDetailPageActivity extends AppCompatActivity {
     //images from internet test
     private ArrayList<AllKindsOfPhotos> recordTrackingPhotos = new ArrayList<>();
     private BodyLocation bodyLocation;
-    private String targetPage;
+    private String targetPage = "default";
     //ends..
     @Override
     /**
@@ -140,7 +140,13 @@ public class ProviderRecordDetailPageActivity extends AppCompatActivity {
             }
         });
     }
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (targetPage.equals("default")){
+            finish();
+        }
+    }
     /**
      * get data from ProblemDetailPage
      */
