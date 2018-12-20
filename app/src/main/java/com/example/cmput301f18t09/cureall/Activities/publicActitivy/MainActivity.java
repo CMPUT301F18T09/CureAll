@@ -10,6 +10,7 @@
 package com.example.cmput301f18t09.cureall.Activities.publicActitivy;
 
 import android.content.Intent;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +24,8 @@ import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientBody
 import com.example.cmput301f18t09.cureall.Activities.PatientActivity.PatientSignUpActivity;
 import com.example.cmput301f18t09.cureall.Activities.ProviderActivity.ProviderSignUpActivity;
 import com.example.cmput301f18t09.cureall.R;
+import com.example.cmput301f18t09.cureall.designPattern.MessagePasser;
+
 /**
  * This is the main activity when user open this app
  * It provider users choices to login in or sign up as patients or care provider
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private Button imagePatientlogin, imageProviderlogin, imagePatientSignUp,imageProviderSignUp;
     private TextView textPatient,textProvider;
     private ImageView loveSymbol;
+    private MessagePasser messagePasser;
     /**
      * initialize this activity page
      * with some corresponding elements showing on the view
