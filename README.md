@@ -7,3 +7,4 @@ CMPUT301F18T09 Project
 # Be advice, DONT LET A STUPID, SELFISH, AND A EGOIST TA MAJOR ON YOUR PROJECT
 # It is hard to find a TA be so responsible on you.
 # FOR most of TAs, they are sooooooooooooooooo egoist and only care about their perspective!!!!!!!!!!!
+# Almost of our group members have tought a lesson written in blood!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
