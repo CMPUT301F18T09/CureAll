@@ -269,14 +269,19 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
      */
     //TODO
     public ArrayList<Problem> saveProblem(String username, String prob_title,String prob_desp,String date){
+        //create a new problem
         Problem p = new Problem(username,prob_title,prob_desp,date,null);
         Problem problem = new Problem(username, prob_title, prob_desp, date, null);
+        //get user current state
         UserState currentState = new UserState(PatientProblemAddingPageActivity.this);
+        //if online
         if (currentState.getState()) {
             ArrayList<Problem> problems = GetProblemNum(username);
+            //set the state, use to sync later when the internet connect reset.
+            //this problem dont need to update to es again
             problem.setState("Online");
             ElasticSearchParams param = new ElasticSearchParams(problems.size(), problem, username);
-
+            //update the problem to es
             ElasticSearchController.AddProblemTask addproblemTask = new ElasticSearchController.AddProblemTask();
             addproblemTask.execute(problem);
             try{
@@ -285,11 +290,13 @@ public class PatientProblemAddingPageActivity extends AppCompatActivity {
                 Log.i("Problem","Something wrong happend at saveProblem function in PatientProblemAddingPage");
             }
             Log.i("ID",p.getId());
+            //update the problem to local
             Sync sync = new Sync(PatientProblemAddingPageActivity.this,username);
             sync.UpdateTracker(username);
 
         }
         else{
+            //else this problem need to update to es later
             String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
             p.setId(p.getTime()+currentDateTimeString);
             p.setState("Offline");
