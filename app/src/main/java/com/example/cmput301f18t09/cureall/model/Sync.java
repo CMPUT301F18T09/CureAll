@@ -57,14 +57,16 @@ public class Sync {
         ArrayList<Record> records = new ArrayList<Record>();
 
         ArrayList<Problem> AllProblems = new ArrayList<>();
+        //get all local problem
         AllProblems = ProblemController.loadFromFile(context,"problems.txt",AllProblems,username);
         RecordController rController = new RecordController();
+        //for each problem
         for (Problem p : AllProblems){
               ArrayList<Record> temp = new ArrayList<>();
               temp = rController.GetRecordNum(username,p.getId());
               records.addAll(temp);
         }
-
+        //store the record to local file
         RecordController.saveInFile(context,"records.txt",records,username);
         //ElasticSearchController.SyncAllRecordTask syncRecordTask = new ElasticSearchController.SyncAllRecordTask();
         //syncRecordTask.execute(username);
@@ -78,7 +80,7 @@ public class Sync {
 
         Log.i("Read","read end");
     }
-
+    
     public void SyncDeleteProblem(Problem problem, String username, ArrayList<Problem> problems){
         ElasticSearchParams params = new ElasticSearchParams("",problem,problem.getId());
         ElasticSearchController.DeleteProblemTask deleteProblemTask = new ElasticSearchController.DeleteProblemTask();
@@ -94,7 +96,7 @@ public class Sync {
         Problem temp = problem;
         ElasticSearchParams param = new ElasticSearchParams(0, problem, username);
         problem.setState("Online");
-
+        //add the problem to es
         ElasticSearchController.AddProblemTask addproblemTask = new ElasticSearchController.AddProblemTask();
         addproblemTask.execute(problem);
         try{
@@ -105,7 +107,7 @@ public class Sync {
         Log.i("ID",temp.getId());
 
 
-
+        //find the offline records belongs to this problem, update it
         ArrayList<Record> records = new ArrayList<>();
         records = RecordController.loadFromFile(context,"records.txt",records,username);
 
@@ -148,7 +150,7 @@ public class Sync {
 
     public void SyncProblem(String username,Problem problem){
 
-
+        //change to problem state and update it
         problem.setState("Online");
 
         ElasticSearchController.ChangeProblemTask changeProblemTask = new ElasticSearchController.ChangeProblemTask();
