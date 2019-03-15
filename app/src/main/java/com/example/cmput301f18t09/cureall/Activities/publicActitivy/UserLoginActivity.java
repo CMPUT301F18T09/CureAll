@@ -194,7 +194,7 @@ public class UserLoginActivity extends AppCompatActivity {
                     sync.SyncAllRecord(Username);
                 }
 
-                else{
+                else{//if the device does have a folder, then we need to cmp the local backup and online backup to decide next action
                     //problems = problemController.GetProblemNum(patients.get(0).getUsername());
                     Date local = new Date();
                     Date stream= new Date();
@@ -203,7 +203,7 @@ public class UserLoginActivity extends AppCompatActivity {
                     local= PatientController.GetLocalTracker(UserLoginActivity.this,Username,local);
 
                     stream = PatientController.GetOnlineTracker(Username,stream);
-
+                    //if the online backup is newer than local, download online backup
                     if (local.compareTo(stream)<0) {
                         Log.i("Tracker","es very new");
                         problems = problemController.GetProblemNum(patients.get(0).getUsername());
@@ -212,7 +212,7 @@ public class UserLoginActivity extends AppCompatActivity {
                         sync.SyncAllRecord(Username);
 
                     }
-                    else{
+                    else{//else use local backup
                         Log.i("Tracker","local very new");
                         problems = ProblemController.loadFromFile(UserLoginActivity.this, "problems.txt", problems, Username);
 
