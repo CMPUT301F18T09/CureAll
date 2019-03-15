@@ -280,9 +280,10 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
                 records.add(record);
                 Record temp = record;
                 control = "kill";
+                //get the current state
                 UserState currentState = new UserState(PatientRecordAddingPageActivity.this);
                 if (currentState.getState()){
-                    //TODO only save to es
+                    //if online only save to es
                     record.setTitle(titleInput.getText().toString());
                     record.setComment(descriptionInput.getText().toString());
                     temp = saveRecord(problem.getUsername(),record,problem.getId());
@@ -290,6 +291,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
 
                 }
                 else{
+                    //if offline
                     String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
                     temp.setID(temp.getTitle()+currentDateTimeString);
                     //decryptF
@@ -298,6 +300,7 @@ public class PatientRecordAddingPageActivity extends AppCompatActivity implement
                     temp.setState("offline");
 
                 }
+                //save the recode to local file
                 saveLocal(problem.getUsername(), record, problem.getId(),temp);
                 Sync sync = new Sync(PatientRecordAddingPageActivity.this,problem.getUsername());
                 sync.UpdateTracker(problem.getUsername());
